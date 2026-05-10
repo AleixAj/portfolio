@@ -20,3 +20,10 @@ body, button {
 .glow-pulse {
   animation: glow-pulse 4s ease-in-out infinite;
 }
+
+@keyframes shootingStar {
+  0%   { transform: translateX(-80px); opacity: 0; }
+  4%   { opacity: 1; }
+  12%  { transform: translateX(520px); opacity: 0; }
+  100% { transform: translateX(520px); opacity: 0; }
+}

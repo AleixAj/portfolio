@@ -1,6 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import { useRef, Suspense, useEffect } from 'react'
+import { useRef, Suspense, useEffect, useState } from 'react'
 import * as THREE from 'three'
 
 function GamingRoom() {
@@ -36,7 +36,16 @@ function GamingRoom() {
 
 useGLTF.preload('/gaming_bedroom.glb')
 
-function Scene() {
+function Scene({ orbitTarget }) {
+  const controlsRef = useRef()
+
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.target.set(...orbitTarget)
+      controlsRef.current.update()
+    }
+  }, [orbitTarget])
+
   return (
     <>
       <ambientLight intensity={0.05} />
@@ -50,7 +59,8 @@ function Scene() {
       </Suspense>
 
       <OrbitControls
-        target={[-5, 0, 0]}
+        ref={controlsRef}
+        target={orbitTarget}
         enableZoom={false}
         enablePan={false}
         enableDamping={true}
@@ -61,13 +71,23 @@ function Scene() {
 }
 
 export default function Scene3D() {
+  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024)
+
+  useEffect(() => {
+    const update = () => setIsDesktop(window.innerWidth >= 1024)
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  const orbitTarget = isDesktop ? [-5, 0, 0] : [-3, 0, 0]
+
   return (
     <div className="w-full h-full">
       <Canvas
         camera={{ position: [1, 4, 15], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
       >
-        <Scene />
+        <Scene orbitTarget={orbitTarget} />
       </Canvas>
     </div>
   )

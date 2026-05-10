@@ -5,7 +5,7 @@ import Scene3D from './components/Scene3D'
 import StarBackground from './components/StarBackground'
 import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiGreensock, SiPhp, SiLaravel, SiMysql, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker } from 'react-icons/si'
 import { TbApi } from 'react-icons/tb'
-import { FaJava } from 'react-icons/fa'
+import { FaJava, FaBriefcase, FaGraduationCap } from 'react-icons/fa'
 
 const EMAILJS_SERVICE_ID  = 'service_2jzdrj4'
 const EMAILJS_TEMPLATE_ID = 'template_qebo2rv'
@@ -13,9 +13,10 @@ const EMAILJS_PUBLIC_KEY  = 'XGyv7kwacCRxidvYz'
 
 const NAV_ITEMS = [
   { label: 'Inicio',    id: 'inicio'   },
-  { label: 'Sobre mí',  id: 'about'    },
+  { label: 'Trayectoria', id: 'about'  },
   { label: 'Proyectos', id: 'projects' },
   { label: 'Skills',    id: 'skills'   },
+  { label: 'Hobbies',   id: 'hobbies'  },
   { label: 'Contacto',  id: 'contact'  },
 ]
 
@@ -92,7 +93,186 @@ function ContactSection() {
   )
 }
 
-const SECTIONS = ['inicio', 'about', 'projects', 'skills', 'contact']
+const EXPERIENCE = [
+  {
+    company: 'Grup Romeu',
+    role: 'Desarrollador de Software',
+    period: 'Ago 2025 – Ene 2026',
+    desc: 'Contrato temporal fullstack por sustitución. Desarrollo de aplicación para gestión de material quirúrgico en PHP y JavaScript.',
+  },
+  {
+    company: 'Nemon',
+    role: 'Desarrollador de Software',
+    period: 'May 2023 – Abr 2025',
+    desc: 'Desarrollo de soluciones a medida para distribuidoras de electricidad y gas. Frontend y backend con framework propio en PHP.',
+  },
+  {
+    company: 'VIEWNEXT',
+    role: 'Release Manager & Desarrollador de Software',
+    period: 'Nov 2019 – Abr 2023',
+    desc: 'Nestlé (Dev Jr + RM en Salesforce), CaixaBank (RM en 6+ proyectos con COPADO) y Naturgy (RM en 4+ proyectos internacionales con Bitbucket y Jenkins).',
+  },
+  {
+    company: 'Comun. Regants Pantà de Riudecanyes',
+    role: 'Desarrollador de Software',
+    period: 'Feb 2018 – Jun 2018',
+    desc: 'Prácticas de 400h. Mantenimiento y desarrollo de software de gestión de usuarios y base de datos.',
+  },
+]
+
+const EDUCATION = [
+  {
+    center: 'Lemoncoders',
+    title: 'Bootcamp Frontend Developer',
+    period: 'May 2025',
+    desc: 'JavaScript, TypeScript, HTML, CSS y React.',
+  },
+  {
+    center: 'Fundació esplai',
+    title: 'Bootcamp PHP',
+    period: 'Jul – Sep 2019',
+    desc: '275h presenciales. PHP y Laravel.',
+  },
+  {
+    center: 'Fundació esplai',
+    title: 'Bootcamp Java',
+    period: 'Abr – Jun 2019',
+    desc: '275h presenciales. Java y SQL.',
+  },
+  {
+    center: 'INS Baix Camp',
+    title: 'CFGS Desarrollo de Aplicaciones Web (DAW)',
+    period: '2015 – 2018',
+    desc: '',
+  },
+  {
+    center: 'INS Domènech i Montaner',
+    title: 'ESO y Bachillerato Tecnológico',
+    period: '2008 – 2014',
+    desc: '',
+  },
+]
+
+function TimelineItem({ title, subtitle, period, desc, right }) {
+  return (
+    <div className={`relative pb-10 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
+      <div className={`absolute top-[5px] w-3.5 h-3.5 rounded-full border-2 border-cyan-400 bg-black z-10 left-0 ${right ? 'md:left-auto md:right-0' : ''}`} />
+      <span className="text-xs font-medium text-cyan-400 tracking-wider">{period}</span>
+      <h4 className="text-white font-semibold mt-0.5 text-base">{title}</h4>
+      <p className="text-gray-400 mt-0.5 text-sm">{subtitle}</p>
+      {desc && <p className="text-gray-500 mt-1 leading-relaxed text-sm">{desc}</p>}
+    </div>
+  )
+}
+
+const HOBBIES_PHOTOS = [
+  { src: '/hobbies/01.jpg',  caption: '' },
+  { src: '/hobbies/02.jpg',  caption: '' },
+  { src: '/hobbies/03.jpg',  caption: '' },
+  { src: '/hobbies/04.jpg',  caption: '' },
+  { src: '/hobbies/05.jpg',  caption: '' },
+  { src: '/hobbies/06.jpg',  caption: '' },
+  { src: '/hobbies/07.jpg',  caption: '' },
+  { src: '/hobbies/08.jpg',  caption: '' },
+  { src: '/hobbies/09.jpg',  caption: '' },
+  { src: '/hobbies/10.jpg',  caption: '' },
+  { src: '/hobbies/11.jpg',  caption: '' },
+  { src: '/hobbies/12.jpg',  caption: '' },
+  { src: '/hobbies/13.png',  caption: '' },
+  { src: '/hobbies/14.png',  caption: '' },
+  { src: '/hobbies/15.png',  caption: '' },
+  { src: '/hobbies/16.png',  caption: '' },
+]
+
+function HobbiesSection() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [current, setCurrent] = useState(0)
+  const total = HOBBIES_PHOTOS.length
+
+  const open = (i) => { setCurrent(i); setModalOpen(true) }
+  const close = () => setModalOpen(false)
+  const prev = () => setCurrent(i => (i - 1 + total) % total)
+  const next = () => setCurrent(i => (i + 1) % total)
+
+  useEffect(() => {
+    if (!modalOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') close()
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [modalOpen])
+
+  return (
+    <>
+      <div className="max-w-5xl mx-auto px-6 md:px-8 text-white w-full">
+        <h2 className="text-4xl md:text-5xl font-bold mb-8 md:mb-12">Hobbies</h2>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-3">
+          {HOBBIES_PHOTOS.map((photo, i) => (
+            <button
+              key={i}
+              onClick={() => open(i)}
+              className="aspect-square overflow-hidden rounded-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105 transition-all duration-200 bg-white/5"
+            >
+              <img src={photo.src} alt={photo.caption} className="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 pt-14 pb-4 md:p-8" onClick={close}>
+          <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
+          <div className="relative z-10 w-full max-w-5xl select-none" onClick={e => e.stopPropagation()}>
+            {/* Cerrar */}
+            <button onClick={close} className="absolute -top-10 right-0 text-white/60 hover:text-white text-2xl transition-colors">✕</button>
+
+            {/* Imagen */}
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-black h-[50vh] md:h-[65vh] lg:h-[78vh] relative">
+              {HOBBIES_PHOTOS.map((photo, i) => (
+                <img key={`bg-${i}`} src={photo.src} alt="" aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover scale-110 transition-opacity duration-300"
+                  style={{ opacity: i === current ? 1 : 0, filter: 'blur(18px) brightness(0.35)' }}
+                />
+              ))}
+              {HOBBIES_PHOTOS.map((photo, i) => (
+                <img key={`fg-${i}`} src={photo.src} alt={photo.caption}
+                  className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
+                  style={{ opacity: i === current ? 1 : 0 }}
+                />
+              ))}
+              {HOBBIES_PHOTOS[current].caption && (
+                <>
+                  <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent rounded-b-2xl" />
+                  <p className="absolute bottom-4 left-6 text-white/80 text-sm md:text-base font-medium">{HOBBIES_PHOTOS[current].caption}</p>
+                </>
+              )}
+              <span className="absolute top-4 right-4 text-white/50 text-sm bg-black/40 px-2 py-1 rounded-full">{current + 1} / {total}</span>
+            </div>
+
+            {/* Flechas */}
+            <button onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-white/20 text-white text-xl hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all">‹</button>
+            <button onClick={next} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-white/20 text-white text-xl hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all">›</button>
+
+            {/* Dots */}
+            <div className="flex justify-center gap-2 mt-4">
+              {HOBBIES_PHOTOS.map((_, i) => (
+                <button key={i} onClick={() => setCurrent(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-cyan-400 w-5' : 'bg-white/30 w-2'}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+const SECTIONS = ['inicio', 'about', 'projects', 'skills', 'hobbies', 'contact']
 
 function App() {
   const containerRef = useRef(null)
@@ -195,20 +375,59 @@ function App() {
           </div>
         </section>
 
-        {/* SOBRE MÍ */}
-        <section id="about" className="h-screen bg-black/70 flex items-center">
-          <div className="max-w-5xl mx-auto px-6 md:px-8 text-white">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 md:mb-12">Sobre mí</h2>
-            <p className="text-base md:text-xl leading-relaxed text-gray-300 max-w-3xl">
-              Desarrollador de software altamente motivado y con muchas ganas de asumir nuevos desafíos.
-              Fuerte ética de trabajo, adaptabilidad y buenas habilidades interpersonales.
-              Apasionado por la creatividad y por crear interfaces interactivas y experiencias visuales impactantes.
-            </p>
+        {/* MI TRAYECTORIA */}
+        <section id="about" className="min-h-screen bg-black/45 flex items-center py-24">
+          <div className="max-w-5xl mx-auto px-6 md:px-8 text-white w-full">
+            <h2 className="text-4xl md:text-5xl font-bold mb-10 md:mb-14">Mi trayectoria</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+
+              {/* Experiencia */}
+              <div>
+                <div className="flex items-center gap-2 mb-6">
+                  <FaBriefcase className="text-cyan-400 w-5 h-5" />
+                  <h3 className="text-2xl font-bold text-cyan-400">Experiencia</h3>
+                </div>
+                <div className="relative">
+                  <div className="absolute left-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
+                  {EXPERIENCE.map((item, i) => (
+                    <TimelineItem
+                      key={i}
+                      title={item.company}
+                      subtitle={item.role}
+                      period={item.period}
+                      desc={item.desc}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Formación */}
+              <div>
+                <div className="flex items-center gap-2 mb-6 md:justify-end">
+                  <FaGraduationCap className="text-cyan-400 w-5 h-5 order-first md:order-last" />
+                  <h3 className="text-2xl font-bold text-cyan-400">Formación</h3>
+                </div>
+                <div className="relative">
+                  <div className="absolute left-[7px] md:left-auto md:right-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
+                  {EDUCATION.map((item, i) => (
+                    <TimelineItem
+                      key={i}
+                      title={item.center}
+                      subtitle={item.title}
+                      period={item.period}
+                      desc={item.desc}
+                      right
+                    />
+                  ))}
+                </div>
+              </div>
+
+            </div>
           </div>
         </section>
 
         {/* PROYECTOS */}
-        <section id="projects" className="min-h-screen bg-black/70 flex items-center py-24">
+        <section id="projects" className="min-h-screen bg-black/45 flex items-center py-24">
           <div className="max-w-4xl mx-auto px-6 md:px-8 text-white w-full">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 md:mb-12">Proyectos destacados</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -266,7 +485,7 @@ function App() {
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="min-h-screen bg-black/70 flex items-center py-24">
+        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-24">
           <div className="max-w-6xl mx-auto px-6 md:px-8 text-white w-full">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Skills</h2>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-4">
@@ -280,8 +499,13 @@ function App() {
           </div>
         </section>
 
+        {/* HOBBIES */}
+        <section id="hobbies" className="min-h-screen bg-black/45 flex items-center py-24">
+          <HobbiesSection />
+        </section>
+
         {/* CONTACTO */}
-        <section id="contact" className="h-screen bg-black/70 flex items-center">
+        <section id="contact" className="h-screen bg-black/45 flex items-center">
           <ContactSection />
         </section>
 
