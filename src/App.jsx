@@ -272,6 +272,20 @@ function HobbiesSection() {
   )
 }
 
+function ScrollArrow({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="absolute bottom-7 left-1/2 -translate-x-1/2 z-20 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto"
+      aria-label="Siguiente sección"
+    >
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </button>
+  )
+}
+
 const SECTIONS = ['inicio', 'about', 'projects', 'skills', 'hobbies', 'contact']
 
 function App() {
@@ -373,10 +387,11 @@ function App() {
               </button>
             </div>
           </div>
+          <ScrollArrow onClick={() => goToSection('about')} />
         </section>
 
         {/* MI TRAYECTORIA */}
-        <section id="about" className="min-h-screen bg-black/45 flex items-center py-24">
+        <section id="about" className="min-h-screen bg-black/45 flex items-center py-24 relative">
           <div className="max-w-5xl mx-auto px-6 md:px-8 text-white w-full">
             <h2 className="text-4xl md:text-5xl font-bold mb-10 md:mb-14">Mi trayectoria</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
@@ -424,10 +439,11 @@ function App() {
 
             </div>
           </div>
+          <ScrollArrow onClick={() => goToSection('projects')} />
         </section>
 
         {/* PROYECTOS */}
-        <section id="projects" className="min-h-screen bg-black/45 flex items-center py-24">
+        <section id="projects" className="min-h-screen bg-black/45 flex items-center py-24 relative">
           <div className="max-w-4xl mx-auto px-6 md:px-8 text-white w-full">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 md:mb-12">Proyectos destacados</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -482,10 +498,11 @@ function App() {
 
             </div>
           </div>
+          <ScrollArrow onClick={() => goToSection('skills')} />
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-24">
+        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-24 relative">
           <div className="max-w-6xl mx-auto px-6 md:px-8 text-white w-full">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Skills</h2>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-4">
@@ -497,11 +514,13 @@ function App() {
               ))}
             </div>
           </div>
+          <ScrollArrow onClick={() => goToSection('hobbies')} />
         </section>
 
         {/* HOBBIES */}
-        <section id="hobbies" className="min-h-screen bg-black/45 flex items-center py-24">
+        <section id="hobbies" className="min-h-screen bg-black/45 flex items-center py-24 relative">
           <HobbiesSection />
+          <ScrollArrow onClick={() => goToSection('contact')} />
         </section>
 
         {/* CONTACTO */}
