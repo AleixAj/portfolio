@@ -8,8 +8,8 @@ import { TbApi } from 'react-icons/tb'
 import { FaJava } from 'react-icons/fa'
 
 const EMAILJS_SERVICE_ID  = 'service_2jzdrj4'
-const EMAILJS_TEMPLATE_ID = 'template_gcp6kov'
-const EMAILJS_PUBLIC_KEY  = 'zFhB0_YiBrn4K-Sx-'
+const EMAILJS_TEMPLATE_ID = 'template_qebo2rv'
+const EMAILJS_PUBLIC_KEY  = 'XGyv7kwacCRxidvYz'
 
 function ContactSection() {
   const formRef = useRef(null)
@@ -44,6 +44,13 @@ function ContactSection() {
           type="email"
           required
           placeholder="Tu email"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+        />
+        <input
+          name="subject"
+          type="text"
+          required
+          placeholder="Asunto"
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <textarea
