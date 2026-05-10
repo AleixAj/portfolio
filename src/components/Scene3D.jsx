@@ -40,10 +40,10 @@ function Scene() {
   return (
     <>
       <ambientLight intensity={0.05} />
-      <pointLight position={[-0.2, -0.8, 0]}  intensity={1}   color="#4488ff"  distance={3}  decay={1} />
-      <pointLight position={[0, -0.8,   0.5]}   intensity={1}   color="#ffaa44"  distance={3}  decay={1} />
-      <pointLight position={[-4.4,   1, 1]}     intensity={2}   color="#22d3ee"  distance={4}  decay={1.1} />
-      <pointLight position={[2,   3,  -2]}     intensity={0.8} color="#aabbff"  distance={8}  decay={1} />
+      <pointLight position={[-0.2, -0.8, 0.2]}  intensity={1}   color="#4488ff"  distance={4}  decay={0.5} />
+      <pointLight position={[0, -0.8,   0.5]}   intensity={1}   color="#ffaa44"  distance={4}  decay={0.5} />
+      <pointLight position={[-4.4,   1, 1]}     intensity={2}   color="#22d3ee"  distance={4}  decay={1} />
+      <pointLight position={[-3.2,   -1,  3]}     intensity={0} color="#aabbff"  distance={8}  decay={2} />
 
       <Suspense fallback={null}>
         <GamingRoom />
