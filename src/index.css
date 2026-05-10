@@ -21,6 +21,11 @@ body, button {
   animation: glow-pulse 4s ease-in-out infinite;
 }
 
+@keyframes wordSlideUp {
+  0%   { transform: translateY(70%); opacity: 0; }
+  100% { transform: translateY(0);   opacity: 1; }
+}
+
 @keyframes shootingStar {
   0%   { transform: translateX(-80px); opacity: 0; }
   4%   { opacity: 1; }

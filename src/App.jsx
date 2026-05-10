@@ -5,7 +5,7 @@ import Scene3D from './components/Scene3D'
 import StarBackground from './components/StarBackground'
 import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiGreensock, SiPhp, SiLaravel, SiMysql, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker } from 'react-icons/si'
 import { TbApi } from 'react-icons/tb'
-import { FaJava, FaBriefcase, FaGraduationCap } from 'react-icons/fa'
+import { FaJava, FaBriefcase, FaGraduationCap, FaLinkedin, FaEnvelope, FaGithub, FaFileAlt } from 'react-icons/fa'
 
 const EMAILJS_SERVICE_ID  = 'service_2jzdrj4'
 const EMAILJS_TEMPLATE_ID = 'template_qebo2rv'
@@ -60,34 +60,34 @@ function ContactSection() {
   }
 
   return (
-    <div className="max-w-xl mx-auto w-full px-6 md:px-8 text-white">
-      <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">¿Hablamos?</h2>
-      <p className="text-base md:text-lg text-gray-400 mb-8 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
-      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <div className="max-w-3xl mx-auto w-full px-6 md:px-8 text-white">
+      <h2 className="text-5xl md:text-6xl font-bold mb-4 text-center">¿Hablamos?</h2>
+      <p className="text-lg md:text-xl text-gray-400 mb-10 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
+      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-5">
         <input
           name="from_name" type="text" required placeholder="Tu nombre"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
           name="reply_to" type="email" required placeholder="Tu email"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
           name="subject" type="text" required placeholder="Asunto"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <textarea
-          name="message" required rows={4} placeholder="Tu mensaje"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
+          name="message" required rows={6} placeholder="Tu mensaje"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
         />
         <button
           type="submit" disabled={status === 'sending'}
-          className="mt-2 px-12 py-4 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-2 px-12 py-5 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {status === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
         </button>
-        {status === 'success' && <p className="text-center text-cyan-400 font-medium">¡Mensaje enviado! Te responderé pronto.</p>}
-        {status === 'error'   && <p className="text-center text-red-400 font-medium">Error al enviar. Inténtalo de nuevo.</p>}
+        {status === 'success' && <p className="text-center text-cyan-400 font-medium text-lg">¡Mensaje enviado! Te responderé pronto.</p>}
+        {status === 'error'   && <p className="text-center text-red-400 font-medium text-lg">Error al enviar. Inténtalo de nuevo.</p>}
       </form>
     </div>
   )
@@ -216,7 +216,14 @@ function HobbiesSection() {
               onClick={() => open(i)}
               className="aspect-square overflow-hidden rounded-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105 transition-all duration-200 bg-white/5"
             >
-              <img src={photo.src} alt={photo.caption} className="w-full h-full object-cover" />
+              <img
+                src={photo.src}
+                alt={photo.caption}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                onLoad={e => e.currentTarget.classList.replace('opacity-0', 'opacity-100')}
+              />
             </button>
           ))}
         </div>
@@ -277,7 +284,7 @@ function ScrollArrow({ onClick, direction = 'down' }) {
   return (
     <button
       onClick={onClick}
-      className={`absolute left-1/2 -translate-x-1/2 z-20 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ${isDown ? 'bottom-14' : 'top-28'}`}
+      className={`absolute left-1/2 -translate-x-1/2 z-20 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ${isDown ? 'bottom-20' : 'top-28'}`}
       aria-label={isDown ? 'Siguiente sección' : 'Sección anterior'}
     >
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -288,12 +295,19 @@ function ScrollArrow({ onClick, direction = 'down' }) {
 }
 
 const SECTIONS = ['inicio', 'about', 'projects', 'skills', 'hobbies', 'contact']
+const ROTATING_WORDS = ['ideas', 'proyectos', 'sueños', 'visiones', 'retos']
 
 function App() {
   const containerRef = useRef(null)
   const currentIdx = useRef(0)
   const isScrolling = useRef(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [wordIdx, setWordIdx] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setWordIdx(i => (i + 1) % ROTATING_WORDS.length), 2500)
+    return () => clearInterval(t)
+  }, [])
 
   const goToSection = (id) => {
     const idx = SECTIONS.indexOf(id)
@@ -361,17 +375,24 @@ function App() {
       </nav>
 
       {/* Scroll container */}
-      <div ref={containerRef} className="h-screen overflow-y-auto relative z-10">
+      <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10">
 
         {/* HERO */}
-        <section id="inicio" className="h-screen relative">
+        <section id="inicio" className="h-[100dvh] relative">
           <div className="absolute inset-0">
             <Scene3D />
           </div>
           <div className="relative z-10 h-full flex items-center px-6 lg:pl-64 pointer-events-none">
             <div className="flex flex-col justify-center text-white max-w-lg lg:max-w-none">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-none">
-                Transformando ideas
+                Transformando{' '}
+                <span
+                  key={wordIdx}
+                  className="inline-block"
+                  style={{ animation: 'wordSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
+                >
+                  {ROTATING_WORDS[wordIdx]}
+                </span>
               </h1>
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-cyan-400 tracking-tight mt-3">
                 en experiencias digitales inolvidables
@@ -386,6 +407,21 @@ function App() {
               >
                 Explorar mis proyectos
               </button>
+
+              <div className="mt-8 flex gap-4 pointer-events-auto flex-wrap">
+                <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
+                  <FaLinkedin className="w-4 h-4" /> LinkedIn
+                </a>
+                <a href="https://github.com/AleixAj" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
+                  <FaGithub className="w-4 h-4" /> GitHub
+                </a>
+                <a href="/CV_Aleix_Auque.pdf" download
+                  className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
+                  <FaFileAlt className="w-4 h-4" /> CV
+                </a>
+              </div>
             </div>
           </div>
           <ScrollArrow onClick={() => goToSection('about')} />
@@ -528,10 +564,74 @@ function App() {
           <ScrollArrow onClick={() => goToSection('contact')} />
         </section>
 
-        {/* CONTACTO */}
-        <section id="contact" className="h-screen bg-black/45 flex items-center relative">
+        {/* CONTACTO + FOOTER */}
+        <section id="contact" className="bg-black/45 flex flex-col relative">
           <ScrollArrow onClick={() => goToSection('hobbies')} direction="up" />
-          <ContactSection />
+
+          {/* Formulario */}
+          <div className="min-h-[100dvh] flex items-center justify-center relative">
+            <ContactSection />
+            <button
+              onClick={() => {
+                const el = document.getElementById('page-footer')
+                const container = containerRef.current
+                if (el && container) {
+                  const top = container.scrollTop + el.getBoundingClientRect().top - container.getBoundingClientRect().top
+                  container.scrollTo({ top, behavior: 'smooth' })
+                }
+              }}
+              className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce"
+              aria-label="Ver footer"
+            >
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Footer */}
+          <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
+            <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0 md:justify-between">
+
+              {/* Logo + nombre */}
+              <div className="flex flex-col items-center md:items-start gap-3">
+                <div className="flex items-center gap-3">
+                  <img src="/AJ.png" alt="AJ Logo" className="w-10 h-10 object-contain" />
+                  <span className="font-tech text-xl font-bold tracking-widest">ALEIX AUQUÉ</span>
+                </div>
+                <p className="text-gray-400 text-sm">Desarrollador de Software & Release Manager</p>
+              </div>
+
+              {/* Nav links */}
+              <div className="flex flex-col items-center gap-2 text-sm text-gray-400">
+                {NAV_ITEMS.map(({ label, id }) => (
+                  <button key={id} onClick={() => goToSection(id)} className="hover:text-cyan-400 transition-colors">
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Redes */}
+              <div className="flex flex-col items-center md:items-end gap-4">
+                <div className="flex gap-4">
+                  <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <FaLinkedin className="w-6 h-6" />
+                  </a>
+                  <a href="mailto:aleixauque@gmail.com"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <FaEnvelope className="w-6 h-6" />
+                  </a>
+                </div>
+                <p className="text-gray-500 text-xs">aleixauque@gmail.com</p>
+              </div>
+
+            </div>
+            <div className="border-t border-white/5 py-4 text-center text-gray-600 text-xs">
+              © {new Date().getFullYear()} Aleix Auqué · Todos los derechos reservados
+            </div>
+          </footer>
+
         </section>
 
       </div>
