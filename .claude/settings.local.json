@@ -4,7 +4,12 @@
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Kylen\\\\Desktop\\\\Projects\\\\mi-portfolio-3d\" -Recurse -Force)",
       "Bash(Select-Object FullName, PSIsContainer)",
       "Bash(Sort-Object FullName)",
-      "Bash(ConvertTo-Json)"
+      "Bash(ConvertTo-Json)",
+      "Bash(npm install *)",
+      "PowerShell(Get-Command node, npm, pnpm, yarn -ErrorAction SilentlyContinue)",
+      "Read(//c/Program Files/nodejs/**)",
+      "PowerShell($env:PATH -split ';' | Where-Object { $_ -ne '' })",
+      "Read(//c/Users/Kylen/AppData/Roaming/**)"
     ]
   }
 }

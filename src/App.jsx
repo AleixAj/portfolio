@@ -1,7 +1,71 @@
 import './index.css'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import emailjs from '@emailjs/browser'
 import Scene3D from './components/Scene3D'
 import StarBackground from './components/StarBackground'
+import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiGreensock, SiPhp, SiLaravel, SiMysql, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker } from 'react-icons/si'
+import { TbApi } from 'react-icons/tb'
+import { FaJava } from 'react-icons/fa'
+
+const EMAILJS_SERVICE_ID  = 'service_2jzdrj4'
+const EMAILJS_TEMPLATE_ID = 'template_gcp6kov'
+const EMAILJS_PUBLIC_KEY  = 'zFhB0_YiBrn4K-Sx-'
+
+function ContactSection() {
+  const formRef = useRef(null)
+  const [status, setStatus] = useState('idle') // idle | sending | success | error
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatus('sending')
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, EMAILJS_PUBLIC_KEY)
+      setStatus('success')
+      formRef.current.reset()
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  return (
+    <div className="max-w-xl mx-auto w-full px-8 text-white">
+      <h2 className="text-5xl font-bold mb-4 text-center">¿Hablamos?</h2>
+      <p className="text-lg text-gray-400 mb-10 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
+      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input
+          name="from_name"
+          type="text"
+          required
+          placeholder="Tu nombre"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+        />
+        <input
+          name="reply_to"
+          type="email"
+          required
+          placeholder="Tu email"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+        />
+        <textarea
+          name="message"
+          required
+          rows={4}
+          placeholder="Tu mensaje"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
+        />
+        <button
+          type="submit"
+          disabled={status === 'sending'}
+          className="mt-2 px-12 py-4 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {status === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
+        </button>
+        {status === 'success' && <p className="text-center text-cyan-400 font-medium">¡Mensaje enviado! Te responderé pronto.</p>}
+        {status === 'error'   && <p className="text-center text-red-400 font-medium">Error al enviar. Inténtalo de nuevo.</p>}
+      </form>
+    </div>
+  )
+}
 
 const SECTIONS = ['inicio', 'about', 'projects', 'skills', 'contact']
 
@@ -41,11 +105,11 @@ function App() {
 
       {/* Navbar */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-cyan-500/30">
-        <div className="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
-          <div className="text-3xl font-bold tracking-widest text-white">
-            Aleix Auqué
+        <div className="w-full py-5 flex items-center">
+          <div className="pl-60 font-tech text-4xl font-bold tracking-widest text-white">
+            ALEIX AUQUÉ
           </div>
-          <div className="flex gap-8 text-white font-medium">
+          <div className="ml-auto pr-60 flex gap-8 text-white font-medium font-tech text-lg tracking-wider">
             {[
               { label: 'Inicio',    id: 'inicio'   },
               { label: 'Sobre mí',  id: 'about'    },
@@ -66,7 +130,7 @@ function App() {
       </nav>
 
       {/* Scroll container */}
-      <div ref={containerRef} className="h-screen overflow-y-auto">
+      <div ref={containerRef} className="h-screen overflow-y-auto relative z-10">
 
         {/* SLIDE 1 - Hero */}
         <section id="inicio" className="h-screen relative">
@@ -78,27 +142,27 @@ function App() {
               <h1 className="text-6xl md:text-7xl font-bold tracking-tighter leading-none">
                 Transformando ideas
               </h1>
-              <h2 className="text-5xl md:text-6xl font-bold text-cyan-400 tracking-widest mt-3">
-                en experiencias
+              <h2 className="text-5xl md:text-6xl font-bold text-cyan-400 tracking-tight mt-3">
+                en experiencias digitales inolvidables
               </h2>
               <p className="mt-8 text-2xl text-gray-300">
                 Software Developer
               </p>
               <p className="mt-4 text-lg text-gray-400 max-w-md">
-                Transformando ideas en experiencias digitales inolvidables
+                ¡Hola! Soy Aleix, un apasionado desarrollador de software especializado en crear experiencias digitales interactivas y visualmente impactantes. Con un enfoque en la creatividad y la innovación, me esfuerzo por transformar ideas en proyectos tangibles que cautivan a los usuarios.
               </p>
               <button
                 onClick={() => goToSection('about')}
-                className="mt-10 w-fit px-8 py-4 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto"
+                className="mt-10 w-fit px-8 py-4 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
               >
-                Explorar mis proyectos ↓
+                Explorar mis proyectos
               </button>
             </div>
           </div>
         </section>
 
         {/* SOBRE MÍ */}
-        <section id="about" className="h-screen bg-black flex items-center">
+        <section id="about" className="h-screen bg-black/70 flex items-center">
           <div className="max-w-5xl mx-auto px-8 text-white">
             <h2 className="text-5xl font-bold mb-12">Sobre mí</h2>
             <p className="text-xl leading-relaxed text-gray-300 max-w-3xl">
@@ -110,40 +174,95 @@ function App() {
         </section>
 
         {/* PROYECTOS */}
-        <section id="projects" className="h-screen bg-black flex items-center">
-          <div className="max-w-3xl mx-auto px-8 text-white">
+        <section id="projects" className="h-screen bg-black/70 flex items-center">
+          <div className="max-w-4xl mx-auto px-8 text-white">
             <h2 className="text-5xl font-bold mb-12">Proyectos destacados</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl overflow-hidden hover:border-cyan-400 transition-all">
-                <div className="h-44 bg-gray-800 flex items-center justify-center">
-                  <img src="/FamilyTrivia.png" alt="FamilyTrivia" className="h-36 w-auto object-contain" />
+            <div className="grid md:grid-cols-2 gap-8">
+
+              {/* FamilyTrivia */}
+              <a href="https://familytrivia.aleixaj.com" target="_blank" rel="noopener noreferrer"
+                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 block opacity-100 hover:scale-105">
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+                <div className="h-48 bg-black/40 flex items-center justify-center overflow-hidden">
+                  <img src="/FamilyTrivia.png" alt="FamilyTrivia" className="h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-2xl font-semibold">FamilyTrivia</h3>
-                  <p className="text-gray-400 mt-2 text-base">Juego de trivia interactivo desarrollado con HTML, CSS y JavaScript puro.</p>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold">FamilyTrivia</h3>
+                    <span className="text-cyan-400 text-lg">↗</span>
+                  </div>
+                  <p className="text-gray-400 text-sm leading-relaxed">Trivia para jugar en familia o amigos hasta 5 equipos: elige categoría y puntos, responde y domina el tablero.</p>
+                  <div className="mt-4 flex gap-2 flex-wrap">
+                    {[
+                      { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
+                      { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
+                      { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+                    ].map(({ label, cls }) => (
+                      <span key={label} className={`text-xs px-2 py-1 rounded-full border ${cls}`}>{label}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="bg-gray-900 border border-cyan-500/30 rounded-2xl overflow-hidden hover:border-cyan-400 transition-all">
-                <div className="h-44 bg-gray-800 flex items-center justify-center">
-                  <img src="/CashDrop.png" alt="CashDrop" className="h-36 w-auto object-contain" />
+              </a>
+
+              {/* CashDrop */}
+              <a href="https://familytrivia.aleixaj.com/cashdrop" target="_blank" rel="noopener noreferrer"
+                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 block opacity-100 hover:scale-105">
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+                <div className="h-48 bg-black/40 flex items-center justify-center overflow-hidden">
+                  <img src="/CashDrop.png" alt="CashDrop" className="h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-2xl font-semibold">CashDrop</h3>
-                  <p className="text-gray-400 mt-2 text-base">Aplicación de gestión financiera / cashflow.</p>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold">CashDrop</h3>
+                    <span className="text-cyan-400 text-lg">↗</span>
+                  </div>
+                  <p className="text-gray-400 text-sm leading-relaxed">¿Puedes convertir 1.000.000€ en realidad? Apuesta tu dinero, responde y avanza hasta el premio final.</p>
+                  <div className="mt-4 flex gap-2 flex-wrap">
+                    {[
+                      { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
+                      { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
+                      { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+                    ].map(({ label, cls }) => (
+                      <span key={label} className={`text-xs px-2 py-1 rounded-full border ${cls}`}>{label}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </a>
+
             </div>
           </div>
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="h-screen bg-black flex items-center">
+        <section id="skills" className="h-screen bg-black/70 flex items-center">
           <div className="max-w-6xl mx-auto px-8 text-white">
-            <h2 className="text-5xl font-bold mb-12">Skills</h2>
-            <div className="grid grid-cols-3 md:grid-cols-4 gap-6">
-              {["React", "Tailwind", "Three.js", "JavaScript", "HTML/CSS", "Git", "API Rest", "GSAP"].map(skill => (
-                <div key={skill} className="bg-gray-900 border border-gray-700 hover:border-cyan-400 p-8 rounded-3xl text-center transition-all">
-                  <p className="font-semibold text-xl">{skill}</p>
+            <h2 className="text-5xl font-bold mb-6">Skills</h2>
+            <div className="grid grid-cols-4 md:grid-cols-5 gap-4">
+              {[
+                { label: 'HTML',       Icon: SiHtml5,       color: '#E34F26' },
+                { label: 'CSS',        Icon: SiCss,         color: '#1572B6' },
+                { label: 'Bootstrap',  Icon: SiBootstrap,   color: '#7952B3' },
+                { label: 'Tailwind',   Icon: SiTailwindcss, color: '#06B6D4' },
+                { label: 'JavaScript', Icon: SiJavascript,  color: '#F7DF1E' },
+                { label: 'TypeScript', Icon: SiTypescript,  color: '#3178C6' },
+                { label: 'React',      Icon: SiReact,       color: '#61DAFB' },
+                { label: 'Three.js',   Icon: SiThreedotjs,  color: '#ffffff' },
+                { label: 'GSAP',       Icon: SiGreensock,   color: '#88CE02' },
+                { label: 'PHP',        Icon: SiPhp,         color: '#777BB4' },
+                { label: 'Laravel',    Icon: SiLaravel,     color: '#FF2D20' },
+                { label: 'API Rest',   Icon: TbApi,         color: '#22D3EE' },
+                { label: 'SQL',        Icon: SiMysql,       color: '#4479A1' },
+                { label: 'Java',       Icon: FaJava,        color: '#ED8B00' },
+                { label: 'Git',        Icon: SiGit,         color: '#F05032' },
+                { label: 'Jenkins',    Icon: SiJenkins,     color: '#D24939' },
+                { label: 'Bitbucket',  Icon: SiBitbucket,   color: '#0052CC' },
+                { label: 'Jira',       Icon: SiJira,        color: '#0052CC' },
+                { label: 'Salesforce', Icon: SiSalesforce,  color: '#00A1E0' },
+                { label: 'Docker',     Icon: SiDocker,      color: '#2496ED' },
+              ].map(({ label, Icon, color }) => (
+                <div key={label} className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-8 rounded-2xl text-center transition-all flex flex-col items-center gap-4">
+                  <Icon size={52} style={{ color }} />
+                  <p className="font-semibold text-xl">{label}</p>
                 </div>
               ))}
             </div>
@@ -151,17 +270,8 @@ function App() {
         </section>
 
         {/* CONTACTO */}
-        <section id="contact" className="h-screen bg-black flex items-center">
-          <div className="max-w-3xl mx-auto text-center px-8 text-white">
-            <h2 className="text-5xl font-bold mb-8">¿Hablamos?</h2>
-            <p className="text-2xl text-gray-400 mb-12">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
-            <a
-              href="mailto:aleixauque@gmail.com"
-              className="inline-block px-10 py-5 bg-cyan-400 text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform"
-            >
-              Enviar mensaje
-            </a>
-          </div>
+        <section id="contact" className="h-screen bg-black/70 flex items-center">
+          <ContactSection />
         </section>
 
       </div>
