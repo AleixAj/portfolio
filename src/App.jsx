@@ -323,9 +323,11 @@ function App() {
 
   useEffect(() => {
     const onWheel = (e) => {
-      e.preventDefault()
       if (isScrolling.current) return
       const dir = e.deltaY > 0 ? 1 : -1
+      // En la última sección bajando: dejar scroll natural para ver el footer
+      if (dir > 0 && currentIdx.current === SECTIONS.length - 1) return
+      e.preventDefault()
       const next = Math.max(0, Math.min(SECTIONS.length - 1, currentIdx.current + dir))
       if (next !== currentIdx.current) goToSection(SECTIONS[next])
     }
@@ -569,24 +571,8 @@ function App() {
           <ScrollArrow onClick={() => goToSection('hobbies')} direction="up" />
 
           {/* Formulario */}
-          <div className="min-h-[100dvh] flex items-center justify-center relative">
+          <div className="min-h-[100dvh] flex items-center justify-center">
             <ContactSection />
-            <button
-              onClick={() => {
-                const el = document.getElementById('page-footer')
-                const container = containerRef.current
-                if (el && container) {
-                  const top = container.scrollTop + el.getBoundingClientRect().top - container.getBoundingClientRect().top
-                  container.scrollTo({ top, behavior: 'smooth' })
-                }
-              }}
-              className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce"
-              aria-label="Ver footer"
-            >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </button>
           </div>
 
           {/* Footer */}
@@ -602,15 +588,6 @@ function App() {
                 <p className="text-gray-400 text-sm">Desarrollador de Software & Release Manager</p>
               </div>
 
-              {/* Nav links */}
-              <div className="flex flex-col items-center gap-2 text-sm text-gray-400">
-                {NAV_ITEMS.map(({ label, id }) => (
-                  <button key={id} onClick={() => goToSection(id)} className="hover:text-cyan-400 transition-colors">
-                    {label}
-                  </button>
-                ))}
-              </div>
-
               {/* Redes */}
               <div className="flex flex-col items-center md:items-end gap-4">
                 <div className="flex gap-4">
@@ -622,8 +599,19 @@ function App() {
                     className="text-gray-400 hover:text-cyan-400 transition-colors">
                     <FaEnvelope className="w-6 h-6" />
                   </a>
+                  <a href="https://github.com/AleixAj" target="_blank" rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <FaGithub className="w-6 h-6" />
+                  </a>
+                  <a href="/CV_Aleix_Auque.pdf" download
+                    className="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <FaFileAlt className="w-6 h-6" />
+                  </a>
                 </div>
-                <p className="text-gray-500 text-xs">aleixauque@gmail.com</p>
+                <div className="flex flex-col gap-0.5 items-center md:items-end">
+                  <p className="text-gray-400 text-sm">aleixauque@gmail.com</p>
+                  <p className="text-gray-400 text-sm">(+34) 680 80 26 09</p>
+                </div>
               </div>
 
             </div>
