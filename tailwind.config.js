@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         tech: ['Orbitron', 'sans-serif'],
       },
+      screens: {
+        ls: { raw: '(orientation: landscape) and (max-width: 1023px)' },
+      },
     },
   },
   plugins: [],

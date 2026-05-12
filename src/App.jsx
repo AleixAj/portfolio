@@ -542,7 +542,7 @@ function App() {
           </div>
 
           {/* Mobile: título arriba con degradado hacia abajo */}
-          <div className="md:hidden flex-shrink-0 pt-24 px-8 pb-20 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent">
+          <div className="md:hidden flex-shrink-0 pt-24 ls:pt-12 px-8 pb-20 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent">
             <h1 className="text-[7.5vw] font-bold tracking-tighter leading-none">
               Transformando{' '}
               <span
@@ -562,18 +562,18 @@ function App() {
           <div className="md:hidden flex-1" />
 
           {/* Mobile: contenido abajo con degradado hacia arriba */}
-          <div className="md:hidden flex-shrink-0 px-8 pt-20 pb-16 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+          <div className="md:hidden flex-shrink-0 px-8 pt-20 ls:pt-8 pb-16 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
             <p className="text-xl text-gray-300">Software Developer</p>
-            <p className="mt-3 text-sm text-gray-400 w-full text-justify">
+            <p className="mt-3 ls:hidden text-sm text-gray-400 w-full text-justify">
               ¡Hola! Soy Aleix, un apasionado desarrollador de software especializado en crear experiencias digitales interactivas y visualmente impactantes. Con un enfoque en la creatividad y la innovación, me esfuerzo por transformar ideas en proyectos tangibles que cautivan a los usuarios.
             </p>
             <button
               onClick={() => goToSection('about')}
-              className="mt-8 w-fit px-8 py-4 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
+              className="mt-8 ls:mt-3 w-fit px-8 py-4 ls:py-2.5 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
             >
               Explorar mis proyectos
             </button>
-            <div className="mt-4 flex gap-3 pointer-events-auto flex-wrap">
+            <div className="mt-4 ls:mt-2 flex gap-3 pointer-events-auto flex-wrap">
               <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
                 <FaLinkedin className="w-3.5 h-3.5" /> LinkedIn
@@ -627,12 +627,12 @@ function App() {
         </section>
 
         {/* MI TRAYECTORIA */}
-        <section id="about" className="min-h-screen bg-black/45 flex items-start md:items-center pt-20 pb-10 md:py-20 relative">
+        <section id="about" className="min-h-screen bg-black/45 flex items-start md:items-center pt-20 ls:pt-14 pb-10 md:py-20 relative">
           <TrayectoriaSection />
         </section>
 
         {/* PROYECTOS */}
-        <section id="projects" className="min-h-screen bg-black/45 flex items-start md:items-center pt-20 pb-10 md:py-20 relative">
+        <section id="projects" className="min-h-screen bg-black/45 flex items-start md:items-center pt-20 ls:pt-14 pb-10 md:py-20 relative">
           <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
             <h2 className="text-2xl md:text-5xl font-bold mb-3 md:mb-8">Mis proyectos</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-6">
@@ -642,7 +642,7 @@ function App() {
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-10 md:py-20 relative">
+        <section id="skills" className="min-h-screen bg-black/45 flex items-start md:items-center pt-20 ls:pt-14 pb-10 md:py-20 relative">
           <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
             <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6">Skills</h2>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-3">
@@ -657,7 +657,7 @@ function App() {
         </section>
 
         {/* HOBBIES */}
-        <section id="hobbies" className="min-h-screen bg-black/45 flex items-start md:items-center pt-28 pb-10 md:py-20 relative">
+        <section id="hobbies" className="min-h-screen bg-black/45 flex items-start md:items-center pt-28 ls:pt-14 pb-10 md:py-20 relative">
           <HobbiesSection />
         </section>
 
