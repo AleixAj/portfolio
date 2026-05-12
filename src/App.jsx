@@ -123,7 +123,7 @@ const ContactSection = memo(function ContactSection() {
   return (
     <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white md:max-w-xl">
       <h2 className="text-2xl md:text-5xl font-bold mb-3 text-center">¿Hablamos?</h2>
-      <p className="text-base md:text-lg text-gray-400 mb-5 md:mb-7 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
+      <p className="text-sm md:text-lg text-gray-400 mb-5 md:mb-7 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
       <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4">
         <input
           name="from_name" type="text" required placeholder="Tu nombre"
@@ -216,12 +216,12 @@ const EDUCATION = [
 
 const TimelineItem = memo(function TimelineItem({ title, subtitle, period, desc, right }) {
   return (
-    <div className={`relative pb-2 md:pb-7 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
-      <div className={`absolute top-[5px] w-3.5 h-3.5 rounded-full border-2 border-cyan-400 bg-black z-10 left-0 ${right ? 'md:left-auto md:right-0' : ''}`} />
-      <span className="text-sm font-medium text-cyan-400 tracking-wider">{period}</span>
+    <div className={`relative pb-1.5 md:pb-7 last:pb-0 pl-6 md:pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
+      <div className={`absolute top-[5px] w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full border-2 border-cyan-400 bg-black z-10 left-0 ${right ? 'md:left-auto md:right-0' : ''}`} />
+      <span className="text-xs md:text-sm font-medium text-cyan-400 tracking-wider">{period}</span>
       <h4 className="text-white font-semibold mt-0.5 text-sm md:text-base">{title}</h4>
-      <p className="text-gray-400 mt-0.5 text-sm">{subtitle}</p>
-      {desc && <p className="text-gray-500 mt-0.5 leading-relaxed text-xs md:text-sm">{desc}</p>}
+      <p className="text-gray-400 mt-0.5 text-xs md:text-sm">{subtitle}</p>
+      {desc && <p className="text-gray-500 mt-0.5 leading-relaxed text-[0.65rem] md:text-sm">{desc}</p>}
     </div>
   )
 })
@@ -236,19 +236,19 @@ const TrayectoriaSection = memo(function TrayectoriaSection() {
       <div className="flex md:hidden mb-2 rounded-xl border border-white/10 overflow-hidden">
         <button
           onClick={() => setTab(0)}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold transition-colors ${tab === 0 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold transition-colors ${tab === 0 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
         >
-          <FaBriefcase className="w-3.5 h-3.5" /> Experiencia
+          <FaBriefcase className="w-3 h-3" /> Experiencia
         </button>
         <button
           onClick={() => setTab(1)}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold transition-colors ${tab === 1 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold transition-colors ${tab === 1 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
         >
-          <FaGraduationCap className="w-3.5 h-3.5" /> Formación
+          <FaGraduationCap className="w-3 h-3" /> Formación
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 min-h-[420px] md:min-h-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 h-[500px] ls:h-auto md:h-auto overflow-y-auto ls:overflow-visible md:overflow-visible">
 
         {/* Experiencia */}
         <div className={tab === 1 ? 'hidden md:block' : ''}>
@@ -326,7 +326,7 @@ const HobbiesSection = memo(function HobbiesSection() {
   return (
     <>
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-        <h2 className="text-2xl md:text-5xl font-bold mb-1 md:mb-2">Arte</h2>
+        <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-2">Arte</h2>
         <p className="text-cyan-400 text-sm md:text-lg mb-4 md:mb-8">Dibujos realistas hechos a lápiz por mí</p>
         <div className="grid grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
           {HOBBIES_PHOTOS.map((photo, i) => (
@@ -473,7 +473,7 @@ function App() {
       {sectionIdx > 0 && (
         <button
           onClick={() => goToSection(SECTIONS[sectionIdx - 1])}
-          className="fixed top-24 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto"
+          className="fixed top-24 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
           aria-label="Sección anterior"
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -484,7 +484,7 @@ function App() {
       {sectionIdx < SECTIONS.length - 1 && (
         <button
           onClick={() => goToSection(SECTIONS[sectionIdx + 1])}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto"
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
           aria-label="Siguiente sección"
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -568,8 +568,8 @@ function App() {
               ¡Hola! Soy Aleix, un apasionado desarrollador de software especializado en crear experiencias digitales interactivas y visualmente impactantes. Con un enfoque en la creatividad y la innovación, me esfuerzo por transformar ideas en proyectos tangibles que cautivan a los usuarios.
             </p>
             <button
-              onClick={() => goToSection('about')}
-              className="mt-8 ls:mt-3 w-fit px-8 py-4 ls:py-2.5 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
+              onClick={() => goToSection('projects')}
+              className="mt-8 ls:mt-3 w-fit px-8 py-2.5 ls:py-2 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
             >
               Explorar mis proyectos
             </button>
@@ -627,12 +627,12 @@ function App() {
         </section>
 
         {/* MI TRAYECTORIA */}
-        <section id="about" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-[15dvh] ls:pt-12 pb-8 md:py-20 relative">
+        <section id="about" className="h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
           <TrayectoriaSection />
         </section>
 
         {/* PROYECTOS */}
-        <section id="projects" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-28 ls:pt-12 pb-12 md:py-20 relative">
+        <section id="projects" className="h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
           <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
             <h2 className="text-2xl md:text-5xl font-bold mb-3 md:mb-8">Mis proyectos</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-6">
@@ -642,14 +642,14 @@ function App() {
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-[15dvh] ls:pt-12 pb-8 md:py-20 relative">
+        <section id="skills" className="h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
           <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-            <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6">Skills</h2>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-3">
+            <h2 className="text-2xl md:text-5xl font-bold mb-3 md:mb-6">Skills</h2>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5 md:gap-3">
               {SKILLS.map(({ label, Icon, color }) => (
-                <div key={label} className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-3 md:p-6 rounded-xl md:rounded-2xl text-center transition-all flex flex-col items-center gap-2 md:gap-3">
-                  <Icon className="w-7 h-7 md:w-[46px] md:h-[46px]" style={{ color }} />
-                  <p className="font-semibold text-xs md:text-xl leading-tight whitespace-nowrap">{label}</p>
+                <div key={label} className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-2 md:p-6 rounded-lg md:rounded-2xl text-center transition-all flex flex-col items-center gap-1 md:gap-3">
+                  <Icon className="w-5 h-5 md:w-[46px] md:h-[46px]" style={{ color }} />
+                  <p className="font-semibold text-[0.6rem] md:text-xl leading-tight whitespace-nowrap">{label}</p>
                 </div>
               ))}
             </div>
@@ -657,15 +657,15 @@ function App() {
         </section>
 
         {/* HOBBIES */}
-        <section id="hobbies" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-[15dvh] ls:pt-12 pb-8 md:py-20 relative">
+        <section id="hobbies" className="h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
           <HobbiesSection />
         </section>
 
         {/* CONTACTO + FOOTER */}
-        <section id="contact" className="min-h-[100dvh] bg-black/45 flex flex-col relative">
+        <section id="contact" className="h-[100dvh] ls:h-auto bg-black/45 flex flex-col relative overflow-hidden ls:overflow-visible">
 
           {/* Formulario */}
-          <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-8 md:pb-[60px]">
+          <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-2 md:pb-[60px]">
             <ContactSection />
           </div>
 
@@ -674,12 +674,12 @@ function App() {
             <div className="max-w-5xl mx-auto px-5 md:px-8 py-3 md:py-5 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
 
               {/* Logo + nombre */}
-              <div className="flex flex-col items-start gap-1.5 md:gap-2">
-                <div className="flex items-center gap-2">
-                  <img src="/AJ.png" alt="AJ Logo" className="w-7 h-7 md:w-8 md:h-8 object-contain" />
-                  <span className="font-tech text-base font-bold tracking-widest">ALEIX AUQUÉ</span>
+              <div className="flex items-center gap-3">
+                <img src="/AJ.png" alt="AJ Logo" className="w-10 h-10 md:w-10 md:h-10 object-contain flex-shrink-0" />
+                <div className="flex flex-col">
+                  <span className="font-tech text-sm md:text-xl font-bold tracking-widest">ALEIX AUQUÉ</span>
+                  <p className="text-gray-400 text-[0.65rem] md:text-xs tracking-wide">Software Developer</p>
                 </div>
-                <p className="text-gray-400 text-xs">Software Developer & Release Manager</p>
               </div>
 
               {/* Redes */}

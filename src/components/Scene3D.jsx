@@ -67,14 +67,16 @@ function Scene({ orbitTarget, isDesktop }) {
         <GamingRoom />
       </Suspense>
 
-      <OrbitControls
-        ref={controlsRef}
-        target={orbitTarget}
-        enableZoom={false}
-        enablePan={false}
-        enableDamping={true}
-        dampingFactor={0.05}
-      />
+      {isDesktop && (
+        <OrbitControls
+          ref={controlsRef}
+          target={orbitTarget}
+          enableZoom={false}
+          enablePan={false}
+          enableDamping={true}
+          dampingFactor={0.05}
+        />
+      )}
     </>
   )
 }
@@ -101,6 +103,7 @@ export default function Scene3D() {
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         dpr={[1, 2]}
         performance={{ min: 0.5 }}
+        style={!isDesktop ? { pointerEvents: 'none', touchAction: 'pan-y' } : undefined}
       >
         <Scene orbitTarget={orbitTarget} isDesktop={isDesktop} />
       </Canvas>
