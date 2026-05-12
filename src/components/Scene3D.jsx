@@ -81,7 +81,7 @@ export default function Scene3D() {
   const orbitTarget = isDesktop ? [-5, 0, 0] : [-3, 0, 0]
 
   return (
-    <div className="w-full h-full">
+    <div className={`w-full h-full ${!isDesktop ? 'pointer-events-none' : ''}`}>
       <Canvas
         camera={{ position: [1, 4, 15], fov: 45 }}
         gl={{ antialias: true, alpha: true }}

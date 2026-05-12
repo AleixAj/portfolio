@@ -60,29 +60,29 @@ function ContactSection() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto w-full px-6 md:px-8 text-white">
-      <h2 className="text-5xl md:text-6xl font-bold mb-4 text-center">¿Hablamos?</h2>
-      <p className="text-lg md:text-xl text-gray-400 mb-10 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
-      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white">
+      <h2 className="text-4xl md:text-5xl font-bold mb-3 text-center">¿Hablamos?</h2>
+      <p className="text-base md:text-lg text-gray-400 mb-5 md:mb-7 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
+      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4">
         <input
           name="from_name" type="text" required placeholder="Tu nombre"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
           name="reply_to" type="email" required placeholder="Tu email"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
           name="subject" type="text" required placeholder="Asunto"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <textarea
-          name="message" required rows={6} placeholder="Tu mensaje"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-6 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
+          name="message" required rows={4} placeholder="Tu mensaje"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
         />
         <button
           type="submit" disabled={status === 'sending'}
-          className="mt-2 px-12 py-5 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-1 px-8 md:px-12 py-3 md:py-4 bg-white text-black font-semibold rounded-2xl text-base md:text-lg hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {status === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
         </button>
@@ -155,9 +155,9 @@ const EDUCATION = [
 
 function TimelineItem({ title, subtitle, period, desc, right }) {
   return (
-    <div className={`relative pb-10 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
+    <div className={`relative pb-7 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
       <div className={`absolute top-[5px] w-3.5 h-3.5 rounded-full border-2 border-cyan-400 bg-black z-10 left-0 ${right ? 'md:left-auto md:right-0' : ''}`} />
-      <span className="text-xs font-medium text-cyan-400 tracking-wider">{period}</span>
+      <span className="text-sm font-medium text-cyan-400 tracking-wider">{period}</span>
       <h4 className="text-white font-semibold mt-0.5 text-base">{title}</h4>
       <p className="text-gray-400 mt-0.5 text-sm">{subtitle}</p>
       {desc && <p className="text-gray-500 mt-1 leading-relaxed text-sm">{desc}</p>}
@@ -166,22 +166,22 @@ function TimelineItem({ title, subtitle, period, desc, right }) {
 }
 
 const HOBBIES_PHOTOS = [
-  { src: '/hobbies/01.jpg',  caption: '' },
-  { src: '/hobbies/02.jpg',  caption: '' },
-  { src: '/hobbies/03.jpg',  caption: '' },
-  { src: '/hobbies/04.jpg',  caption: '' },
-  { src: '/hobbies/05.jpg',  caption: '' },
-  { src: '/hobbies/06.jpg',  caption: '' },
-  { src: '/hobbies/07.jpg',  caption: '' },
-  { src: '/hobbies/08.jpg',  caption: '' },
-  { src: '/hobbies/09.jpg',  caption: '' },
-  { src: '/hobbies/10.jpg',  caption: '' },
-  { src: '/hobbies/11.jpg',  caption: '' },
-  { src: '/hobbies/12.jpg',  caption: '' },
-  { src: '/hobbies/13.png',  caption: '' },
-  { src: '/hobbies/14.png',  caption: '' },
-  { src: '/hobbies/15.png',  caption: '' },
-  { src: '/hobbies/16.png',  caption: '' },
+  { src: '/hobbies/01.webp',  caption: '' },
+  { src: '/hobbies/02.webp',  caption: '' },
+  { src: '/hobbies/03.webp',  caption: '' },
+  { src: '/hobbies/04.webp',  caption: '' },
+  { src: '/hobbies/05.webp',  caption: '' },
+  { src: '/hobbies/06.webp',  caption: '' },
+  { src: '/hobbies/07.webp',  caption: '' },
+  { src: '/hobbies/08.webp',  caption: '' },
+  { src: '/hobbies/09.webp',  caption: '' },
+  { src: '/hobbies/10.webp',  caption: '' },
+  { src: '/hobbies/11.webp',  caption: '' },
+  { src: '/hobbies/12.webp',  caption: '' },
+  { src: '/hobbies/13.webp',  caption: '' },
+  { src: '/hobbies/14.webp',  caption: '' },
+  { src: '/hobbies/15.webp',  caption: '' },
+  { src: '/hobbies/16.webp',  caption: '' },
 ]
 
 function HobbiesSection() {
@@ -214,9 +214,9 @@ function HobbiesSection() {
 
   return (
     <>
-      <div className="max-w-5xl mx-auto px-6 md:px-8 text-white w-full">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 md:mb-12">Hobbies</h2>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-3">
+      <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8">Hobbies</h2>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
           {HOBBIES_PHOTOS.map((photo, i) => (
             <button
               key={i}
@@ -314,6 +314,7 @@ function App() {
   }, [])
 
   const goToSection = (id) => {
+    if (isScrolling.current) return
     const idx = SECTIONS.indexOf(id)
     if (idx === -1) return
     const el = document.getElementById(id)
@@ -419,7 +420,7 @@ function App() {
       </nav>
 
       {/* Scroll container */}
-      <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10">
+      <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10" style={{ touchAction: 'pan-y' }}>
 
         {/* HERO */}
         <section id="inicio" className="h-[100dvh] relative">
@@ -468,14 +469,14 @@ function App() {
         </section>
 
         {/* MI TRAYECTORIA */}
-        <section id="about" className="min-h-screen bg-black/45 flex items-center py-24 relative">
-          <div className="max-w-5xl mx-auto px-6 md:px-8 text-white w-full">
-            <h2 className="text-4xl md:text-5xl font-bold mb-10 md:mb-14">Mi trayectoria</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <section id="about" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
+          <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-10">Mi trayectoria</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
 
               {/* Experiencia */}
               <div>
-                <div className="flex items-center gap-2 mb-6">
+                <div className="flex items-center gap-2 mb-4">
                   <FaBriefcase className="text-cyan-400 w-5 h-5" />
                   <h3 className="text-2xl font-bold text-cyan-400">Experiencia</h3>
                 </div>
@@ -519,9 +520,9 @@ function App() {
         </section>
 
         {/* PROYECTOS */}
-        <section id="projects" className="min-h-screen bg-black/45 flex items-center py-24 relative">
-          <div className="max-w-4xl mx-auto px-6 md:px-8 text-white w-full">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 md:mb-12">Proyectos destacados</h2>
+        <section id="projects" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
+          <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8">Proyectos destacados</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
               <div className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 opacity-100">
@@ -589,14 +590,14 @@ function App() {
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-24 relative">
-          <div className="max-w-6xl mx-auto px-6 md:px-8 text-white w-full">
+        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
+          <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Skills</h2>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
               {SKILLS.map(({ label, Icon, color }) => (
-                <div key={label} className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-3 md:p-8 rounded-2xl text-center transition-all flex flex-col items-center gap-2 md:gap-4">
-                  <Icon className="w-7 h-7 md:w-[52px] md:h-[52px]" style={{ color }} />
-                  <p className="font-semibold text-xs md:text-xl leading-tight">{label}</p>
+                <div key={label} className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-5 md:p-6 rounded-2xl text-center transition-all flex flex-col items-center gap-2 md:gap-3">
+                  <Icon className="w-10 h-10 md:w-[46px] md:h-[46px]" style={{ color }} />
+                  <p className="font-semibold text-sm md:text-xl leading-tight whitespace-nowrap">{label}</p>
                 </div>
               ))}
             </div>
@@ -604,21 +605,21 @@ function App() {
         </section>
 
         {/* HOBBIES */}
-        <section id="hobbies" className="min-h-screen bg-black/45 flex items-center py-24 relative">
+        <section id="hobbies" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
           <HobbiesSection />
         </section>
 
         {/* CONTACTO + FOOTER */}
-        <section id="contact" className="bg-black/45 flex flex-col relative">
+        <section id="contact" className="min-h-screen bg-black/45 flex flex-col relative">
 
           {/* Formulario */}
-          <div className="min-h-[100dvh] flex items-center justify-center">
+          <div className="flex-1 flex items-center justify-center pt-24 pb-[60px]">
             <ContactSection />
           </div>
 
           {/* Footer */}
           <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
-            <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0 md:justify-between">
+            <div className="max-w-5xl mx-auto px-5 md:px-8 py-10 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0 md:justify-between">
 
               {/* Logo + nombre */}
               <div className="flex flex-col items-center md:items-start gap-3">

@@ -9,7 +9,11 @@
       "PowerShell(Get-Command node, npm, pnpm, yarn -ErrorAction SilentlyContinue)",
       "Read(//c/Program Files/nodejs/**)",
       "PowerShell($env:PATH -split ';' | Where-Object { $_ -ne '' })",
-      "Read(//c/Users/Kylen/AppData/Roaming/**)"
+      "Read(//c/Users/Kylen/AppData/Roaming/**)",
+      "Bash(cwebp -version)",
+      "Bash(ffmpeg -version)",
+      "Bash(node -e \"require\\('sharp'\\)\")",
+      "Bash(node -e \"const v=process.version; console.log\\(v\\)\")"
     ]
   }
 }
