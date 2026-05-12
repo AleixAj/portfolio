@@ -44,7 +44,7 @@ export default function StarBackground() {
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
-      <Canvas style={{ pointerEvents: 'none' }} camera={{ position: [0, 0, 1] }}>
+      <Canvas style={{ pointerEvents: 'none' }} camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
         {/* 6500 estrellas estáticas — sin animación, coste mínimo */}
         <StaticStarField count={6500} />
         {/* ~20% animadas con rotación suave */}

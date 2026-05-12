@@ -1,5 +1,5 @@
 import './index.css'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, memo, useCallback } from 'react'
 import emailjs from '@emailjs/browser'
 import Scene3D from './components/Scene3D'
 import StarBackground from './components/StarBackground'
@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { label: 'Trayectoria', id: 'about'  },
   { label: 'Proyectos', id: 'projects' },
   { label: 'Skills',    id: 'skills'   },
-  { label: 'Hobbies',   id: 'hobbies'  },
+  { label: 'Arte',      id: 'hobbies'  },
   { label: 'Contacto',  id: 'contact'  },
 ]
 
@@ -43,7 +43,68 @@ const SKILLS = [
   { label: 'Docker',     Icon: SiDocker,      color: '#2496ED' },
 ]
 
-function ContactSection() {
+const PROJECTS = [
+  {
+    title: 'FamilyTrivia',
+    img: '/FamilyTrivia.png',
+    desc: 'Trivia para jugar en familia o amigos hasta 5 equipos: elige categoría y puntos, responde y domina el tablero.',
+    tags: [
+      { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
+      { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
+      { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+    ],
+    github: 'https://github.com/settings/repositories',
+    demo: 'https://familytrivia.aleixaj.com',
+  },
+  {
+    title: 'CashDrop',
+    img: '/CashDrop.png',
+    desc: '¿Puedes convertir 1.000.000€ en realidad? Apuesta tu dinero, responde y avanza hasta el premio final.',
+    tags: [
+      { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
+      { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
+      { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+    ],
+    github: 'https://github.com/settings/repositories',
+    demo: 'https://familytrivia.aleixaj.com/cashdrop',
+  },
+]
+
+const ProjectCard = memo(function ProjectCard({ title, img, desc, tags, github, demo }) {
+  return (
+    <div className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 flex flex-row md:flex-col h-36 md:h-auto">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent z-10" />
+
+      {/* Imagen */}
+      <div className="w-1/3 flex-shrink-0 md:w-auto md:h-48 bg-black/40 flex items-center justify-center overflow-hidden">
+        <img src={img} alt={title} className="w-full h-full object-contain md:h-32 md:w-auto group-hover:scale-105 transition-transform duration-300 p-3 md:p-0" />
+      </div>
+
+      {/* Contenido */}
+      <div className="flex-1 flex flex-col p-3 md:p-6 min-w-0">
+        <h3 className="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-cyan-400 md:text-white text-center md:text-left">{title}</h3>
+        <p className="text-gray-400 md:text-cyan-400/80 text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-none">{desc}</p>
+        <div className="flex mt-1.5 md:mt-4 gap-1.5 md:gap-2 flex-wrap">
+          {tags.map(({ label, cls }) => (
+            <span key={label} className={`text-xs px-2 py-0.5 md:py-1 rounded-full border ${cls}`}>{label}</span>
+          ))}
+        </div>
+        <div className="mt-2 md:mt-5 flex gap-1.5 md:gap-3">
+          <a href={github} target="_blank" rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 md:px-4 md:py-2 rounded-xl border border-white/20 text-white/70 hover:border-cyan-400/60 hover:text-cyan-400 transition-all duration-200 text-xs md:text-sm font-medium">
+            <FaGithub className="w-3.5 h-3.5 md:w-4 md:h-4" /> GitHub
+          </a>
+          <a href={demo} target="_blank" rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 md:px-4 md:py-2 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-all duration-200 text-xs md:text-sm font-medium">
+            ↗ Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+})
+
+const ContactSection = memo(function ContactSection() {
   const formRef = useRef(null)
   const [status, setStatus] = useState('idle')
 
@@ -60,8 +121,8 @@ function ContactSection() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white">
-      <h2 className="text-4xl md:text-5xl font-bold mb-3 text-center">¿Hablamos?</h2>
+    <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white md:max-w-xl">
+      <h2 className="text-2xl md:text-5xl font-bold mb-3 text-center">¿Hablamos?</h2>
       <p className="text-base md:text-lg text-gray-400 mb-5 md:mb-7 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
       <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4">
         <input
@@ -91,7 +152,7 @@ function ContactSection() {
       </form>
     </div>
   )
-}
+})
 
 const EXPERIENCE = [
   {
@@ -104,7 +165,7 @@ const EXPERIENCE = [
     company: 'Nemon',
     role: 'Desarrollador de Software',
     period: 'May 2023 – Abr 2025',
-    desc: 'Desarrollo de soluciones a medida para distribuidoras de electricidad y gas. Frontend y backend con framework propio en PHP.',
+    desc: 'Desarrollo de soluciones a medida para distribuidoras de electricidad y gas. Proyecto con framework propio en PHP.',
   },
   {
     company: 'VIEWNEXT',
@@ -153,17 +214,74 @@ const EDUCATION = [
   },
 ]
 
-function TimelineItem({ title, subtitle, period, desc, right }) {
+const TimelineItem = memo(function TimelineItem({ title, subtitle, period, desc, right }) {
   return (
-    <div className={`relative pb-7 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
+    <div className={`relative pb-4 md:pb-7 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
       <div className={`absolute top-[5px] w-3.5 h-3.5 rounded-full border-2 border-cyan-400 bg-black z-10 left-0 ${right ? 'md:left-auto md:right-0' : ''}`} />
       <span className="text-sm font-medium text-cyan-400 tracking-wider">{period}</span>
       <h4 className="text-white font-semibold mt-0.5 text-base">{title}</h4>
       <p className="text-gray-400 mt-0.5 text-sm">{subtitle}</p>
-      {desc && <p className="text-gray-500 mt-1 leading-relaxed text-sm">{desc}</p>}
+      {desc && <p className="text-gray-500 mt-0.5 leading-relaxed text-sm">{desc}</p>}
     </div>
   )
-}
+})
+
+const TrayectoriaSection = memo(function TrayectoriaSection() {
+  const [tab, setTab] = useState(0)
+  return (
+    <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
+      <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-10">Mi trayectoria</h2>
+
+      {/* Tabs — solo mobile */}
+      <div className="flex md:hidden mb-5 rounded-xl border border-white/10 overflow-hidden">
+        <button
+          onClick={() => setTab(0)}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold transition-colors ${tab === 0 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
+        >
+          <FaBriefcase className="w-3.5 h-3.5" /> Experiencia
+        </button>
+        <button
+          onClick={() => setTab(1)}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold transition-colors ${tab === 1 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
+        >
+          <FaGraduationCap className="w-3.5 h-3.5" /> Formación
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
+
+        {/* Experiencia */}
+        <div className={tab === 1 ? 'hidden md:block' : ''}>
+          <div className="hidden md:flex items-center gap-2 mb-4">
+            <FaBriefcase className="text-cyan-400 w-5 h-5" />
+            <h3 className="text-2xl font-bold text-cyan-400">Experiencia</h3>
+          </div>
+          <div className="relative">
+            <div className="absolute left-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
+            {EXPERIENCE.map((item, i) => (
+              <TimelineItem key={i} title={item.company} subtitle={item.role} period={item.period} desc={item.desc} />
+            ))}
+          </div>
+        </div>
+
+        {/* Formación */}
+        <div className={tab === 0 ? 'hidden md:block' : ''}>
+          <div className="hidden md:flex items-center gap-2 mb-4 md:justify-end">
+            <FaGraduationCap className="text-cyan-400 w-5 h-5 order-first md:order-last" />
+            <h3 className="text-2xl font-bold text-cyan-400">Formación</h3>
+          </div>
+          <div className="relative">
+            <div className="absolute left-[7px] md:left-auto md:right-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
+            {EDUCATION.map((item, i) => (
+              <TimelineItem key={i} title={item.center} subtitle={item.title} period={item.period} desc={item.desc} right />
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  )
+})
 
 const HOBBIES_PHOTOS = [
   { src: '/hobbies/01.webp',  caption: '' },
@@ -184,7 +302,7 @@ const HOBBIES_PHOTOS = [
   { src: '/hobbies/16.webp',  caption: '' },
 ]
 
-function HobbiesSection() {
+const HobbiesSection = memo(function HobbiesSection() {
   const [modalOpen, setModalOpen] = useState(false)
   const [current, setCurrent] = useState(0)
   const total = HOBBIES_PHOTOS.length
@@ -193,13 +311,6 @@ function HobbiesSection() {
   const close = () => setModalOpen(false)
   const prev = () => setCurrent(i => (i - 1 + total) % total)
   const next = () => setCurrent(i => (i + 1) % total)
-
-  useEffect(() => {
-    HOBBIES_PHOTOS.forEach(photo => {
-      const img = new Image()
-      img.src = photo.src
-    })
-  }, [])
 
   useEffect(() => {
     if (!modalOpen) return
@@ -215,8 +326,9 @@ function HobbiesSection() {
   return (
     <>
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8">Hobbies</h2>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
+        <h2 className="text-2xl md:text-5xl font-bold mb-1 md:mb-2">Arte</h2>
+        <p className="text-cyan-400 text-sm md:text-lg mb-4 md:mb-8">Dibujos realistas hechos a lápiz por mí</p>
+        <div className="grid grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
           {HOBBIES_PHOTOS.map((photo, i) => (
             <button
               key={i}
@@ -294,8 +406,7 @@ function HobbiesSection() {
       )}
     </>
   )
-}
-
+})
 
 const SECTIONS = ['inicio', 'about', 'projects', 'skills', 'hobbies', 'contact']
 const ROTATING_WORDS = ['ideas', 'proyectos', 'sueños', 'visiones', 'retos']
@@ -313,7 +424,7 @@ function App() {
     return () => clearInterval(t)
   }, [])
 
-  const goToSection = (id) => {
+  const goToSection = useCallback((id) => {
     if (isScrolling.current) return
     const idx = SECTIONS.indexOf(id)
     if (idx === -1) return
@@ -325,7 +436,7 @@ function App() {
     containerRef.current.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
     setTimeout(() => { isScrolling.current = false }, 900)
     setMenuOpen(false)
-  }
+  }, [])
 
   useEffect(() => {
     const container = containerRef.current
@@ -423,13 +534,61 @@ function App() {
       <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10" style={{ touchAction: 'pan-y' }}>
 
         {/* HERO */}
-        <section id="inicio" className="h-[100dvh] relative">
+        <section id="inicio" className="h-[100dvh] relative flex flex-col md:block">
+
+          {/* Escena 3D: fondo completo en móvil y desktop */}
           <div className="absolute inset-0">
             <Scene3D />
           </div>
-          <div className="relative z-10 h-full flex items-center px-6 lg:pl-64 pointer-events-none">
+
+          {/* Mobile: título arriba con degradado hacia abajo */}
+          <div className="md:hidden flex-shrink-0 pt-24 px-8 pb-20 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent">
+            <h1 className="text-[7.5vw] font-bold tracking-tighter leading-none">
+              Transformando{' '}
+              <span
+                key={wordIdx}
+                className="inline-block"
+                style={{ animation: 'wordSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
+              >
+                {ROTATING_WORDS[wordIdx]}
+              </span>
+            </h1>
+            <h2 className="text-3xl font-bold text-cyan-400 tracking-tight mt-2">
+              en experiencias digitales inolvidables
+            </h2>
+          </div>
+
+          {/* Mobile: espaciador para empujar el contenido al fondo */}
+          <div className="md:hidden flex-1" />
+
+          {/* Mobile: contenido abajo con degradado hacia arriba */}
+          <div className="md:hidden flex-shrink-0 px-8 pt-20 pb-16 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+            <p className="text-xl text-gray-300">Software Developer</p>
+            <p className="mt-3 text-sm text-gray-400 w-full text-justify">
+              ¡Hola! Soy Aleix, un apasionado desarrollador de software especializado en crear experiencias digitales interactivas y visualmente impactantes. Con un enfoque en la creatividad y la innovación, me esfuerzo por transformar ideas en proyectos tangibles que cautivan a los usuarios.
+            </p>
+            <button
+              onClick={() => goToSection('about')}
+              className="mt-8 w-fit px-8 py-4 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
+            >
+              Explorar mis proyectos
+            </button>
+            <div className="mt-4 flex gap-3 pointer-events-auto flex-wrap">
+              <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
+                <FaLinkedin className="w-3.5 h-3.5" /> LinkedIn
+              </a>
+              <a href="/CV_Aleix_Auque.pdf" download
+                className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
+                <FaFileAlt className="w-3.5 h-3.5" /> CV
+              </a>
+            </div>
+          </div>
+
+          {/* Desktop: overlay con todo el contenido (igual que antes) */}
+          <div className="hidden md:flex absolute inset-0 z-10 items-center px-6 lg:pl-64 pointer-events-none">
             <div className="flex flex-col justify-center text-white max-w-lg lg:max-w-none">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-none">
+              <h1 className="text-6xl lg:text-7xl font-bold tracking-tighter leading-none">
                 Transformando{' '}
                 <span
                   key={wordIdx}
@@ -439,165 +598,58 @@ function App() {
                   {ROTATING_WORDS[wordIdx]}
                 </span>
               </h1>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-cyan-400 tracking-tight mt-3">
+              <h2 className="text-5xl lg:text-6xl font-bold text-cyan-400 tracking-tight mt-3">
                 en experiencias digitales inolvidables
               </h2>
-              <p className="mt-6 text-xl md:text-2xl text-gray-300">Software Developer</p>
-              <p className="mt-4 text-sm md:text-lg text-gray-400 max-w-md">
+              <p className="mt-10 text-3xl text-gray-300">Software Developer</p>
+              <p className="mt-4 text-lg text-gray-400 max-w-[38rem] text-justify">
                 ¡Hola! Soy Aleix, un apasionado desarrollador de software especializado en crear experiencias digitales interactivas y visualmente impactantes. Con un enfoque en la creatividad y la innovación, me esfuerzo por transformar ideas en proyectos tangibles que cautivan a los usuarios.
               </p>
               <button
-                onClick={() => goToSection('about')}
-                className="mt-8 w-fit px-8 py-4 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
+                onClick={() => goToSection('projects')}
+                className="mt-8 w-fit px-10 py-5 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform pointer-events-auto glow-pulse"
               >
                 Explorar mis proyectos
               </button>
-
               <div className="mt-8 flex gap-4 pointer-events-auto flex-wrap">
                 <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
-                  <FaLinkedin className="w-4 h-4" /> LinkedIn
+                  className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
+                  <FaLinkedin className="w-5 h-5" /> LinkedIn
                 </a>
-
                 <a href="/CV_Aleix_Auque.pdf" download
-                  className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
-                  <FaFileAlt className="w-4 h-4" /> CV
+                  className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
+                  <FaFileAlt className="w-5 h-5" /> CV
                 </a>
               </div>
             </div>
           </div>
+
         </section>
 
         {/* MI TRAYECTORIA */}
-        <section id="about" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
-          <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-10">Mi trayectoria</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-
-              {/* Experiencia */}
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <FaBriefcase className="text-cyan-400 w-5 h-5" />
-                  <h3 className="text-2xl font-bold text-cyan-400">Experiencia</h3>
-                </div>
-                <div className="relative">
-                  <div className="absolute left-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
-                  {EXPERIENCE.map((item, i) => (
-                    <TimelineItem
-                      key={i}
-                      title={item.company}
-                      subtitle={item.role}
-                      period={item.period}
-                      desc={item.desc}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Formación */}
-              <div>
-                <div className="flex items-center gap-2 mb-6 md:justify-end">
-                  <FaGraduationCap className="text-cyan-400 w-5 h-5 order-first md:order-last" />
-                  <h3 className="text-2xl font-bold text-cyan-400">Formación</h3>
-                </div>
-                <div className="relative">
-                  <div className="absolute left-[7px] md:left-auto md:right-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
-                  {EDUCATION.map((item, i) => (
-                    <TimelineItem
-                      key={i}
-                      title={item.center}
-                      subtitle={item.title}
-                      period={item.period}
-                      desc={item.desc}
-                      right
-                    />
-                  ))}
-                </div>
-              </div>
-
-            </div>
-          </div>
+        <section id="about" className="min-h-screen bg-black/45 flex items-start md:items-center pt-20 pb-10 md:py-20 relative">
+          <TrayectoriaSection />
         </section>
 
         {/* PROYECTOS */}
-        <section id="projects" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
+        <section id="projects" className="min-h-screen bg-black/45 flex items-start md:items-center pt-20 pb-10 md:py-20 relative">
           <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8">Proyectos destacados</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-
-              <div className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 opacity-100">
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
-                <div className="h-40 md:h-48 bg-black/40 flex items-center justify-center overflow-hidden">
-                  <img src="/FamilyTrivia.png" alt="FamilyTrivia" className="h-28 md:h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
-                </div>
-                <div className="p-5 md:p-6">
-                  <h3 className="text-lg md:text-xl font-bold mb-2">FamilyTrivia</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">Trivia para jugar en familia o amigos hasta 5 equipos: elige categoría y puntos, responde y domina el tablero.</p>
-                  <div className="mt-4 flex gap-2 flex-wrap">
-                    {[
-                      { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
-                      { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
-                      { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
-                    ].map(({ label, cls }) => (
-                      <span key={label} className={`text-xs px-2 py-1 rounded-full border ${cls}`}>{label}</span>
-                    ))}
-                  </div>
-                  <div className="mt-5 flex gap-3">
-                    <a href="https://github.com/settings/repositories" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 text-white/70 hover:border-cyan-400/60 hover:text-cyan-400 transition-all duration-200 text-sm font-medium">
-                      <FaGithub className="w-4 h-4" /> GitHub
-                    </a>
-                    <a href="https://familytrivia.aleixaj.com" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-all duration-200 text-sm font-medium">
-                      ↗ Demo
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 opacity-100">
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
-                <div className="h-40 md:h-48 bg-black/40 flex items-center justify-center overflow-hidden">
-                  <img src="/CashDrop.png" alt="CashDrop" className="h-28 md:h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
-                </div>
-                <div className="p-5 md:p-6">
-                  <h3 className="text-lg md:text-xl font-bold mb-2">CashDrop</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">¿Puedes convertir 1.000.000€ en realidad? Apuesta tu dinero, responde y avanza hasta el premio final.</p>
-                  <div className="mt-4 flex gap-2 flex-wrap">
-                    {[
-                      { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
-                      { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
-                      { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
-                    ].map(({ label, cls }) => (
-                      <span key={label} className={`text-xs px-2 py-1 rounded-full border ${cls}`}>{label}</span>
-                    ))}
-                  </div>
-                  <div className="mt-5 flex gap-3">
-                    <a href="https://github.com/settings/repositories" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 text-white/70 hover:border-cyan-400/60 hover:text-cyan-400 transition-all duration-200 text-sm font-medium">
-                      <FaGithub className="w-4 h-4" /> GitHub
-                    </a>
-                    <a href="https://familytrivia.aleixaj.com/cashdrop" target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-all duration-200 text-sm font-medium">
-                      ↗ Demo
-                    </a>
-                  </div>
-                </div>
-              </div>
-
+            <h2 className="text-2xl md:text-5xl font-bold mb-3 md:mb-8">Mis proyectos</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-6">
+              {PROJECTS.map((p) => <ProjectCard key={p.title} {...p} />)}
             </div>
           </div>
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
+        <section id="skills" className="min-h-screen bg-black/45 flex items-center py-10 md:py-20 relative">
           <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Skills</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6">Skills</h2>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-3">
               {SKILLS.map(({ label, Icon, color }) => (
-                <div key={label} className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-5 md:p-6 rounded-2xl text-center transition-all flex flex-col items-center gap-2 md:gap-3">
-                  <Icon className="w-10 h-10 md:w-[46px] md:h-[46px]" style={{ color }} />
-                  <p className="font-semibold text-sm md:text-xl leading-tight whitespace-nowrap">{label}</p>
+                <div key={label} className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-3 md:p-6 rounded-xl md:rounded-2xl text-center transition-all flex flex-col items-center gap-2 md:gap-3">
+                  <Icon className="w-7 h-7 md:w-[46px] md:h-[46px]" style={{ color }} />
+                  <p className="font-semibold text-xs md:text-xl leading-tight whitespace-nowrap">{label}</p>
                 </div>
               ))}
             </div>
@@ -605,7 +657,7 @@ function App() {
         </section>
 
         {/* HOBBIES */}
-        <section id="hobbies" className="min-h-screen bg-black/45 flex items-center py-16 md:py-20 relative">
+        <section id="hobbies" className="min-h-screen bg-black/45 flex items-start md:items-center pt-28 pb-10 md:py-20 relative">
           <HobbiesSection />
         </section>
 
@@ -613,51 +665,51 @@ function App() {
         <section id="contact" className="min-h-screen bg-black/45 flex flex-col relative">
 
           {/* Formulario */}
-          <div className="flex-1 flex items-center justify-center pt-24 pb-[60px]">
+          <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-8 md:pb-[60px]">
             <ContactSection />
           </div>
 
           {/* Footer */}
           <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
-            <div className="max-w-5xl mx-auto px-5 md:px-8 py-10 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0 md:justify-between">
+            <div className="max-w-5xl mx-auto px-5 md:px-8 py-3 md:py-5 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
 
               {/* Logo + nombre */}
-              <div className="flex flex-col items-center md:items-start gap-3">
-                <div className="flex items-center gap-3">
-                  <img src="/AJ.png" alt="AJ Logo" className="w-10 h-10 object-contain" />
-                  <span className="font-tech text-xl font-bold tracking-widest">ALEIX AUQUÉ</span>
+              <div className="flex flex-col items-start gap-1.5 md:gap-2">
+                <div className="flex items-center gap-2">
+                  <img src="/AJ.png" alt="AJ Logo" className="w-7 h-7 md:w-8 md:h-8 object-contain" />
+                  <span className="font-tech text-base font-bold tracking-widest">ALEIX AUQUÉ</span>
                 </div>
-                <p className="text-gray-400 text-sm">Software Developer & Release Manager</p>
+                <p className="text-gray-400 text-xs">Software Developer & Release Manager</p>
               </div>
 
               {/* Redes */}
-              <div className="flex flex-col items-center md:items-end gap-4">
-                <div className="flex gap-4">
+              <div className="flex flex-col items-end gap-2 md:gap-2">
+                <div className="flex gap-3">
                   <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
                     className="text-gray-400 hover:text-cyan-400 transition-colors">
-                    <FaLinkedin className="w-6 h-6" />
+                    <FaLinkedin className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
                   <a href="mailto:aleixauque@gmail.com"
                     className="text-gray-400 hover:text-cyan-400 transition-colors">
-                    <FaEnvelope className="w-6 h-6" />
+                    <FaEnvelope className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
                   <a href="https://github.com/AleixAj" target="_blank" rel="noopener noreferrer"
                     className="text-gray-400 hover:text-cyan-400 transition-colors">
-                    <FaGithub className="w-6 h-6" />
+                    <FaGithub className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
                   <a href="/CV_Aleix_Auque.pdf" download
                     className="text-gray-400 hover:text-cyan-400 transition-colors">
-                    <FaFileAlt className="w-6 h-6" />
+                    <FaFileAlt className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
                 </div>
-                <div className="flex flex-col gap-0.5 items-center md:items-end">
-                  <p className="text-gray-400 text-sm">aleixauque@gmail.com</p>
-                  <p className="text-gray-400 text-sm">(+34) 680 80 26 09</p>
+                <div className="flex flex-col gap-0.5 items-end">
+                  <p className="text-gray-400 text-xs">aleixauque@gmail.com</p>
+                  <p className="text-gray-400 text-xs">(+34) 680 80 26 09</p>
                 </div>
               </div>
 
             </div>
-            <div className="border-t border-white/5 py-4 text-center text-gray-600 text-xs">
+            <div className="border-t border-white/5 py-2.5 text-center text-gray-600 text-xs">
               © {new Date().getFullYear()} Aleix Auqué · Todos los derechos reservados
             </div>
           </footer>

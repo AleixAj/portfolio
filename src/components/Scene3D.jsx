@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import { useRef, Suspense, useEffect, useState } from 'react'
 import * as THREE from 'three'
@@ -34,8 +34,17 @@ function GamingRoom() {
   )
 }
 
+function CameraController({ isDesktop }) {
+  const { camera } = useThree()
+  useEffect(() => {
+    const [x, y, z] = isDesktop ? [1, 4, 15] : [0, 2, 15]
+    camera.position.set(x, y, z)
+    camera.updateProjectionMatrix()
+  }, [camera, isDesktop])
+  return null
+}
 
-function Scene({ orbitTarget }) {
+function Scene({ orbitTarget, isDesktop }) {
   const controlsRef = useRef()
 
   useEffect(() => {
@@ -47,11 +56,12 @@ function Scene({ orbitTarget }) {
 
   return (
     <>
+      <CameraController isDesktop={isDesktop} />
       <ambientLight intensity={0.05} />
       <pointLight position={[-0.2, -0.8, 0.2]}  intensity={1}   color="#4488ff"  distance={4}  decay={0.5} />
       <pointLight position={[0, -0.8,   0.5]}   intensity={1}   color="#ffaa44"  distance={4}  decay={0.5} />
       <pointLight position={[-4.4,   1, 1]}     intensity={2}   color="#22d3ee"  distance={4}  decay={1} />
-      <pointLight position={[-3.2,   -1,  3]}     intensity={0} color="#aabbff"  distance={8}  decay={2} />
+      <pointLight position={[-3.2,   -1,  3]}   intensity={0}   color="#aabbff"  distance={8}  decay={2} />
 
       <Suspense fallback={null}>
         <GamingRoom />
@@ -73,20 +83,26 @@ export default function Scene3D() {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024)
 
   useEffect(() => {
-    const update = () => setIsDesktop(window.innerWidth >= 1024)
+    let t
+    const update = () => {
+      clearTimeout(t)
+      t = setTimeout(() => setIsDesktop(window.innerWidth >= 1024), 100)
+    }
     window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
+    return () => { window.removeEventListener('resize', update); clearTimeout(t) }
   }, [])
 
-  const orbitTarget = isDesktop ? [-5, 0, 0] : [-3, 0, 0]
+  const orbitTarget = isDesktop ? [-5, 0, 0] : [-2.5, -1.5, 0]
 
   return (
     <div className={`w-full h-full ${!isDesktop ? 'pointer-events-none' : ''}`}>
       <Canvas
         camera={{ position: [1, 4, 15], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        dpr={[1, 2]}
+        performance={{ min: 0.5 }}
       >
-        <Scene orbitTarget={orbitTarget} />
+        <Scene orbitTarget={orbitTarget} isDesktop={isDesktop} />
       </Canvas>
     </div>
   )
