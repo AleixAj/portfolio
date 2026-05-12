@@ -81,7 +81,7 @@ function Scene({ orbitTarget, isDesktop }) {
   )
 }
 
-export default function Scene3D() {
+export default function Scene3D({ heroActive = true }) {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024)
 
   useEffect(() => {
@@ -101,7 +101,8 @@ export default function Scene3D() {
       <Canvas
         camera={{ position: [1, 4, 15], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
+        frameloop={heroActive ? 'always' : 'demand'}
         performance={{ min: 0.5 }}
         style={!isDesktop ? { pointerEvents: 'none', touchAction: 'pan-y' } : undefined}
       >
@@ -110,3 +111,5 @@ export default function Scene3D() {
     </div>
   )
 }
+
+useGLTF.preload('/gaming_bedroom.glb')

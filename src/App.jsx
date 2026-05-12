@@ -100,7 +100,7 @@ function App() {
       <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10" style={{ touchAction: 'pan-y' }}>
-        <Hero wordIdx={wordIdx} goToSection={goToSection} />
+        <Hero wordIdx={wordIdx} goToSection={goToSection} heroActive={sectionIdx === 0} />
         <Trayectoria />
         <Projects />
         <Skills />

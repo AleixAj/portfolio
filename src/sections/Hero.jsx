@@ -2,12 +2,12 @@ import Scene3D from '../components/Scene3D'
 import { FaLinkedin, FaFileAlt } from 'react-icons/fa'
 import { ROTATING_WORDS } from '../consts/nav'
 
-export default function Hero({ wordIdx, goToSection }) {
+export default function Hero({ wordIdx, goToSection, heroActive }) {
   return (
     <section id="inicio" className="h-[100dvh] relative flex flex-col md:block">
 
       <div className="absolute inset-0">
-        <Scene3D />
+        <Scene3D heroActive={heroActive} />
       </div>
 
       {/* Mobile: título arriba */}
