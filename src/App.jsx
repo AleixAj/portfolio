@@ -66,10 +66,8 @@ function App() {
     const section = document.getElementById(SECTIONS[sectionIdx])
     if (!section) return
     const items = [...section.querySelectorAll('.reveal-item:not(.in-view)')]
-    const timers = items.map((el, i) =>
-      setTimeout(() => el.classList.add('in-view'), 380 + i * 65)
-    )
-    return () => timers.forEach(clearTimeout)
+    const timer = setTimeout(() => items.forEach(el => el.classList.add('in-view')), 60)
+    return () => clearTimeout(timer)
   }, [sectionIdx])
 
   return (

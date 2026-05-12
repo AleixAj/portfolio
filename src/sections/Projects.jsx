@@ -7,7 +7,7 @@ export default function Projects() {
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
         <h2 className="text-2xl md:text-5xl font-bold mb-3 md:mb-8">Mis proyectos</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 md:gap-6">
-          {PROJECTS.map((p) => <ProjectCard key={p.title} {...p} />)}
+          {PROJECTS.map((p, i) => <ProjectCard key={p.title} index={i} {...p} />)}
         </div>
       </div>
     </section>

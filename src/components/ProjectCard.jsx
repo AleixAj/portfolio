@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { FaGithub } from 'react-icons/fa'
 
-const ProjectCard = memo(function ProjectCard({ title, img, desc, tags, github, demo }) {
+const ProjectCard = memo(function ProjectCard({ index = 0, title, img, desc, tags, github, demo }) {
   return (
-    <div className="reveal-item group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 flex flex-row md:flex-col">
+    <div style={{ animationDelay: `${index * 100}ms` }} className="reveal-item group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 flex flex-row md:flex-col">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent z-10" />
 
       <div className="w-1/3 flex-shrink-0 md:w-auto md:h-48 bg-black/40 flex items-center justify-center overflow-hidden self-stretch">
