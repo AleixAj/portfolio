@@ -72,18 +72,18 @@ const PROJECTS = [
 
 const ProjectCard = memo(function ProjectCard({ title, img, desc, tags, github, demo }) {
   return (
-    <div className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 flex flex-row md:flex-col h-36 md:h-auto">
+    <div className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.12)] transition-all duration-300 flex flex-row md:flex-col">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent z-10" />
 
       {/* Imagen */}
-      <div className="w-1/3 flex-shrink-0 md:w-auto md:h-48 bg-black/40 flex items-center justify-center overflow-hidden">
+      <div className="w-1/3 flex-shrink-0 md:w-auto md:h-48 bg-black/40 flex items-center justify-center overflow-hidden self-stretch">
         <img src={img} alt={title} className="w-full h-full object-contain md:h-32 md:w-auto group-hover:scale-105 transition-transform duration-300 p-3 md:p-0" />
       </div>
 
       {/* Contenido */}
       <div className="flex-1 flex flex-col p-3 md:p-6 min-w-0">
-        <h3 className="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-cyan-400 md:text-white text-center md:text-left">{title}</h3>
-        <p className="text-gray-400 md:text-cyan-400/80 text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-none">{desc}</p>
+        <h3 className="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-white text-center md:text-left">{title}</h3>
+        <p className="text-cyan-400/80 text-xs md:text-sm leading-relaxed">{desc}</p>
         <div className="flex mt-1.5 md:mt-4 gap-1.5 md:gap-2 flex-wrap">
           {tags.map(({ label, cls }) => (
             <span key={label} className={`text-xs px-2 py-0.5 md:py-1 rounded-full border ${cls}`}>{label}</span>
@@ -216,12 +216,12 @@ const EDUCATION = [
 
 const TimelineItem = memo(function TimelineItem({ title, subtitle, period, desc, right }) {
   return (
-    <div className={`relative pb-4 md:pb-7 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
+    <div className={`relative pb-2 md:pb-7 last:pb-0 pl-7 ${right ? 'md:pl-0 md:pr-7 md:text-right' : ''}`}>
       <div className={`absolute top-[5px] w-3.5 h-3.5 rounded-full border-2 border-cyan-400 bg-black z-10 left-0 ${right ? 'md:left-auto md:right-0' : ''}`} />
       <span className="text-sm font-medium text-cyan-400 tracking-wider">{period}</span>
-      <h4 className="text-white font-semibold mt-0.5 text-base">{title}</h4>
+      <h4 className="text-white font-semibold mt-0.5 text-sm md:text-base">{title}</h4>
       <p className="text-gray-400 mt-0.5 text-sm">{subtitle}</p>
-      {desc && <p className="text-gray-500 mt-0.5 leading-relaxed text-sm">{desc}</p>}
+      {desc && <p className="text-gray-500 mt-0.5 leading-relaxed text-xs md:text-sm">{desc}</p>}
     </div>
   )
 })
@@ -230,10 +230,10 @@ const TrayectoriaSection = memo(function TrayectoriaSection() {
   const [tab, setTab] = useState(0)
   return (
     <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-      <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-10">Mi trayectoria</h2>
+      <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-10">Mi trayectoria</h2>
 
       {/* Tabs — solo mobile */}
-      <div className="flex md:hidden mb-5 rounded-xl border border-white/10 overflow-hidden">
+      <div className="flex md:hidden mb-2 rounded-xl border border-white/10 overflow-hidden">
         <button
           onClick={() => setTab(0)}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold transition-colors ${tab === 0 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
@@ -248,7 +248,7 @@ const TrayectoriaSection = memo(function TrayectoriaSection() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 min-h-[420px] md:min-h-0">
 
         {/* Experiencia */}
         <div className={tab === 1 ? 'hidden md:block' : ''}>
@@ -542,8 +542,8 @@ function App() {
           </div>
 
           {/* Mobile: título arriba con degradado hacia abajo */}
-          <div className="md:hidden flex-shrink-0 pt-32 ls:pt-12 px-8 pb-20 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent">
-            <h1 className="text-[7.5vw] font-bold tracking-tighter leading-none">
+          <div className="md:hidden flex-shrink-0 pt-24 ls:pt-12 px-8 pb-20 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
+            <h1 className="text-[7vw] font-bold tracking-tighter leading-none">
               Transformando{' '}
               <span
                 key={wordIdx}
@@ -553,7 +553,7 @@ function App() {
                 {ROTATING_WORDS[wordIdx]}
               </span>
             </h1>
-            <h2 className="text-3xl font-bold text-cyan-400 tracking-tight mt-2">
+            <h2 className="text-[5.5vw] font-bold text-cyan-400 tracking-tight mt-2">
               en experiencias digitales inolvidables
             </h2>
           </div>
@@ -562,7 +562,7 @@ function App() {
           <div className="md:hidden flex-1" />
 
           {/* Mobile: contenido abajo con degradado hacia arriba */}
-          <div className="md:hidden flex-shrink-0 px-8 pt-20 ls:pt-8 pb-28 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+          <div className="md:hidden flex-shrink-0 px-8 pt-20 ls:pt-8 pb-32 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
             <p className="text-xl text-gray-300">Software Developer</p>
             <p className="mt-3 ls:hidden text-sm text-gray-400 w-full text-justify">
               ¡Hola! Soy Aleix, un apasionado desarrollador de software especializado en crear experiencias digitales interactivas y visualmente impactantes. Con un enfoque en la creatividad y la innovación, me esfuerzo por transformar ideas en proyectos tangibles que cautivan a los usuarios.
@@ -627,7 +627,7 @@ function App() {
         </section>
 
         {/* MI TRAYECTORIA */}
-        <section id="about" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-28 ls:pt-12 pb-12 md:py-20 relative">
+        <section id="about" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-[15dvh] ls:pt-12 pb-8 md:py-20 relative">
           <TrayectoriaSection />
         </section>
 
@@ -642,7 +642,7 @@ function App() {
         </section>
 
         {/* SKILLS */}
-        <section id="skills" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-28 ls:pt-12 pb-12 md:py-20 relative">
+        <section id="skills" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-[15dvh] ls:pt-12 pb-8 md:py-20 relative">
           <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
             <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6">Skills</h2>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 md:gap-3">
@@ -657,7 +657,7 @@ function App() {
         </section>
 
         {/* HOBBIES */}
-        <section id="hobbies" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-28 ls:pt-12 pb-12 md:py-20 relative">
+        <section id="hobbies" className="min-h-[100dvh] bg-black/45 flex items-start md:items-center pt-[15dvh] ls:pt-12 pb-8 md:py-20 relative">
           <HobbiesSection />
         </section>
 

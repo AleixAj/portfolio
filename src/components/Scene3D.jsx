@@ -37,7 +37,7 @@ function GamingRoom() {
 function CameraController({ isDesktop }) {
   const { camera } = useThree()
   useEffect(() => {
-    const [x, y, z] = isDesktop ? [1, 4, 15] : [0, 2, 15]
+    const [x, y, z] = isDesktop ? [1, 4, 15] : [-2, 3, 18]
     camera.position.set(x, y, z)
     camera.updateProjectionMatrix()
   }, [camera, isDesktop])
@@ -92,7 +92,7 @@ export default function Scene3D() {
     return () => { window.removeEventListener('resize', update); clearTimeout(t) }
   }, [])
 
-  const orbitTarget = isDesktop ? [-5, 0, 0] : [-2.5, -1.5, 0]
+  const orbitTarget = isDesktop ? [-5, 0, 0] : [-2, -1.5, 1]
 
   return (
     <div className={`w-full h-full ${!isDesktop ? 'pointer-events-none' : ''}`}>
