@@ -37,7 +37,7 @@ function GamingRoom() {
 function CameraController({ isDesktop }) {
   const { camera } = useThree()
   useEffect(() => {
-    const [x, y, z] = isDesktop ? [1, 4, 15] : [-2, 3, 18]
+    const [x, y, z] = isDesktop ? [1, 4, 15] : [-1, 3, 18]
     camera.position.set(x, y, z)
     camera.updateProjectionMatrix()
   }, [camera, isDesktop])

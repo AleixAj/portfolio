@@ -1,0 +1,18 @@
+export const HOBBIES_PHOTOS = [
+  { src: '/hobbies/01.webp',  caption: '' },
+  { src: '/hobbies/02.webp',  caption: '' },
+  { src: '/hobbies/03.webp',  caption: '' },
+  { src: '/hobbies/04.webp',  caption: '' },
+  { src: '/hobbies/05.webp',  caption: '' },
+  { src: '/hobbies/06.webp',  caption: '' },
+  { src: '/hobbies/07.webp',  caption: '' },
+  { src: '/hobbies/08.webp',  caption: '' },
+  { src: '/hobbies/09.webp',  caption: '' },
+  { src: '/hobbies/10.webp',  caption: '' },
+  { src: '/hobbies/11.webp',  caption: '' },
+  { src: '/hobbies/12.webp',  caption: '' },
+  { src: '/hobbies/13.webp',  caption: '' },
+  { src: '/hobbies/14.webp',  caption: '' },
+  { src: '/hobbies/15.webp',  caption: '' },
+  { src: '/hobbies/16.webp',  caption: '' },
+]

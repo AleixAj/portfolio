@@ -1,16 +1,68 @@
-# React + Vite
+# Aleix Auqué — Portfolio 3D
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio personal con escena 3D interactiva, animaciones y formulario de contacto.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **Vite 8**
+- **Three.js** + **React Three Fiber** + **Drei** — escena 3D con modelo GLTF
+- **GSAP** — animaciones
+- **Tailwind CSS 3**
+- **EmailJS** — formulario de contacto sin backend
 
-## React Compiler
+## Estructura del proyecto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+├── consts/          # Datos estáticos (nav, skills, projects, experience, hobbies)
+├── components/      # Componentes reutilizables (Navbar, ProjectCard, TimelineItem, Scene3D, StarBackground)
+├── sections/        # Secciones de página (Hero, Trayectoria, Projects, Skills, Hobbies, Contact)
+├── App.jsx          # Orquestador: lógica de scroll y navegación entre secciones
+├── main.jsx
+└── index.css
+```
 
-## Expanding the ESLint configuration
+## Requisitos previos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Node.js 18+
+- npm
+
+## Instalación
+
+```bash
+npm install
+```
+
+## Variables de entorno
+
+Crea un archivo `.env.local` en la raíz con tus credenciales de [EmailJS](https://www.emailjs.com/):
+
+```env
+VITE_EMAILJS_SERVICE_ID=tu_service_id
+VITE_EMAILJS_TEMPLATE_ID=tu_template_id
+VITE_EMAILJS_PUBLIC_KEY=tu_public_key
+```
+
+## Scripts
+
+```bash
+npm run dev      # Servidor de desarrollo
+npm run build    # Build de producción
+npm run preview  # Vista previa del build
+npm run lint     # Linting con ESLint
+```
+
+## Secciones
+
+| Sección | Descripción |
+|---|---|
+| Inicio | Hero con escena 3D interactiva (OrbitControls en desktop) y palabras animadas |
+| Trayectoria | Timeline doble: experiencia laboral y formación académica |
+| Proyectos | Cards de proyectos con demo y enlace a GitHub |
+| Skills | Grid de tecnologías con iconos y colores de marca |
+| Arte | Galería de dibujos a lápiz con modal y navegación por teclado |
+| Contacto | Formulario con EmailJS + footer con redes sociales |
+
+## Despliegue
+
+El proyecto está configurado para desplegarse en cualquier hosting de estáticos. Para Vercel o Netlify basta con conectar el repositorio y añadir las variables de entorno del paso anterior.
