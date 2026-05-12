@@ -4,6 +4,30 @@ import { useMemo } from 'react'
 
 function rnd(min, max) { return Math.random() * (max - min) + min }
 
+function StaticStarField({ count = 6500 }) {
+  const positions = useMemo(() => {
+    const arr = new Float32Array(count * 3)
+    for (let i = 0; i < count; i++) {
+      const r = 300
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(2 * Math.random() - 1)
+      arr[i * 3]     = r * Math.sin(phi) * Math.cos(theta)
+      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
+      arr[i * 3 + 2] = r * Math.cos(phi)
+    }
+    return arr
+  }, [count])
+
+  return (
+    <points>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      </bufferGeometry>
+      <pointsMaterial size={0.45} color="white" sizeAttenuation transparent opacity={0.75} />
+    </points>
+  )
+}
+
 export default function StarBackground() {
   const shootingStars = useMemo(() =>
     Array.from({ length: 7 }, (_, i) => ({
@@ -21,7 +45,10 @@ export default function StarBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas style={{ pointerEvents: 'none' }} camera={{ position: [0, 0, 1] }}>
-        <Stars radius={300} depth={60} count={8000} factor={7} saturation={0} fade />
+        {/* 6500 estrellas estáticas — sin animación, coste mínimo */}
+        <StaticStarField count={6500} />
+        {/* ~20% animadas con rotación suave */}
+        <Stars radius={300} depth={60} count={1500} factor={7} saturation={0} fade />
       </Canvas>
 
       <div className="absolute inset-0 overflow-hidden">

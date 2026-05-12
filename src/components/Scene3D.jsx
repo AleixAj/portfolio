@@ -34,7 +34,6 @@ function GamingRoom() {
   )
 }
 
-useGLTF.preload('/gaming_bedroom.glb')
 
 function Scene({ orbitTarget }) {
   const controlsRef = useRef()
