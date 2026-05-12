@@ -27,7 +27,7 @@ export default function Trayectoria() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 h-[500px] ls:h-auto md:h-auto overflow-y-auto ls:overflow-visible md:overflow-visible">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 h-[500px] ls:h-auto md:h-auto overflow-y-auto overscroll-y-contain ls:overflow-visible md:overflow-visible">
 
           <div className={tab === 1 ? 'hidden md:block' : ''}>
             <div className="hidden md:flex items-center gap-2 mb-4">
