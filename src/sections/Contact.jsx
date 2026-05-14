@@ -6,7 +6,7 @@ const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
-function ContactForm() {
+function ContactForm({ t }) {
   const formRef = useRef(null)
   const [status, setStatus] = useState('idle')
 
@@ -28,39 +28,39 @@ function ContactForm() {
 
   return (
     <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white md:max-w-xl">
-      <h2 className="text-2xl md:text-5xl font-bold mb-3 text-center">¿Hablamos?</h2>
-      <p className="text-sm md:text-lg text-gray-400 mb-5 md:mb-7 text-center">Estoy abierto a nuevas oportunidades y colaboraciones.</p>
+      <h2 className="text-2xl md:text-5xl font-bold mb-3 text-center">{t.title}</h2>
+      <p className="text-sm md:text-lg text-gray-400 mb-5 md:mb-7 text-center">{t.subtitle}</p>
       <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4">
         <input
-          name="from_name" type="text" required placeholder="Tu nombre"
+          name="from_name" type="text" required placeholder={t.name}
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
-          name="reply_to" type="email" required placeholder="Tu email"
+          name="reply_to" type="email" required placeholder={t.email}
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
-          name="subject" type="text" required placeholder="Asunto"
+          name="subject" type="text" required placeholder={t.subject}
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <textarea
-          name="message" required rows={4} placeholder="Tu mensaje"
+          name="message" required rows={4} placeholder={t.message}
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
         />
         <button
           type="submit" disabled={status === 'sending'}
           className="mt-1 px-8 md:px-12 py-3 md:py-4 bg-white text-black font-semibold rounded-2xl text-base md:text-lg hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {status === 'sending' ? 'Enviando...' : 'Enviar mensaje'}
+          {status === 'sending' ? t.sending : t.send}
         </button>
-        {status === 'success' && <p className="text-center text-cyan-400 font-medium text-lg">¡Mensaje enviado! Te responderé pronto.</p>}
-        {status === 'error'   && <p className="text-center text-red-400 font-medium text-lg">Error al enviar. Inténtalo de nuevo.</p>}
+        {status === 'success' && <p className="text-center text-cyan-400 font-medium text-lg">{t.success}</p>}
+        {status === 'error'   && <p className="text-center text-red-400 font-medium text-lg">{t.error}</p>}
       </form>
     </div>
   )
 }
 
-function Footer() {
+function Footer({ t }) {
   return (
     <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
       <div className="max-w-5xl mx-auto px-5 md:px-8 py-3 md:py-5 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
@@ -100,19 +100,19 @@ function Footer() {
 
       </div>
       <div className="border-t border-white/5 py-2.5 text-center text-gray-600 text-xs">
-        © {new Date().getFullYear()} Aleix Auqué · Todos los derechos reservados
+        © {new Date().getFullYear()} Aleix Auqué · {t.rights}
       </div>
     </footer>
   )
 }
 
-export default function Contact() {
+export default function Contact({ t }) {
   return (
     <section id="contact" className="h-[100dvh] ls:h-auto bg-black/45 flex flex-col relative overflow-hidden ls:overflow-visible">
       <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-2 md:pb-[60px]">
-        <ContactForm />
+        <ContactForm t={t} />
       </div>
-      <Footer />
+      <Footer t={t} />
     </section>
   )
 }

@@ -8,6 +8,7 @@ import Skills from './sections/Skills'
 import Hobbies from './sections/Hobbies'
 import Contact from './sections/Contact'
 import { SECTIONS, ROTATING_WORDS } from './consts/nav'
+import { TRANSLATIONS } from './consts/i18n'
 
 const StarBackground = lazy(() => import('./components/StarBackground'))
 
@@ -18,11 +19,20 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [wordIdx, setWordIdx] = useState(0)
   const [sectionIdx, setSectionIdx] = useState(0)
+  const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'es')
+  const t = TRANSLATIONS[lang]
+  const words = ROTATING_WORDS[lang]
 
   useEffect(() => {
-    const t = setInterval(() => setWordIdx(i => (i + 1) % ROTATING_WORDS.length), 2500)
-    return () => clearInterval(t)
-  }, [])
+    const interval = setInterval(() => setWordIdx(i => (i + 1) % words.length), 2500)
+    return () => clearInterval(interval)
+  }, [words.length])
+
+  useEffect(() => {
+    localStorage.setItem('lang', lang)
+    document.documentElement.lang = lang
+    setWordIdx(i => i % words.length)
+  }, [lang, words.length])
 
   const goToSection = useCallback((id) => {
     if (isScrolling.current) return
@@ -80,8 +90,8 @@ function App() {
       {sectionIdx > 0 && (
         <button
           onClick={() => goToSection(SECTIONS[sectionIdx - 1])}
-          className="fixed top-24 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
-          aria-label="Sección anterior"
+          className="nav-section-arrow fixed top-24 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
+          aria-label={t.previousSection}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 15l-6-6-6 6" />
@@ -91,8 +101,8 @@ function App() {
       {sectionIdx < SECTIONS.length - 1 && (
         <button
           onClick={() => goToSection(SECTIONS[sectionIdx + 1])}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
-          aria-label="Siguiente sección"
+          className="nav-section-arrow fixed bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
+          aria-label={t.nextSection}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 9l6 6 6-6" />
@@ -100,15 +110,15 @@ function App() {
         </button>
       )}
 
-      <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={setLang} t={t} />
 
       <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10" style={{ touchAction: 'pan-y' }}>
-        <Hero wordIdx={wordIdx} goToSection={goToSection} heroActive={sectionIdx === 0} />
-        <Trayectoria />
-        <Projects />
-        <Skills />
-        <Hobbies />
-        <Contact />
+        <Hero wordIdx={wordIdx} words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} />
+        <Trayectoria lang={lang} t={t.journey} />
+        <Projects lang={lang} t={t.projects} />
+        <Skills lang={lang} />
+        <Hobbies t={t.hobbies} />
+        <Contact t={t.contact} />
       </div>
     </div>
   )

@@ -3,13 +3,15 @@ import { FaBriefcase, FaGraduationCap } from 'react-icons/fa'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import TimelineItem from '../components/TimelineItem'
 
-export default function Trayectoria() {
+const localize = (value, lang) => typeof value === 'object' ? value[lang] : value
+
+export default function Trayectoria({ lang, t }) {
   const [tab, setTab] = useState(0)
 
   return (
     <section id="about" className="h-auto md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-start md:items-center ls:items-start pt-20 md:pt-0 ls:pt-20 pb-12 md:pb-0 ls:pb-12 relative">
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-        <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-10">Mi trayectoria</h2>
+        <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-10">{t.title}</h2>
 
         {/* Tabs — solo mobile */}
         <div className="flex md:hidden mb-2 rounded-xl border border-white/10 overflow-hidden">
@@ -17,13 +19,13 @@ export default function Trayectoria() {
             onClick={() => setTab(0)}
             className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold transition-colors ${tab === 0 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
           >
-            <FaBriefcase className="w-3 h-3" /> Experiencia
+            <FaBriefcase className="w-3 h-3" /> {t.experience}
           </button>
           <button
             onClick={() => setTab(1)}
             className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold transition-colors ${tab === 1 ? 'bg-cyan-400/15 text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-400'}`}
           >
-            <FaGraduationCap className="w-3 h-3" /> Formación
+            <FaGraduationCap className="w-3 h-3" /> {t.education}
           </button>
         </div>
 
@@ -32,12 +34,12 @@ export default function Trayectoria() {
           <div className={tab === 1 ? 'hidden md:block' : ''}>
             <div className="hidden md:flex items-center gap-2 mb-4">
               <FaBriefcase className="text-cyan-400 w-5 h-5" />
-              <h3 className="text-2xl font-bold text-cyan-400">Experiencia</h3>
+              <h3 className="text-2xl font-bold text-cyan-400">{t.experience}</h3>
             </div>
             <div className="relative">
               <div className="absolute left-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
               {EXPERIENCE.map((item, i) => (
-                <TimelineItem key={i} title={item.company} subtitle={item.role} period={item.period} desc={item.desc} />
+                <TimelineItem key={i} title={item.company} subtitle={localize(item.role, lang)} period={localize(item.period, lang)} desc={localize(item.desc, lang)} />
               ))}
             </div>
           </div>
@@ -45,12 +47,12 @@ export default function Trayectoria() {
           <div className={tab === 0 ? 'hidden md:block' : ''}>
             <div className="hidden md:flex items-center gap-2 mb-4 md:justify-end">
               <FaGraduationCap className="text-cyan-400 w-5 h-5 order-first md:order-last" />
-              <h3 className="text-2xl font-bold text-cyan-400">Formación</h3>
+              <h3 className="text-2xl font-bold text-cyan-400">{t.education}</h3>
             </div>
             <div className="relative">
               <div className="absolute left-[7px] md:left-auto md:right-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
               {EDUCATION.map((item, i) => (
-                <TimelineItem key={i} title={item.center} subtitle={item.title} period={item.period} desc={item.desc} right />
+                <TimelineItem key={i} title={item.center} subtitle={localize(item.title, lang)} period={localize(item.period, lang)} desc={localize(item.desc, lang)} right />
               ))}
             </div>
           </div>

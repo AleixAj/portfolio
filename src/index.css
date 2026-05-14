@@ -46,8 +46,7 @@ body, button {
 
 @media (orientation: landscape) and (max-width: 1023px) {
   /* Ocultar flechas de navegación */
-  [aria-label="Sección anterior"],
-  [aria-label="Siguiente sección"] {
+  .nav-section-arrow {
     display: none !important;
   }
 

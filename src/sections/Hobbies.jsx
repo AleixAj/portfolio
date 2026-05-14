@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 
-export default function Hobbies() {
+export default function Hobbies({ t }) {
   const [modalOpen, setModalOpen] = useState(false)
   const [current, setCurrent] = useState(0)
   const total = HOBBIES_PHOTOS.length
@@ -25,8 +25,8 @@ export default function Hobbies() {
   return (
     <section id="hobbies" className="h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-        <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-2">Arte</h2>
-        <p className="text-cyan-400 text-sm md:text-lg mb-4 md:mb-8">Dibujos realistas hechos a lápiz por mí</p>
+        <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-2">{t.title}</h2>
+        <p className="text-cyan-400 text-sm md:text-lg mb-4 md:mb-8">{t.subtitle}</p>
         <div className="grid grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
           {HOBBIES_PHOTOS.map((photo, i) => (
             <button
@@ -37,7 +37,7 @@ export default function Hobbies() {
             >
               <img
                 src={photo.src}
-                alt={photo.caption || `Dibujo ${i + 1}`}
+                alt={photo.caption || `${t.drawing} ${i + 1}`}
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
@@ -52,7 +52,7 @@ export default function Hobbies() {
         <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 pt-14 pb-4 md:p-8" onClick={close}>
           <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
           <div className="relative z-10 w-full max-w-5xl select-none" onClick={e => e.stopPropagation()}>
-            <button onClick={close} className="absolute -top-10 right-0 text-white/60 hover:text-white text-2xl transition-colors" aria-label="Cerrar galería">✕</button>
+            <button onClick={close} className="absolute -top-10 right-0 text-white/60 hover:text-white text-2xl transition-colors" aria-label={t.closeGallery}>✕</button>
 
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-black h-[50vh] md:h-[65vh] lg:h-[78vh] relative">
               {[-1, 0, 1].map(offset => {
@@ -71,7 +71,7 @@ export default function Hobbies() {
                 const photo = HOBBIES_PHOTOS[i]
                 const isActive = offset === 0
                 return (
-                  <img key={`fg-${i}`} src={photo.src} alt={photo.caption || `Dibujo ${i + 1}`}
+                  <img key={`fg-${i}`} src={photo.src} alt={photo.caption || `${t.drawing} ${i + 1}`}
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
                     style={{ opacity: isActive ? 1 : 0 }}
                   />
@@ -86,13 +86,13 @@ export default function Hobbies() {
               <span className="absolute top-4 right-4 text-white/50 text-sm bg-black/40 px-2 py-1 rounded-full">{current + 1} / {total}</span>
             </div>
 
-            <button onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-white/20 text-white text-xl hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all" aria-label="Dibujo anterior">‹</button>
-            <button onClick={next} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-white/20 text-white text-xl hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all" aria-label="Dibujo siguiente">›</button>
+            <button onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-white/20 text-white text-xl hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all" aria-label={t.previousDrawing}>‹</button>
+            <button onClick={next} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-white/20 text-white text-xl hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all" aria-label={t.nextDrawing}>›</button>
 
             <div className="flex justify-center gap-2 mt-4">
               {HOBBIES_PHOTOS.map((_, i) => (
                 <button key={i} onClick={() => setCurrent(i)}
-                  aria-label={`Ver dibujo ${i + 1}`}
+                  aria-label={`${t.viewDrawing} ${i + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-cyan-400 w-5' : 'bg-white/30 w-2'}`}
                 />
               ))}
