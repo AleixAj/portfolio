@@ -1,9 +1,16 @@
 # Aleix Auqué - Software Developer Portfolio
 
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=111827)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-0.184-111827?style=for-the-badge&logo=threedotjs&logoColor=white)
+![React Three Fiber](https://img.shields.io/badge/React_Three_Fiber-9-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
+
 Portfolio profesional orientado a empresas y equipos técnicos. Presenta mi
 perfil como desarrollador de software mediante una experiencia web cuidada,
-proyectos reales desplegados, trayectoria profesional, stack técnico y contacto
-directo.
+multiidioma, proyectos reales desplegados, trayectoria profesional, stack
+técnico y contacto directo.
 
 El objetivo no es solo mostrar una landing visual, sino demostrar criterio de
 producto, atención al detalle, capacidad full-stack y experiencia llevando
@@ -15,22 +22,30 @@ proyectos desde una idea hasta producción.
   experiencia responsive pensada para desktop, tablet y móvil.
 - Integración de una escena 3D ligera con **Three.js**, **React Three Fiber** y
   carga diferida para mantener buen rendimiento inicial.
+- Interfaz **ES/EN** sin dependencias extra, con selector de idioma persistente
+  en `localStorage` y contenido principal traducido.
 - Presentación clara de experiencia laboral, formación y proyectos con demos
   públicas, repositorios reales y enlaces verificables.
 - Cuidado por UX: navegación por secciones, animaciones sutiles, tarjetas de
-  proyecto consistentes, formularios y adaptación a dispositivos táctiles.
+  proyecto consistentes, formularios, estados responsive y adaptación a
+  dispositivos táctiles.
 - Preparación para producción con **Vite**, **Tailwind CSS**, **EmailJS** y
   despliegue en **Cloudflare Workers + Assets**.
 
 ## Proyectos Destacados
 
-- **Obsidian**: e-commerce full-stack de urban streetwear con React,
-  TypeScript, CSS, Laravel 11 API, autenticación, carrito, wishlist, checkout y
-  despliegue real.
-- **FamilyTrivia**: juego de trivia para grupos, con tablero por categorías,
-  puntuación por equipos y demo pública.
-- **CashDrop**: juego inspirado en concursos de preguntas, con gestión de
-  apuestas, avance por rondas y experiencia interactiva en navegador.
+- **Obsidian**: e-commerce full-stack de streetwear con React, TypeScript,
+  Laravel, Sanctum, carrito, wishlist sincronizados, checkout real y despliegue
+  público.
+- **Solar Explorer**: explorador 3D del Sistema Solar con React, TypeScript,
+  Three.js, React Three Fiber, datos astronómicos, cámara interactiva e interfaz
+  responsive.
+- **FamilyTrivia**: trivia web interactiva para grupos, con tablero por
+  categorías, puntuación dinámica y experiencia pensada para compartir en
+  pantalla.
+- **CashDrop**: juego web inspirado en concursos de televisión, con mecánica de
+  apuestas, preguntas por rondas y demo independiente desplegada en
+  `cashdrop.aleixaj.com`.
 
 ## Stack Principal
 
@@ -40,13 +55,18 @@ proyectos desde una idea hasta producción.
 - **React Icons**
 - **EmailJS**
 - **Cloudflare Workers + Assets**
+- **Laravel**, **PHP**, **MySQL**, **.NET**, **Docker** y herramientas de
+  automatización/despliegue presentes en la sección de skills.
 
 ## Secciones Del Portfolio
 
-- **Inicio**: presentación personal, escena 3D interactiva y mensajes dinámicos.
+- **Inicio**: presentación personal, escena 3D interactiva, mensajes dinámicos y
+  CTA hacia proyectos.
 - **Trayectoria**: experiencia laboral y formación académica sin scroll interno.
-- **Proyectos**: tarjetas con logos, descripciones, tecnologías, GitHub y demo.
-- **Skills**: tecnologías agrupadas visualmente con iconos de marca.
+- **Proyectos**: tarjetas con logos adaptados a móvil, descripciones bilingües,
+  tecnologías, GitHub y demo.
+- **Skills**: tecnologías agrupadas por frontend, backend, DevOps y herramientas
+  con iconos de marca.
 - **Arte**: galería personal con modal y navegación por teclado.
 - **Contacto**: formulario conectado con EmailJS y enlaces profesionales.
 
@@ -54,10 +74,10 @@ proyectos desde una idea hasta producción.
 
 ```txt
 src/
-├── consts/          # Datos estáticos: nav, skills, projects, experience, hobbies
+├── consts/          # Datos estáticos: i18n, nav, skills, projects, experience, hobbies
 ├── components/      # Navbar, ProjectCard, TimelineItem, Scene3D, StarBackground
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact
-├── App.jsx          # Navegación entre secciones, scroll y reveal animations
+├── App.jsx          # Navegación, idioma, scroll y reveal animations
 ├── main.jsx
 └── index.css        # Tailwind, animaciones y ajustes responsive
 ```
@@ -120,6 +140,8 @@ quiere activar el formulario.
 
 - `npm run build` verificado antes de publicar.
 - La escena 3D se carga de forma diferida para reducir el JavaScript inicial.
-- Las secciones evitan scroll interno innecesario para mejorar la navegación en
-  dispositivos táctiles.
+- Las secciones y tarjetas se compactan en móvil para evitar cortes visuales y
+  mejorar la navegación táctil.
 - Los proyectos enlazan a demos públicas y repositorios reales.
+- El selector de idioma usa banderas SVG para evitar diferencias de renderizado
+  entre sistemas operativos.

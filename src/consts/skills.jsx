@@ -12,6 +12,7 @@ export const SKILL_CATEGORIES = [
       { label: 'Tailwind',          Icon: SiTailwindcss, color: '#06B6D4' },
       { label: 'Vite',              Icon: SiVite,        color: '#646CFF' },
       { label: 'React Three Fiber', Icon: SiThreedotjs,  color: '#ffffff' },
+      { label: 'Three.js',          Icon: SiThreedotjs,  color: '#ffffff' },
       { label: 'HTML',              Icon: SiHtml5,       color: '#E34F26' },
       { label: 'CSS',               Icon: SiCss,         color: '#1572B6' },
       { label: 'GSAP',              Icon: SiGreensock,   color: '#88CE02' },
