@@ -1,5 +1,5 @@
-import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiGreensock, SiPhp, SiLaravel, SiMysql, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker } from 'react-icons/si'
-import { TbApi } from 'react-icons/tb'
+import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiGreensock, SiPhp, SiLaravel, SiMysql, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude } from 'react-icons/si'
+import { TbApi, TbCursorText } from 'react-icons/tb'
 import { FaJava } from 'react-icons/fa'
 
 export const SKILLS = [
@@ -23,4 +23,9 @@ export const SKILLS = [
   { label: 'Jira',       Icon: SiJira,        color: '#0052CC' },
   { label: 'Salesforce', Icon: SiSalesforce,  color: '#00A1E0' },
   { label: 'Docker',     Icon: SiDocker,      color: '#2496ED' },
+  { label: 'Cloudflare', Icon: SiCloudflareworkers, color: '#F38020' },
+  { label: 'Railway',    Icon: SiRailway,     color: '#ffffff' },
+  { label: 'Stripe',     Icon: SiStripe,      color: '#635BFF' },
+  { label: 'Claude',     Icon: SiClaude,      color: '#D97757' },
+  { label: 'Cursor',     Icon: TbCursorText,  color: '#ffffff' },
 ]

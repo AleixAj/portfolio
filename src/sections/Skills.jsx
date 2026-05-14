@@ -9,7 +9,7 @@ export default function Skills() {
           {SKILLS.map(({ label, Icon, color }, i) => (
             <div key={label} style={{ animationDelay: `${i * 45}ms` }} className="reveal-item bg-white/5 border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-2 md:p-6 rounded-lg md:rounded-2xl text-center transition-all flex flex-col items-center gap-1 md:gap-3">
               <Icon className="w-5 h-5 md:w-[46px] md:h-[46px]" style={{ color }} />
-              <p className="font-semibold text-[0.6rem] md:text-xl leading-tight whitespace-nowrap">{label}</p>
+              <p className="font-semibold text-[0.6rem] md:text-xl leading-tight">{label}</p>
             </div>
           ))}
         </div>
