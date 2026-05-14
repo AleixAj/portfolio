@@ -7,7 +7,7 @@ export default function Trayectoria() {
   const [tab, setTab] = useState(0)
 
   return (
-    <section id="about" className="h-auto md:h-[100dvh] ls:h-auto bg-black/45 flex items-start md:items-center ls:items-start pt-20 md:pt-0 ls:pt-20 pb-12 md:pb-0 ls:pb-12 relative">
+    <section id="about" className="h-auto md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-start md:items-center ls:items-start pt-20 md:pt-0 ls:pt-20 pb-12 md:pb-0 ls:pb-12 relative">
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
         <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-10">Mi trayectoria</h2>
 
@@ -27,7 +27,7 @@ export default function Trayectoria() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 md:h-[500px] ls:h-auto md:overflow-y-auto ls:overflow-visible md:overflow-visible">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
 
           <div className={tab === 1 ? 'hidden md:block' : ''}>
             <div className="hidden md:flex items-center gap-2 mb-4">
