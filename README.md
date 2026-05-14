@@ -1,14 +1,16 @@
 # Aleix Auqué — Portfolio 3D
 
-Portfolio personal con escena 3D interactiva, animaciones y formulario de contacto.
+Portfolio de software developer orientado a empresas: presentación personal,
+escena 3D ligera, proyectos desplegados, trayectoria profesional, stack técnico
+y formulario de contacto.
 
 ## Stack
 
 - **React 19** + **Vite 8**
-- **Three.js** + **React Three Fiber** + **Drei** — escena 3D con modelo GLTF
-- **GSAP** — animaciones
+- **Three.js** + **React Three Fiber** + **Drei** — escena 3D GLB interactiva
 - **Tailwind CSS 3**
 - **EmailJS** — formulario de contacto sin backend
+- **Cloudflare Workers + Assets** — despliegue SPA con Wrangler
 
 ## Estructura del proyecto
 
@@ -48,7 +50,8 @@ VITE_EMAILJS_PUBLIC_KEY=tu_public_key
 ```bash
 npm run dev      # Servidor de desarrollo
 npm run build    # Build de producción
-npm run preview  # Vista previa del build
+npm run preview  # Build + preview con Wrangler
+npm run deploy   # Build + deploy con Wrangler
 npm run lint     # Linting con ESLint
 ```
 
@@ -65,4 +68,23 @@ npm run lint     # Linting con ESLint
 
 ## Despliegue
 
-El proyecto está configurado para desplegarse en cualquier hosting de estáticos. Para Vercel o Netlify basta con conectar el repositorio y añadir las variables de entorno del paso anterior.
+El proyecto está preparado para Cloudflare Workers + Assets:
+
+- build command: `npm run build`
+- deploy command: `npx wrangler deploy`
+- output directory: `dist`
+- SPA fallback: `not_found_handling="single-page-application"`
+
+`wrangler.jsonc` debe incluir `assets.directory="./dist"` para que Wrangler
+sepa qué carpeta publicar después del build.
+
+También puede desplegarse en Vercel/Netlify como SPA estática usando
+`npm run build` y publicando `dist`, siempre añadiendo las variables de
+EmailJS si se quiere activar el formulario.
+
+## Notas de calidad
+
+- Los proyectos enlazan a demos públicas y repositorios reales.
+- La escena 3D se carga de forma diferida para reducir el JavaScript inicial.
+- La galería de arte añade etiquetas accesibles y mantiene navegación por teclado.
+- `npm run lint` y `npm run build` deben pasar antes de publicar.

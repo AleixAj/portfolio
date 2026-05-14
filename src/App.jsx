@@ -1,6 +1,5 @@
 import './index.css'
-import { useRef, useEffect, useState, useCallback } from 'react'
-import StarBackground from './components/StarBackground'
+import { lazy, Suspense, useRef, useEffect, useState, useCallback } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import Trayectoria from './sections/Trayectoria'
@@ -9,6 +8,8 @@ import Skills from './sections/Skills'
 import Hobbies from './sections/Hobbies'
 import Contact from './sections/Contact'
 import { SECTIONS, ROTATING_WORDS } from './consts/nav'
+
+const StarBackground = lazy(() => import('./components/StarBackground'))
 
 function App() {
   const containerRef = useRef(null)
@@ -72,7 +73,9 @@ function App() {
 
   return (
     <div className="bg-black">
-      <StarBackground />
+      <Suspense fallback={<div className="fixed inset-0 z-0 pointer-events-none bg-black" />}>
+        <StarBackground />
+      </Suspense>
 
       {sectionIdx > 0 && (
         <button

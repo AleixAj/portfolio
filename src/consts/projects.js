@@ -8,7 +8,7 @@ export const PROJECTS = [
       { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
       { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
     ],
-    github: 'https://github.com/settings/repositories',
+    github: 'https://github.com/AleixAj/familytrivia',
     demo: 'https://familytrivia.aleixaj.com',
   },
   {
@@ -20,7 +20,7 @@ export const PROJECTS = [
       { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
       { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
     ],
-    github: 'https://github.com/settings/repositories',
+    github: 'https://github.com/AleixAj/familytrivia',
     demo: 'https://familytrivia.aleixaj.com/cashdrop',
   },
 ]

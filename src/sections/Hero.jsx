@@ -1,13 +1,17 @@
-import Scene3D from '../components/Scene3D'
+import { lazy, Suspense } from 'react'
 import { FaLinkedin, FaFileAlt } from 'react-icons/fa'
 import { ROTATING_WORDS } from '../consts/nav'
+
+const Scene3D = lazy(() => import('../components/Scene3D'))
 
 export default function Hero({ wordIdx, goToSection, heroActive }) {
   return (
     <section id="inicio" className="h-[100dvh] relative flex flex-col md:block">
 
       <div className="absolute inset-0">
-        <Scene3D heroActive={heroActive} />
+        <Suspense fallback={<div className="w-full h-full bg-[radial-gradient(circle_at_70%_40%,rgba(34,211,238,0.16),transparent_35%)]" />}>
+          <Scene3D heroActive={heroActive} />
+        </Suspense>
       </div>
 
       {/* Mobile: título arriba */}

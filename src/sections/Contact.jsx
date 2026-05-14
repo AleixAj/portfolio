@@ -12,6 +12,10 @@ function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      setStatus('error')
+      return
+    }
     setStatus('sending')
     try {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)

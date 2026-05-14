@@ -2,15 +2,22 @@ import { Canvas } from '@react-three/fiber'
 import { Stars } from '@react-three/drei'
 import { useMemo } from 'react'
 
-function rnd(min, max) { return Math.random() * (max - min) + min }
+function seededUnit(seed) {
+  const x = Math.sin(seed * 12.9898) * 43758.5453
+  return x - Math.floor(x)
+}
+
+function rnd(seed, min, max) {
+  return seededUnit(seed) * (max - min) + min
+}
 
 function StaticStarField({ count = 6500 }) {
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3)
     for (let i = 0; i < count; i++) {
       const r = 300
-      const theta = Math.random() * Math.PI * 2
-      const phi = Math.acos(2 * Math.random() - 1)
+      const theta = seededUnit(i + 1) * Math.PI * 2
+      const phi = Math.acos(2 * seededUnit(i + 1001) - 1)
       arr[i * 3]     = r * Math.sin(phi) * Math.cos(theta)
       arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
       arr[i * 3 + 2] = r * Math.cos(phi)
@@ -32,13 +39,13 @@ export default function StarBackground() {
   const shootingStars = useMemo(() =>
     Array.from({ length: 7 }, (_, i) => ({
       id: i,
-      top:      rnd(5, 65),
-      left:     rnd(5, 70),
-      width:    rnd(50, 110),
-      angle:    rnd(15, 65),
-      flipX:    Math.random() > 0.5,
-      duration: rnd(8, 16),
-      delay:    rnd(0, 16),
+      top:      rnd(i + 10, 5, 65),
+      left:     rnd(i + 20, 5, 70),
+      width:    rnd(i + 30, 50, 110),
+      angle:    rnd(i + 40, 15, 65),
+      flipX:    seededUnit(i + 50) > 0.5,
+      duration: rnd(i + 60, 8, 16),
+      delay:    rnd(i + 70, 0, 16),
     }))
   , [])
 
