@@ -6,7 +6,7 @@ export const TRANSLATIONS = {
     hero: {
       transform: 'Transformando',
       subtitle: 'en experiencias digitales inolvidables',
-      intro: '¡Hola! Soy Aleix, un apasionado desarrollador de software especializado en crear experiencias digitales interactivas y visualmente impactantes. Con un enfoque en la creatividad y la innovación, me esfuerzo por transformar ideas en proyectos tangibles que cautivan a los usuarios.',
+      intro: 'Soy Aleix, desarrollador de software especializado en crear interfaces modernas, experiencias interactivas y aplicaciones web funcionales. Me gusta combinar código, diseño y detalle visual para convertir ideas en productos cuidados.',
       cta: 'Explorar mis proyectos',
     },
     journey: {
@@ -47,7 +47,7 @@ export const TRANSLATIONS = {
     hero: {
       transform: 'Turning',
       subtitle: 'into unforgettable digital experiences',
-      intro: 'Hi! I am Aleix, a passionate software developer focused on creating interactive and visually engaging digital experiences. With a creative and innovative mindset, I turn ideas into tangible projects that captivate users.',
+      intro: 'I am Aleix, a software developer focused on building modern interfaces, interactive experiences, and functional web applications. I like combining code, design, and visual detail to turn ideas into polished products.',
       cta: 'Explore my projects',
     },
     journey: {

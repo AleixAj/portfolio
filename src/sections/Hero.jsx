@@ -40,7 +40,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
         </p>
         <button
           onClick={() => goToSection('projects')}
-          className="mt-8 ls:mt-3 w-fit px-8 py-2.5 ls:py-2 bg-white text-black font-semibold rounded-2xl text-lg hover:scale-105 transition-transform pointer-events-auto glow-pulse"
+          className="mt-8 ls:mt-3 w-[13.75rem] px-5 py-2.5 ls:py-2 bg-white text-black font-semibold rounded-2xl text-base hover:scale-105 transition-transform pointer-events-auto glow-pulse"
         >
           {t.cta}
         </button>
@@ -72,25 +72,27 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
           <h2 className="text-5xl lg:text-6xl font-bold text-cyan-400 tracking-tight mt-3">
             {t.subtitle}
           </h2>
-          <p className="mt-10 text-3xl text-gray-300">Software Developer</p>
-          <p className="mt-4 text-lg text-gray-300 max-w-[38rem] text-justify">
-            {t.intro}
-          </p>
-          <button
-            onClick={() => goToSection('projects')}
-            className="mt-8 w-fit px-10 py-5 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform pointer-events-auto glow-pulse"
-          >
-            {t.cta}
-          </button>
-          <div className="mt-8 flex gap-4 pointer-events-auto flex-wrap">
-            <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
-              <FaLinkedin className="w-5 h-5" /> LinkedIn
-            </a>
-            <a href="/CV_Aleix_Auque.pdf" download
-              className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
-              <FaFileAlt className="w-5 h-5" /> CV
-            </a>
+          <div className="translate-y-28">
+            <p className="text-3xl text-gray-300">Software Developer</p>
+            <p className="mt-4 text-lg text-gray-300 max-w-[38rem] text-justify">
+              {t.intro}
+            </p>
+            <button
+              onClick={() => goToSection('projects')}
+              className="mt-8 w-[19rem] px-10 py-5 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform pointer-events-auto glow-pulse"
+            >
+              {t.cta}
+            </button>
+            <div className="mt-8 flex gap-4 pointer-events-auto flex-wrap">
+              <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
+                <FaLinkedin className="w-5 h-5" /> LinkedIn
+              </a>
+              <a href="/CV_Aleix_Auque.pdf" download
+                className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
+                <FaFileAlt className="w-5 h-5" /> CV
+              </a>
+            </div>
           </div>
         </div>
       </div>

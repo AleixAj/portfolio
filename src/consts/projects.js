@@ -3,8 +3,8 @@ export const PROJECTS = [
     title: 'FamilyTrivia',
     img: '/FamilyTrivia.png',
     desc: {
-      es: 'Trivia para jugar en familia o amigos hasta 5 equipos: elige categoría y puntos, responde y domina el tablero.',
-      en: 'Trivia game for family or friends with up to 5 teams: choose a category and points, answer, and dominate the board.',
+      es: 'Trivia web interactiva para jugar en grupo, con tablero por categorías, puntuación dinámica y una experiencia rápida para compartir en pantalla.',
+      en: 'Interactive web trivia for group play, with a category board, dynamic scoring, and a fast experience designed for shared screens.',
     },
     tags: [
       { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
@@ -18,24 +18,25 @@ export const PROJECTS = [
     title: 'CashDrop',
     img: '/CashDrop.png',
     desc: {
-      es: '¿Puedes convertir 1.000.000€ en realidad? Apuesta tu dinero, responde y avanza hasta el premio final.',
-      en: 'Can you turn €1,000,000 into reality? Bet your money, answer correctly, and advance toward the final prize.',
+      es: 'Juego web inspirado en concursos de televisión, con mecánica de apuestas, preguntas por rondas y una interfaz pensada para partidas ágiles.',
+      en: 'Web game inspired by TV quiz shows, with betting mechanics, round-based questions, and an interface designed for quick sessions.',
     },
     tags: [
       { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
       { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
       { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
     ],
-    github: 'https://github.com/AleixAj/familytrivia',
-    demo: 'https://familytrivia.aleixaj.com/cashdrop',
+    github: 'https://github.com/AleixAj/cashdrop',
+    demo: 'https://cashdrop.aleixaj.com/',
   },
   {
     title: 'Obsidian',
     img: '/obsidian-transparente.png',
-    imgCls: 'p-5 md:p-8',
+    mobileImg: '/obsidian-logo.png',
+    imgCls: 'p-1 md:p-8',
     desc: {
-      es: 'E-commerce full-stack de urban streetwear: catálogo Laravel, auth con Sanctum, carrito y wishlist sincronizados y checkout real.',
-      en: 'Full-stack urban streetwear e-commerce: Laravel catalog, Sanctum auth, synced cart and wishlist, and real checkout.',
+      es: 'E-commerce full-stack de streetwear con catálogo Laravel, autenticación Sanctum, carrito y wishlist sincronizados y checkout real.',
+      en: 'Full-stack streetwear e-commerce with a Laravel catalog, Sanctum authentication, synced cart and wishlist, and real checkout.',
     },
     tags: [
       { label: 'React',          cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
@@ -51,8 +52,8 @@ export const PROJECTS = [
     title: 'Solar Explorer',
     img: '/solar-system.png',
     desc: {
-      es: 'Sistema Solar 3D interactivo con escena WebGL, planetas seleccionables, paneles informativos e interfaz responsive.',
-      en: 'Interactive 3D Solar System with a WebGL scene, selectable planets, info panels, and a responsive interface.',
+      es: 'Explorador 3D del Sistema Solar con escena WebGL, planetas seleccionables, cámara interactiva, datos astronómicos e interfaz responsive.',
+      en: '3D Solar System explorer with a WebGL scene, selectable planets, interactive camera, astronomical data, and a responsive interface.',
     },
     tags: [
       { label: 'React',       cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },

@@ -77,31 +77,4 @@ body, button {
     padding-bottom: 2.5rem;
   }
 
-  #projects .group {
-    height: 7.5rem !important;
-    overflow: hidden;
-  }
-
-  #projects .group > div:first-of-type {
-    width: 25% !important;
-    flex-shrink: 0;
-  }
-
-  #projects .group h3 {
-    font-size: 0.8rem !important;
-    margin-bottom: 0.1rem !important;
-  }
-
-  #projects .group p {
-    font-size: 0.65rem !important;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  #projects .group .flex.mt-2 {
-    margin-top: 0.25rem !important;
-  }
 }

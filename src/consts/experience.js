@@ -4,8 +4,8 @@ export const EXPERIENCE = [
     role: { es: 'Desarrollador de Software', en: 'Software Developer' },
     period: { es: 'Ago 2025 – Ene 2026', en: 'Aug 2025 – Jan 2026' },
     desc: {
-      es: 'Contrato temporal fullstack por sustitución. Desarrollo de aplicación para gestión de material quirúrgico en PHP y JavaScript.',
-      en: 'Temporary full-stack replacement contract. Developed an application to manage surgical material using PHP and JavaScript.',
+      es: 'Contrato temporal full-stack por sustitución, desarrollando una aplicación interna para gestión de material quirúrgico con PHP y JavaScript.',
+      en: 'Temporary full-stack replacement contract, building an internal application to manage surgical material with PHP and JavaScript.',
     },
   },
   {
@@ -13,8 +13,8 @@ export const EXPERIENCE = [
     role: { es: 'Desarrollador de Software', en: 'Software Developer' },
     period: { es: 'May 2023 – Abr 2025', en: 'May 2023 – Apr 2025' },
     desc: {
-      es: 'Desarrollo de soluciones a medida para distribuidoras de electricidad y gas. Proyecto con framework propio en PHP.',
-      en: 'Developed custom solutions for electricity and gas distributors. Worked on a proprietary PHP framework.',
+      es: 'Desarrollo de soluciones a medida para distribuidoras de electricidad y gas, trabajando sobre un framework propio en PHP y procesos de negocio reales.',
+      en: 'Developed custom solutions for electricity and gas distributors, working on a proprietary PHP framework and real business processes.',
     },
   },
   {
@@ -22,8 +22,8 @@ export const EXPERIENCE = [
     role: { es: 'Release Manager & Desarrollador de Software', en: 'Release Manager & Software Developer' },
     period: { es: 'Nov 2019 – Abr 2023', en: 'Nov 2019 – Apr 2023' },
     desc: {
-      es: 'Nestlé (Dev Jr + RM en Salesforce), CaixaBank (RM en 6+ proyectos con COPADO) y Naturgy (RM en 4+ proyectos internacionales con Bitbucket y Jenkins).',
-      en: 'Nestle (Junior Dev + RM in Salesforce), CaixaBank (RM across 6+ projects with COPADO), and Naturgy (RM across 4+ international projects with Bitbucket and Jenkins).',
+      es: 'Gestión de releases y soporte al desarrollo en entornos corporativos: Salesforce para Nestlé, despliegues con COPADO en CaixaBank y pipelines con Bitbucket/Jenkins en Naturgy.',
+      en: 'Release management and development support in enterprise environments: Salesforce for Nestle, COPADO deployments at CaixaBank, and Bitbucket/Jenkins pipelines at Naturgy.',
     },
   },
   {
@@ -31,8 +31,8 @@ export const EXPERIENCE = [
     role: { es: 'Desarrollador de Software', en: 'Software Developer' },
     period: { es: 'Feb 2018 – Jun 2018', en: 'Feb 2018 – Jun 2018' },
     desc: {
-      es: 'Prácticas de 400h. Mantenimiento y desarrollo de software de gestión de usuarios y base de datos.',
-      en: '400-hour internship. Maintenance and development of user management and database software.',
+      es: 'Prácticas de 400h centradas en mantenimiento y evolución de software de gestión de usuarios y base de datos.',
+      en: '400-hour internship focused on maintaining and evolving user management and database software.',
     },
   },
 ]

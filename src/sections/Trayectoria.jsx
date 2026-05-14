@@ -9,9 +9,9 @@ export default function Trayectoria({ lang, t }) {
   const [tab, setTab] = useState(0)
 
   return (
-    <section id="about" className="h-auto md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-start md:items-center ls:items-start pt-20 md:pt-0 ls:pt-20 pb-12 md:pb-0 ls:pb-12 relative">
+    <section id="about" className="min-h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 md:pt-0 ls:pt-20 pb-8 md:pb-0 ls:pb-12 relative">
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-        <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-10">{t.title}</h2>
+        <h2 className="text-2xl md:text-5xl font-bold mb-2 md:mb-10">{t.title}</h2>
 
         {/* Tabs — solo mobile */}
         <div className="flex md:hidden mb-2 rounded-xl border border-white/10 overflow-hidden">
