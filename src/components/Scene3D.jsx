@@ -34,13 +34,14 @@ function GamingRoom() {
   )
 }
 
-function CameraController({ isDesktop }) {
+function CameraController({ isDesktop, cameraTarget }) {
   const { camera } = useThree()
   useEffect(() => {
-    const [x, y, z] = isDesktop ? [1, 4, 15] : [-1, 3, 18]
+    const [x, y, z] = isDesktop ? [1, 4, 15] : [1, 3, 18]
     camera.position.set(x, y, z)
+    camera.lookAt(...cameraTarget)
     camera.updateProjectionMatrix()
-  }, [camera, isDesktop])
+  }, [camera, cameraTarget, isDesktop])
   return null
 }
 
@@ -56,7 +57,7 @@ function Scene({ orbitTarget, isDesktop }) {
 
   return (
     <>
-      <CameraController isDesktop={isDesktop} />
+      <CameraController isDesktop={isDesktop} cameraTarget={orbitTarget} />
       <ambientLight intensity={0.05} />
       <pointLight position={[-0.2, -0.8, 0.2]}  intensity={1}   color="#4488ff"  distance={4}  decay={0.5} />
       <pointLight position={[0, -0.8,   0.5]}   intensity={1}   color="#ffaa44"  distance={4}  decay={0.5} />
