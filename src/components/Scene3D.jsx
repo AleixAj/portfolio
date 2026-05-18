@@ -1,9 +1,9 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
-import { useRef, Suspense, useEffect, useState } from 'react'
+import { useRef, Suspense, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 
-function GamingRoom() {
+function GamingRoom({ animated = true }) {
   const { scene } = useGLTF('/gaming_bedroom.glb')
   const groupRef = useRef()
   const baseY = useRef(0)
@@ -22,6 +22,7 @@ function GamingRoom() {
   }, [scene])
 
   useFrame((state) => {
+    if (!animated) return
     if (groupRef.current) {
       groupRef.current.position.y = baseY.current + Math.sin(state.clock.elapsedTime * 0.5) * 0.15
     }
@@ -65,7 +66,7 @@ function Scene({ orbitTarget, isDesktop }) {
       <pointLight position={[-3.2,   -1,  3]}   intensity={0}   color="#aabbff"  distance={8}  decay={2} />
 
       <Suspense fallback={null}>
-        <GamingRoom />
+        <GamingRoom animated={isDesktop} />
       </Suspense>
 
       {isDesktop && (
@@ -95,15 +96,17 @@ export default function Scene3D({ heroActive = true }) {
     return () => { window.removeEventListener('resize', update); clearTimeout(t) }
   }, [])
 
-  const orbitTarget = isDesktop ? [-5, 0, 0] : [-2, -1.5, 1]
+  const orbitTarget = useMemo(() => (isDesktop ? [-5, 0, 0] : [-2, -1.5, 1]), [isDesktop])
+  const dpr = isDesktop ? [1, 1.5] : [1, 1]
+  const shouldRenderContinuously = heroActive && isDesktop
 
   return (
     <div className={`w-full h-full ${!isDesktop ? 'pointer-events-none' : ''}`}>
       <Canvas
         camera={{ position: [1, 4, 15], fov: 45 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-        dpr={[1, 1.5]}
-        frameloop={heroActive ? 'always' : 'demand'}
+        gl={{ antialias: isDesktop, alpha: true, powerPreference: 'high-performance' }}
+        dpr={dpr}
+        frameloop={shouldRenderContinuously ? 'always' : 'demand'}
         performance={{ min: 0.5 }}
         style={!isDesktop ? { pointerEvents: 'none', touchAction: 'pan-y' } : undefined}
       >
