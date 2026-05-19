@@ -27,8 +27,9 @@ proyectos desde una idea hasta producción.
 - Presentación clara de experiencia laboral, formación y proyectos con demos
   públicas, repositorios reales y enlaces verificables.
 - Cuidado por UX: navegación por secciones, animaciones sutiles, tarjetas de
-  proyecto consistentes, formularios, estados responsive y adaptación a
-  dispositivos táctiles.
+  proyecto consistentes, formularios, estados responsive, adaptación a
+  dispositivos táctiles y escalado progresivo en pantallas ultra anchas
+  (`2xl` desde 2200px, `3xl` desde 2560px; `1920x1080` mantiene layout estándar).
 - Preparación para producción con **Vite**, **Tailwind CSS**, **EmailJS** y
   despliegue en **Cloudflare Workers + Assets**.
 
@@ -134,7 +135,7 @@ npm run build             # Build de producción
 npm run preview           # Build + preview con Wrangler
 npm run deploy            # Build + deploy con Wrangler
 npm run lint              # Linting con ESLint
-npm run optimize:model    # Comprime gaming_bedroom.glb con meshopt + WebP
+npm run optimize:model    # Requiere @gltf-transform/cli; comprime el .glb con meshopt + WebP
 npm run optimize:images   # Convierte PNGs a WebP y genera thumbnails
 ```
 
@@ -175,9 +176,14 @@ Otras optimizaciones aplicadas:
 - **Chunks separados** (Vite `manualChunks`): React, Three.js y EmailJS viajan en
   bundles independientes para mejor caché entre despliegues.
 - **Lazy loading** de la escena 3D y del fondo de estrellas (`React.lazy`).
-- **Preload** del modelo `.glb` con `fetchpriority="high"`; preconnect a fuentes
-  y EmailJS.
+- **Modelo 3D** comprimido con meshopt + texturas WebP (~3 MB); preload en
+  `index.html` y `useGLTF.preload`.
+- **Fondo de estrellas** en `frameloop="demand"` (render estático; animación en CSS).
+- **Preconnect** a Google Fonts y EmailJS.
 - **Galería**: thumbnails de ~5 KB para la grilla y archivo completo solo en el
-  modal activo, con `fetchpriority` adaptativo.
-- **Móvil**: sin antialias en WebGL, DPR fijo a 1, sin animación flotante del
-  modelo, `frameloop="demand"` cuando el hero no está visible.
+  modal activo, con `fetchPriority` adaptativo.
+- **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor`, animación
+  flotante pausada al arrastrar con OrbitControls; en móvil sin controles 3D y
+  `frameloop="demand"` cuando el hero no está visible.
+
+El código fuente incluye comentarios en inglés orientados a revisión técnica en GitHub.
