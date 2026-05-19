@@ -1,16 +1,18 @@
 /**
  * Hero 3D scene: gaming bedroom (GLB) with React Three Fiber.
  *
- * Performance optimizations:
- * - Model compressed with meshopt + WebP textures (~3 MB, 85% smaller)
- * - Preloaded via useGLTF.preload (also in index.html)
- * - Lazy import from Hero.jsx (separate Three.js chunk)
- * - Draco decoder disabled (not needed for meshopt-only files)
- * - Mobile: no antialiasing, DPR 1, no floating animation or OrbitControls
- * - frameloop="demand" when hero is inactive or on mobile
+ * Quality / performance balance:
+ * - Model: meshopt-compressed + WebP textures (~3 MB, 85% smaller than raw GLB).
+ * - DPR: device pixel ratio capped at 2 (mobile) / 1.5 (desktop). Adaptive via
+ *   PerformanceMonitor — drops automatically if FPS falls below ~45.
+ * - Antialiasing enabled everywhere; the DPR caps keep the pixel budget sane.
+ * - Floating animation only runs when the user is not actively orbiting,
+ *   so dragging feels immediate and never fights the idle motion.
+ * - Mobile has no OrbitControls so page scroll wins, and frameloop is
+ *   "demand" (renders only on resize / state change).
  */
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import { OrbitControls, PerformanceMonitor, useGLTF } from '@react-three/drei'
 import { useRef, Suspense, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 
@@ -20,8 +22,8 @@ const MODEL_URL = '/gaming_bedroom.glb'
 const USE_DRACO = false
 const USE_MESHOPT = true
 
-/** Loads the GLB model and auto-centers/scales it from its bounding box */
-function GamingRoom({ animated = true }) {
+/** Loads the GLB and auto-centers/scales it from its bounding box. */
+function GamingRoom({ floatingRef }) {
   const { scene } = useGLTF(MODEL_URL, USE_DRACO, USE_MESHOPT)
   const groupRef = useRef()
   const baseY = useRef(0)
@@ -39,11 +41,11 @@ function GamingRoom({ animated = true }) {
     groupRef.current.rotation.y = -0.6
   }, [scene])
 
+  // Pause the idle float while the user is orbiting (kept in floatingRef.current === false)
   useFrame((state) => {
-    if (!animated) return
-    if (groupRef.current) {
-      groupRef.current.position.y = baseY.current + Math.sin(state.clock.elapsedTime * 0.5) * 0.15
-    }
+    if (!groupRef.current) return
+    if (floatingRef && floatingRef.current === false) return
+    groupRef.current.position.y = baseY.current + Math.sin(state.clock.elapsedTime * 0.5) * 0.15
   })
 
   return (
@@ -53,7 +55,7 @@ function GamingRoom({ animated = true }) {
   )
 }
 
-/** Adjusts camera based on breakpoint (desktop vs mobile) */
+/** Adjusts the camera based on the breakpoint (desktop vs mobile). */
 function CameraController({ isDesktop, cameraTarget }) {
   const { camera } = useThree()
   useEffect(() => {
@@ -65,7 +67,7 @@ function CameraController({ isDesktop, cameraTarget }) {
   return null
 }
 
-function Scene({ orbitTarget, isDesktop }) {
+function Scene({ orbitTarget, isDesktop, floatingRef }) {
   const controlsRef = useRef()
 
   useEffect(() => {
@@ -79,58 +81,79 @@ function Scene({ orbitTarget, isDesktop }) {
     <>
       <CameraController isDesktop={isDesktop} cameraTarget={orbitTarget} />
       <ambientLight intensity={0.05} />
-      <pointLight position={[-0.2, -0.8, 0.2]}  intensity={1}   color="#4488ff"  distance={4}  decay={0.5} />
-      <pointLight position={[0, -0.8,   0.5]}   intensity={1}   color="#ffaa44"  distance={4}  decay={0.5} />
-      <pointLight position={[-4.4,   1, 1]}     intensity={2}   color="#22d3ee"  distance={4}  decay={1} />
-      <pointLight position={[-3.2,   -1,  3]}   intensity={0}   color="#aabbff"  distance={8}  decay={2} />
+      <pointLight position={[-0.2, -0.8, 0.2]} intensity={1} color="#4488ff" distance={4} decay={0.5} />
+      <pointLight position={[0, -0.8, 0.5]}    intensity={1} color="#ffaa44" distance={4} decay={0.5} />
+      <pointLight position={[-4.4, 1, 1]}      intensity={2} color="#22d3ee" distance={4} decay={1} />
 
       <Suspense fallback={null}>
-        <GamingRoom animated={isDesktop} />
+        <GamingRoom floatingRef={floatingRef} />
       </Suspense>
 
-      {/* OrbitControls on desktop only — page scroll takes priority on mobile */}
+      {/* OrbitControls only on desktop — on mobile, page scroll wins. */}
       {isDesktop && (
         <OrbitControls
           ref={controlsRef}
           target={orbitTarget}
           enableZoom={false}
           enablePan={false}
-          enableDamping={true}
-          dampingFactor={0.05}
+          enableDamping
+          dampingFactor={0.15}
+          rotateSpeed={0.9}
+          onStart={() => { if (floatingRef) floatingRef.current = false }}
+          onEnd={() => { if (floatingRef) floatingRef.current = true }}
         />
       )}
     </>
   )
 }
 
+/** Caps to a sensible DPR for the device class. */
+function getInitialDpr(isDesktop) {
+  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
+  // Mobile screens are small in pixel count even at DPR 3, so we can afford 2x.
+  // Desktop monitors can be 4K, so cap at 1.5x.
+  return Math.min(dpr, isDesktop ? 1.5 : 2)
+}
+
 export default function Scene3D({ heroActive = true }) {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024)
+  const [dpr, setDpr] = useState(() => getInitialDpr(window.innerWidth >= 1024))
+  const floatingRef = useRef(true)
 
   useEffect(() => {
     let t
     const update = () => {
       clearTimeout(t)
-      t = setTimeout(() => setIsDesktop(window.innerWidth >= 1024), 100)
+      t = setTimeout(() => {
+        const next = window.innerWidth >= 1024
+        setIsDesktop(next)
+        setDpr(getInitialDpr(next))
+      }, 100)
     }
     window.addEventListener('resize', update)
     return () => { window.removeEventListener('resize', update); clearTimeout(t) }
   }, [])
 
   const orbitTarget = useMemo(() => (isDesktop ? [-5, 0, 0] : [-2, -1.5, 1]), [isDesktop])
-  const dpr = isDesktop ? [1, 1.5] : [1, 1]
   const shouldRenderContinuously = heroActive && isDesktop
 
   return (
     <div className={`w-full h-full ${!isDesktop ? 'pointer-events-none' : ''}`}>
       <Canvas
         camera={{ position: [1, 4, 15], fov: 45 }}
-        gl={{ antialias: isDesktop, alpha: true, powerPreference: 'high-performance' }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false }}
         dpr={dpr}
         frameloop={shouldRenderContinuously ? 'always' : 'demand'}
-        performance={{ min: 0.5 }}
         style={!isDesktop ? { pointerEvents: 'none', touchAction: 'pan-y' } : undefined}
       >
-        <Scene orbitTarget={orbitTarget} isDesktop={isDesktop} />
+        {/* Adaptive DPR: drops if FPS falls under ~45, recovers when stable. */}
+        <PerformanceMonitor
+          onDecline={() => setDpr(d => Math.max(1, +(d - 0.25).toFixed(2)))}
+          onIncline={() => setDpr(() => getInitialDpr(isDesktop))}
+          flipflops={3}
+          factor={1}
+        />
+        <Scene orbitTarget={orbitTarget} isDesktop={isDesktop} floatingRef={floatingRef} />
       </Canvas>
     </div>
   )

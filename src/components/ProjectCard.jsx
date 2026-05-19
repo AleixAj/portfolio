@@ -19,7 +19,7 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
             alt={title}
             loading="lazy"
             decoding="async"
-            fetchpriority="low"
+            fetchPriority="low"
             className={`w-full h-full object-contain md:h-20 lg:h-24 md:w-auto group-hover:scale-105 transition-transform duration-300 ${imgCls ?? 'p-2 md:p-0'}`}
           />
         </picture>

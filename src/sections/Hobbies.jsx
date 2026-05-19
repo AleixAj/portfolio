@@ -55,7 +55,7 @@ export default function Hobbies({ t }) {
                 alt={photo.caption || `${t.drawing} ${i + 1}`}
                 loading="lazy"
                 decoding="async"
-                fetchpriority="low"
+                fetchPriority="low"
                 width="320"
                 height="320"
                 className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
@@ -93,7 +93,7 @@ export default function Hobbies({ t }) {
                     src={photo.src}
                     alt={photo.caption || `${t.drawing} ${i + 1}`}
                     decoding="async"
-                    fetchpriority={isActive ? 'high' : 'low'}
+                    fetchPriority={isActive ? 'high' : 'low'}
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
                     style={{ opacity: isActive ? 1 : 0 }}
                   />
