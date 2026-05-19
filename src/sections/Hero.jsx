@@ -62,7 +62,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:flex absolute inset-0 z-10 items-center px-6 lg:pl-64 pointer-events-none">
+      <div className="hidden md:flex absolute inset-0 z-10 items-center px-6 lg:pl-[22rem] xl:pl-[26rem] 2xl:pl-[34rem] pointer-events-none">
         <div className="flex flex-col justify-center text-white max-w-lg lg:max-w-none">
           <h1 className="text-6xl lg:text-7xl font-bold tracking-tighter leading-none">
             {t.transform}{' '}
