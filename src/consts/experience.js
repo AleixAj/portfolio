@@ -1,3 +1,7 @@
+/**
+ * Work experience and education data.
+ * Bilingual fields as { es, en } for role, period, and desc.
+ */
 export const EXPERIENCE = [
   {
     company: 'Grup Romeu',

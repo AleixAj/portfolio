@@ -73,6 +73,8 @@ proyectos desde una idea hasta producción.
 ## Estructura
 
 ```txt
+public/              # Assets estáticos (imágenes WebP, GLB, CV, galería hobbies/)
+scripts/             # Pipeline de optimización de imágenes (sharp)
 src/
 ├── consts/          # Datos estáticos: i18n, nav, skills, projects, experience, hobbies
 ├── components/      # Navbar, ProjectCard, TimelineItem, Scene3D, StarBackground
@@ -80,7 +82,18 @@ src/
 ├── App.jsx          # Navegación, idioma, scroll y reveal animations
 ├── main.jsx
 └── index.css        # Tailwind, animaciones y ajustes responsive
+.env.example         # Plantilla de variables EmailJS (copiar a .env.local)
 ```
+
+### Assets requeridos en `public/`
+
+| Archivo | Uso |
+|---------|-----|
+| `gaming_bedroom.glb` | Modelo 3D del hero |
+| `AJ.png` | Logo y favicon |
+| `cv-aleix-en.pdf` | Descarga del CV (Hero y Contact) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-*.webp`, `solar-system.webp` | Tarjetas de proyectos |
+| `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local
 
@@ -116,11 +129,13 @@ VITE_EMAILJS_PUBLIC_KEY=tu_public_key
 ## Scripts
 
 ```bash
-npm run dev      # Servidor de desarrollo
-npm run build    # Build de producción
-npm run preview  # Build + preview con Wrangler
-npm run deploy   # Build + deploy con Wrangler
-npm run lint     # Linting con ESLint
+npm run dev               # Servidor de desarrollo
+npm run build             # Build de producción
+npm run preview           # Build + preview con Wrangler
+npm run deploy            # Build + deploy con Wrangler
+npm run lint              # Linting con ESLint
+npm run optimize:model    # Comprime gaming_bedroom.glb con meshopt + WebP
+npm run optimize:images   # Convierte PNGs a WebP y genera thumbnails
 ```
 
 ## Despliegue
@@ -145,3 +160,24 @@ quiere activar el formulario.
 - Los proyectos enlazan a demos públicas y repositorios reales.
 - El selector de idioma usa banderas SVG para evitar diferencias de renderizado
   entre sistemas operativos.
+
+## Rendimiento
+
+Pipeline de optimización de assets reproducible:
+
+```bash
+npm run optimize:model    # comprime el .glb con meshopt + texturas WebP (~85% menos)
+npm run optimize:images   # convierte PNGs a WebP y genera thumbnails para la galería
+```
+
+Otras optimizaciones aplicadas:
+
+- **Chunks separados** (Vite `manualChunks`): React, Three.js y EmailJS viajan en
+  bundles independientes para mejor caché entre despliegues.
+- **Lazy loading** de la escena 3D y del fondo de estrellas (`React.lazy`).
+- **Preload** del modelo `.glb` con `fetchpriority="high"`; preconnect a fuentes
+  y EmailJS.
+- **Galería**: thumbnails de ~5 KB para la grilla y archivo completo solo en el
+  modal activo, con `fetchpriority` adaptativo.
+- **Móvil**: sin antialias en WebGL, DPR fijo a 1, sin animación flotante del
+  modelo, `frameloop="demand"` cuando el hero no está visible.

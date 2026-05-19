@@ -1,3 +1,7 @@
+/**
+ * Single timeline entry (work experience or education).
+ * Supports left alignment (experience) or right alignment (education on desktop).
+ */
 import { memo } from 'react'
 
 const TimelineItem = memo(function TimelineItem({ title, subtitle, period, desc, right }) {

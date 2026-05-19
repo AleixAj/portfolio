@@ -1,3 +1,8 @@
+/**
+ * Reusable project card.
+ * Memoized to avoid re-renders when language changes in other sections.
+ * Mobile: compact horizontal layout; desktop: vertical with description.
+ */
 import { memo } from 'react'
 import { FaGithub } from 'react-icons/fa'
 
@@ -9,7 +14,14 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
       <div className="w-20 flex-shrink-0 md:w-auto md:h-32 lg:h-36 bg-black/40 flex items-center justify-center overflow-hidden self-stretch">
         <picture className="w-full h-full flex items-center justify-center">
           {mobileImg && <source media="(max-width: 767px)" srcSet={mobileImg} />}
-          <img src={img} alt={title} className={`w-full h-full object-contain md:h-20 lg:h-24 md:w-auto group-hover:scale-105 transition-transform duration-300 ${imgCls ?? 'p-2 md:p-0'}`} />
+          <img
+            src={img}
+            alt={title}
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+            className={`w-full h-full object-contain md:h-20 lg:h-24 md:w-auto group-hover:scale-105 transition-transform duration-300 ${imgCls ?? 'p-2 md:p-0'}`}
+          />
         </picture>
       </div>
 

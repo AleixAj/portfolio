@@ -1,3 +1,6 @@
+/**
+ * Tech stack grouped by category (frontend, backend, DevOps, tools).
+ */
 import { SKILL_CATEGORIES } from '../consts/skills'
 
 export default function Skills({ lang }) {

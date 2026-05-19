@@ -1,3 +1,7 @@
+/**
+ * Contact form (EmailJS) and footer with professional links.
+ * Requires VITE_EMAILJS_* variables in .env.local for production.
+ */
 import { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { FaLinkedin, FaEnvelope, FaGithub, FaFileAlt } from 'react-icons/fa'
@@ -8,7 +12,7 @@ const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 function ContactForm({ t }) {
   const formRef = useRef(null)
-  const [status, setStatus] = useState('idle')
+  const [status, setStatus] = useState('idle') // idle | sending | success | error
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -87,7 +91,7 @@ function Footer({ t }) {
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaGithub className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href="/CV_Aleix_Auque.pdf" download
+            <a href="/cv-aleix-en.pdf" download
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaFileAlt className="w-4 h-4 md:w-5 md:h-5" />
             </a>

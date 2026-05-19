@@ -1,3 +1,12 @@
+/**
+ * Root portfolio component.
+ *
+ * Responsibilities:
+ * - Global language state (ES/EN) persisted in localStorage
+ * - Section navigation with smooth scroll and active section detection
+ * - Reveal animations when switching sections
+ * - Lazy-loaded star background to reduce initial bundle size
+ */
 import './index.css'
 import { lazy, Suspense, useRef, useEffect, useState, useCallback } from 'react'
 import Navbar from './components/Navbar'
@@ -10,24 +19,27 @@ import Contact from './sections/Contact'
 import { SECTIONS, ROTATING_WORDS } from './consts/nav'
 import { TRANSLATIONS } from './consts/i18n'
 
+// Three.js loads only when the page is viewed (separate chunk)
 const StarBackground = lazy(() => import('./components/StarBackground'))
 
 function App() {
   const containerRef = useRef(null)
-  const currentIdx = useRef(0)
-  const isScrolling = useRef(false)
+  const isScrolling = useRef(false) // Prevents conflicts between programmatic scroll and manual detection
   const [menuOpen, setMenuOpen] = useState(false)
   const [wordIdx, setWordIdx] = useState(0)
   const [sectionIdx, setSectionIdx] = useState(0)
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'es')
+
   const t = TRANSLATIONS[lang]
   const words = ROTATING_WORDS[lang]
 
+  // Rotating hero words ("ideas", "projects", etc.)
   useEffect(() => {
     const interval = setInterval(() => setWordIdx(i => (i + 1) % words.length), 2500)
     return () => clearInterval(interval)
   }, [words.length])
 
+  // Sync language with DOM and localStorage on change
   useEffect(() => {
     localStorage.setItem('lang', lang)
     document.documentElement.lang = lang
@@ -40,7 +52,7 @@ function App() {
     if (idx === -1) return
     const el = document.getElementById(id)
     if (!el || !containerRef.current) return
-    currentIdx.current = idx
+
     setSectionIdx(idx)
     isScrolling.current = true
     containerRef.current.scrollTo({ top: el.offsetTop, behavior: 'smooth' })
@@ -48,11 +60,14 @@ function App() {
     setMenuOpen(false)
   }, [])
 
+  // Detect visible section from scroll position (throttled with rAF)
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
+
     let ticking = false
     const offsets = SECTIONS.map(id => document.getElementById(id)?.offsetTop ?? 0)
+
     const onScroll = () => {
       if (isScrolling.current || ticking) return
       ticking = true
@@ -64,15 +79,16 @@ function App() {
           const dist = Math.abs(top - scrollTop)
           if (dist < minDist) { minDist = dist; closest = i }
         })
-        currentIdx.current = closest
         setSectionIdx(closest)
         ticking = false
       })
     }
+
     container.addEventListener('scroll', onScroll, { passive: true })
     return () => container.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Trigger reveal animations for the current section's elements
   useEffect(() => {
     const section = document.getElementById(SECTIONS[sectionIdx])
     if (!section) return
@@ -87,6 +103,7 @@ function App() {
         <StarBackground />
       </Suspense>
 
+      {/* Section navigation arrows (hidden on mobile landscape via CSS) */}
       {sectionIdx > 0 && (
         <button
           onClick={() => goToSection(SECTIONS[sectionIdx - 1])}

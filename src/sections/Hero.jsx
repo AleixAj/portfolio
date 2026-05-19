@@ -1,6 +1,11 @@
+/**
+ * Home section: personal intro + interactive 3D scene.
+ * Different layout on mobile (title top, CTA bottom) vs desktop (side content).
+ */
 import { lazy, Suspense } from 'react'
 import { FaLinkedin, FaFileAlt } from 'react-icons/fa'
 
+// Three.js in a separate chunk; does not block initial React load
 const Scene3D = lazy(() => import('../components/Scene3D'))
 
 export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
@@ -13,7 +18,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
         </Suspense>
       </div>
 
-      {/* Mobile: título arriba */}
+      {/* Mobile: title at top */}
       <div className="md:hidden flex-shrink-0 pt-24 ls:pt-12 px-8 pb-20 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
         <h1 className="text-[7vw] font-bold tracking-tighter leading-none">
           {t.transform}{' '}
@@ -32,7 +37,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
 
       <div className="md:hidden flex-1" />
 
-      {/* Mobile: contenido abajo */}
+      {/* Mobile: content at bottom */}
       <div className="md:hidden flex-shrink-0 px-8 pt-20 ls:pt-8 pb-32 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
         <p className="text-xl text-gray-300">Software Developer</p>
         <p className="mt-3 ls:hidden text-sm text-gray-300 w-full text-justify">
@@ -49,7 +54,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
             className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
             <FaLinkedin className="w-3.5 h-3.5" /> LinkedIn
           </a>
-          <a href="/CV_Aleix_Auque.pdf" download
+          <a href="/cv-aleix-en.pdf" download
             className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
             <FaFileAlt className="w-3.5 h-3.5" /> CV
           </a>
@@ -88,7 +93,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
                 className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
                 <FaLinkedin className="w-5 h-5" /> LinkedIn
               </a>
-              <a href="/CV_Aleix_Auque.pdf" download
+              <a href="/cv-aleix-en.pdf" download
                 className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
                 <FaFileAlt className="w-5 h-5" /> CV
               </a>

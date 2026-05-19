@@ -1,12 +1,14 @@
+/**
+ * Global portfolio styles.
+ * - Tailwind utility base
+ * - Reusable animations (glow, reveal, shooting stars)
+ * - Media queries for mobile landscape (ls:) and hero 3D touch adjustments
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body, button {
-  font-family: 'Exo 2', sans-serif;
-}
-
-.font-tech {
   font-family: 'Exo 2', sans-serif;
 }
 
@@ -45,12 +47,12 @@ body, button {
 }
 
 @media (orientation: landscape) and (max-width: 1023px) {
-  /* Ocultar flechas de navegación */
+  /* Hide section navigation arrows */
   .nav-section-arrow {
     display: none !important;
   }
 
-  /* Desactivar interacción táctil con el modelo 3D */
+  /* Disable touch interaction with the 3D model */
   #inicio > div:first-child {
     pointer-events: none !important;
   }

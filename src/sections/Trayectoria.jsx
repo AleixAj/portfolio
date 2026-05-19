@@ -1,8 +1,13 @@
+/**
+ * Professional journey: work experience and education.
+ * Mobile uses tabs; desktop shows both columns side by side.
+ */
 import { useState } from 'react'
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import TimelineItem from '../components/TimelineItem'
 
+/** Resolves bilingual fields { es, en } or returns the value as-is */
 const localize = (value, lang) => typeof value === 'object' ? value[lang] : value
 
 export default function Trayectoria({ lang, t }) {
@@ -13,7 +18,7 @@ export default function Trayectoria({ lang, t }) {
       <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
         <h2 className="text-2xl md:text-5xl font-bold mb-2 md:mb-10">{t.title}</h2>
 
-        {/* Tabs — solo mobile */}
+        {/* Tabs — mobile only */}
         <div className="flex md:hidden mb-2 rounded-xl border border-white/10 overflow-hidden">
           <button
             onClick={() => setTab(0)}

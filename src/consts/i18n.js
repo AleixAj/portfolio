@@ -1,3 +1,7 @@
+/**
+ * UI copy in Spanish and English.
+ * Data-driven pattern: sections receive only the sub-object they need (t.hero, t.contact…).
+ */
 export const TRANSLATIONS = {
   es: {
     navMenu: 'Menú',

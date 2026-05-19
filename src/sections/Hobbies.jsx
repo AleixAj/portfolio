@@ -1,5 +1,20 @@
+/**
+ * Pencil drawing gallery with fullscreen modal.
+ *
+ * Performance strategy:
+ * - Grid uses pre-generated thumbnails (~5 KB each instead of ~150 KB)
+ * - Modal blur background uses the same thumbnail (it's heavily blurred anyway)
+ * - Only the active modal slide loads the full-resolution image; previous/next
+ *   are preloaded for instant transitions
+ * - All grid thumbnails get loading="lazy" + decoding="async"
+ *
+ * Keyboard navigation: ← → Escape
+ */
 import { useCallback, useState, useEffect } from 'react'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
+
+/** Derives the thumbnail path from a full-size photo path. */
+const toThumb = (src) => src.replace(/\.webp$/i, '-thumb.webp')
 
 export default function Hobbies({ t }) {
   const [modalOpen, setModalOpen] = useState(false)
@@ -36,10 +51,13 @@ export default function Hobbies({ t }) {
               className="reveal-item aspect-square overflow-hidden rounded-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105 transition-all duration-200 bg-white/5"
             >
               <img
-                src={photo.src}
+                src={toThumb(photo.src)}
                 alt={photo.caption || `${t.drawing} ${i + 1}`}
                 loading="lazy"
                 decoding="async"
+                fetchpriority="low"
+                width="320"
+                height="320"
                 className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
                 onLoad={e => e.currentTarget.classList.replace('opacity-0', 'opacity-100')}
               />
@@ -55,23 +73,27 @@ export default function Hobbies({ t }) {
             <button onClick={close} className="absolute -top-10 right-0 text-white/60 hover:text-white text-2xl transition-colors" aria-label={t.closeGallery}>✕</button>
 
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-black h-[50vh] md:h-[65vh] lg:h-[78vh] relative">
+              {/* Blurred background — uses the lightweight thumbnail (still looks good blurred) */}
+              <img
+                key={`bg-${current}`}
+                src={toThumb(HOBBIES_PHOTOS[current].src)}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover scale-110 transition-opacity duration-300"
+                style={{ filter: 'blur(18px) brightness(0.35)' }}
+              />
+              {/* Foreground full-size slides: render current + neighbors for smooth transitions */}
               {[-1, 0, 1].map(offset => {
                 const i = (current + offset + total) % total
                 const photo = HOBBIES_PHOTOS[i]
                 const isActive = offset === 0
                 return (
-                  <img key={`bg-${i}`} src={photo.src} alt="" aria-hidden="true"
-                    className="absolute inset-0 w-full h-full object-cover scale-110 transition-opacity duration-300"
-                    style={{ opacity: isActive ? 1 : 0, filter: 'blur(18px) brightness(0.35)' }}
-                  />
-                )
-              })}
-              {[-1, 0, 1].map(offset => {
-                const i = (current + offset + total) % total
-                const photo = HOBBIES_PHOTOS[i]
-                const isActive = offset === 0
-                return (
-                  <img key={`fg-${i}`} src={photo.src} alt={photo.caption || `${t.drawing} ${i + 1}`}
+                  <img
+                    key={`fg-${i}`}
+                    src={photo.src}
+                    alt={photo.caption || `${t.drawing} ${i + 1}`}
+                    decoding="async"
+                    fetchpriority={isActive ? 'high' : 'low'}
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
                     style={{ opacity: isActive ? 1 : 0 }}
                   />

@@ -1,10 +1,28 @@
+/**
+ * Hero 3D scene: gaming bedroom (GLB) with React Three Fiber.
+ *
+ * Performance optimizations:
+ * - Model compressed with meshopt + WebP textures (~3 MB, 85% smaller)
+ * - Preloaded via useGLTF.preload (also in index.html)
+ * - Lazy import from Hero.jsx (separate Three.js chunk)
+ * - Draco decoder disabled (not needed for meshopt-only files)
+ * - Mobile: no antialiasing, DPR 1, no floating animation or OrbitControls
+ * - frameloop="demand" when hero is inactive or on mobile
+ */
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import { useRef, Suspense, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 
+const MODEL_URL = '/gaming_bedroom.glb'
+// Drei's useGLTF: (path, useDraco, useMeshOpt, extendLoader)
+// We compress with meshopt only, so we skip the Draco decoder fetch.
+const USE_DRACO = false
+const USE_MESHOPT = true
+
+/** Loads the GLB model and auto-centers/scales it from its bounding box */
 function GamingRoom({ animated = true }) {
-  const { scene } = useGLTF('/gaming_bedroom.glb')
+  const { scene } = useGLTF(MODEL_URL, USE_DRACO, USE_MESHOPT)
   const groupRef = useRef()
   const baseY = useRef(0)
 
@@ -35,6 +53,7 @@ function GamingRoom({ animated = true }) {
   )
 }
 
+/** Adjusts camera based on breakpoint (desktop vs mobile) */
 function CameraController({ isDesktop, cameraTarget }) {
   const { camera } = useThree()
   useEffect(() => {
@@ -69,6 +88,7 @@ function Scene({ orbitTarget, isDesktop }) {
         <GamingRoom animated={isDesktop} />
       </Suspense>
 
+      {/* OrbitControls on desktop only — page scroll takes priority on mobile */}
       {isDesktop && (
         <OrbitControls
           ref={controlsRef}
@@ -116,4 +136,4 @@ export default function Scene3D({ heroActive = true }) {
   )
 }
 
-useGLTF.preload('/gaming_bedroom.glb')
+useGLTF.preload(MODEL_URL, USE_DRACO, USE_MESHOPT)

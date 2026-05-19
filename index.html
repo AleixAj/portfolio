@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO primario -->
+    <!-- Primary SEO -->
     <title>Aleix Auqué · Software Developer</title>
     <meta name="description" content="Portfolio de Aleix Auqué, desarrollador de software especializado en experiencias digitales interactivas con React, Three.js y tecnologías web modernas." />
     <meta name="author" content="Aleix Auqué" />
@@ -26,10 +26,15 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/AJ.png" />
 
-    <!-- 3D model: start fetching before React mounts the scene -->
-    <link rel="preload" href="/gaming_bedroom.glb" as="fetch" type="model/gltf-binary" crossorigin />
+    <!-- Speed up font and third-party connections -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.emailjs.com" />
 
-    <!-- Fuente -->
+    <!-- Preload hero 3D model before React mounts the scene -->
+    <link rel="preload" href="/gaming_bedroom.glb" as="fetch" type="model/gltf-binary" crossorigin fetchpriority="high" />
+
+    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body style="font-family: 'Exo 2', sans-serif;">

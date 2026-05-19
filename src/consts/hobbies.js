@@ -1,3 +1,4 @@
+/** Art gallery image paths (pencil drawings in WebP) */
 export const HOBBIES_PHOTOS = [
   { src: '/hobbies/01.webp',  caption: '' },
   { src: '/hobbies/02.webp',  caption: '' },

@@ -1,3 +1,13 @@
+/**
+ * Animated star background for the full page.
+ *
+ * Hybrid strategy to balance visual impact and performance:
+ * - Static field of 6500 points (no per-frame animation)
+ * - Drei <Stars> layer with ~1500 animated stars
+ * - Shooting stars in CSS (no extra WebGL cost)
+ *
+ * Uses seeded PRNG for deterministic positions across reloads.
+ */
 import { Canvas } from '@react-three/fiber'
 import { Stars } from '@react-three/drei'
 import { useMemo } from 'react'
@@ -52,9 +62,7 @@ export default function StarBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas style={{ pointerEvents: 'none' }} camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
-        {/* 6500 estrellas estáticas — sin animación, coste mínimo */}
         <StaticStarField count={6500} />
-        {/* ~20% animadas con rotación suave */}
         <Stars radius={300} depth={60} count={1500} factor={7} saturation={0} fade />
       </Canvas>
 

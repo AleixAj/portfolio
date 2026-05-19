@@ -1,3 +1,8 @@
+/**
+ * Fixed navigation bar with ES/EN support.
+ * - Desktop: logo + horizontal links + language switcher
+ * - Mobile: hamburger menu + compact SVG flag switcher
+ */
 import { NAV_ITEMS } from '../consts/nav'
 
 function SpainFlag({ compact = false }) {
@@ -60,6 +65,7 @@ function LanguageSwitcher({ lang, setLang, setMenuOpen, compact = false }) {
 export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLang, t }) {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-cyan-500/30">
+      {/* Desktop layout */}
       <div className="hidden md:flex w-full px-6 lg:px-0 py-4 lg:py-5 items-center">
         <button onClick={() => goToSection('inicio')} className="lg:pl-10 xl:pl-16 2xl:pl-24 flex items-center gap-3 lg:gap-4 cursor-pointer min-w-0">
           <img src="/AJ.png" alt="AJ Logo" className="h-8 lg:h-10 xl:h-11 w-auto object-contain flex-shrink-0" />
@@ -76,6 +82,7 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
         </div>
       </div>
 
+      {/* Mobile layout */}
       <div className="md:hidden w-full px-5 py-4 flex items-center gap-3">
         <button
           className="flex flex-col justify-center gap-1.5 p-2"

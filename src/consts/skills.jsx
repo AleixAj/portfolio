@@ -1,3 +1,7 @@
+/**
+ * Tech stack with react-icons.
+ * Grouped by category to render the Skills section without extra logic.
+ */
 import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot } from 'react-icons/si'
 import { TbApi, TbCursorText, TbPhotoEdit } from 'react-icons/tb'
 import { FaJava } from 'react-icons/fa'

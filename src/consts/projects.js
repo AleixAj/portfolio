@@ -1,7 +1,11 @@
+/**
+ * Featured portfolio projects.
+ * Each entry defines image, bilingual description, tags, repo, and live demo.
+ */
 export const PROJECTS = [
   {
     title: 'FamilyTrivia',
-    img: '/FamilyTrivia.png',
+    img: '/FamilyTrivia.webp',
     desc: {
       es: 'Trivia web interactiva para jugar en grupo, con tablero por categorías, puntuación dinámica y una experiencia rápida para compartir en pantalla.',
       en: 'Interactive web trivia for group play, with a category board, dynamic scoring, and a fast experience designed for shared screens.',
@@ -16,7 +20,7 @@ export const PROJECTS = [
   },
   {
     title: 'CashDrop',
-    img: '/CashDrop.png',
+    img: '/CashDrop.webp',
     desc: {
       es: 'Juego web inspirado en concursos de televisión, con mecánica de apuestas, preguntas por rondas y una interfaz pensada para partidas ágiles.',
       en: 'Web game inspired by TV quiz shows, with betting mechanics, round-based questions, and an interface designed for quick sessions.',
@@ -31,8 +35,8 @@ export const PROJECTS = [
   },
   {
     title: 'Obsidian',
-    img: '/obsidian-transparente.png',
-    mobileImg: '/obsidian-logo.png',
+    img: '/obsidian-transparente.webp',
+    mobileImg: '/obsidian-logo.webp',
     imgCls: 'p-1 md:p-8',
     desc: {
       es: 'E-commerce full-stack de streetwear con catálogo Laravel, autenticación Sanctum, carrito y wishlist sincronizados y checkout real.',
@@ -50,7 +54,7 @@ export const PROJECTS = [
   },
   {
     title: 'Solar Explorer',
-    img: '/solar-system.png',
+    img: '/solar-system.webp',
     desc: {
       es: 'Explorador 3D del Sistema Solar con escena WebGL, planetas seleccionables, cámara interactiva, datos astronómicos e interfaz responsive.',
       en: '3D Solar System explorer with a WebGL scene, selectable planets, interactive camera, astronomical data, and a responsive interface.',

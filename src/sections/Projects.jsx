@@ -1,3 +1,6 @@
+/**
+ * Featured projects grid with links to GitHub and live demos.
+ */
 import { PROJECTS } from '../consts/projects'
 import ProjectCard from '../components/ProjectCard'
 
