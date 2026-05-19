@@ -1,12 +1,13 @@
 /**
- * Animated star background for the full page.
+ * Static star background for the full page.
  *
- * Hybrid strategy to balance visual impact and performance:
- * - Static field of 6500 points (no per-frame animation)
- * - Drei <Stars> layer with ~1500 animated stars
- * - Shooting stars in CSS (no extra WebGL cost)
+ * Performance strategy:
+ * - Canvas runs in frameloop="demand" — renders once on mount and on resize,
+ *   never per frame. This frees the GPU for the hero 3D scene and keeps the
+ *   PC interaction smooth even when both layers are visible.
+ * - Movement comes from CSS-animated shooting stars (no WebGL cost).
  *
- * Uses seeded PRNG for deterministic positions across reloads.
+ * Uses seeded PRNG so positions are deterministic across reloads.
  */
 import { Canvas } from '@react-three/fiber'
 import { Stars } from '@react-three/drei'
@@ -61,7 +62,13 @@ export default function StarBackground() {
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
-      <Canvas style={{ pointerEvents: 'none' }} camera={{ position: [0, 0, 1] }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
+      <Canvas
+        style={{ pointerEvents: 'none' }}
+        camera={{ position: [0, 0, 1] }}
+        dpr={[1, 1.5]}
+        frameloop="demand"
+        gl={{ antialias: false, alpha: true, powerPreference: 'low-power', stencil: false, depth: false }}
+      >
         <StaticStarField count={6500} />
         <Stars radius={300} depth={60} count={1500} factor={7} saturation={0} fade />
       </Canvas>
