@@ -31,29 +31,29 @@ function ContactForm({ t }) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white md:max-w-xl">
-      <h2 className="text-2xl md:text-5xl font-bold mb-3 text-center">{t.title}</h2>
-      <p className="text-sm md:text-lg text-gray-400 mb-5 md:mb-7 text-center">{t.subtitle}</p>
-      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4">
+    <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white md:max-w-xl 2xl:max-w-2xl 3xl:max-w-3xl">
+      <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-3 2xl:mb-5 text-center">{t.title}</h2>
+      <p className="text-sm md:text-lg 2xl:text-2xl text-gray-400 mb-5 md:mb-7 2xl:mb-10 text-center">{t.subtitle}</p>
+      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4 2xl:gap-5">
         <input
           name="from_name" type="text" required placeholder={t.name}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
           name="reply_to" type="email" required placeholder={t.email}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <input
           name="subject" type="text" required placeholder={t.subject}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
         />
         <textarea
           name="message" required rows={4} placeholder={t.message}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl px-5 py-3 text-base text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
         />
         <button
           type="submit" disabled={status === 'sending'}
-          className="mt-1 px-8 md:px-12 py-3 md:py-4 bg-white text-black font-semibold rounded-2xl text-base md:text-lg hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-1 px-8 md:px-12 py-3 md:py-4 2xl:py-5 bg-white text-black font-semibold rounded-2xl text-base md:text-lg 2xl:text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {status === 'sending' ? t.sending : t.send}
         </button>
@@ -67,13 +67,13 @@ function ContactForm({ t }) {
 function Footer({ t }) {
   return (
     <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
-      <div className="max-w-5xl mx-auto px-5 md:px-8 py-3 md:py-5 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
+      <div className="max-w-5xl 2xl:max-w-7xl mx-auto px-5 md:px-8 2xl:px-12 py-3 md:py-5 2xl:py-7 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
 
         <div className="flex items-center gap-3">
-          <img src="/AJ.png" alt="AJ Logo" className="w-10 h-10 object-contain flex-shrink-0" />
+          <img src="/AJ.png" alt="AJ Logo" className="w-10 h-10 2xl:w-14 2xl:h-14 object-contain flex-shrink-0" />
           <div className="flex flex-col">
-            <span className="font-tech text-sm md:text-xl font-bold tracking-widest">ALEIX AUQUÉ</span>
-            <p className="text-gray-400 text-[0.65rem] md:text-xs tracking-wide">Software Developer</p>
+            <span className="font-tech text-sm md:text-xl 2xl:text-2xl font-bold tracking-widest">ALEIX AUQUÉ</span>
+            <p className="text-gray-400 text-[0.65rem] md:text-xs 2xl:text-sm tracking-wide">Software Developer</p>
           </div>
         </div>
 

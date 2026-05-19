@@ -39,16 +39,16 @@ export default function Hobbies({ t }) {
 
   return (
     <section id="hobbies" className="h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
-      <div className="max-w-5xl mx-auto px-5 md:px-8 text-white w-full">
-        <h2 className="text-2xl md:text-5xl font-bold mb-1.5 md:mb-2">{t.title}</h2>
-        <p className="text-cyan-400 text-sm md:text-lg mb-4 md:mb-8">{t.subtitle}</p>
-        <div className="grid grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
+      <div className="max-w-5xl 2xl:max-w-7xl 3xl:max-w-[92rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
+        <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-1.5 md:mb-2 2xl:mb-3">{t.title}</h2>
+        <p className="text-cyan-400 text-sm md:text-lg 2xl:text-2xl mb-4 md:mb-8 2xl:mb-10">{t.subtitle}</p>
+        <div className="grid grid-cols-4 md:grid-cols-6 2xl:grid-cols-8 gap-2 md:gap-3 2xl:gap-4">
           {HOBBIES_PHOTOS.map((photo, i) => (
             <button
               key={i}
               onClick={() => open(i)}
               style={{ animationDelay: `${i * 35}ms` }}
-              className="reveal-item aspect-square overflow-hidden rounded-xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105 transition-all duration-200 bg-white/5"
+              className="reveal-item aspect-square overflow-hidden rounded-xl 2xl:rounded-2xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105 transition-all duration-200 bg-white/5"
             >
               <img
                 src={toThumb(photo.src)}
