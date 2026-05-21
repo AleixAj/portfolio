@@ -28,13 +28,13 @@ function UkFlag({ compact = false }) {
 
 function LanguageSwitcher({ lang, setLang, setMenuOpen, compact = false }) {
   const options = [
-    { id: 'es', label: 'ES', Flag: SpainFlag },
-    { id: 'en', label: 'EN', Flag: UkFlag },
+    { id: 'es', label: 'ES', name: 'Español', Flag: SpainFlag },
+    { id: 'en', label: 'EN', name: 'English', Flag: UkFlag },
   ]
 
   return (
     <div className={`flex items-center rounded-full border border-white/10 bg-white/5 ${compact ? 'gap-1 p-0.5' : 'gap-1.5 p-1'}`}>
-      {options.map(({ id, label, Flag }) => {
+      {options.map(({ id, label, name, Flag }) => {
         const active = lang === id
         return (
           <button
@@ -50,7 +50,7 @@ function LanguageSwitcher({ lang, setLang, setMenuOpen, compact = false }) {
                 ? 'border border-cyan-400 text-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.65)] bg-cyan-400/10'
                 : 'border border-transparent text-white/55 hover:text-white hover:bg-white/10'
             }`}
-            aria-label={`Cambiar idioma a ${label}`}
+            aria-label={`Cambiar idioma a ${name}`}
             aria-pressed={active}
           >
             <Flag compact={compact} />
@@ -68,7 +68,7 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
       {/* Desktop layout */}
       <div className="hidden md:flex w-full px-6 lg:px-0 py-4 lg:py-5 items-center">
         <button onClick={() => goToSection('inicio')} className="lg:pl-10 xl:pl-16 2xl:pl-24 flex items-center gap-3 lg:gap-4 cursor-pointer min-w-0">
-          <img src="/AJ.png" alt="AJ Logo" className="h-8 lg:h-10 xl:h-11 w-auto object-contain flex-shrink-0" />
+          <img src="/AJ.png" alt="" aria-hidden="true" className="h-8 lg:h-10 xl:h-11 w-auto object-contain flex-shrink-0" />
           <span className="font-tech text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-[0.18em] lg:tracking-widest text-white truncate">ALEIX AUQUÉ</span>
         </button>
 
@@ -100,7 +100,7 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
 
         <button onClick={() => goToSection('inicio')} className="ml-auto flex items-center gap-2 cursor-pointer min-w-0">
           <span className="font-tech text-lg font-bold tracking-[0.14em] text-white truncate">ALEIX AUQUÉ</span>
-          <img src="/AJ.png" alt="AJ Logo" className="h-8 w-auto object-contain flex-shrink-0" />
+          <img src="/AJ.png" alt="" aria-hidden="true" className="h-8 w-auto object-contain flex-shrink-0" />
         </button>
       </div>
 

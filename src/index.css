@@ -12,6 +12,11 @@ body, button {
   font-family: 'Exo 2', sans-serif;
 }
 
+:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.95);
+  outline-offset: 4px;
+}
+
 @keyframes glow-pulse {
   0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.4)); }
   50%       { filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.9)); }

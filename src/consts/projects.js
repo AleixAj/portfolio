@@ -35,9 +35,9 @@ export const PROJECTS = [
   },
   {
     title: 'Obsidian',
-    img: '/obsidian-transparente.webp',
-    mobileImg: '/obsidian-logo.webp',
-    imgCls: 'p-1 md:p-8',
+    img: '/obsidian-pixelart.webp',
+    mobileImg: '/obsidian-pixelart.webp',
+    imgCls: 'scale-110 md:scale-125 group-hover:scale-[1.32]',
     desc: {
       es: 'E-commerce full-stack de streetwear con catálogo Laravel, autenticación Sanctum, carrito y wishlist sincronizados y checkout real.',
       en: 'Full-stack streetwear e-commerce with a Laravel catalog, Sanctum authentication, synced cart and wishlist, and real checkout.',
@@ -54,7 +54,7 @@ export const PROJECTS = [
   },
   {
     title: 'Solar Explorer',
-    img: '/solar-system.webp',
+    img: '/solar-explorerlogo.webp',
     desc: {
       es: 'Explorador 3D del Sistema Solar con escena WebGL, planetas seleccionables, cámara interactiva, datos astronómicos e interfaz responsive.',
       en: '3D Solar System explorer with a WebGL scene, selectable planets, interactive camera, astronomical data, and a responsive interface.',

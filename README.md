@@ -7,6 +7,10 @@
 ![React Three Fiber](https://img.shields.io/badge/React_Three_Fiber-9-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
 
+**Live portfolio:** [aleixaj.com](https://aleixaj.com)  
+**LinkedIn:** [linkedin.com/in/aleixauque](https://linkedin.com/in/aleixauque/)  
+**GitHub:** [github.com/AleixAj](https://github.com/AleixAj)
+
 Portfolio profesional orientado a empresas y equipos técnicos. Presenta mi
 perfil como desarrollador de software mediante una experiencia web cuidada,
 multiidioma, proyectos reales desplegados, trayectoria profesional, stack
@@ -15,6 +19,17 @@ técnico y contacto directo.
 El objetivo no es solo mostrar una landing visual, sino demostrar criterio de
 producto, atención al detalle, capacidad full-stack y experiencia llevando
 proyectos desde una idea hasta producción.
+
+## English Summary
+
+Professional portfolio built to present my work as a software developer through
+a polished, production-ready web experience. It combines a responsive React UI,
+a performant Three.js hero scene, bilingual content, real deployed projects,
+technical background, and direct contact.
+
+The goal is to show not only visual presentation, but also product thinking,
+performance awareness, maintainable structure, and the ability to take projects
+from idea to production.
 
 ## Qué Demuestra
 
@@ -33,20 +48,69 @@ proyectos desde una idea hasta producción.
 - Preparación para producción con **Vite**, **Tailwind CSS**, **EmailJS** y
   despliegue en **Cloudflare Workers + Assets**.
 
+## Decisiones Técnicas Clave
+
+- **Arquitectura data-driven**: textos, navegación, experiencia, skills,
+  hobbies y proyectos viven en `src/consts/`, separando contenido de UI.
+- **Carga progresiva**: `React.lazy` separa la escena 3D y el fondo de estrellas
+  del bundle inicial.
+- **Rendimiento 3D**: el modelo GLB está comprimido con meshopt + texturas WebP,
+  se precarga y usa DPR adaptativo para equilibrar nitidez y fluidez.
+- **Galería optimizada**: miniaturas WebP para la grilla y archivos completos
+  solo cuando se abre el modal.
+- **Responsive real**: móvil, desktop estándar, táctil landscape y pantallas
+  ultra anchas tienen ajustes dedicados.
+- **Despliegue simple**: build estático con Vite y publicación en Cloudflare
+  Workers + Assets con fallback SPA.
+
 ## Proyectos Destacados
 
-- **Obsidian**: e-commerce full-stack de streetwear con React, TypeScript,
-  Laravel, Sanctum, carrito, wishlist sincronizados, checkout real y despliegue
-  público.
-- **Solar Explorer**: explorador 3D del Sistema Solar con React, TypeScript,
-  Three.js, React Three Fiber, datos astronómicos, cámara interactiva e interfaz
-  responsive.
-- **FamilyTrivia**: trivia web interactiva para grupos, con tablero por
-  categorías, puntuación dinámica y experiencia pensada para compartir en
-  pantalla.
-- **CashDrop**: juego web inspirado en concursos de televisión, con mecánica de
-  apuestas, preguntas por rondas y demo independiente desplegada en
-  `cashdrop.aleixaj.com`.
+### Obsidian
+
+E-commerce full-stack de streetwear construido para mostrar un flujo de tienda
+real, desde catálogo hasta checkout.
+
+- **Rol**: desarrollo frontend y backend.
+- **Stack**: React, TypeScript, Laravel, Sanctum, MySQL, TanStack Query, Stripe.
+- **Qué demuestra**: arquitectura full-stack, autenticación, persistencia de
+  carrito/wishlist, consumo de API, estado de servidor y checkout real.
+- **Repo**: [github.com/AleixAj/obsidian](https://github.com/AleixAj/obsidian)
+- **Demo**: [obsidian.aleixaj.com](https://obsidian.aleixaj.com)
+
+### Solar Explorer
+
+Explorador 3D del Sistema Solar con escena WebGL, planetas seleccionables y
+cámara interactiva.
+
+- **Rol**: desarrollo frontend, interacción 3D y diseño responsive.
+- **Stack**: React, TypeScript, Three.js, React Three Fiber, Tailwind CSS.
+- **Qué demuestra**: trabajo con WebGL, composición de escena, interacción de
+  cámara, datos visuales y experiencia responsive.
+- **Repo**: [github.com/AleixAj/solar-system](https://github.com/AleixAj/solar-system)
+- **Demo**: [solarsystem.aleixaj.com](https://solarsystem.aleixaj.com)
+
+### FamilyTrivia
+
+Trivia web interactiva diseñada para jugar en grupo y compartir en pantalla.
+
+- **Rol**: desarrollo completo de la experiencia.
+- **Stack**: HTML, CSS, JavaScript.
+- **Qué demuestra**: lógica de juego, tablero por categorías, puntuación
+  dinámica y UX pensada para sesiones rápidas.
+- **Repo**: [github.com/AleixAj/familytrivia](https://github.com/AleixAj/familytrivia)
+- **Demo**: [familytrivia.aleixaj.com](https://familytrivia.aleixaj.com)
+
+### CashDrop
+
+Juego web inspirado en concursos de televisión, con mecánica de apuestas y
+preguntas por rondas.
+
+- **Rol**: desarrollo completo de la experiencia.
+- **Stack**: HTML, CSS, JavaScript.
+- **Qué demuestra**: modelado de reglas, interacción por rondas, control de
+  estado de partida y presentación clara para usuarios no técnicos.
+- **Repo**: [github.com/AleixAj/cashdrop](https://github.com/AleixAj/cashdrop)
+- **Demo**: [cashdrop.aleixaj.com](https://cashdrop.aleixaj.com/)
 
 ## Stack Principal
 
@@ -92,8 +156,9 @@ src/
 |---------|-----|
 | `gaming_bedroom.glb` | Modelo 3D del hero |
 | `AJ.png` | Logo y favicon |
-| `cv-aleix-en.pdf` | Descarga del CV (Hero y Contact) |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-*.webp`, `solar-system.webp` | Tarjetas de proyectos |
+| `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
+| `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp` | Tarjetas de proyectos |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local
@@ -135,6 +200,7 @@ npm run build             # Build de producción
 npm run preview           # Build + preview con Wrangler
 npm run deploy            # Build + deploy con Wrangler
 npm run lint              # Linting con ESLint
+npm run generate:og       # Genera public/og-image.png para social previews
 npm run optimize:model    # Requiere @gltf-transform/cli; comprime el .glb con meshopt + WebP
 npm run optimize:images   # Convierte PNGs a WebP y genera thumbnails
 ```
@@ -161,6 +227,39 @@ quiere activar el formulario.
 - Los proyectos enlazan a demos públicas y repositorios reales.
 - El selector de idioma usa banderas SVG para evitar diferencias de renderizado
   entre sistemas operativos.
+- Metadata SEO y social preview configuradas en `index.html`.
+- JSON-LD `Person` para mejorar el contexto semántico del portfolio.
+- Accesibilidad básica cuidada: labels reales en formulario, focus visible,
+  navegación por teclado en galería y `aria-labels` en acciones con iconos.
+- Formulario con estados diferenciados: envío, éxito, error de servicio y falta
+  de configuración de EmailJS.
+
+### Verificación
+
+- `npm run lint`: sin errores.
+- `npm run build`: build de producción verificado.
+- Lighthouse local sobre preview de producción:
+  - Accessibility: 98
+  - Best Practices: 100
+  - SEO: 92
+
+> Nota: el score de performance de Lighthouse local queda condicionado por el
+> hero 3D (Three.js/WebGL). El proyecto prioriza una experiencia visual 3D, con
+> optimizaciones específicas para reducir peso, diferir carga y liberar GPU.
+
+## Para Revisores Técnicos
+
+Puntos concretos que merece la pena revisar en el código:
+
+- `src/App.jsx`: navegación por secciones, persistencia de idioma y reveal
+  animations.
+- `src/components/Scene3D.jsx`: carga del GLB, centrado automático del modelo,
+  OrbitControls y balance rendimiento/nitidez.
+- `src/components/StarBackground.jsx`: fondo WebGL estático con `frameloop="demand"`.
+- `src/sections/Hobbies.jsx`: galería con thumbnails, modal y navegación por
+  teclado.
+- `scripts/optimize-images.mjs`: pipeline reproducible para optimizar assets.
+- `vite.config.js`: separación de chunks para React, Three.js y EmailJS.
 
 ## Rendimiento
 

@@ -8,7 +8,7 @@
  * - Lazy-loaded star background to reduce initial bundle size
  */
 import './index.css'
-import { lazy, Suspense, useRef, useEffect, useState, useCallback } from 'react'
+import { lazy, Suspense, useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import Trayectoria from './sections/Trayectoria'
@@ -32,6 +32,8 @@ function App() {
 
   const t = TRANSLATIONS[lang]
   const words = ROTATING_WORDS[lang]
+  const visibleWordIdx = useMemo(() => wordIdx % words.length, [wordIdx, words.length])
+  const cvHref = lang === 'es' ? '/cv-aleix-es.pdf' : '/cv-aleix-en.pdf'
 
   // Rotating hero words ("ideas", "projects", etc.)
   useEffect(() => {
@@ -43,8 +45,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem('lang', lang)
     document.documentElement.lang = lang
-    setWordIdx(i => i % words.length)
-  }, [lang, words.length])
+  }, [lang])
 
   const goToSection = useCallback((id) => {
     if (isScrolling.current) return
@@ -130,12 +131,12 @@ function App() {
       <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={setLang} t={t} />
 
       <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10" style={{ touchAction: 'pan-y' }}>
-        <Hero wordIdx={wordIdx} words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} />
+        <Hero wordIdx={visibleWordIdx} words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cvHref={cvHref} />
         <Trayectoria lang={lang} t={t.journey} />
         <Projects lang={lang} t={t.projects} />
         <Skills lang={lang} />
         <Hobbies t={t.hobbies} />
-        <Contact t={t.contact} />
+        <Contact t={t.contact} cvHref={cvHref} />
       </div>
     </div>
   )

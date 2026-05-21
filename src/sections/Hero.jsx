@@ -8,7 +8,7 @@ import { FaLinkedin, FaFileAlt } from 'react-icons/fa'
 // Three.js in a separate chunk; does not block initial React load
 const Scene3D = lazy(() => import('../components/Scene3D'))
 
-export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
+export default function Hero({ wordIdx, words, goToSection, heroActive, t, cvHref }) {
   return (
     <section id="inicio" className="h-[100dvh] relative flex flex-col md:block">
 
@@ -54,7 +54,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
             className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
             <FaLinkedin className="w-3.5 h-3.5" /> LinkedIn
           </a>
-          <a href="/cv-aleix-en.pdf" download
+          <a href={cvHref} download
             className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
             <FaFileAlt className="w-3.5 h-3.5" /> CV
           </a>
@@ -93,7 +93,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t }) {
                 className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
                 <FaLinkedin className="w-5 h-5" /> LinkedIn
               </a>
-              <a href="/cv-aleix-en.pdf" download
+              <a href={cvHref} download
                 className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">
                 <FaFileAlt className="w-5 h-5" /> CV
               </a>

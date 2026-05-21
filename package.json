@@ -10,7 +10,8 @@
     "preview": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy",
     "optimize:images": "node scripts/optimize-images.mjs",
-    "optimize:model": "gltf-transform optimize public/gaming_bedroom.glb public/gaming_bedroom.glb --texture-compress webp --simplify false"
+    "optimize:model": "gltf-transform optimize public/gaming_bedroom.glb public/gaming_bedroom.glb --texture-compress webp --simplify false",
+    "generate:og": "node scripts/generate-og-image.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

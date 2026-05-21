@@ -12,12 +12,12 @@ const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 function ContactForm({ t }) {
   const formRef = useRef(null)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [status, setStatus] = useState('idle') // idle | sending | success | error | config-error
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-      setStatus('error')
+      setStatus('config-error')
       return
     }
     setStatus('sending')
@@ -34,22 +34,32 @@ function ContactForm({ t }) {
     <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white md:max-w-xl 2xl:max-w-2xl 3xl:max-w-3xl">
       <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-3 2xl:mb-5 text-center">{t.title}</h2>
       <p className="text-sm md:text-lg 2xl:text-2xl text-gray-400 mb-5 md:mb-7 2xl:mb-10 text-center">{t.subtitle}</p>
-      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4 2xl:gap-5">
+      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4 2xl:gap-5" aria-busy={status === 'sending'}>
+        <label className="sr-only" htmlFor="contact-name">{t.name}</label>
         <input
+          id="contact-name"
           name="from_name" type="text" required placeholder={t.name}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          autoComplete="name"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
+        <label className="sr-only" htmlFor="contact-email">{t.email}</label>
         <input
+          id="contact-email"
           name="reply_to" type="email" required placeholder={t.email}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          autoComplete="email"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
+        <label className="sr-only" htmlFor="contact-subject">{t.subject}</label>
         <input
+          id="contact-subject"
           name="subject" type="text" required placeholder={t.subject}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
+        <label className="sr-only" htmlFor="contact-message">{t.message}</label>
         <textarea
+          id="contact-message"
           name="message" required rows={4} placeholder={t.message}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400/60 transition-colors resize-none"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors resize-none"
         />
         <button
           type="submit" disabled={status === 'sending'}
@@ -57,14 +67,17 @@ function ContactForm({ t }) {
         >
           {status === 'sending' ? t.sending : t.send}
         </button>
-        {status === 'success' && <p className="text-center text-cyan-400 font-medium text-lg">{t.success}</p>}
-        {status === 'error'   && <p className="text-center text-red-400 font-medium text-lg">{t.error}</p>}
+        <div aria-live="polite" role="status">
+          {status === 'success' && <p className="text-center text-cyan-400 font-medium text-lg">{t.success}</p>}
+          {status === 'error' && <p className="text-center text-red-400 font-medium text-lg">{t.error}</p>}
+          {status === 'config-error' && <p className="text-center text-red-400 font-medium text-lg">{t.configError}</p>}
+        </div>
       </form>
     </div>
   )
 }
 
-function Footer({ t }) {
+function Footer({ t, cvHref }) {
   return (
     <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
       <div className="max-w-5xl 2xl:max-w-7xl mx-auto px-5 md:px-8 2xl:px-12 py-3 md:py-5 2xl:py-7 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
@@ -79,19 +92,19 @@ function Footer({ t }) {
 
         <div className="flex flex-col items-end gap-2">
           <div className="flex gap-3">
-            <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
+            <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaLinkedin className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href="mailto:aleixauque@gmail.com"
+            <a href="mailto:aleixauque@gmail.com" aria-label="Send email"
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaEnvelope className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href="https://github.com/AleixAj" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/AleixAj" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaGithub className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href="/cv-aleix-en.pdf" download
+            <a href={cvHref} download aria-label="Download CV"
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaFileAlt className="w-4 h-4 md:w-5 md:h-5" />
             </a>
@@ -110,13 +123,13 @@ function Footer({ t }) {
   )
 }
 
-export default function Contact({ t }) {
+export default function Contact({ t, cvHref }) {
   return (
     <section id="contact" className="h-[100dvh] ls:h-auto bg-black/45 flex flex-col relative overflow-hidden ls:overflow-visible">
       <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-2 md:pb-[60px]">
         <ContactForm t={t} />
       </div>
-      <Footer t={t} />
+      <Footer t={t} cvHref={cvHref} />
     </section>
   )
 }

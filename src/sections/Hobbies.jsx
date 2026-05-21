@@ -47,6 +47,7 @@ export default function Hobbies({ t }) {
             <button
               key={i}
               onClick={() => open(i)}
+              aria-label={`${t.viewDrawing} ${i + 1}`}
               style={{ animationDelay: `${i * 35}ms` }}
               className="reveal-item aspect-square overflow-hidden rounded-xl 2xl:rounded-2xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105 transition-all duration-200 bg-white/5"
             >
