@@ -20,7 +20,7 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
             loading="lazy"
             decoding="async"
             fetchPriority="low"
-            className={`w-full h-full object-contain md:h-20 lg:h-24 2xl:h-32 3xl:h-36 md:w-auto group-hover:scale-105 transition-transform duration-300 ${imgCls ?? 'p-2 md:p-0'}`}
+            className={`w-full h-full object-contain scale-110 md:scale-125 md:h-20 lg:h-24 2xl:h-32 3xl:h-36 md:w-auto group-hover:scale-[1.32] transition-transform duration-300 ${imgCls ?? 'p-2 md:p-0'}`}
           />
         </picture>
       </div>
