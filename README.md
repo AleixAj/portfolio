@@ -137,6 +137,60 @@ preguntas por rondas.
   automatización/despliegue presentes en la sección de skills.
 - **Godot** para desarrollo de juegos móviles fuera del portfolio.
 
+## Skills · Para Qué Uso Cada Tecnología
+
+Resumen breve de cada herramienta listada en la sección Skills del portfolio,
+ordenado igual que en la UI (de base a especializado).
+
+### Frontend
+
+| Skill | Para qué la uso |
+|-------|-----------------|
+| **HTML** | Estructura semántica de las páginas y accesibilidad base. |
+| **CSS** | Estilos, layout responsive y animaciones puras del navegador. |
+| **XML** | Marcado para configuración, intercambio de datos e integraciones legacy. |
+| **JavaScript** | Lógica del cliente, manipulación del DOM y eventos. |
+| **TypeScript** | JavaScript con tipado estático para escalar proyectos sin perder claridad. |
+| **Bootstrap** | Prototipado rápido y proyectos donde el sistema de componentes es suficiente. |
+| **Tailwind** | Sistema de utilidades para diseño consistente y rápido (usado en este portfolio). |
+| **Vite** | Build tool con HMR rápido y bundles optimizados para producción. |
+| **React** | Librería UI basada en componentes; base de las apps de este portfolio. |
+| **Three.js** | Escenas 3D en WebGL (cámaras, materiales, luces, geometría). |
+| **React Three Fiber** | Renderer declarativo de Three.js en React; usado en el hero 3D y `Solar Explorer`. |
+| **GSAP** | Animaciones avanzadas con timelines y control fino sobre el tiempo. |
+
+### Backend
+
+| Skill | Para qué la uso |
+|-------|-----------------|
+| **JSON** | Formato estándar para APIs, configuración y serialización de estado. |
+| **PHP** | Lenguaje backend para webs y APIs (proyectos personales y profesionales). |
+| **Java** | Lenguaje OO usado en formación y trabajos con backends empresariales. |
+| **Laravel** | Framework PHP full-stack: autenticación, ORM Eloquent, queues y APIs (usado en `Obsidian`). |
+| **.NET** | Stack de Microsoft para servicios y APIs en entornos corporativos. |
+| **MySQL** | Base de datos relacional para modelar dominio y consultas con índices/joins. |
+| **API Rest** | Diseño de endpoints HTTP, recursos, versiones y contratos con frontends. |
+| **Stripe** | Pasarela de pagos y checkout real, webhooks y suscripciones. |
+
+### DevOps y herramientas
+
+| Skill | Para qué la uso |
+|-------|-----------------|
+| **Git** | Control de versiones distribuido, ramas, rebases y revisión por PR. |
+| **Bitbucket** | Hosting de repos y PRs en entornos corporativos. |
+| **Docker** | Contenedores reproducibles para desarrollo y despliegue. |
+| **Jenkins** | Pipelines de CI/CD: build, test, despliegue automatizado. |
+| **Cloudflare** | Workers + Assets para despliegue del portfolio y CDN global. |
+| **Railway** | Hosting de aplicaciones y bases de datos para proyectos rápidos. |
+| **Jira** | Gestión de tickets, sprints y planificación ágil. |
+| **Salesforce** | CRM empresarial (Apex, Lightning, integraciones). |
+| **GitHub Copilot** | Asistente IA integrado en el IDE para autocompletar y refactors. |
+| **Cursor** | IDE con agentes IA para desarrollo asistido y revisión de código. |
+| **Claude** | Modelo IA para apoyo en arquitectura, código y documentación técnica. |
+| **Godot** | Motor 2D/3D usado para desarrollo de juegos móviles personales. |
+| **Photoshop** | Edición de imagen y diseño de assets para UI. |
+| **Aseprite** | Pixel art y animación sprite para proyectos personales y game dev. |
+
 ## Secciones Del Portfolio
 
 - **Inicio**: presentación personal, escena 3D interactiva, mensajes dinámicos y
