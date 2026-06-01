@@ -2,7 +2,7 @@
  * Tech stack with react-icons.
  * Grouped by category to render the Skills section without extra logic.
  */
-import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot } from 'react-icons/si'
+import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot, SiGodotengine } from 'react-icons/si'
 import { TbApi, TbCursorText, TbPhotoEdit } from 'react-icons/tb'
 import { FaJava } from 'react-icons/fa'
 
@@ -19,6 +19,7 @@ export const SKILL_CATEGORIES = [
       { label: 'Three.js',          Icon: SiThreedotjs,  color: '#ffffff' },
       { label: 'HTML',              Icon: SiHtml5,       color: '#E34F26' },
       { label: 'CSS',               Icon: SiCss,         color: '#1572B6' },
+      { label: 'XML',               Icon: SiXml,         color: '#F97316' },
       { label: 'GSAP',              Icon: SiGreensock,   color: '#88CE02' },
       { label: 'Bootstrap',         Icon: SiBootstrap,   color: '#7952B3' },
     ],
@@ -34,7 +35,6 @@ export const SKILL_CATEGORIES = [
       { label: 'Java',     Icon: FaJava,    color: '#ED8B00' },
       { label: 'Stripe',   Icon: SiStripe,  color: '#635BFF' },
       { label: 'JSON',     Icon: SiJson,    color: '#FACC15' },
-      { label: 'XML',      Icon: SiXml,     color: '#F97316' },
     ],
   },
   {
@@ -51,6 +51,7 @@ export const SKILL_CATEGORIES = [
       { label: 'GitHub Copilot', Icon: SiGithubcopilot,   color: '#ffffff' },
       { label: 'Cursor',     Icon: TbCursorText,          color: '#ffffff' },
       { label: 'Claude',     Icon: SiClaude,              color: '#D97757' },
+      { label: 'Godot',      Icon: SiGodotengine,         color: '#478CBF' },
       { label: 'Photoshop',  Icon: TbPhotoEdit,           color: '#31A8FF' },
     ],
   },

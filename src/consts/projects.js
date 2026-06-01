@@ -69,4 +69,21 @@ export const PROJECTS = [
     github: 'https://github.com/AleixAj/solar-system',
     demo: 'https://solarsystem.aleixaj.com',
   },
+  {
+    title: 'Lord of the Clicks',
+    img: '/onering-gif.gif',
+    imgCls: 'scale-[1.25] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',
+    desc: {
+      es: 'Clicker incremental inspirado en la Tierra Media, con progresión por zonas, combate, compañeros, equipo, misiones y guardado persistente.',
+      en: 'Middle-earth-inspired incremental clicker with zone progression, combat, companions, equipment, quests, and persistent saves.',
+    },
+    tags: [
+      { label: 'React',      cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
+      { label: 'TypeScript', cls: 'bg-blue-400/10   text-blue-400   border-blue-400/20'   },
+      { label: 'Zustand',    cls: 'bg-purple-400/10 text-purple-400 border-purple-400/20' },
+      { label: 'TailwindCSS', cls: 'bg-sky-400/10   text-sky-400    border-sky-400/20'    },
+    ],
+    github: 'https://github.com/AleixAj/lordoftheclicks',
+    demo: 'https://lotrclicker.aleixaj.com/',
+  },
 ]

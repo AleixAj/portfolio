@@ -89,6 +89,19 @@ cámara interactiva.
 - **Repo**: [github.com/AleixAj/solar-system](https://github.com/AleixAj/solar-system)
 - **Demo**: [solarsystem.aleixaj.com](https://solarsystem.aleixaj.com)
 
+### Lord of the Clicks
+
+Clicker incremental inspirado en la Tierra Media, construido como una app
+frontend completa con progresión, guardado persistente y lógica de juego
+separada de la interfaz.
+
+- **Rol**: desarrollo frontend, arquitectura de juego y diseño responsive.
+- **Stack**: React, TypeScript, Zustand, Tailwind CSS, Vitest.
+- **Qué demuestra**: dominio modelado con TypeScript, estado global persistente,
+  contenido data-driven, tests de lógica, accesibilidad y deploy en Cloudflare.
+- **Repo**: [github.com/AleixAj/lordoftheclicks](https://github.com/AleixAj/lordoftheclicks)
+- **Demo**: [lotrclicker.aleixaj.com](https://lotrclicker.aleixaj.com/)
+
 ### FamilyTrivia
 
 Trivia web interactiva diseñada para jugar en grupo y compartir en pantalla.
@@ -122,6 +135,7 @@ preguntas por rondas.
 - **Cloudflare Workers + Assets**
 - **Laravel**, **PHP**, **MySQL**, **.NET**, **Docker** y herramientas de
   automatización/despliegue presentes en la sección de skills.
+- **Godot** para desarrollo de juegos móviles fuera del portfolio.
 
 ## Secciones Del Portfolio
 
@@ -130,8 +144,9 @@ preguntas por rondas.
 - **Trayectoria**: experiencia laboral y formación académica sin scroll interno.
 - **Proyectos**: tarjetas con logos adaptados a móvil, descripciones bilingües,
   tecnologías, GitHub y demo.
-- **Skills**: tecnologías agrupadas por frontend, backend, DevOps y herramientas
-  con iconos de marca.
+- **Skills**: tecnologías agrupadas por frontend (incluye HTML, CSS, XML y
+  herramientas de UI), backend, DevOps y herramientas (incluye `Godot` para
+  game dev móvil), con iconos de marca.
 - **Arte**: galería personal con modal y navegación por teclado.
 - **Contacto**: formulario conectado con EmailJS y enlaces profesionales.
 
@@ -158,7 +173,7 @@ src/
 | `AJ.png` | Logo y favicon |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact) |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp` | Tarjetas de proyectos |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `onering-gif.gif` | Tarjetas de proyectos |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local
