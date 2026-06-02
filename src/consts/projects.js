@@ -19,7 +19,7 @@ export const PROJECTS = [
       { label: 'TypeScript',     cls: 'bg-blue-400/10   text-blue-400   border-blue-400/20'   },
       { label: 'Laravel',        cls: 'bg-red-400/10    text-red-400    border-red-400/20'     },
       { label: 'MySQL',          cls: 'bg-sky-400/10    text-sky-400    border-sky-400/20'     },
-      { label: 'TanStack Query', cls: 'bg-rose-400/10   text-rose-400   border-rose-400/20'   },
+      { label: 'PHP',            cls: 'bg-indigo-400/10 text-indigo-400 border-indigo-400/20' },
     ],
     github: 'https://github.com/AleixAj/obsidian',
     demo: 'https://obsidian.aleixaj.com',
