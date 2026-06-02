@@ -3,14 +3,37 @@
  * Different layout on mobile (title top, CTA bottom) vs desktop (side content).
  */
 import { lazy, Suspense } from 'react'
-import { FaLinkedin, FaFileAlt } from 'react-icons/fa'
+import { FaLinkedin, FaFileAlt, FaMapMarkerAlt, FaBriefcase, FaLaptopCode, FaGlobe } from 'react-icons/fa'
 
 // Three.js in a separate chunk; does not block initial React load
 const Scene3D = lazy(() => import('../components/Scene3D'))
 
+/** Compact pill with icon for profile metadata (location, experience, etc.). */
+function ProfileChip({ icon: Icon, label }) {
+  return (
+    <span className="inline-flex items-center gap-1 md:gap-1.5 px-2 py-0.5 md:px-3 md:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/85 text-[0.6rem] md:text-sm whitespace-nowrap">
+      <Icon className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 text-cyan-400/85" aria-hidden="true" />
+      {label}
+    </span>
+  )
+}
+
+/** Highlighted "open to work" status badge with a pulsing green dot. */
+function OpenToWorkBadge({ label }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 md:gap-2 px-2 py-0.5 md:px-3 md:py-1.5 rounded-full bg-emerald-400/15 border border-emerald-400/40 text-emerald-300 text-[0.6rem] md:text-sm font-semibold whitespace-nowrap">
+      <span className="relative flex w-1.5 h-1.5 md:w-2 md:h-2">
+        <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-60" />
+        <span className="relative inline-flex rounded-full w-1.5 h-1.5 md:w-2 md:h-2 bg-emerald-400" />
+      </span>
+      {label}
+    </span>
+  )
+}
+
 export default function Hero({ wordIdx, words, goToSection, heroActive, t, cvHref }) {
   return (
-    <section id="inicio" className="h-[100dvh] relative flex flex-col md:block">
+    <section id="inicio" className="min-h-full md:h-[100dvh] relative flex flex-col md:block">
 
       <div className="absolute inset-0">
         <Suspense fallback={<div className="w-full h-full bg-[radial-gradient(circle_at_70%_40%,rgba(34,211,238,0.16),transparent_35%)]" />}>
@@ -19,7 +42,7 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t, cvHre
       </div>
 
       {/* Mobile: title at top */}
-      <div className="md:hidden flex-shrink-0 pt-24 ls:pt-12 px-8 pb-20 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
+      <div className="md:hidden flex-shrink-0 pt-20 ls:pt-12 px-8 pb-12 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
         <h1 className="text-[7vw] font-bold tracking-tighter leading-none">
           {t.transform}{' '}
           <span
@@ -38,25 +61,38 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t, cvHre
       <div className="md:hidden flex-1" />
 
       {/* Mobile: content at bottom */}
-      <div className="md:hidden flex-shrink-0 px-8 pt-20 ls:pt-8 pb-32 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+      <div className="md:hidden flex-shrink-0 px-8 pt-10 ls:pt-8 pb-20 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
         <p className="text-xl text-gray-300">Software Developer</p>
-        <p className="mt-3 ls:hidden text-sm text-gray-300 w-full text-justify">
+        <div className="mt-1.5 ls:hidden flex flex-wrap gap-1 pointer-events-auto">
+          <OpenToWorkBadge label={t.openToWork} />
+          <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
+          <ProfileChip icon={FaBriefcase} label={t.experience} />
+        </div>
+        <p className="mt-2 ls:hidden text-sm text-gray-300 w-full text-justify">
           {t.intro}
         </p>
-        <button
-          onClick={() => goToSection('projects')}
-          className="mt-8 ls:mt-3 w-[13.75rem] px-5 py-2.5 ls:py-2 bg-white text-black font-semibold rounded-2xl text-base hover:scale-105 transition-transform pointer-events-auto glow-pulse"
-        >
-          {t.cta}
-        </button>
-        <div className="mt-4 ls:mt-2 flex gap-3 pointer-events-auto flex-wrap">
+        <div className="mt-4 ls:mt-3 flex flex-col gap-1.5 pointer-events-auto items-start">
+          <button
+            onClick={() => goToSection('projects')}
+            className="w-[13.75rem] px-5 py-2 bg-white text-black font-semibold rounded-2xl text-sm hover:scale-105 transition-transform glow-pulse"
+          >
+            {t.cta}
+          </button>
+          <button
+            onClick={() => goToSection('contact')}
+            className="ls:hidden w-[13.75rem] px-5 py-1.5 bg-cyan-400/10 border border-cyan-400/50 text-cyan-300 font-semibold rounded-2xl text-sm hover:bg-cyan-400/20 transition-colors"
+          >
+            {t.ctaSecondary} →
+          </button>
+        </div>
+        <div className="mt-3 ls:mt-2 flex gap-2 pointer-events-auto flex-wrap">
           <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
-            <FaLinkedin className="w-3.5 h-3.5" /> LinkedIn
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
+            <FaLinkedin className="w-3 h-3" /> LinkedIn
           </a>
           <a href={cvHref} download
-            className="flex items-center gap-1.5 px-4 py-2 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-sm font-semibold">
-            <FaFileAlt className="w-3.5 h-3.5" /> CV
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
+            <FaFileAlt className="w-3 h-3" /> CV
           </a>
         </div>
       </div>
@@ -79,15 +115,30 @@ export default function Hero({ wordIdx, words, goToSection, heroActive, t, cvHre
           </h2>
           <div className="translate-y-28">
             <p className="text-3xl text-gray-300">Software Developer</p>
+            <div className="mt-4 flex flex-wrap gap-2 max-w-[40rem] pointer-events-auto">
+              <OpenToWorkBadge label={t.openToWork} />
+              <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
+              <ProfileChip icon={FaBriefcase} label={t.experience} />
+              <ProfileChip icon={FaLaptopCode} label={t.modality} />
+              <ProfileChip icon={FaGlobe} label={t.languages} />
+            </div>
             <p className="mt-4 text-lg text-gray-300 max-w-[38rem] text-justify">
               {t.intro}
             </p>
-            <button
-              onClick={() => goToSection('projects')}
-              className="mt-8 w-[19rem] px-10 py-5 bg-white text-black font-semibold rounded-2xl text-xl hover:scale-105 transition-transform pointer-events-auto glow-pulse"
-            >
-              {t.cta}
-            </button>
+            <div className="mt-8 flex flex-wrap gap-3 pointer-events-auto">
+              <button
+                onClick={() => goToSection('projects')}
+                className="px-8 py-4 bg-white text-black font-semibold rounded-2xl text-lg lg:text-xl hover:scale-105 transition-transform glow-pulse"
+              >
+                {t.cta}
+              </button>
+              <button
+                onClick={() => goToSection('contact')}
+                className="px-8 py-4 bg-cyan-400/10 border border-cyan-400/50 text-cyan-300 font-semibold rounded-2xl text-lg lg:text-xl hover:bg-cyan-400/20 hover:scale-105 transition-all"
+              >
+                {t.ctaSecondary} →
+              </button>
+            </div>
             <div className="mt-8 flex gap-4 pointer-events-auto flex-wrap">
               <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 px-8 py-4 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-lg font-semibold">

@@ -1,5 +1,5 @@
 /**
- * UI copy in Spanish and English.
+ * UI copy in Spanish, English, and Catalan.
  * Data-driven pattern: sections receive only the sub-object they need (t.hero, t.contact…).
  */
 export const TRANSLATIONS = {
@@ -10,8 +10,18 @@ export const TRANSLATIONS = {
     hero: {
       transform: 'Transformando',
       subtitle: 'en experiencias digitales inolvidables',
-      intro: 'Soy Aleix, desarrollador de software especializado en crear interfaces modernas, experiencias interactivas y aplicaciones web funcionales. Me gusta combinar código, diseño y detalle visual para convertir ideas en productos cuidados.',
+      intro: 'Hola, soy Aleix — desarrollador de software centrado en interfaces modernas, experiencias interactivas y aplicaciones web sólidas. Mezclo código, diseño y atención al detalle para convertir ideas en productos completos y perfeccionados.',
       cta: 'Explorar mis proyectos',
+      ctaSecondary: 'Trabajemos juntos',
+      openToWork: 'Disponible para nuevos proyectos',
+      location: 'Reus, Catalunya',
+      experience: '5+ años de experiencia',
+      modality: 'Remoto · Híbrido · Presencial',
+      languages: 'ES · CA · EN',
+    },
+    meta: {
+      title: 'Aleix Auqué · Software Developer',
+      description: 'Portfolio de Aleix Auqué, desarrollador de software full-stack con 5+ años de experiencia en React, Three.js, Laravel y Cloudflare. Disponible para nuevas oportunidades.',
     },
     journey: {
       title: 'Mi trayectoria',
@@ -20,6 +30,9 @@ export const TRANSLATIONS = {
     },
     projects: {
       title: 'Mis proyectos',
+    },
+    skills: {
+      title: 'Tecnologías',
     },
     hobbies: {
       title: 'Arte',
@@ -52,8 +65,18 @@ export const TRANSLATIONS = {
     hero: {
       transform: 'Turning',
       subtitle: 'into unforgettable digital experiences',
-      intro: 'I am Aleix, a software developer focused on building modern interfaces, interactive experiences, and functional web applications. I like combining code, design, and visual detail to turn ideas into polished products.',
+      intro: "Hi, I'm Aleix — a software developer focused on modern interfaces, interactive experiences, and solid web apps. I blend code, design, and attention to detail to turn ideas into complete and polished products.",
       cta: 'Explore my projects',
+      ctaSecondary: "Let's work together",
+      openToWork: 'Open to new projects',
+      location: 'Reus, Catalonia',
+      experience: '5+ years experience',
+      modality: 'Remote · Hybrid · On-site',
+      languages: 'ES · CA · EN',
+    },
+    meta: {
+      title: 'Aleix Auqué · Software Developer',
+      description: 'Portfolio of Aleix Auqué, full-stack software developer with 5+ years of experience in React, Three.js, Laravel, and Cloudflare. Open to new opportunities.',
     },
     journey: {
       title: 'My journey',
@@ -62,6 +85,9 @@ export const TRANSLATIONS = {
     },
     projects: {
       title: 'My projects',
+    },
+    skills: {
+      title: 'Skills',
     },
     hobbies: {
       title: 'Art',
@@ -85,6 +111,61 @@ export const TRANSLATIONS = {
       error: 'Error sending the message. Please try again.',
       configError: 'The form is not configured. You can contact me directly by email.',
       rights: 'All rights reserved',
+    },
+  },
+  ca: {
+    navMenu: 'Menú',
+    previousSection: 'Secció anterior',
+    nextSection: 'Secció següent',
+    hero: {
+      transform: 'Transformant',
+      subtitle: 'en experiències digitals inoblidables',
+      intro: 'Hola, sóc l\'Aleix — desenvolupador de programari centrat en interfícies modernes, experiències interactives i aplicacions web sòlides. Barrejo codi, disseny i atenció al detall per convertir idees en productes complets i perfeccionats.',
+      cta: 'Explorar els meus projectes',
+      ctaSecondary: 'Treballem plegats',
+      openToWork: 'Disponible per a nous projectes',
+      location: 'Reus, Catalunya',
+      experience: '5+ anys d\'experiència',
+      modality: 'Remot · Híbrid · Presencial',
+      languages: 'ES · CA · EN',
+    },
+    meta: {
+      title: 'Aleix Auqué · Software Developer',
+      description: 'Portfolio de l\'Aleix Auqué, desenvolupador de programari full-stack amb més de 5 anys d\'experiència en React, Three.js, Laravel i Cloudflare. Disponible per a noves oportunitats.',
+    },
+    journey: {
+      title: 'La meva trajectòria',
+      experience: 'Experiència',
+      education: 'Formació',
+    },
+    projects: {
+      title: 'Els meus projectes',
+    },
+    skills: {
+      title: 'Tecnologies',
+    },
+    hobbies: {
+      title: 'Art',
+      subtitle: 'Dibuixos realistes fets a llapis per mi',
+      closeGallery: 'Tancar la galeria',
+      previousDrawing: 'Dibuix anterior',
+      nextDrawing: 'Dibuix següent',
+      viewDrawing: 'Veure dibuix',
+      drawing: 'Dibuix',
+    },
+    contact: {
+      title: 'Parlem?',
+      subtitle: 'Estic obert a noves oportunitats i col·laboracions.',
+      name: 'El teu nom',
+      email: 'El teu correu',
+      subject: 'Assumpte',
+      message: 'El teu missatge',
+      sending: 'Enviant...',
+      send: 'Enviar missatge',
+      success: 'Missatge enviat! Et respondré aviat.',
+      error: 'Error en enviar. Torna-ho a provar.',
+      configError: 'El formulari no està configurat. Pots escriure\'m directament per correu.',
+      rights: 'Tots els drets reservats',
     },
   },
 }

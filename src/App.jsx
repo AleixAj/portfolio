@@ -2,7 +2,7 @@
  * Root portfolio component.
  *
  * Responsibilities:
- * - Global language state (ES/EN) persisted in localStorage
+ * - Global language state (ES/EN/CA) persisted in localStorage
  * - Section navigation with smooth scroll and active section detection
  * - Reveal animations when switching sections
  * - Lazy-loaded star background to reduce initial bundle size
@@ -19,6 +19,9 @@ import Contact from './sections/Contact'
 import { SECTIONS, ROTATING_WORDS } from './consts/nav'
 import { TRANSLATIONS } from './consts/i18n'
 
+const CV_BY_LANG = { es: '/cv-aleix-es.pdf', en: '/cv-aleix-en.pdf', ca: '/cv-aleix-es.pdf' }
+const OG_LOCALE_BY_LANG = { es: 'es_ES', en: 'en_US', ca: 'ca_ES' }
+
 // Three.js loads only when the page is viewed (separate chunk)
 const StarBackground = lazy(() => import('./components/StarBackground'))
 
@@ -28,12 +31,15 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [wordIdx, setWordIdx] = useState(0)
   const [sectionIdx, setSectionIdx] = useState(0)
-  const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'es')
+  const [lang, setLang] = useState(() => {
+    const stored = localStorage.getItem('lang')
+    return TRANSLATIONS[stored] ? stored : 'es'
+  })
 
   const t = TRANSLATIONS[lang]
   const words = ROTATING_WORDS[lang]
   const visibleWordIdx = useMemo(() => wordIdx % words.length, [wordIdx, words.length])
-  const cvHref = lang === 'es' ? '/cv-aleix-es.pdf' : '/cv-aleix-en.pdf'
+  const cvHref = CV_BY_LANG[lang] ?? CV_BY_LANG.es
 
   // Rotating hero words ("ideas", "projects", etc.)
   useEffect(() => {
@@ -41,11 +47,26 @@ function App() {
     return () => clearInterval(interval)
   }, [words.length])
 
-  // Sync language with DOM and localStorage on change
+  // Sync language with DOM, localStorage and head meta on change
   useEffect(() => {
     localStorage.setItem('lang', lang)
     document.documentElement.lang = lang
-  }, [lang])
+
+    const meta = t.meta
+    if (!meta) return
+    document.title = meta.title
+
+    const setMeta = (selector, value) => {
+      const el = document.head.querySelector(selector)
+      if (el) el.setAttribute('content', value)
+    }
+    setMeta('meta[name="description"]', meta.description)
+    setMeta('meta[property="og:title"]', meta.title)
+    setMeta('meta[property="og:description"]', meta.description)
+    setMeta('meta[name="twitter:title"]', meta.title)
+    setMeta('meta[name="twitter:description"]', meta.description)
+    setMeta('meta[property="og:locale"]', OG_LOCALE_BY_LANG[lang] ?? OG_LOCALE_BY_LANG.es)
+  }, [lang, t])
 
   const goToSection = useCallback((id) => {
     if (isScrolling.current) return
@@ -99,7 +120,7 @@ function App() {
   }, [sectionIdx])
 
   return (
-    <div className="bg-black">
+    <div className="fixed inset-0 overflow-hidden">
       <Suspense fallback={<div className="fixed inset-0 z-0 pointer-events-none bg-black" />}>
         <StarBackground />
       </Suspense>
@@ -119,7 +140,7 @@ function App() {
       {sectionIdx < SECTIONS.length - 1 && (
         <button
           onClick={() => goToSection(SECTIONS[sectionIdx + 1])}
-          className="nav-section-arrow fixed bottom-8 left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
+          className="nav-section-arrow fixed bottom-[max(2rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-40 text-white/40 hover:text-cyan-400 transition-colors duration-300 animate-bounce pointer-events-auto ls:hidden"
           aria-label={t.nextSection}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -128,13 +149,18 @@ function App() {
         </button>
       )}
 
-      <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={setLang} t={t} />
+      <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={setLang} t={t} activeSection={SECTIONS[sectionIdx]} />
 
-      <div ref={containerRef} className="h-[100dvh] overflow-y-auto relative z-10" style={{ touchAction: 'pan-y' }}>
+      <div
+        id="app-scroll"
+        ref={containerRef}
+        className="h-full overflow-y-auto overscroll-y-none relative z-10"
+        style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
+      >
         <Hero wordIdx={visibleWordIdx} words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cvHref={cvHref} />
         <Trayectoria lang={lang} t={t.journey} />
         <Projects lang={lang} t={t.projects} />
-        <Skills lang={lang} />
+        <Skills lang={lang} t={t.skills} />
         <Hobbies t={t.hobbies} />
         <Contact t={t.contact} cvHref={cvHref} />
       </div>

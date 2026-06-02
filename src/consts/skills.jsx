@@ -8,7 +8,7 @@ import { FaJava } from 'react-icons/fa'
 
 export const SKILL_CATEGORIES = [
   {
-    title: { es: 'Frontend', en: 'Frontend' },
+    title: { es: 'Frontend', en: 'Frontend', ca: 'Frontend' },
     skills: [
       { label: 'HTML',              Icon: SiHtml5,       color: '#E34F26' },
       { label: 'CSS',               Icon: SiCss,         color: '#1572B6' },
@@ -25,7 +25,7 @@ export const SKILL_CATEGORIES = [
     ],
   },
   {
-    title: { es: 'Backend', en: 'Backend' },
+    title: { es: 'Backend', en: 'Backend', ca: 'Backend' },
     skills: [
       { label: 'JSON',     Icon: SiJson,    color: '#FACC15' },
       { label: 'PHP',      Icon: SiPhp,     color: '#777BB4' },
@@ -38,7 +38,7 @@ export const SKILL_CATEGORIES = [
     ],
   },
   {
-    title: { es: 'DevOps y herramientas', en: 'DevOps and tools' },
+    title: { es: 'DevOps y herramientas', en: 'DevOps and tools', ca: 'DevOps i eines' },
     skills: [
       { label: 'Git',            Icon: SiGit,                 color: '#F05032' },
       { label: 'Bitbucket',      Icon: SiBitbucket,           color: '#0052CC' },

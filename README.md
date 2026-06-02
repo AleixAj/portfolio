@@ -37,29 +37,56 @@ from idea to production.
   experiencia responsive pensada para desktop, tablet y móvil.
 - Integración de una escena 3D ligera con **Three.js**, **React Three Fiber** y
   carga diferida para mantener buen rendimiento inicial.
-- Interfaz **ES/EN** sin dependencias extra, con selector de idioma persistente
-  en `localStorage` y contenido principal traducido.
-- Presentación clara de experiencia laboral, formación y proyectos con demos
-  públicas, repositorios reales y enlaces verificables.
-- Cuidado por UX: navegación por secciones, animaciones sutiles, tarjetas de
-  proyecto consistentes, formularios, estados responsive, adaptación a
-  dispositivos táctiles y escalado progresivo en pantallas ultra anchas
-  (`2xl` desde 2200px, `3xl` desde 2560px; `1920x1080` mantiene layout estándar).
+- Interfaz **trilingüe ES / EN / CAT** sin dependencias extra, con selector de
+  idioma persistente en `localStorage`, contenido principal traducido y
+  `meta`/`og` sincronizados con el idioma activo (`hreflang` + `og:locale:alternate`).
+- **Arquitectura de scroll estable en móvil**: el documento queda bloqueado
+  (`overflow: hidden`) y el contenido vive en un contenedor `fixed` con su
+  propio scroll, evitando saltos al ocultarse/mostrarse la barra del navegador
+  (`100dvh` cambiante) y los rebotes de overscroll.
+- **Alineación lateral unificada**: todas las secciones comparten el mismo
+  contenedor (`max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem]`) para que el contenido
+  caiga sobre la misma línea vertical en todas las páginas.
+- Hero con **mini-ficha profesional** lista para reclutadores: badge "Open to
+  work", ubicación, años de experiencia, modalidad e idiomas, más doble CTA
+  (proyectos + contacto directo).
+- Presentación clara de experiencia laboral con **chips de cliente** para
+  destacar marcas reconocibles, formación y proyectos con demos públicas,
+  repositorios reales y enlaces verificables.
+- Cuidado por UX: navegación por secciones con **indicador de sección activa**,
+  animaciones sutiles, tarjetas de proyecto consistentes, formularios, estados
+  responsive, adaptación a dispositivos táctiles y escalado progresivo en
+  pantallas ultra anchas (`2xl` desde 2200px, `3xl` desde 2560px; `1920x1080`
+  mantiene layout estándar).
+- Accesibilidad básica revisada: `focus-visible` global, mobile menu con
+  `Escape` y focus trap, `aria-current` en navbar, formularios con labels y
+  estados `aria-live`.
 - Preparación para producción con **Vite**, **Tailwind CSS**, **EmailJS** y
   despliegue en **Cloudflare Workers + Assets**.
 
 ## Decisiones Técnicas Clave
 
-- **Arquitectura data-driven**: textos, navegación, experiencia, skills,
-  hobbies y proyectos viven en `src/consts/`, separando contenido de UI.
+- **Arquitectura data-driven**: textos, navegación, experiencia (con clientes
+  destacados por puesto), skills, hobbies y proyectos viven en `src/consts/`,
+  separando contenido de UI.
 - **Carga progresiva**: `React.lazy` separa la escena 3D y el fondo de estrellas
   del bundle inicial.
 - **Rendimiento 3D**: el modelo GLB está comprimido con meshopt + texturas WebP,
   se precarga y usa DPR adaptativo para equilibrar nitidez y fluidez.
 - **Galería optimizada**: miniaturas WebP para la grilla y archivos completos
   solo cuando se abre el modal.
+- **SEO multiidioma**: `hreflang` `es/en/ca/x-default` en `index.html`,
+  `og:locale:alternate` (`es_ES`, `en_US`, `ca_ES`) y sincronización en runtime
+  de `title`, `description`, `og:*` y `twitter:*` al cambiar de idioma desde
+  `App.jsx`. Las banderas del switcher (España, Reino Unido y la **senyera**)
+  son SVG inline para que se rendericen idénticas en cualquier sistema operativo.
+- **Scroll lock controlado**: `html`/`body`/`#root` no scrollean; sólo lo hace
+  `#app-scroll` con `overscroll-behavior: none` y `touch-action: pan-y`. Las
+  secciones usan `min-h-full` en móvil y `100dvh` sólo en desktop para evitar
+  reajustes al colapsar la barra del navegador.
 - **Responsive real**: móvil, desktop estándar, táctil landscape y pantallas
-  ultra anchas tienen ajustes dedicados.
+  ultra anchas tienen ajustes dedicados; el hero compacta chips y CTAs en
+  móvil para mantener el contenido por encima del fold.
 - **Despliegue simple**: build estático con Vite y publicación en Cloudflare
   Workers + Assets con fallback SPA.
 
@@ -193,14 +220,17 @@ ordenado igual que en la UI (de base a especializado).
 
 ## Secciones Del Portfolio
 
-- **Inicio**: presentación personal, escena 3D interactiva, mensajes dinámicos y
-  CTA hacia proyectos.
-- **Trayectoria**: experiencia laboral y formación académica sin scroll interno.
+- **Inicio**: presentación personal, escena 3D interactiva, mensajes dinámicos,
+  badge "Open to work", mini-ficha profesional (ubicación, años de experiencia,
+  modalidad e idiomas) y doble CTA hacia proyectos y contacto.
+- **Trayectoria**: experiencia laboral y formación académica sin scroll interno,
+  con **chips de cliente** (`CaixaBank`, `Nestlé`, `Naturgy`) en los puestos
+  donde los proyectos llegaron a marcas reconocibles.
 - **Proyectos**: tarjetas con logos adaptados a móvil, descripciones bilingües,
-  tecnologías, GitHub y demo.
-- **Skills**: tecnologías agrupadas por frontend (incluye HTML, CSS, XML y
-  herramientas de UI), backend, DevOps y herramientas (incluye `Godot` para
-  game dev móvil), con iconos de marca.
+  tecnologías, GitHub y demo. Orden por profundidad técnica (full-stack primero).
+- **Tecnologías** (`Skills` en EN): tecnologías agrupadas por frontend (incluye
+  HTML, CSS, XML y herramientas de UI), backend, DevOps y herramientas (incluye
+  `Godot` para game dev móvil y `Aseprite` para pixel art), con iconos de marca.
 - **Arte**: galería personal con modal y navegación por teclado.
 - **Contacto**: formulario conectado con EmailJS y enlaces profesionales.
 
@@ -292,16 +322,31 @@ quiere activar el formulario.
 - `npm run build` verificado antes de publicar.
 - La escena 3D se carga de forma diferida para reducir el JavaScript inicial.
 - Las secciones y tarjetas se compactan en móvil para evitar cortes visuales y
-  mejorar la navegación táctil.
+  mejorar la navegación táctil. El hero móvil reduce padding, chips visibles y
+  tamaño de CTAs para mantener todo dentro del viewport.
 - Los proyectos enlazan a demos públicas y repositorios reales.
 - El selector de idioma usa banderas SVG para evitar diferencias de renderizado
   entre sistemas operativos.
-- Metadata SEO y social preview configuradas en `index.html`.
+- Metadata SEO y social preview configuradas en `index.html`, con
+  **`hreflang` `es/en/ca/x-default`** y **`og:locale:alternate`** para indicar
+  contenido bilingüe a los buscadores.
+- `App.jsx` actualiza `title`, `description`, `og:*` y `twitter:*` en runtime
+  al cambiar el idioma, manteniendo el SEO coherente para cada locale.
 - JSON-LD `Person` para mejorar el contexto semántico del portfolio.
-- Accesibilidad básica cuidada: labels reales en formulario, focus visible,
-  navegación por teclado en galería y `aria-labels` en acciones con iconos.
+- Accesibilidad básica cuidada: `focus-visible` global, labels reales en
+  formulario, navegación por teclado en galería, `aria-labels` en acciones con
+  iconos, **mobile menu con `Escape` + focus trap** y `aria-current="page"`
+  para la sección activa en el navbar.
+- **Indicador de sección activa** en el navbar (subrayado en desktop, marcador
+  lateral en mobile) sincronizado con el scroll.
 - Formulario con estados diferenciados: envío, éxito, error de servicio y falta
   de configuración de EmailJS.
+- Teléfono fuera del footer público para evitar scraping; el contacto pasa por
+  email, formulario, LinkedIn o CV.
+- **Scroll y viewport estables en móvil**: documento bloqueado, contenedor de
+  scroll fijo y secciones con `min-h-full` en móvil para evitar el salto típico
+  al ocultarse la barra de direcciones; el fondo de estrellas queda fijo al
+  viewport y se ve a través de las secciones semitransparentes.
 
 ### Verificación
 
@@ -320,11 +365,25 @@ quiere activar el formulario.
 
 Puntos concretos que merece la pena revisar en el código:
 
-- `src/App.jsx`: navegación por secciones, persistencia de idioma y reveal
-  animations.
+- `src/App.jsx`: navegación por secciones, persistencia de idioma (ES/EN/CA),
+  scroll lock global con contenedor `#app-scroll` interno, reveal animations
+  y sincronización de meta tags (`hreflang`, `og:*`, `twitter:*`) con el
+  idioma activo.
+- `src/index.css`: `overflow: hidden` en `html`/`body`, `overscroll-behavior: none`
+  y reglas responsive para mobile landscape.
+- `src/components/Navbar.jsx`: indicador de sección activa (`aria-current`),
+  mobile menu con focus trap, `Escape` para cerrar, retorno de foco al
+  hamburger y `LanguageSwitcher` con banderas SVG (España, UK y senyera).
+- `src/consts/i18n.js`, `nav.js`, `projects.js`, `experience.js`, `skills.jsx`:
+  contenido trilingüe (`es`, `en`, `ca`) en una sola fuente de verdad.
+- `src/sections/Hero.jsx`: badge "Open to work", `ProfileChip`/`OpenToWorkBadge`
+  reutilizables, doble CTA (proyectos + contacto) y compactación responsive
+  para móvil.
 - `src/components/Scene3D.jsx`: carga del GLB, centrado automático del modelo,
   OrbitControls y balance rendimiento/nitidez.
 - `src/components/StarBackground.jsx`: fondo WebGL estático con `frameloop="demand"`.
+- `src/components/TimelineItem.jsx`: chips de cliente con color de marca por
+  experiencia para resaltar referencias relevantes (CaixaBank, Nestlé, Naturgy).
 - `src/sections/Hobbies.jsx`: galería con thumbnails, modal y navegación por
   teclado.
 - `scripts/optimize-images.mjs`: pipeline reproducible para optimizar assets.

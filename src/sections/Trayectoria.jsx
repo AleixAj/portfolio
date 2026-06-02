@@ -8,14 +8,14 @@ import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import TimelineItem from '../components/TimelineItem'
 
 /** Resolves bilingual fields { es, en } or returns the value as-is */
-const localize = (value, lang) => typeof value === 'object' ? value[lang] : value
+const localize = (value, lang) => (typeof value === 'object' ? (value[lang] ?? value.es) : value)
 
 export default function Trayectoria({ lang, t }) {
   const [tab, setTab] = useState(0)
 
   return (
-    <section id="about" className="min-h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 md:pt-0 ls:pt-20 pb-8 md:pb-0 ls:pb-12 relative">
-      <div className="max-w-5xl 2xl:max-w-7xl 3xl:max-w-[96rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
+    <section id="about" className="min-h-full md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 md:pt-0 ls:pt-20 pb-8 md:pb-0 ls:pb-12 relative">
+      <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
         <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-2 md:mb-10 2xl:mb-14">{t.title}</h2>
 
         {/* Tabs — mobile only */}
@@ -44,7 +44,7 @@ export default function Trayectoria({ lang, t }) {
             <div className="relative">
               <div className="absolute left-[7px] top-[12px] bottom-[12px] w-px bg-white/10" />
               {EXPERIENCE.map((item, i) => (
-                <TimelineItem key={i} title={item.company} subtitle={localize(item.role, lang)} period={localize(item.period, lang)} desc={localize(item.desc, lang)} />
+                <TimelineItem key={i} title={item.company} subtitle={localize(item.role, lang)} period={localize(item.period, lang)} desc={localize(item.desc, lang)} clients={item.clients} />
               ))}
             </div>
           </div>

@@ -13,7 +13,7 @@
  */
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, PerformanceMonitor, useGLTF } from '@react-three/drei'
-import { useRef, Suspense, useEffect, useMemo, useState } from 'react'
+import { memo, useRef, Suspense, useEffect, useMemo, useState, useCallback } from 'react'
 import * as THREE from 'three'
 
 const MODEL_URL = '/gaming_bedroom.glb'
@@ -23,7 +23,7 @@ const USE_DRACO = false
 const USE_MESHOPT = true
 
 /** Loads the GLB and auto-centers/scales it from its bounding box. */
-function GamingRoom({ floatingRef }) {
+function GamingRoom({ floatingRef, isDesktop }) {
   const { scene } = useGLTF(MODEL_URL, USE_DRACO, USE_MESHOPT)
   const groupRef = useRef()
   const baseY = useRef(0)
@@ -41,9 +41,12 @@ function GamingRoom({ floatingRef }) {
     groupRef.current.rotation.y = -0.6
   }, [scene])
 
-  // Pause the idle float while the user is orbiting (kept in floatingRef.current === false)
+  // Idle float runs only on desktop where frameloop="always" can animate smoothly.
+  // On mobile (frameloop="demand") any invalidation would step the clock-based
+  // animation and cause visible jumps when the parent re-renders.
   useFrame((state) => {
     if (!groupRef.current) return
+    if (!isDesktop) return
     if (floatingRef && floatingRef.current === false) return
     groupRef.current.position.y = baseY.current + Math.sin(state.clock.elapsedTime * 0.5) * 0.15
   })
@@ -86,7 +89,7 @@ function Scene({ orbitTarget, isDesktop, floatingRef }) {
       <pointLight position={[-4.4, 1, 1]}      intensity={2} color="#22d3ee" distance={4} decay={1} />
 
       <Suspense fallback={null}>
-        <GamingRoom floatingRef={floatingRef} />
+        <GamingRoom floatingRef={floatingRef} isDesktop={isDesktop} />
       </Suspense>
 
       {/* OrbitControls only on desktop — on mobile, page scroll wins. */}
@@ -115,7 +118,10 @@ function getInitialDpr(isDesktop) {
   return Math.min(dpr, isDesktop ? 1.5 : 2)
 }
 
-export default function Scene3D({ heroActive = true }) {
+// Memoized so parent re-renders that do not change `heroActive` (e.g. the rotating
+// hero word in App.jsx every 2.5s) don't propagate into the Canvas tree and
+// trigger spurious R3F invalidations that would step the idle animation.
+const Scene3D = memo(function Scene3D({ heroActive = true }) {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024)
   const [dpr, setDpr] = useState(() => getInitialDpr(window.innerWidth >= 1024))
   const floatingRef = useRef(true)
@@ -137,6 +143,14 @@ export default function Scene3D({ heroActive = true }) {
   const orbitTarget = useMemo(() => (isDesktop ? [-5, 0, 0] : [-2, -1.5, 1]), [isDesktop])
   const shouldRenderContinuously = heroActive && isDesktop
 
+  // Stable references so PerformanceMonitor doesn't see new props on every render.
+  const onDecline = useCallback(() => {
+    setDpr(d => Math.max(1, +(d - 0.25).toFixed(2)))
+  }, [])
+  const onIncline = useCallback(() => {
+    setDpr(getInitialDpr(isDesktop))
+  }, [isDesktop])
+
   return (
     <div className={`w-full h-full ${!isDesktop ? 'pointer-events-none' : ''}`}>
       <Canvas
@@ -148,8 +162,8 @@ export default function Scene3D({ heroActive = true }) {
       >
         {/* Adaptive DPR: drops if FPS falls under ~45, recovers when stable. */}
         <PerformanceMonitor
-          onDecline={() => setDpr(d => Math.max(1, +(d - 0.25).toFixed(2)))}
-          onIncline={() => setDpr(() => getInitialDpr(isDesktop))}
+          onDecline={onDecline}
+          onIncline={onIncline}
           flipflops={3}
           factor={1}
         />
@@ -157,6 +171,8 @@ export default function Scene3D({ heroActive = true }) {
       </Canvas>
     </div>
   )
-}
+})
+
+export default Scene3D
 
 useGLTF.preload(MODEL_URL, USE_DRACO, USE_MESHOPT)

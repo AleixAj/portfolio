@@ -80,7 +80,7 @@ function ContactForm({ t }) {
 function Footer({ t, cvHref }) {
   return (
     <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
-      <div className="max-w-5xl 2xl:max-w-7xl mx-auto px-5 md:px-8 2xl:px-12 py-3 md:py-5 2xl:py-7 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
+      <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 py-3 md:py-5 2xl:py-7 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
 
         <div className="flex items-center gap-3">
           <img src="/AJ.png" alt="AJ Logo" className="w-10 h-10 2xl:w-14 2xl:h-14 object-contain flex-shrink-0" />
@@ -111,7 +111,6 @@ function Footer({ t, cvHref }) {
           </div>
           <div className="flex flex-col gap-0.5 items-end">
             <p className="text-gray-400 text-xs">aleixauque@gmail.com</p>
-            <p className="text-gray-400 text-xs">(+34) 680 80 26 09</p>
           </div>
         </div>
 
@@ -125,7 +124,7 @@ function Footer({ t, cvHref }) {
 
 export default function Contact({ t, cvHref }) {
   return (
-    <section id="contact" className="h-[100dvh] ls:h-auto bg-black/45 flex flex-col relative overflow-hidden ls:overflow-visible">
+    <section id="contact" className="min-h-full md:h-[100dvh] ls:h-auto bg-black/45 flex flex-col relative overflow-hidden ls:overflow-visible">
       <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-2 md:pb-[60px]">
         <ContactForm t={t} />
       </div>

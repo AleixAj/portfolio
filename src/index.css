@@ -8,6 +8,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Lock document scroll; the app scrolls inside #app-scroll only. */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background-color: #000;
+  overscroll-behavior: none;
+}
+
+#root {
+  height: 100%;
+  background-color: #000;
+}
+
 body, button {
   font-family: 'Exo 2', sans-serif;
 }
@@ -64,7 +78,7 @@ body, button {
 
   #inicio {
     height: auto !important;
-    min-height: 100dvh !important;
+    min-height: 100% !important;
   }
 
   #inicio h1 {
