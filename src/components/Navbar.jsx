@@ -122,14 +122,14 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-cyan-500/30">
-      {/* Desktop layout — full-width: logo flush-left, language switcher flush-right */}
-      <div className="hidden md:flex w-full px-5 md:px-6 lg:px-8 2xl:px-10 py-4 lg:py-5 items-center">
-        <button onClick={() => goToSection('inicio')} className="flex items-center gap-3 lg:gap-4 cursor-pointer min-w-0">
+      {/* Desktop layout — logo flush-left, nav centered, language switcher flush-right */}
+      <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] w-full px-5 md:px-6 lg:px-8 2xl:px-10 py-4 lg:py-5 items-center gap-6">
+        <button onClick={() => goToSection('inicio')} className="flex items-center gap-3 lg:gap-4 cursor-pointer min-w-0 justify-self-start">
           <img src="/AJ.png" alt="" aria-hidden="true" className="h-8 lg:h-10 xl:h-11 w-auto object-contain flex-shrink-0" />
           <span className="font-tech text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-[0.18em] lg:tracking-widest text-white truncate">ALEIX AUQUÉ</span>
         </button>
 
-        <div className="ml-auto flex items-center gap-5 lg:gap-6 xl:gap-8 text-white font-medium font-tech text-lg tracking-wider">
+        <div className="flex items-center justify-center gap-5 lg:gap-6 xl:gap-8 text-white font-medium font-tech text-lg tracking-wider">
           {NAV_ITEMS.map(({ labels, id }) => {
             const isActive = activeSection === id
             return (
@@ -147,6 +147,9 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
               </button>
             )
           })}
+        </div>
+
+        <div className="justify-self-end">
           <LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} />
         </div>
       </div>
