@@ -17,7 +17,7 @@ export const TRANSLATIONS = {
       location: 'Reus, Catalunya',
       experience: '5+ años de experiencia',
       modality: 'Remoto · Híbrido · Presencial',
-      languages: 'ES · CA · EN',
+      languages: 'ES · EN · CAT',
     },
     meta: {
       title: 'Aleix Auqué · Software Developer',
@@ -72,7 +72,7 @@ export const TRANSLATIONS = {
       location: 'Reus, Catalonia',
       experience: '5+ years experience',
       modality: 'Remote · Hybrid · On-site',
-      languages: 'ES · CA · EN',
+      languages: 'ES · EN · CAT',
     },
     meta: {
       title: 'Aleix Auqué · Software Developer',
@@ -127,7 +127,7 @@ export const TRANSLATIONS = {
       location: 'Reus, Catalunya',
       experience: '5+ anys d\'experiència',
       modality: 'Remot · Híbrid · Presencial',
-      languages: 'ES · CA · EN',
+      languages: 'ES · EN · CAT',
     },
     meta: {
       title: 'Aleix Auqué · Software Developer',
