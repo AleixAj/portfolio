@@ -5,9 +5,11 @@
 # - 'wasm-unsafe-eval' is required by the meshopt WebAssembly decoder used to load the hero GLB.
 # - 'unsafe-inline' in style-src covers React/Framer Motion inline style attributes and Tailwind.
 # - style/font origins are Google Fonts; connect-src allows the EmailJS contact API.
+# - connect-src also allows blob:/data: because Three.js GLTFLoader fetches the GLB's
+#   embedded textures through blob: URLs (without it the 3D model loads untextured/white).
 # - script-src has no 'unsafe-inline' or external origins: the build ships only one self-hosted module.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.emailjs.com; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.emailjs.com blob: data:; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
