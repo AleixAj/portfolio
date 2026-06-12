@@ -10,8 +10,12 @@ const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
 const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
+// Minimum delay between two submissions, to throttle automated spam.
+const COOLDOWN_MS = 15000
+
 function ContactForm({ t }) {
   const formRef = useRef(null)
+  const lastSubmitRef = useRef(0)
   const [status, setStatus] = useState('idle') // idle | sending | success | error | config-error
 
   const handleSubmit = async (e) => {
@@ -20,9 +24,19 @@ function ContactForm({ t }) {
       setStatus('config-error')
       return
     }
+    // Honeypot: a hidden field that real users never see. If it carries a value,
+    // the submission is a bot — drop it silently and feign success.
+    if (formRef.current?.elements?.company_website?.value) {
+      setStatus('success')
+      formRef.current.reset()
+      return
+    }
+    // Rate limit: ignore submissions fired within the cooldown window.
+    if (Date.now() - lastSubmitRef.current < COOLDOWN_MS) return
     setStatus('sending')
     try {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      lastSubmitRef.current = Date.now()
       setStatus('success')
       formRef.current.reset()
     } catch {
@@ -38,29 +52,34 @@ function ContactForm({ t }) {
         <label className="sr-only" htmlFor="contact-name">{t.name}</label>
         <input
           id="contact-name"
-          name="from_name" type="text" required placeholder={t.name}
+          name="from_name" type="text" required maxLength={80} placeholder={t.name}
           autoComplete="name"
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
         <label className="sr-only" htmlFor="contact-email">{t.email}</label>
         <input
           id="contact-email"
-          name="reply_to" type="email" required placeholder={t.email}
+          name="reply_to" type="email" required maxLength={120} placeholder={t.email}
           autoComplete="email"
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
         <label className="sr-only" htmlFor="contact-subject">{t.subject}</label>
         <input
           id="contact-subject"
-          name="subject" type="text" required placeholder={t.subject}
+          name="subject" type="text" required maxLength={120} placeholder={t.subject}
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
         <label className="sr-only" htmlFor="contact-message">{t.message}</label>
         <textarea
           id="contact-message"
-          name="message" required rows={3} placeholder={t.message}
+          name="message" required maxLength={2000} rows={3} placeholder={t.message}
           className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors resize-none"
         />
+        {/* Honeypot — hidden from users and assistive tech; bots that fill it are dropped */}
+        <div className="absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden" aria-hidden="true">
+          <label htmlFor="contact-company">Company website</label>
+          <input id="contact-company" name="company_website" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
         <button
           type="submit" disabled={status === 'sending'}
           className="mt-0.5 md:mt-1 px-8 md:px-12 py-2.5 md:py-4 2xl:py-5 bg-white text-black font-semibold rounded-2xl text-base md:text-lg 2xl:text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
