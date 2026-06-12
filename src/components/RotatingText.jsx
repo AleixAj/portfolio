@@ -1,8 +1,7 @@
 /**
- * RotatingText — from React Bits (reactbits.dev/text-animations/rotating-text).
- * Animates a list of strings, swapping them with a per-character staggered roll.
- * Only change vs. the upstream source: the framer-motion import path
- * (`framer-motion` instead of `motion/react`, since that's what this project uses).
+ * RotatingText — vendored from React Bits (reactbits.dev/text-animations/rotating-text).
+ * Cycles through a list of strings, swapping the active one with a per-character
+ * staggered roll. Motion comes from `framer-motion`, this project's animation library.
  */
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

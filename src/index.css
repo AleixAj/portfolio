@@ -44,8 +44,8 @@ h1, h2, h3, h4, .font-tech {
 }
 
 .text-gradient-cyan {
-  /* Vivid cyan that stays on-brand: page accent (#22d3ee) ↔ logo teal (#3adbd3),
-     with a deeper cyan for sheen depth. No pale stops, so it reads vivid. */
+  /* On-brand cyan gradient: page accent (#22d3ee), logo teal (#3adbd3) and a
+     deeper cyan (#06b6d4) for depth; animated horizontally for a subtle sheen. */
   background-image: linear-gradient(100deg, #22d3ee 0%, #3adbd3 25%, #22d3ee 50%, #06b6d4 75%, #22d3ee 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;

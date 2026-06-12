@@ -36,8 +36,8 @@ function App() {
   })
 
   const t = TRANSLATIONS[lang]
-  // The hero's rotating word now self-rotates inside <Hero> (React Bits RotatingText);
-  // we just hand it the localized word list.
+  // The hero's rotating word self-rotates inside <Hero> (React Bits RotatingText);
+  // App only supplies the localized word list for the active language.
   const words = ROTATING_WORDS[lang]
   const cvHref = CV_BY_LANG[lang] ?? CV_BY_LANG.es
 

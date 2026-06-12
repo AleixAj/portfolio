@@ -7,8 +7,9 @@ import { memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { FaGithub } from 'react-icons/fa'
 
-// The hover scale should only run where there's a real pointer. On touch, a tap
-// sticks the :hover state and would expand the card — which we don't want.
+// True only on devices with a real pointer (mouse/trackpad). Hover effects are
+// gated on this because on touch a tap sticks the :hover state, which would leave
+// a card stuck in its expanded state after being tapped.
 const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia?.('(hover: hover)').matches
 
 const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo }) {

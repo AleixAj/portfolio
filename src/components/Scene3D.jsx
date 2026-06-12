@@ -41,10 +41,9 @@ function GamingRoom({ floatingRef }) {
     groupRef.current.rotation.y = -0.6
   }, [scene])
 
-  // Idle float runs on desktop AND mobile. It animates smoothly because the hero
-  // canvas uses frameloop="always" while the hero is on screen (see Scene3D below);
-  // the old mobile "demand" jumpiness no longer applies. On mobile there is no
-  // OrbitControls, so the float never has to yield to a drag.
+  // Subtle vertical idle float, on both desktop and mobile. It stays smooth because
+  // the hero canvas renders continuously (frameloop="always") while the hero is on
+  // screen. On mobile there are no OrbitControls, so the float never yields to a drag.
   useFrame((state) => {
     if (!groupRef.current) return
     if (floatingRef && floatingRef.current === false) return
