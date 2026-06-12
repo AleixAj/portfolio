@@ -5,6 +5,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-0.184-111827?style=for-the-badge&logo=threedotjs&logoColor=white)
 ![React Three Fiber](https://img.shields.io/badge/React_Three_Fiber-9-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
 
 **Live portfolio:** [aleixaj.com](https://aleixaj.com)  
@@ -58,9 +59,16 @@ from idea to production.
   responsive, adaptación a dispositivos táctiles y escalado progresivo en
   pantallas ultra anchas (`2xl` desde 2200px, `3xl` desde 2560px; `1920x1080`
   mantiene layout estándar).
+- **Capa de animación con Framer Motion**: entradas escalonadas al hacer scroll,
+  micro-interacciones de hover (tarjetas que se expanden con muelle), palabra
+  rotativa del hero animada letra a letra (componente *RotatingText* de React
+  Bits) y galería de arte con **swipe/arrastre** + transición de slide. Todo
+  respeta `prefers-reduced-motion`.
+- **Identidad tipográfica**: titulares en **Space Grotesk** y cuerpo en **DM
+  Sans**, con acento cian neón coherente con el logo en titulares y tarjetas.
 - Accesibilidad básica revisada: `focus-visible` global, mobile menu con
   `Escape` y focus trap, `aria-current` en navbar, formularios con labels y
-  estados `aria-live`.
+  estados `aria-live`, y respeto de `prefers-reduced-motion`.
 - Preparación para producción con **Vite**, **Tailwind CSS**, **EmailJS** y
   despliegue en **Cloudflare Workers + Assets**.
 
@@ -71,10 +79,16 @@ from idea to production.
   separando contenido de UI.
 - **Carga progresiva**: `React.lazy` separa la escena 3D y el fondo de estrellas
   del bundle inicial.
-- **Rendimiento 3D**: el modelo GLB está comprimido con meshopt + texturas WebP,
-  se precarga y usa DPR adaptativo para equilibrar nitidez y fluidez.
+- **Rendimiento 3D**: el modelo GLB está comprimido con meshopt + simplificación
+  de malla + texturas WebP (de 3 MB a ~1.5 MB), se precarga y usa DPR adaptativo;
+  la animación flotante corre también en móvil (sin control táctil, solo visual).
+- **Animación y tipografía**: Framer Motion para entradas, hovers y la palabra
+  rotativa del hero (*RotatingText* de React Bits); tipografía Space Grotesk +
+  DM Sans; tarjetas de proyecto con glow cian (clase `.project-card`). Todo bajo
+  control de `prefers-reduced-motion`.
 - **Galería optimizada**: miniaturas WebP para la grilla y archivos completos
-  solo cuando se abre el modal.
+  solo cuando se abre el visor, con **swipe/arrastre** (móvil y escritorio) y
+  precarga de las imágenes vecinas para un cambio instantáneo.
 - **SEO multiidioma**: `hreflang` `es/en/ca/x-default` en `index.html`,
   `og:locale:alternate` (`es_ES`, `en_US`, `ca_ES`) y sincronización en runtime
   de `title`, `description`, `og:*` y `twitter:*` al cambiar de idioma desde
@@ -156,6 +170,7 @@ preguntas por rondas.
 
 - **React 19** + **Vite 8**
 - **Three.js** + **React Three Fiber** + **Drei**
+- **Framer Motion** (animaciones e interacciones)
 - **Tailwind CSS 3**
 - **React Icons**
 - **EmailJS**
@@ -226,12 +241,15 @@ ordenado igual que en la UI (de base a especializado).
 - **Trayectoria**: experiencia laboral y formación académica sin scroll interno,
   con **chips de cliente** (`CaixaBank`, `Nestlé`, `Naturgy`) en los puestos
   donde los proyectos llegaron a marcas reconocibles.
-- **Proyectos**: tarjetas con logos adaptados a móvil, descripciones bilingües,
-  tecnologías, GitHub y demo. Orden por profundidad técnica (full-stack primero).
+- **Proyectos**: tarjetas con **glow cian estilo neón**, logos adaptados a móvil,
+  descripciones bilingües, tecnologías, GitHub y demo, con hover de expansión
+  (muelle) en escritorio. Orden por profundidad técnica (full-stack primero).
 - **Tecnologías** (`Skills` en EN): tecnologías agrupadas por frontend (incluye
   HTML, CSS, XML y herramientas de UI), backend, DevOps y herramientas (incluye
   `Godot` para game dev móvil y `Aseprite` para pixel art), con iconos de marca.
-- **Arte**: galería personal con modal y navegación por teclado.
+- **Arte**: galería personal con visor a pantalla completa y navegación por
+  **swipe/arrastre** (móvil y escritorio), teclado, flechas y puntos; las
+  miniaturas se expanden al hover.
 - **Contacto**: formulario conectado con EmailJS y enlaces profesionales.
 
 ## Estructura
@@ -241,11 +259,11 @@ public/              # Assets estáticos (imágenes WebP, GLB, CV, galería hobb
 scripts/             # Pipeline de optimización de imágenes (sharp)
 src/
 ├── consts/          # Datos estáticos: i18n, nav, skills, projects, experience, hobbies
-├── components/      # Navbar, ProjectCard, TimelineItem, Scene3D, StarBackground
+├── components/      # Navbar, ProjectCard, TimelineItem, Scene3D, StarBackground, RotatingText
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact
 ├── App.jsx          # Navegación, idioma, scroll y reveal animations
 ├── main.jsx
-└── index.css        # Tailwind, animaciones y ajustes responsive
+└── index.css        # Tailwind, tipografía, animaciones, glow de tarjetas y reglas responsive
 .env.example         # Plantilla de variables EmailJS (copiar a .env.local)
 ```
 
@@ -334,9 +352,10 @@ quiere activar el formulario.
   al cambiar el idioma, manteniendo el SEO coherente para cada locale.
 - JSON-LD `Person` para mejorar el contexto semántico del portfolio.
 - Accesibilidad básica cuidada: `focus-visible` global, labels reales en
-  formulario, navegación por teclado en galería, `aria-labels` en acciones con
-  iconos, **mobile menu con `Escape` + focus trap** y `aria-current="page"`
-  para la sección activa en el navbar.
+  formulario, navegación por teclado y swipe en la galería, `aria-labels` en
+  acciones con iconos, **mobile menu con `Escape` + focus trap**,
+  `aria-current="page"` para la sección activa en el navbar y respeto de
+  **`prefers-reduced-motion`** (animaciones reducidas o desactivadas).
 - **Indicador de sección activa** en el navbar (subrayado en desktop, marcador
   lateral en mobile) sincronizado con el scroll.
 - Formulario con estados diferenciados: envío, éxito, error de servicio y falta
@@ -377,15 +396,21 @@ Puntos concretos que merece la pena revisar en el código:
 - `src/consts/i18n.js`, `nav.js`, `projects.js`, `experience.js`, `skills.jsx`:
   contenido trilingüe (`es`, `en`, `ca`) en una sola fuente de verdad.
 - `src/sections/Hero.jsx`: badge "Open to work", `ProfileChip`/`OpenToWorkBadge`
-  reutilizables, doble CTA (proyectos + contacto) y compactación responsive
-  para móvil.
+  reutilizables, doble CTA (proyectos + contacto), entrada escalonada con Framer
+  Motion y palabra rotativa letra a letra (`src/components/RotatingText.jsx`,
+  componente de React Bits adaptado).
+- `src/components/ProjectCard.jsx`: tarjeta con glow cian (clase `.project-card`),
+  entrada `whileInView` y hover de expansión con muelle, activo solo en
+  dispositivos con puntero real (`matchMedia('(hover: hover)')`).
 - `src/components/Scene3D.jsx`: carga del GLB, centrado automático del modelo,
-  OrbitControls y balance rendimiento/nitidez.
+  OrbitControls (solo escritorio), animación flotante también en móvil y balance
+  rendimiento/nitidez con DPR adaptativo.
 - `src/components/StarBackground.jsx`: fondo WebGL estático con `frameloop="demand"`.
 - `src/components/TimelineItem.jsx`: chips de cliente con color de marca por
   experiencia para resaltar referencias relevantes (CaixaBank, Nestlé, Naturgy).
-- `src/sections/Hobbies.jsx`: galería con thumbnails, modal y navegación por
-  teclado.
+- `src/sections/Hobbies.jsx`: galería con thumbnails y visor con **swipe/drag**
+  (Framer Motion `drag="x"` con umbral de distancia/velocidad), slide animado
+  (`AnimatePresence`), teclado, flechas, puntos y precarga de vecinas.
 - `scripts/optimize-images.mjs`: pipeline reproducible para optimizar assets.
 - `vite.config.js`: separación de chunks para React, Three.js y EmailJS.
 
@@ -403,14 +428,15 @@ Otras optimizaciones aplicadas:
 - **Chunks separados** (Vite `manualChunks`): React, Three.js y EmailJS viajan en
   bundles independientes para mejor caché entre despliegues.
 - **Lazy loading** de la escena 3D y del fondo de estrellas (`React.lazy`).
-- **Modelo 3D** comprimido con meshopt + texturas WebP (~3 MB); preload en
-  `index.html` y `useGLTF.preload`.
-- **Fondo de estrellas** en `frameloop="demand"` (render estático; animación en CSS).
+- **Modelo 3D** comprimido con meshopt + simplificación de malla + texturas WebP
+  (de 3 MB a ~1.5 MB); preload en `index.html` y `useGLTF.preload`.
+- **Fondo de estrellas** en `frameloop="demand"` (render estático; animación en
+  CSS), con el número de estrellas reducido en móvil para liberar GPU.
 - **Preconnect** a Google Fonts y EmailJS.
-- **Galería**: thumbnails de ~5 KB para la grilla y archivo completo solo en el
-  modal activo, con `fetchPriority` adaptativo.
-- **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor`, animación
-  flotante pausada al arrastrar con OrbitControls; en móvil sin controles 3D y
-  `frameloop="demand"` cuando el hero no está visible.
+- **Galería**: thumbnails de ~5 KB para la grilla, archivo completo solo en el
+  visor activo y precarga de vecinas, con `fetchPriority` adaptativo.
+- **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor` y
+  animación flotante también en móvil (sin control táctil); el render continuo
+  solo se mantiene mientras el hero está visible (`frameloop="demand"` al salir).
 
 El código fuente incluye comentarios en inglés orientados a revisión técnica en GitHub.
