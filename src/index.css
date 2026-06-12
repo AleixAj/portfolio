@@ -79,6 +79,38 @@ h1, h2, h3, h4, .font-tech {
     inset 0 0 20px rgba(34, 211, 238, 0.08);
 }
 
+/* Glare sweep on hover — the GlareHover effect from React Bits, adapted as a
+   utility that overlays an existing element via ::before. The diagonal shine
+   slides across on hover. Restricted to pointer (desktop) devices so a tap on
+   touch screens does not leave the glare stuck mid-sweep. */
+.glare-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.glare-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.38) 70%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  background-size: 250% 250%;
+  background-repeat: no-repeat;
+  background-position: -100% -100%;
+  transition: background-position 0.65s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glare-hover:hover::before {
+    background-position: 100% 100%;
+  }
+}
+
 @keyframes glow-pulse {
   0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.4)); }
   50%       { filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.9)); }

@@ -94,6 +94,9 @@ from idea to production.
   de `title`, `description`, `og:*` y `twitter:*` al cambiar de idioma desde
   `App.jsx`. Las banderas del switcher (España, Reino Unido y la **senyera**)
   son SVG inline para que se rendericen idénticas en cualquier sistema operativo.
+- **Rastreo e indexación**: `public/robots.txt` (con referencia al sitemap) y
+  `public/sitemap.xml`; la imagen social declara `og:image:width/height/alt`
+  para que LinkedIn/WhatsApp la rendericen sin recortes ni segunda petición.
 - **Scroll lock controlado**: `html`/`body`/`#root` no scrollean; sólo lo hace
   `#app-scroll` con `overscroll-behavior: none` y `touch-action: pan-y`. Las
   secciones usan `min-h-full` en móvil y `100dvh` sólo en desktop para evitar
@@ -247,6 +250,8 @@ ordenado igual que en la UI (de base a especializado).
 - **Tecnologías** (`Skills` en EN): tecnologías agrupadas por frontend (incluye
   HTML, CSS, XML y herramientas de UI), backend, DevOps y herramientas (incluye
   `Godot` para game dev móvil y `Aseprite` para pixel art), con iconos de marca.
+  Cada icono **enlaza a la web oficial** de la tecnología y tiene un efecto
+  *glare* al pasar el ratón (solo escritorio).
 - **Arte**: galería personal con visor a pantalla completa y navegación por
   **swipe/arrastre** (móvil y escritorio), teclado, flechas y puntos; las
   miniaturas se expanden al hover.

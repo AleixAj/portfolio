@@ -13,11 +13,19 @@ export default function Skills({ lang, t }) {
             <div key={title[lang] ?? title.es} style={{ animationDelay: `${categoryIndex * 90}ms` }} className="reveal-item bg-white/5 border border-white/10 rounded-xl md:rounded-2xl 2xl:rounded-3xl p-2 md:p-4 2xl:p-5">
               <h3 className="text-xs md:text-lg 2xl:text-xl 3xl:text-2xl font-bold text-cyan-400 mb-1 md:mb-3 2xl:mb-4">{title[lang] ?? title.es}</h3>
               <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-3 gap-1 md:gap-2 2xl:gap-3">
-                {skills.map(({ label, Icon, color }, skillIndex) => (
-                  <div key={label} style={{ animationDelay: `${categoryIndex * 90 + skillIndex * 35}ms` }} className="reveal-item bg-black/20 border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-1 md:p-2.5 2xl:p-3.5 rounded-lg md:rounded-xl 2xl:rounded-2xl text-center transition-all flex flex-col items-center gap-0.5 md:gap-1.5 2xl:gap-2">
+                {skills.map(({ label, Icon, color, url }, skillIndex) => (
+                  <a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={label}
+                    style={{ animationDelay: `${categoryIndex * 90 + skillIndex * 35}ms` }}
+                    className="reveal-item glare-hover bg-black/20 border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] p-1 md:p-2.5 2xl:p-3.5 rounded-lg md:rounded-xl 2xl:rounded-2xl text-center transition-all flex flex-col items-center gap-0.5 md:gap-1.5 2xl:gap-2"
+                  >
                     <Icon className="w-4 h-4 md:w-8 md:h-8 2xl:w-11 2xl:h-11" style={{ color }} />
                     <p className="font-semibold text-[0.5rem] md:text-xs 2xl:text-sm leading-tight">{label}</p>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
