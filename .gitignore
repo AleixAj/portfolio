@@ -1,3 +1,6 @@
+# Local backup of the pre-compression 3D model (kept out of git/deploy)
+.model-backup/
+
 # Logs
 logs
 *.log

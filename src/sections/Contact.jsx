@@ -32,38 +32,38 @@ function ContactForm({ t }) {
 
   return (
     <div className="max-w-5xl mx-auto w-full px-5 md:px-8 text-white md:max-w-xl 2xl:max-w-2xl 3xl:max-w-3xl">
-      <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-3 2xl:mb-5 text-center">{t.title}</h2>
-      <p className="text-sm md:text-lg 2xl:text-2xl text-gray-400 mb-5 md:mb-7 2xl:mb-10 text-center">{t.subtitle}</p>
-      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 md:gap-4 2xl:gap-5" aria-busy={status === 'sending'}>
+      <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-2 md:mb-3 2xl:mb-5 text-center">{t.title}</h2>
+      <p className="text-sm md:text-lg 2xl:text-2xl text-gray-400 mb-4 md:mb-7 2xl:mb-10 text-center">{t.subtitle}</p>
+      <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-2.5 md:gap-4 2xl:gap-5" aria-busy={status === 'sending'}>
         <label className="sr-only" htmlFor="contact-name">{t.name}</label>
         <input
           id="contact-name"
           name="from_name" type="text" required placeholder={t.name}
           autoComplete="name"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
         <label className="sr-only" htmlFor="contact-email">{t.email}</label>
         <input
           id="contact-email"
           name="reply_to" type="email" required placeholder={t.email}
           autoComplete="email"
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
         <label className="sr-only" htmlFor="contact-subject">{t.subject}</label>
         <input
           id="contact-subject"
           name="subject" type="text" required placeholder={t.subject}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors"
         />
         <label className="sr-only" htmlFor="contact-message">{t.message}</label>
         <textarea
           id="contact-message"
-          name="message" required rows={4} placeholder={t.message}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors resize-none"
+          name="message" required rows={3} placeholder={t.message}
+          className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl 2xl:rounded-2xl px-5 2xl:px-6 py-2.5 md:py-3 2xl:py-4 text-base 2xl:text-xl text-white placeholder-gray-500 focus:border-cyan-400/60 transition-colors resize-none"
         />
         <button
           type="submit" disabled={status === 'sending'}
-          className="mt-1 px-8 md:px-12 py-3 md:py-4 2xl:py-5 bg-white text-black font-semibold rounded-2xl text-base md:text-lg 2xl:text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+          className="mt-0.5 md:mt-1 px-8 md:px-12 py-2.5 md:py-4 2xl:py-5 bg-white text-black font-semibold rounded-2xl text-base md:text-lg 2xl:text-xl hover:scale-105 transition-transform glow-pulse disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {status === 'sending' ? t.sending : t.send}
         </button>

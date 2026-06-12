@@ -18,7 +18,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        tech: ['"Exo 2"', 'sans-serif'],
+        // Body / default UI text
+        sans: ['"DM Sans"', 'sans-serif'],
+        // Display + brand wordmark + nav (kept under `tech` so existing usages update automatically)
+        tech: ['"Space Grotesk"', 'sans-serif'],
+        display: ['"Space Grotesk"', 'sans-serif'],
       },
     },
   },

@@ -47,6 +47,11 @@ function StaticStarField({ count = 6500 }) {
 }
 
 export default function StarBackground() {
+  // Mobile shares the GPU with the hero 3D model, so render far fewer stars there.
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const fieldCount = isMobile ? 2500 : 6500
+  const driftCount = isMobile ? 500 : 1500
+
   const shootingStars = useMemo(() =>
     Array.from({ length: 7 }, (_, i) => ({
       id: i,
@@ -69,8 +74,8 @@ export default function StarBackground() {
         frameloop="demand"
         gl={{ antialias: false, alpha: true, powerPreference: 'low-power', stencil: false, depth: false }}
       >
-        <StaticStarField count={6500} />
-        <Stars radius={300} depth={60} count={1500} factor={7} saturation={0} fade />
+        <StaticStarField count={fieldCount} />
+        <Stars radius={300} depth={60} count={driftCount} factor={7} saturation={0} fade />
       </Canvas>
 
       <div className="absolute inset-0 overflow-hidden">

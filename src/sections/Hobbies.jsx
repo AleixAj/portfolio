@@ -1,30 +1,53 @@
 /**
- * Pencil drawing gallery with fullscreen modal.
+ * Pencil drawing gallery with a fullscreen, swipeable lightbox.
  *
  * Performance strategy:
  * - Grid uses pre-generated thumbnails (~5 KB each instead of ~150 KB)
  * - Modal blur background uses the same thumbnail (it's heavily blurred anyway)
- * - Only the active modal slide loads the full-resolution image; previous/next
- *   are preloaded for instant transitions
+ * - The active slide loads the full-resolution image; previous/next are
+ *   preloaded so swiping is instant
  * - All grid thumbnails get loading="lazy" + decoding="async"
  *
- * Keyboard navigation: ← → Escape
+ * Navigation: arrows, dots, keyboard (← → Esc), and drag/swipe (mouse + touch).
  */
 import { useCallback, useState, useEffect } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 
 /** Derives the thumbnail path from a full-size photo path. */
 const toThumb = (src) => src.replace(/\.webp$/i, '-thumb.webp')
 
+// Hover scale only runs where there's a real pointer (on touch a tap sticks :hover).
+const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia?.('(hover: hover)').matches
+
+// Swipe must clear this horizontal distance (px) — or a flick velocity — to change
+// image, so accidental taps/short drags never trigger a navigation.
+const SWIPE_DISTANCE = 70
+const SWIPE_VELOCITY = 500
+
+// Slide enters from the side it's coming from and exits to the opposite side.
+const slideVariants = {
+  enter: (dir) => ({ x: dir >= 0 ? '100%' : '-100%', opacity: 0 }),
+  center: { x: '0%', opacity: 1 },
+  exit: (dir) => ({ x: dir >= 0 ? '-100%' : '100%', opacity: 0 }),
+}
+
 export default function Hobbies({ t }) {
+  const reduceMotion = useReducedMotion()
   const [modalOpen, setModalOpen] = useState(false)
   const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState(0)
   const total = HOBBIES_PHOTOS.length
 
-  const open = (i) => { setCurrent(i); setModalOpen(true) }
+  const open = (i) => { setDirection(0); setCurrent(i); setModalOpen(true) }
   const close = useCallback(() => setModalOpen(false), [])
-  const prev = useCallback(() => setCurrent(i => (i - 1 + total) % total), [total])
-  const next = useCallback(() => setCurrent(i => (i + 1) % total), [total])
+  const paginate = useCallback((dir) => {
+    setDirection(dir)
+    setCurrent(i => (i + dir + total) % total)
+  }, [total])
+  const prev = useCallback(() => paginate(-1), [paginate])
+  const next = useCallback(() => paginate(1), [paginate])
+  const goTo = useCallback((i) => { setDirection(i > current ? 1 : -1); setCurrent(i) }, [current])
 
   useEffect(() => {
     if (!modalOpen) return
@@ -44,12 +67,16 @@ export default function Hobbies({ t }) {
         <p className="text-cyan-400 text-sm md:text-lg 2xl:text-2xl mb-4 md:mb-8 2xl:mb-10">{t.subtitle}</p>
         <div className="grid grid-cols-4 md:grid-cols-6 2xl:grid-cols-8 gap-2 md:gap-3 2xl:gap-4">
           {HOBBIES_PHOTOS.map((photo, i) => (
-            <button
+            <motion.button
               key={i}
               onClick={() => open(i)}
               aria-label={`${t.viewDrawing} ${i + 1}`}
-              style={{ animationDelay: `${i * 35}ms` }}
-              className="reveal-item aspect-square overflow-hidden rounded-xl 2xl:rounded-2xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:scale-105 transition-all duration-200 bg-white/5"
+              initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.96, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.5, delay: Math.min(i * 0.03, 0.5), ease: [0.16, 1, 0.3, 1] }}
+              whileHover={(reduceMotion || !CAN_HOVER) ? undefined : { scale: 1.06, transition: { type: 'spring', stiffness: 260, damping: 18 } }}
+              className="relative hover:z-20 aspect-square overflow-hidden rounded-xl 2xl:rounded-2xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] transition-[border-color,box-shadow] duration-200 bg-white/5"
             >
               <img
                 src={toThumb(photo.src)}
@@ -59,10 +86,10 @@ export default function Hobbies({ t }) {
                 fetchPriority="low"
                 width="320"
                 height="320"
-                className="w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                className="w-full h-full object-cover opacity-0 transition-opacity duration-300"
                 onLoad={e => e.currentTarget.classList.replace('opacity-0', 'opacity-100')}
               />
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -80,33 +107,50 @@ export default function Hobbies({ t }) {
                 src={toThumb(HOBBIES_PHOTOS[current].src)}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover scale-110 transition-opacity duration-300"
+                className="absolute inset-0 w-full h-full object-cover scale-110"
                 style={{ filter: 'blur(18px) brightness(0.35)' }}
               />
-              {/* Foreground full-size slides: render current + neighbors for smooth transitions */}
-              {[-1, 0, 1].map(offset => {
-                const i = (current + offset + total) % total
-                const photo = HOBBIES_PHOTOS[i]
-                const isActive = offset === 0
-                return (
-                  <img
-                    key={`fg-${i}`}
-                    src={photo.src}
-                    alt={photo.caption || `${t.drawing} ${i + 1}`}
-                    decoding="async"
-                    fetchPriority={isActive ? 'high' : 'low'}
-                    className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
-                    style={{ opacity: isActive ? 1 : 0 }}
-                  />
-                )
+
+              {/* Swipeable / draggable full-size slide */}
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.img
+                  key={current}
+                  src={HOBBIES_PHOTOS[current].src}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={reduceMotion
+                    ? { duration: 0 }
+                    : { x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.18}
+                  onDragEnd={(e, info) => {
+                    if (info.offset.x < -SWIPE_DISTANCE || info.velocity.x < -SWIPE_VELOCITY) next()
+                    else if (info.offset.x > SWIPE_DISTANCE || info.velocity.x > SWIPE_VELOCITY) prev()
+                  }}
+                  draggable={false}
+                  alt={HOBBIES_PHOTOS[current].caption || `${t.drawing} ${current + 1}`}
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-contain cursor-grab active:cursor-grabbing"
+                />
+              </AnimatePresence>
+
+              {/* Preload neighbours (full-res) so the next swipe is instant */}
+              {[-1, 1].map(o => {
+                const i = (current + o + total) % total
+                return <img key={`pre-${i}`} src={HOBBIES_PHOTOS[i].src} alt="" aria-hidden="true" className="hidden" />
               })}
+
               {HOBBIES_PHOTOS[current].caption && (
                 <>
-                  <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent rounded-b-2xl" />
-                  <p className="absolute bottom-4 left-6 text-white/80 text-sm md:text-base font-medium">{HOBBIES_PHOTOS[current].caption}</p>
+                  <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/70 to-transparent rounded-b-2xl pointer-events-none" />
+                  <p className="absolute bottom-4 left-6 text-white/80 text-sm md:text-base font-medium pointer-events-none">{HOBBIES_PHOTOS[current].caption}</p>
                 </>
               )}
-              <span className="absolute top-4 right-4 text-white/50 text-sm bg-black/40 px-2 py-1 rounded-full">{current + 1} / {total}</span>
+              <span className="absolute top-4 right-4 text-white/50 text-sm bg-black/40 px-2 py-1 rounded-full pointer-events-none">{current + 1} / {total}</span>
             </div>
 
             <button onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-white/20 text-white text-xl hover:bg-cyan-400/20 hover:border-cyan-400/50 transition-all" aria-label={t.previousDrawing}>‹</button>
@@ -114,7 +158,7 @@ export default function Hobbies({ t }) {
 
             <div className="flex justify-center gap-2 mt-4">
               {HOBBIES_PHOTOS.map((_, i) => (
-                <button key={i} onClick={() => setCurrent(i)}
+                <button key={i} onClick={() => goTo(i)}
                   aria-label={`${t.viewDrawing} ${i + 1}`}
                   className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-cyan-400 w-5' : 'bg-white/30 w-2'}`}
                 />

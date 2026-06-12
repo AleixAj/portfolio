@@ -23,7 +23,7 @@ const USE_DRACO = false
 const USE_MESHOPT = true
 
 /** Loads the GLB and auto-centers/scales it from its bounding box. */
-function GamingRoom({ floatingRef, isDesktop }) {
+function GamingRoom({ floatingRef }) {
   const { scene } = useGLTF(MODEL_URL, USE_DRACO, USE_MESHOPT)
   const groupRef = useRef()
   const baseY = useRef(0)
@@ -41,12 +41,12 @@ function GamingRoom({ floatingRef, isDesktop }) {
     groupRef.current.rotation.y = -0.6
   }, [scene])
 
-  // Idle float runs only on desktop where frameloop="always" can animate smoothly.
-  // On mobile (frameloop="demand") any invalidation would step the clock-based
-  // animation and cause visible jumps when the parent re-renders.
+  // Idle float runs on desktop AND mobile. It animates smoothly because the hero
+  // canvas uses frameloop="always" while the hero is on screen (see Scene3D below);
+  // the old mobile "demand" jumpiness no longer applies. On mobile there is no
+  // OrbitControls, so the float never has to yield to a drag.
   useFrame((state) => {
     if (!groupRef.current) return
-    if (!isDesktop) return
     if (floatingRef && floatingRef.current === false) return
     groupRef.current.position.y = baseY.current + Math.sin(state.clock.elapsedTime * 0.5) * 0.15
   })
@@ -89,7 +89,7 @@ function Scene({ orbitTarget, isDesktop, floatingRef }) {
       <pointLight position={[-4.4, 1, 1]}      intensity={2} color="#22d3ee" distance={4} decay={1} />
 
       <Suspense fallback={null}>
-        <GamingRoom floatingRef={floatingRef} isDesktop={isDesktop} />
+        <GamingRoom floatingRef={floatingRef} />
       </Suspense>
 
       {/* OrbitControls only on desktop — on mobile, page scroll wins. */}
@@ -141,7 +141,10 @@ const Scene3D = memo(function Scene3D({ heroActive = true }) {
   }, [])
 
   const orbitTarget = useMemo(() => (isDesktop ? [-5, 0, 0] : [-2, -1.5, 1]), [isDesktop])
-  const shouldRenderContinuously = heroActive && isDesktop
+  // Render continuously (for the idle float) on desktop AND mobile while the hero
+  // is on screen. When the user scrolls away, heroActive=false drops back to
+  // "demand" so we don't waste battery rendering an off-screen canvas.
+  const shouldRenderContinuously = heroActive
 
   // Stable references so PerformanceMonitor doesn't see new props on every render.
   const onDecline = useCallback(() => {

@@ -22,13 +22,61 @@ body {
   background-color: #000;
 }
 
-body, button {
-  font-family: 'Exo 2', sans-serif;
+body, button, input, textarea {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Display font for all headings + brand wordmark */
+h1, h2, h3, h4, .font-tech {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.01em;
 }
 
 :focus-visible {
   outline: 2px solid rgba(34, 211, 238, 0.95);
   outline-offset: 4px;
+}
+
+/* Animated cyan gradient text (headings / name highlight) */
+@keyframes gradientPan {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.text-gradient-cyan {
+  /* Vivid cyan that stays on-brand: page accent (#22d3ee) ↔ logo teal (#3adbd3),
+     with a deeper cyan for sheen depth. No pale stops, so it reads vivid. */
+  background-image: linear-gradient(100deg, #22d3ee 0%, #3adbd3 25%, #22d3ee 50%, #06b6d4 75%, #22d3ee 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientPan 6s linear infinite;
+}
+
+/* Project card — dark surface with a steady cyan neon glow (no animated border).
+   Cyan is the on-brand #22d3ee with a hint of the logo teal in the surface. */
+.project-card {
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(34, 211, 238, 0.06) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(12, 19, 31, 0.72) 0%, rgba(7, 10, 17, 0.72) 100%);
+  border: 1.5px solid rgba(34, 211, 238, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.10),
+    0 0 16px rgba(34, 211, 238, 0.30),
+    0 0 38px rgba(34, 211, 238, 0.12),
+    inset 0 0 16px rgba(34, 211, 238, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: rgba(58, 219, 211, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.20),
+    0 0 22px rgba(34, 211, 238, 0.55),
+    0 0 54px rgba(34, 211, 238, 0.25),
+    inset 0 0 20px rgba(34, 211, 238, 0.08);
 }
 
 @keyframes glow-pulse {
@@ -40,22 +88,18 @@ body, button {
   animation: glow-pulse 4s ease-in-out infinite;
 }
 
-@keyframes wordSlideUp {
-  0%   { transform: translateY(70%); opacity: 0; }
-  100% { transform: translateY(0);   opacity: 1; }
-}
-
 @keyframes revealFadeUp {
-  from { opacity: 0; transform: translateY(22px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+  from { opacity: 0; transform: translateY(26px) scale(0.965); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);     filter: blur(0);    }
 }
 
 .reveal-item {
   opacity: 0;
+  will-change: transform, opacity, filter;
 }
 
 .reveal-item.in-view {
-  animation: revealFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: revealFadeUp 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes shootingStar {
@@ -98,4 +142,28 @@ body, button {
     padding-bottom: 2.5rem;
   }
 
+}
+
+/* Accessibility: honour the OS "reduce motion" setting.
+   Disables decorative loops and reveal animations, leaving content fully visible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-item,
+  .reveal-item.in-view {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .text-gradient-cyan {
+    animation: none !important;
+  }
 }

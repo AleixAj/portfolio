@@ -8,7 +8,7 @@
  * - Lazy-loaded star background to reduce initial bundle size
  */
 import './index.css'
-import { lazy, Suspense, useRef, useEffect, useState, useCallback, useMemo } from 'react'
+import { lazy, Suspense, useRef, useEffect, useState, useCallback } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import Trayectoria from './sections/Trayectoria'
@@ -29,7 +29,6 @@ function App() {
   const containerRef = useRef(null)
   const isScrolling = useRef(false) // Prevents conflicts between programmatic scroll and manual detection
   const [menuOpen, setMenuOpen] = useState(false)
-  const [wordIdx, setWordIdx] = useState(0)
   const [sectionIdx, setSectionIdx] = useState(0)
   const [lang, setLang] = useState(() => {
     const stored = localStorage.getItem('lang')
@@ -37,15 +36,10 @@ function App() {
   })
 
   const t = TRANSLATIONS[lang]
+  // The hero's rotating word now self-rotates inside <Hero> (React Bits RotatingText);
+  // we just hand it the localized word list.
   const words = ROTATING_WORDS[lang]
-  const visibleWordIdx = useMemo(() => wordIdx % words.length, [wordIdx, words.length])
   const cvHref = CV_BY_LANG[lang] ?? CV_BY_LANG.es
-
-  // Rotating hero words ("ideas", "projects", etc.)
-  useEffect(() => {
-    const interval = setInterval(() => setWordIdx(i => (i + 1) % words.length), 2500)
-    return () => clearInterval(interval)
-  }, [words.length])
 
   // Sync language with DOM, localStorage and head meta on change
   useEffect(() => {
@@ -157,7 +151,7 @@ function App() {
         className="h-full overflow-y-auto overscroll-y-none relative z-10"
         style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
       >
-        <Hero wordIdx={visibleWordIdx} words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cvHref={cvHref} />
+        <Hero words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cvHref={cvHref} />
         <Trayectoria lang={lang} t={t.journey} />
         <Projects lang={lang} t={t.projects} />
         <Skills lang={lang} t={t.skills} />
