@@ -380,6 +380,33 @@ quiere activar el formulario.
 > hero 3D (Three.js/WebGL). El proyecto prioriza una experiencia visual 3D, con
 > optimizaciones específicas para reducir peso, diferir carga y liberar GPU.
 
+## Seguridad
+
+SPA estático (sin backend propio salvo el formulario vía EmailJS) con varias
+capas de defensa:
+
+- **Cabeceras de seguridad** (`public/_headers`, aplicadas por Cloudflare en cada
+  respuesta):
+  - **Content-Security-Policy** estricta: scripts solo del propio origen (con
+    `'wasm-unsafe-eval'` para el decodificador meshopt del modelo 3D), estilos
+    inline acotados (React/Framer Motion + Tailwind), y orígenes externos
+    limitados a Google Fonts y la API de EmailJS.
+  - **HSTS**, **X-Frame-Options: DENY** + `frame-ancestors 'none'` (anti-clickjacking),
+    **X-Content-Type-Options: nosniff**, **Referrer-Policy**, **Permissions-Policy**
+    (cámara/micrófono/geolocalización desactivados) y **Cross-Origin-Opener-Policy**.
+- **Sin XSS**: React escapa el contenido por defecto; sin `dangerouslySetInnerHTML`,
+  `innerHTML`, `eval` ni `new Function`.
+- **Enlaces externos** con `rel="noopener noreferrer"` (anti reverse-tabnabbing).
+- **Formulario de contacto endurecido**: honeypot anti-bots, rate limit entre
+  envíos y `maxLength` en todos los campos.
+- **Secretos fuera del repo**: las claves de EmailJS viven en `.env.local`
+  (gitignored); solo se versiona `.env.example`.
+
+> Hardening recomendado en el panel de EmailJS: restringir *Allowed Origins* al
+> dominio, activar bot-protection/reCAPTCHA y el rate limit de la cuenta (la
+> *public key* es visible en el bundle del cliente, como en cualquier integración
+> EmailJS del lado del navegador).
+
 ## Para Revisores Técnicos
 
 Puntos concretos que merece la pena revisar en el código:
