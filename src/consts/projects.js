@@ -25,6 +25,24 @@ export const PROJECTS = [
     demo: 'https://obsidian.aleixaj.com',
   },
   {
+    title: 'Orbex',
+    img: '/orbex-icon.jpg',
+    imgCls: 'scale-[1.10] md:scale-[1.25] md:group-hover:scale-[1.32] p-0',
+    desc: {
+      es: 'Juego arcade móvil estilo Zuma con más de 50 mapas, personajes y magias en pixel art hecho a mano. Backend Supabase con auth, ranking online, telemetría y anti-trampas.',
+      en: 'Zuma-style mobile arcade game with 50+ maps, characters, and spells in hand-crafted pixel art. Supabase backend with auth, online ranking, telemetry, and anti-cheat.',
+      ca: 'Joc arcade mòbil estil Zuma amb més de 50 mapes, personatges i màgies en pixel art fet a mà. Backend Supabase amb auth, rànquing online, telemetria i anti-trampes.',
+    },
+    tags: [
+      { label: 'Godot',      cls: 'bg-blue-400/10    text-blue-400    border-blue-400/20'    },
+      { label: 'GDScript',   cls: 'bg-purple-400/10  text-purple-400  border-purple-400/20'  },
+      { label: 'Supabase',   cls: 'bg-emerald-400/10 text-emerald-400 border-emerald-400/20' },
+      { label: 'PostgreSQL', cls: 'bg-sky-400/10     text-sky-400     border-sky-400/20'     },
+    ],
+    github: 'https://github.com/AleixAj/orbex-web',
+    demo: 'https://orbex.aleixaj.com/',
+  },
+  {
     title: 'Lord of the Clicks',
     img: '/onering-gif.gif',
     imgCls: 'scale-[1.25] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',

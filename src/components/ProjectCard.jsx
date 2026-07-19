@@ -38,7 +38,7 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
       </div>
 
       <div className="flex-1 flex flex-col p-1.5 md:p-3.5 2xl:p-5 min-w-0">
-        <h3 className="text-sm md:text-lg 2xl:text-xl 3xl:text-2xl font-bold mb-0.5 md:mb-2 2xl:mb-2.5 text-white text-left leading-tight">{title}</h3>
+        <h3 className="text-sm md:text-lg 2xl:text-xl 3xl:text-2xl font-bold mb-0.5 md:mb-2 2xl:mb-2.5 text-white text-center leading-tight">{title}</h3>
         <p className="hidden md:block text-cyan-400/80 text-xs 2xl:text-sm 3xl:text-base leading-snug line-clamp-3">{desc}</p>
         <div className="flex mt-0.5 md:mt-2.5 2xl:mt-3 gap-0.5 md:gap-1 2xl:gap-1.5 flex-wrap">
           {tags.map(({ label, cls }) => (
