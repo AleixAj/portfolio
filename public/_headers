@@ -17,3 +17,11 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
   Cross-Origin-Opener-Policy: same-origin
   X-XSS-Protection: 0
+
+# app-ads.txt: crawled by AdMob to verify the Orbex app. No caching, so that
+# adding another ad network propagates immediately instead of in 24h.
+# Its twin lives in the Orbex-web repo (orbex.aleixaj.com); this copy is here
+# because the app-ads.txt spec resolves the developer site's ROOT domain.
+/app-ads.txt
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: text/plain
