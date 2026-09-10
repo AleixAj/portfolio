@@ -77,7 +77,7 @@ function OpenToWorkBadge({ label }) {
   )
 }
 
-export default function Hero({ words, goToSection, heroActive, t, cvHref }) {
+export default function Hero({ words, goToSection, heroActive, t, cv }) {
   const reduceMotion = useReducedMotion()
   const enter = (delay = 0) =>
     reduceMotion
@@ -139,7 +139,7 @@ export default function Hero({ words, goToSection, heroActive, t, cvHref }) {
             className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
             <FaLinkedin className="w-3 h-3" /> LinkedIn
           </a>
-          <a href={cvHref} download
+          <a href={cv.href} download={cv.name}
             className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
             <FaFileAlt className="w-3 h-3" /> CV
           </a>
@@ -189,7 +189,7 @@ export default function Hero({ words, goToSection, heroActive, t, cvHref }) {
                 className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
                 <FaLinkedin className="w-5 h-5" /> LinkedIn
               </a>
-              <a href={cvHref} download
+              <a href={cv.href} download={cv.name}
                 className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
                 <FaFileAlt className="w-5 h-5" /> CV
               </a>

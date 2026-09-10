@@ -96,7 +96,7 @@ function ContactForm({ t }) {
   )
 }
 
-function Footer({ t, cvHref }) {
+function Footer({ t, cv }) {
   return (
     <footer id="page-footer" className="bg-black/80 border-t border-white/10 text-white">
       <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 py-3 md:py-5 2xl:py-7 grid grid-cols-2 md:flex md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
@@ -123,7 +123,7 @@ function Footer({ t, cvHref }) {
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaGithub className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href={cvHref} download aria-label="Download CV"
+            <a href={cv.href} download={cv.name} aria-label="Download CV"
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaFileAlt className="w-4 h-4 md:w-5 md:h-5" />
             </a>
@@ -141,13 +141,13 @@ function Footer({ t, cvHref }) {
   )
 }
 
-export default function Contact({ t, cvHref }) {
+export default function Contact({ t, cv }) {
   return (
     <section id="contact" className="min-h-full md:h-[100dvh] ls:h-auto bg-black/45 flex flex-col relative overflow-hidden ls:overflow-visible">
       <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-2 md:pb-[60px]">
         <ContactForm t={t} />
       </div>
-      <Footer t={t} cvHref={cvHref} />
+      <Footer t={t} cv={cv} />
     </section>
   )
 }

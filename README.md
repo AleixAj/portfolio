@@ -89,6 +89,9 @@ from idea to production.
 - **Galería optimizada**: miniaturas WebP para la grilla y archivos completos
   solo cuando se abre el visor, con **swipe/arrastre** (móvil y escritorio) y
   precarga de las imágenes vecinas para un cambio instantáneo.
+- **CV por idioma**: `CV_BY_LANG` en `App.jsx` es la única fuente de verdad
+  (ruta + nombre de descarga) y alimenta los tres enlaces de CV del sitio (dos
+  en el hero, uno en el footer), de modo que cambiar de CV es tocar un solo sitio.
 - **SEO multiidioma**: `hreflang` `es/en/ca/x-default` en `index.html`,
   `og:locale:alternate` (`es_ES`, `en_US`, `ca_ES`) y sincronización en runtime
   de `title`, `description`, `og:*` y `twitter:*` al cambiar de idioma desde
@@ -279,7 +282,7 @@ src/
 | `gaming_bedroom.glb` | Modelo 3D del hero |
 | `AJ.png` | Logo y favicon |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
-| `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact) |
+| `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact). ES y CAT comparten el mismo PDF; el atributo `download` fija el nombre con el que se guarda (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lugar del slug interno |
 | `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `onering-gif.gif` | Tarjetas de proyectos |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 

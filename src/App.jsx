@@ -19,7 +19,13 @@ import Contact from './sections/Contact'
 import { SECTIONS, ROTATING_WORDS } from './consts/nav'
 import { TRANSLATIONS } from './consts/i18n'
 
-const CV_BY_LANG = { es: '/cv-aleix-es.pdf', en: '/cv-aleix-en.pdf', ca: '/cv-aleix-es.pdf' }
+// Catalan reuses the Spanish CV. `name` is the filename the browser saves the
+// file as, so the visitor gets "CV Aleix Auqué.pdf" instead of "cv-aleix-es.pdf".
+const CV_BY_LANG = {
+  es: { href: '/cv-aleix-es.pdf', name: 'CV Aleix Auqué.pdf' },
+  en: { href: '/cv-aleix-en.pdf', name: 'CV Aleix Auqué EN.pdf' },
+  ca: { href: '/cv-aleix-es.pdf', name: 'CV Aleix Auqué.pdf' },
+}
 const OG_LOCALE_BY_LANG = { es: 'es_ES', en: 'en_US', ca: 'ca_ES' }
 
 // Three.js loads only when the page is viewed (separate chunk)
@@ -39,7 +45,7 @@ function App() {
   // The hero's rotating word self-rotates inside <Hero> (React Bits RotatingText);
   // App only supplies the localized word list for the active language.
   const words = ROTATING_WORDS[lang]
-  const cvHref = CV_BY_LANG[lang] ?? CV_BY_LANG.es
+  const cv = CV_BY_LANG[lang] ?? CV_BY_LANG.es
 
   // Sync language with DOM, localStorage and head meta on change
   useEffect(() => {
@@ -151,12 +157,12 @@ function App() {
         className="h-full overflow-y-auto overscroll-y-none relative z-10"
         style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
       >
-        <Hero words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cvHref={cvHref} />
+        <Hero words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cv={cv} />
         <Trayectoria lang={lang} t={t.journey} />
         <Projects lang={lang} t={t.projects} />
         <Skills lang={lang} t={t.skills} />
         <Hobbies t={t.hobbies} />
-        <Contact t={t.contact} cvHref={cvHref} />
+        <Contact t={t.contact} cv={cv} />
       </div>
     </div>
   )
