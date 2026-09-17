@@ -25,8 +25,9 @@ proyectos desde una idea hasta producción.
 
 Professional portfolio built to present my work as a software developer through
 a polished, production-ready web experience. It combines a responsive React UI,
-a performant Three.js hero scene, bilingual content, real deployed projects,
-technical background, and direct contact.
+a performant Three.js hero scene, trilingual content (ES/EN/CA) with a real URL
+per language, keyboard-accessible navigation, real deployed projects, technical
+background, and direct contact.
 
 The goal is to show not only visual presentation, but also product thinking,
 performance awareness, maintainable structure, and the ability to take projects
@@ -38,9 +39,19 @@ from idea to production.
   experiencia responsive pensada para desktop, tablet y móvil.
 - Integración de una escena 3D ligera con **Three.js**, **React Three Fiber** y
   carga diferida para mantener buen rendimiento inicial.
-- Interfaz **trilingüe ES / EN / CAT** sin dependencias extra, con selector de
-  idioma persistente en `localStorage`, contenido principal traducido y
-  `meta`/`og` sincronizados con el idioma activo (`hreflang` + `og:locale:alternate`).
+- Interfaz **trilingüe ES / EN / CAT** sin dependencias extra. Cada idioma tiene
+  su propia URL (`/`, `/?lang=en`, `/?lang=ca`), de modo que un enlace compartido
+  abre en el idioma en que se compartió; `hreflang`, `canonical`, `meta` y `og:*`
+  se mantienen sincronizados con el idioma activo.
+- **La URL refleja lo que se ve**: además del idioma, la sección visible se
+  escribe como fragmento (`#projects`), así que cualquier sección se puede
+  enlazar, guardar en marcadores o compartir.
+- **Navegable entero con teclado**: enlace de salto al contenido, contenedor de
+  scroll enfocable y soporte de AvPág/RePág, Inicio/Fin, flechas y espacio, que
+  en una página cuyo scroll vive en un `div` no funcionan por defecto.
+- **Fichas de proyecto**: cada tarjeta abre un diálogo con el resumen del README
+  de su repositorio (qué es, qué tiene, stack y estado real), para que una
+  empresa se haga una idea sin salir de la página ni abrir GitHub.
 - **Arquitectura de scroll estable en móvil**: el documento queda bloqueado
   (`overflow: hidden`) y el contenido vive en un contenedor `fixed` con su
   propio scroll, evitando saltos al ocultarse/mostrarse la barra del navegador
@@ -48,9 +59,10 @@ from idea to production.
 - **Alineación lateral unificada**: todas las secciones comparten el mismo
   contenedor (`max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem]`) para que el contenido
   caiga sobre la misma línea vertical en todas las páginas.
-- Hero con **mini-ficha profesional** lista para reclutadores: badge "Open to
-  work", ubicación, años de experiencia, modalidad e idiomas, más doble CTA
-  (proyectos + contacto directo).
+- Hero con **mini-ficha profesional** lista para reclutadores: badge de búsqueda
+  activa, perfiles a los que opto (frontend, full-stack, backend), ubicación,
+  años de experiencia, modalidad e idiomas, doble CTA (proyectos + contacto) y
+  el CV tanto para verlo en el navegador como para descargarlo.
 - Presentación clara de experiencia laboral con **chips de cliente** para
   destacar marcas reconocibles, formación y proyectos con demos públicas,
   repositorios reales y enlaces verificables.
@@ -65,10 +77,13 @@ from idea to production.
   Bits) y galería de arte con **swipe/arrastre** + transición de slide. Todo
   respeta `prefers-reduced-motion`.
 - **Identidad tipográfica**: titulares en **Space Grotesk** y cuerpo en **DM
-  Sans**, con acento cian neón coherente con el logo en titulares y tarjetas.
-- Accesibilidad básica revisada: `focus-visible` global, mobile menu con
-  `Escape` y focus trap, `aria-current` en navbar, formularios con labels y
-  estados `aria-live`, y respeto de `prefers-reduced-motion`.
+  Sans**, ambas **autoalojadas** (sin peticiones a terceros), con acento cian
+  neón coherente con el logo en titulares y tarjetas.
+- Accesibilidad revisada: enlace de salto al contenido, landmark `<main>`,
+  `focus-visible` global, menú móvil y diálogos con `Escape` y focus trap,
+  `aria-current` en navbar, formularios con labels y estados `aria-live`,
+  áreas táctiles de 44 px en los diálogos, estilos `:hover` restringidos a
+  dispositivos con puntero real y respeto de `prefers-reduced-motion`.
 - Preparación para producción con **Vite**, **Tailwind CSS**, **EmailJS** y
   despliegue en **Cloudflare Workers + Assets**.
 
@@ -79,9 +94,11 @@ from idea to production.
   separando contenido de UI.
 - **Carga progresiva**: `React.lazy` separa la escena 3D y el fondo de estrellas
   del bundle inicial.
-- **Rendimiento 3D**: el modelo GLB está comprimido con meshopt + simplificación
-  de malla + texturas WebP (de 3 MB a ~1.5 MB), se precarga y usa DPR adaptativo;
-  la animación flotante corre también en móvil (sin control táctil, solo visual).
+- **Rendimiento 3D**: el modelo GLB (2,98 MB: 1,22 MB de texturas WebP y el resto
+  geometría comprimida con meshopt) usa DPR adaptativo y sólo se precarga en
+  pantallas de escritorio; en conexiones con ahorro de datos o 2G no se descarga
+  ni el modelo ni Three.js, y el hero se queda en su degradado. La animación
+  flotante corre también en móvil (sin control táctil, solo visual).
 - **Animación y tipografía**: Framer Motion para entradas, hovers y la palabra
   rotativa del hero (*RotatingText* de React Bits); tipografía Space Grotesk +
   DM Sans; tarjetas de proyecto con glow cian (clase `.project-card`). Todo bajo
@@ -92,10 +109,11 @@ from idea to production.
 - **CV por idioma**: `CV_BY_LANG` en `App.jsx` es la única fuente de verdad
   (ruta + nombre de descarga) y alimenta los tres enlaces de CV del sitio (dos
   en el hero, uno en el footer), de modo que cambiar de CV es tocar un solo sitio.
-- **SEO multiidioma**: `hreflang` `es/en/ca/x-default` en `index.html`,
-  `og:locale:alternate` (`es_ES`, `en_US`, `ca_ES`) y sincronización en runtime
-  de `title`, `description`, `og:*` y `twitter:*` al cambiar de idioma desde
-  `App.jsx`. Las banderas del switcher (España, Reino Unido y la **senyera**)
+- **SEO multiidioma real**: cada idioma tiene URL propia (`/`, `/?lang=en`,
+  `/?lang=ca`), declarada en `hreflang` y en el sitemap, y `App.jsx` mantiene
+  `canonical`, `title`, `description`, `og:*` y `twitter:*` apuntando a la URL
+  del idioma activo. Antes los tres `hreflang` apuntaban a la misma dirección,
+  que es justo lo que hace que un buscador los ignore. Las banderas del switcher (España, Reino Unido y la **senyera**)
   son SVG inline para que se rendericen idénticas en cualquier sistema operativo.
 - **Rastreo e indexación**: `public/robots.txt` (con referencia al sitemap) y
   `public/sitemap.xml`; la imagen social declara `og:image:width/height/alt`
@@ -107,8 +125,18 @@ from idea to production.
 - **Responsive real**: móvil, desktop estándar, táctil landscape y pantallas
   ultra anchas tienen ajustes dedicados; el hero compacta chips y CTAs en
   móvil para mantener el contenido por encima del fold.
+- **Tipografía autoalojada**: los `.woff2` de Space Grotesk y DM Sans se sirven
+  desde el propio dominio con su corte por rangos Unicode intacto. Se ahorra una
+  hoja de estilos bloqueante y dos handshakes TLS en el camino crítico, la página
+  deja de hacer peticiones a terceros (relevante para RGPD) y la CSP puede
+  cerrarse a `style-src 'self'` y `font-src 'self'`.
+- **Alineación centrada segura**: las secciones usan `align-items: safe center`,
+  que centra mientras el contenido cabe y alinea arriba cuando no, en vez de
+  desbordar por ambos lados y esconder el título tras la barra fija.
 - **Despliegue simple**: build estático con Vite y publicación en Cloudflare
-  Workers + Assets con fallback SPA.
+  Workers + Assets con fallback SPA, con cabeceras de caché por tipo de recurso
+  (un año para el build con hash y las fuentes, 30 días para el modelo y las
+  imágenes).
 
 ## Proyectos Destacados
 
@@ -118,11 +146,30 @@ E-commerce full-stack de streetwear construido para mostrar un flujo de tienda
 real, desde catálogo hasta checkout.
 
 - **Rol**: desarrollo frontend y backend.
-- **Stack**: React, TypeScript, Laravel, Sanctum, MySQL, TanStack Query, Stripe.
-- **Qué demuestra**: arquitectura full-stack, autenticación, persistencia de
-  carrito/wishlist, consumo de API, estado de servidor y checkout real.
+- **Stack**: React 19, TypeScript, Vite, TanStack Query, Laravel 11, Sanctum, MySQL.
+- **Qué demuestra**: arquitectura full-stack, autenticación por cookie, persistencia
+  de carrito/wishlist contra el backend, consumo de API, estado de servidor y un
+  checkout que genera pedidos reales en base de datos.
+- **Estado**: la pasarela de pago está pendiente de conectar; el checkout crea
+  pedidos pero todavía no cobra.
 - **Repo**: [github.com/AleixAj/obsidian](https://github.com/AleixAj/obsidian)
 - **Demo**: [obsidian.aleixaj.com](https://obsidian.aleixaj.com)
+
+### Orbex
+
+Juego de puntería tipo *Zuma* para Android, hecho en solitario y publicado en
+Google Play, con backend propio.
+
+- **Rol**: diseño, programación, arte y backend.
+- **Stack**: Godot 4.6, GDScript con tipado estático, Supabase (PostgreSQL),
+  Android.
+- **Qué demuestra**: motor de cadena propio, plugin de editor a medida para
+  trazar los recorridos, curva de dificultad calculada por script y calibrada
+  con telemetría, backend con ranking global y por nivel, amigos, guardado en la
+  nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.
+- **Repo (web del juego)**: [github.com/AleixAj/orbex-web](https://github.com/AleixAj/orbex-web)
+- **Jugar en el navegador**: [kylen02.itch.io/orbex](https://kylen02.itch.io/orbex)
+- **Google Play**: [com.aleix.orbex](https://play.google.com/store/apps/details?id=com.aleix.orbex)
 
 ### Solar Explorer
 
@@ -138,9 +185,9 @@ cámara interactiva.
 
 ### Lord of the Clicks
 
-Clicker incremental inspirado en la Tierra Media, construido como una app
-frontend completa con progresión, guardado persistente y lógica de juego
-separada de la interfaz.
+Clicker incremental inspirado en la Tierra Media (30 zonas, 20 compañeros,
+24 misiones), construido como una app frontend completa con progresión, guardado
+persistente y lógica de juego separada de la interfaz.
 
 - **Rol**: desarrollo frontend, arquitectura de juego y diseño responsive.
 - **Stack**: React, TypeScript, Zustand, Tailwind CSS, Vitest.
@@ -154,21 +201,23 @@ separada de la interfaz.
 Trivia web interactiva diseñada para jugar en grupo y compartir en pantalla.
 
 - **Rol**: desarrollo completo de la experiencia.
-- **Stack**: HTML, CSS, JavaScript.
-- **Qué demuestra**: lógica de juego, tablero por categorías, puntuación
-  dinámica y UX pensada para sesiones rápidas.
+- **Stack**: HTML, CSS, JavaScript, Bootstrap 5, Chart.js.
+- **Qué demuestra**: tablero de 6 categorías por 6 valores, tres modos de juego
+  (individual, por personas o por parejas sorteadas con ruletas), preguntas con
+  audio y reproductor propio, comodines y ranking final con estadísticas.
 - **Repo**: [github.com/AleixAj/familytrivia](https://github.com/AleixAj/familytrivia)
 - **Demo**: [familytrivia.aleixaj.com](https://familytrivia.aleixaj.com)
 
 ### CashDrop
 
-Juego web inspirado en concursos de televisión, con mecánica de apuestas y
-preguntas por rondas.
+Adaptación web del concurso: se reparte 1.000.000 € en 20 fajos entre cuatro
+respuestas y solo se conserva lo colocado sobre la correcta.
 
 - **Rol**: desarrollo completo de la experiencia.
-- **Stack**: HTML, CSS, JavaScript.
-- **Qué demuestra**: modelado de reglas, interacción por rondas, control de
-  estado de partida y presentación clara para usuarios no técnicos.
+- **Stack**: HTML, CSS, JavaScript, Bootstrap 5, sin paso de build.
+- **Qué demuestra**: modelado de reglas, arrastre con soporte táctil escrito a
+  mano, banco de más de 125 preguntas desacoplado del motor y control de estado
+  de partida.
 - **Repo**: [github.com/AleixAj/cashdrop](https://github.com/AleixAj/cashdrop)
 - **Demo**: [cashdrop.aleixaj.com](https://cashdrop.aleixaj.com/)
 
@@ -218,7 +267,7 @@ ordenado igual que en la UI (de base a especializado).
 | **.NET** | Stack de Microsoft para servicios y APIs en entornos corporativos. |
 | **MySQL** | Base de datos relacional para modelar dominio y consultas con índices/joins. |
 | **API Rest** | Diseño de endpoints HTTP, recursos, versiones y contratos con frontends. |
-| **Stripe** | Pasarela de pagos y checkout real, webhooks y suscripciones. |
+| **Stripe** | Pasarela de pagos: checkout, webhooks y suscripciones. |
 
 ### DevOps y herramientas
 
@@ -242,14 +291,18 @@ ordenado igual que en la UI (de base a especializado).
 ## Secciones Del Portfolio
 
 - **Inicio**: presentación personal, escena 3D interactiva, mensajes dinámicos,
-  badge "Open to work", mini-ficha profesional (ubicación, años de experiencia,
-  modalidad e idiomas) y doble CTA hacia proyectos y contacto.
+  badge de búsqueda activa de empleo, mini-ficha profesional (perfiles, ubicación,
+  años de experiencia, modalidad e idiomas), doble CTA hacia proyectos y contacto,
+  y CV en dos acciones: verlo en el navegador o descargarlo.
 - **Trayectoria**: experiencia laboral y formación académica sin scroll interno,
   con **chips de cliente** (`CaixaBank`, `Nestlé`, `Naturgy`) en los puestos
   donde los proyectos llegaron a marcas reconocibles.
 - **Proyectos**: tarjetas con **glow cian estilo neón**, logos adaptados a móvil,
-  descripciones bilingües, tecnologías, GitHub y demo, con hover de expansión
-  (muelle) en escritorio. Orden por profundidad técnica (full-stack primero).
+  descripciones trilingües, tecnologías, GitHub, demo y —donde aplica— Google
+  Play, con hover de expansión (muelle) en escritorio. Cada tarjeta tiene un
+  botón de información que abre una **ficha del proyecto** con resumen, puntos
+  destacados, stack y estado real, sacada del README de su repositorio. Orden por
+  profundidad técnica (full-stack primero).
 - **Tecnologías** (`Skills` en EN): tecnologías agrupadas por frontend (incluye
   HTML, CSS, XML y herramientas de UI), backend, DevOps y herramientas (incluye
   `Godot` para game dev móvil y `Aseprite` para pixel art), con iconos de marca.
@@ -263,13 +316,13 @@ ordenado igual que en la UI (de base a especializado).
 ## Estructura
 
 ```txt
-public/              # Assets estáticos (imágenes WebP, GLB, CV, galería hobbies/)
+public/              # Assets estáticos (imágenes WebP, GLB, CV, fuentes, galería hobbies/)
 scripts/             # Pipeline de optimización de imágenes (sharp)
 src/
-├── consts/          # Datos estáticos: i18n, nav, skills, projects, experience, hobbies
-├── components/      # Navbar, ProjectCard, TimelineItem, Scene3D, StarBackground, RotatingText
+├── consts/          # Datos estáticos: i18n, nav, skills, projects, experience, hobbies, device
+├── components/      # Navbar, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground, RotatingText
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact
-├── App.jsx          # Navegación, idioma, scroll y reveal animations
+├── App.jsx          # Navegación, idioma, URL, teclado, scroll y reveal animations
 ├── main.jsx
 └── index.css        # Tailwind, tipografía, animaciones, glow de tarjetas y reglas responsive
 .env.example         # Plantilla de variables EmailJS (copiar a .env.local)
@@ -280,10 +333,12 @@ src/
 | Archivo | Uso |
 |---------|-----|
 | `gaming_bedroom.glb` | Modelo 3D del hero |
-| `AJ.png` | Logo y favicon |
+| `AJ.png` | Logo en navbar y footer (295x224, 21 KB) |
+| `favicon-32.png`, `apple-touch-icon.png` | Icono de pestaña y de pantalla de inicio |
+| `fonts/*.woff2` | Space Grotesk y DM Sans autoalojadas (generadas desde Google Fonts, licencia OFL) |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact). ES y CAT comparten el mismo PDF; el atributo `download` fija el nombre con el que se guarda (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lugar del slug interno |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `onering-gif.gif` | Tarjetas de proyectos |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local
@@ -327,7 +382,7 @@ npm run deploy            # Build + deploy con Wrangler
 npm run lint              # Linting con ESLint
 npm run generate:og       # Genera public/og-image.png para social previews
 npm run optimize:model    # Requiere @gltf-transform/cli; comprime el .glb con meshopt + WebP
-npm run optimize:images   # Convierte PNGs a WebP y genera thumbnails
+npm run optimize:images   # Convierte PNG/JPEG a WebP, recorta el arte de las tarjetas y genera thumbnails
 ```
 
 ## Despliegue
@@ -354,14 +409,16 @@ quiere activar el formulario.
 - El selector de idioma usa banderas SVG para evitar diferencias de renderizado
   entre sistemas operativos.
 - Metadata SEO y social preview configuradas en `index.html`, con
-  **`hreflang` `es/en/ca/x-default`** y **`og:locale:alternate`** para indicar
-  contenido bilingüe a los buscadores.
+  **`hreflang` `es/en/ca/x-default`** apuntando a la URL real de cada idioma y
+  **`og:locale:alternate`**, más un sitemap con las tres direcciones.
 - `App.jsx` actualiza `title`, `description`, `og:*` y `twitter:*` en runtime
   al cambiar el idioma, manteniendo el SEO coherente para cada locale.
 - JSON-LD `Person` para mejorar el contexto semántico del portfolio.
-- Accesibilidad básica cuidada: `focus-visible` global, labels reales en
-  formulario, navegación por teclado y swipe en la galería, `aria-labels` en
-  acciones con iconos, **mobile menu con `Escape` + focus trap**,
+- Accesibilidad cuidada: **enlace de salto al contenido** y landmark `<main>`,
+  `focus-visible` global, labels reales en formulario, navegación por teclado
+  (incluido el scroll de página, que en un contenedor propio no funciona solo) y
+  swipe en la galería, `aria-labels` en acciones con iconos, **menú móvil y
+  diálogos con `Escape` + focus trap**,
   `aria-current="page"` para la sección activa en el navbar y respeto de
   **`prefers-reduced-motion`** (animaciones reducidas o desactivadas).
 - **Indicador de sección activa** en el navbar (subrayado en desktop, marcador
@@ -379,6 +436,15 @@ quiere activar el formulario.
 
 - `npm run lint`: sin errores.
 - `npm run build`: build de producción verificado.
+- Primera visita medida sobre el build de producción, con CPU 4x más lenta y red
+  móvil: **674 KB** sin contar el modelo 3D (que se descarga aparte y sólo donde
+  procede), **CLS 0,034** y 261 ms de bloqueo del hilo principal.
+- Recorrido completo sin errores de consola ni peticiones fallidas: seis
+  secciones, las seis fichas de proyecto y la galería, en los tres idiomas.
+- Revisado sin hallazgos: paridad de las 51 claves de traducción entre `es`,
+  `en` y `ca`; jerarquía de encabezados sin saltos; ninguna imagen sin `alt`;
+  ningún botón o enlace sin nombre accesible; sin `id` duplicados; todos los
+  `target="_blank"` con `rel="noopener"`.
 - Lighthouse local sobre preview de producción:
   - Accessibility: 98
   - Best Practices: 100
@@ -397,8 +463,9 @@ capas de defensa:
   respuesta):
   - **Content-Security-Policy** estricta: scripts solo del propio origen (con
     `'wasm-unsafe-eval'` para el decodificador meshopt del modelo 3D), estilos
-    inline acotados (React/Framer Motion + Tailwind), y orígenes externos
-    limitados a Google Fonts y la API de EmailJS.
+    inline acotados (React/Framer Motion + Tailwind) y un único origen externo
+    permitido: la API de EmailJS. Al autoalojar las fuentes, `style-src` y
+    `font-src` quedan en `'self'`.
   - **HSTS**, **X-Frame-Options: DENY** + `frame-ancestors 'none'` (anti-clickjacking),
     **X-Content-Type-Options: nosniff**, **Referrer-Policy**, **Permissions-Policy**
     (cámara/micrófono/geolocalización desactivados) y **Cross-Origin-Opener-Policy**.
@@ -419,9 +486,12 @@ capas de defensa:
 
 Puntos concretos que merece la pena revisar en el código:
 
-- `src/App.jsx`: navegación por secciones, persistencia de idioma (ES/EN/CA),
-  scroll lock global con contenedor `#app-scroll` interno, reveal animations
-  y sincronización de meta tags (`hreflang`, `og:*`, `twitter:*`) con el
+- `src/App.jsx`: navegación por secciones, idioma tomado de `?lang=` y
+  persistido, URL sincronizada con idioma y sección visible, scroll lock global
+  con contenedor `#app-scroll` interno, acceso por teclado a ese contenedor
+  (enlace de salto + reenvío de AvPág/Inicio/Fin/flechas mientras el foco está
+  fuera), medición de las posiciones de sección al cambiar idioma, tamaño o
+  fuentes, reveal animations y sincronización de `canonical` y meta tags con el
   idioma activo.
 - `src/index.css`: `overflow: hidden` en `html`/`body`, `overscroll-behavior: none`
   y reglas responsive para mobile landscape.
@@ -430,10 +500,16 @@ Puntos concretos que merece la pena revisar en el código:
   hamburger y `LanguageSwitcher` con banderas SVG (España, UK y senyera).
 - `src/consts/i18n.js`, `nav.js`, `projects.js`, `experience.js`, `skills.jsx`:
   contenido trilingüe (`es`, `en`, `ca`) en una sola fuente de verdad.
-- `src/sections/Hero.jsx`: badge "Open to work", `ProfileChip`/`OpenToWorkBadge`
-  reutilizables, doble CTA (proyectos + contacto), entrada escalonada con Framer
-  Motion y palabra rotativa letra a letra (`src/components/RotatingText.jsx`,
+- `src/sections/Hero.jsx`: badge de búsqueda activa, `ProfileChip`/`OpenToWorkBadge`
+  reutilizables, doble CTA (proyectos + contacto), CV en ver/descargar, entrada
+  escalonada con Framer Motion y palabra rotativa letra a letra (`src/components/RotatingText.jsx`,
   componente de React Bits adaptado).
+- `src/components/ProjectModal.jsx`: diálogo de proyecto renderizado en un portal
+  sobre `<body>` (el contenedor de scroll crea su propio contexto de apilado),
+  con semántica de diálogo, focus trap, retorno de foco y bloqueo del fondo sin
+  desplazamiento lateral gracias a `scrollbar-gutter: stable`.
+- `src/consts/device.js`: detección de ahorro de datos/conexión lenta resuelta a
+  nivel de módulo, antes de que React decida importar los chunks pesados.
 - `src/components/ProjectCard.jsx`: tarjeta con glow cian (clase `.project-card`),
   entrada `whileInView` y hover de expansión con muelle, activo solo en
   dispositivos con puntero real (`matchMedia('(hover: hover)')`).
@@ -463,11 +539,20 @@ Otras optimizaciones aplicadas:
 - **Chunks separados** (Vite `manualChunks`): React, Three.js y EmailJS viajan en
   bundles independientes para mejor caché entre despliegues.
 - **Lazy loading** de la escena 3D y del fondo de estrellas (`React.lazy`).
-- **Modelo 3D** comprimido con meshopt + simplificación de malla + texturas WebP
-  (de 3 MB a ~1.5 MB); preload en `index.html` y `useGLTF.preload`.
+- **Modelo 3D** comprimido con meshopt + texturas WebP (2,98 MB), con preload
+  restringido a pantallas de escritorio (`media="(min-width: 1024px)"`) para que
+  en un móvil no compita con el CSS y el JS críticos.
+- **Freno por conexión**: con ahorro de datos activado o en 2G no se descargan ni
+  Three.js ni el modelo (`src/consts/device.js`); el hero muestra su degradado.
 - **Fondo de estrellas** en `frameloop="demand"` (render estático; animación en
   CSS), con el número de estrellas reducido en móvil para liberar GPU.
-- **Preconnect** a Google Fonts y EmailJS.
+- **Fuentes autoalojadas** con preload de los dos ficheros latinos y corte por
+  rango Unicode (84 KB en total; el resto solo si el texto lo necesita).
+- **Arte de las tarjetas recortado** a 400 px: de 509 KB a 145 KB, con el icono
+  de Orbex pasando de 249 KB (JPEG 512x512) a 36 KB.
+- **Caché por tipo de recurso** en `public/_headers`: un año e `immutable` para
+  el build con hash y las fuentes, 30 días para modelo e imágenes.
+- **Preconnect** a EmailJS para la primera petición del formulario.
 - **Galería**: thumbnails de ~5 KB para la grilla, archivo completo solo en el
   visor activo y precarga de vecinas, con `fetchPriority` adaptativo.
 - **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor` y
