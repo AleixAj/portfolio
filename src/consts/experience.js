@@ -1,8 +1,19 @@
 /**
  * Work experience and education data.
- * Bilingual fields as { es, en, ca } for role, period, and desc.
+ * Translatable fields as { es, en, ca }; plain strings are used where the value is
+ * the same in every language (a company or school name, for instance).
  */
 export const EXPERIENCE = [
+  {
+    company: { es: 'Proyectos propios', en: 'Independent projects', ca: 'Projectes propis' },
+    role: { es: 'Desarrollo de producto y formación', en: 'Product development and training', ca: 'Desenvolupament de producte i formació' },
+    period: { es: 'Ene 2026 – Actualidad', en: 'Jan 2026 – Present', ca: 'Gen 2026 – Actualitat' },
+    desc: {
+      es: 'Proyectos propios de principio a fin, sobre todo Orbex: varios meses de trabajo hasta publicarlo en Google Play. En paralelo, formación de frontend en Lemoncoders.',
+      en: 'My own projects end to end, above all Orbex: several months of work up to its release on Google Play. Alongside that, frontend training at Lemoncoders.',
+      ca: 'Projectes propis de cap a cap, sobretot Orbex: diversos mesos de feina fins a publicar-lo a Google Play. En paral·lel, formació de frontend a Lemoncoders.',
+    },
+  },
   {
     company: 'Grup Romeu',
     role: { es: 'Desarrollador de Software', en: 'Software Developer', ca: 'Desenvolupador de Programari' },
