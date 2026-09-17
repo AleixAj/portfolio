@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!--
+  One page, three languages. ?lang= gives Catalan and English their own crawlable
+  URL, and every entry lists all three alternates (including itself) as required
+  by the hreflang spec. Keep lastmod in step with real content changes.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://aleixaj.com/</loc>
-    <lastmod>2026-06-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://aleixaj.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aleixaj.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ca" href="https://aleixaj.com/?lang=ca" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aleixaj.com/" />
+    <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://aleixaj.com/?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://aleixaj.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aleixaj.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ca" href="https://aleixaj.com/?lang=ca" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aleixaj.com/" />
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aleixaj.com/?lang=ca</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://aleixaj.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://aleixaj.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ca" href="https://aleixaj.com/?lang=ca" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aleixaj.com/" />
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
