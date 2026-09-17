@@ -1,7 +1,8 @@
 /**
  * Asset optimization pipeline.
  *
- * - Converts oversized PNGs (project cards, logos) to WebP
+ * - Converts oversized PNGs and JPEGs (project cards, logos) to WebP
+ * - Shrinks the project card artwork to the size it is actually drawn at
  * - Generates 320px-wide thumbnails for the hobbies grid (hobbies/*-thumb.webp)
  *
  * Idempotent: re-run safely after adding new assets.
@@ -15,12 +16,26 @@ import sharp from 'sharp'
 const PUBLIC_DIR = path.resolve('public')
 const HOBBIES_DIR = path.join(PUBLIC_DIR, 'hobbies')
 
-// PNGs converted to WebP (kept original PNG for transparency-sensitive logos)
+// PNGs/JPEGs converted to WebP (kept original PNG for transparency-sensitive logos)
 const PNG_TO_WEBP = [
   { src: 'FamilyTrivia.png',          out: 'FamilyTrivia.webp',          quality: 85 },
   { src: 'CashDrop.png',              out: 'CashDrop.webp',              quality: 85 },
   { src: 'obsidian-pixelart.png',     out: 'obsidian-pixelart.webp',     quality: 90 },
   { src: 'solar-explorerlogo.png',    out: 'solar-explorerlogo.webp',    quality: 90 },
+  { src: 'orbex-icon.jpg',            out: 'orbex-icon.webp',            quality: 88 },
+]
+
+// Card artwork never draws larger than ~180 CSS px, so 400 px covers even a 2x
+// screen with room to spare. The originals were 500-1000 px wide, which cost
+// about half a megabyte on the first visit for images the size of a thumbnail.
+const CARD_MAX_SIZE = 400
+const CARD_QUALITY = 88
+const CARD_IMAGES = [
+  'obsidian-pixelart.webp',
+  'orbex-icon.webp',
+  'solar-explorerlogo.webp',
+  'CashDrop.webp',
+  'FamilyTrivia.webp',
 ]
 
 const THUMB_WIDTH = 320
@@ -30,7 +45,7 @@ async function ensureFile(p) {
 }
 
 async function convertPng() {
-  console.log('\n[1/2] Converting PNGs to WebP...')
+  console.log('\n[1/3] Converting PNGs/JPEGs to WebP...')
   for (const { src, out, quality } of PNG_TO_WEBP) {
     const srcPath = path.join(PUBLIC_DIR, src)
     const outPath = path.join(PUBLIC_DIR, out)
@@ -48,8 +63,34 @@ async function convertPng() {
   }
 }
 
+/** Downsizes card artwork in place; skips anything already within the limit. */
+async function shrinkCardArtwork() {
+  console.log('\n[2/3] Shrinking project card artwork...')
+  for (const file of CARD_IMAGES) {
+    const filePath = path.join(PUBLIC_DIR, file)
+    if (!(await ensureFile(filePath))) {
+      console.log(`  skip ${file} (not found)`)
+      continue
+    }
+    const input = await fs.readFile(filePath)
+    const { width, height } = await sharp(input).metadata()
+    if (Math.max(width, height) <= CARD_MAX_SIZE) {
+      console.log(`  skip ${file} (already ${width}x${height})`)
+      continue
+    }
+    const before = input.length
+    const output = await sharp(input)
+      .resize({ width: CARD_MAX_SIZE, height: CARD_MAX_SIZE, fit: 'inside', withoutEnlargement: true })
+      .webp({ quality: CARD_QUALITY, effort: 6 })
+      .toBuffer()
+    await fs.writeFile(filePath, output)
+    const saved = (100 - (output.length / before) * 100).toFixed(0)
+    console.log(`  ${file} ${width}x${height} (${(before / 1024).toFixed(1)} KB) -> max ${CARD_MAX_SIZE}px (${(output.length / 1024).toFixed(1)} KB, -${saved}%)`)
+  }
+}
+
 async function generateHobbiesThumbs() {
-  console.log('\n[2/2] Generating hobbies thumbnails...')
+  console.log('\n[3/3] Generating hobbies thumbnails...')
   const entries = await fs.readdir(HOBBIES_DIR)
   const originals = entries
     .filter(f => /^\d+\.webp$/i.test(f))
@@ -73,6 +114,7 @@ async function generateHobbiesThumbs() {
 (async () => {
   try {
     await convertPng()
+    await shrinkCardArtwork()
     await generateHobbiesThumbs()
     console.log('\nDone.')
   } catch (err) {

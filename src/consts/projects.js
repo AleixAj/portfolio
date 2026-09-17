@@ -1,7 +1,15 @@
 /**
  * Featured portfolio projects.
  * Ordered by technical depth (full-stack first) so recruiters see the strongest work first.
- * Each entry defines image, bilingual description, tags, repo, and live demo.
+ *
+ * Each entry defines image, description, tags, repo, live demo and, where the
+ * project ships as an app, an optional `store` link.
+ *
+ * `details` feeds the info dialog opened from the card. It is the short version of
+ * each repo's README: what the project is, what it actually does, the stack, and an
+ * honest note about anything still unfinished. `status.tone` is 'ok' for a finished,
+ * shipped project and 'pending' for a caveat. Everything here comes from the source
+ * repos, so it has to be updated when those change.
  */
 export const PROJECTS = [
   {
@@ -10,9 +18,9 @@ export const PROJECTS = [
     mobileImg: '/obsidian-pixelart.webp',
     imgCls: 'scale-[1.10] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',
     desc: {
-      es: 'E-commerce full-stack de streetwear con catálogo Laravel, autenticación Sanctum, carrito y wishlist sincronizados y checkout real.',
-      en: 'Full-stack streetwear e-commerce with a Laravel catalog, Sanctum authentication, synced cart and wishlist, and real checkout.',
-      ca: 'E-commerce full-stack de streetwear amb catàleg Laravel, autenticació Sanctum, cistella i wishlist sincronitzades i checkout real.',
+      es: 'E-commerce full-stack de streetwear con catálogo Laravel, autenticación Sanctum, carrito y wishlist sincronizados y checkout con pedidos reales.',
+      en: 'Full-stack streetwear e-commerce with a Laravel catalog, Sanctum authentication, synced cart and wishlist, and checkout that creates real orders.',
+      ca: 'E-commerce full-stack de streetwear amb catàleg Laravel, autenticació Sanctum, cistella i wishlist sincronitzades i checkout amb comandes reals.',
     },
     tags: [
       { label: 'React',          cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
@@ -20,18 +28,59 @@ export const PROJECTS = [
       { label: 'Laravel',        cls: 'bg-red-400/10    text-red-400    border-red-400/20'     },
       { label: 'MySQL',          cls: 'bg-sky-400/10    text-sky-400    border-sky-400/20'     },
       { label: 'PHP',            cls: 'bg-indigo-400/10 text-indigo-400 border-indigo-400/20' },
+      { label: 'TanStack Query', cls: 'bg-rose-400/10   text-rose-400   border-rose-400/20'   },
     ],
     github: 'https://github.com/AleixAj/obsidian',
     demo: 'https://obsidian.aleixaj.com',
+    details: {
+      summary: {
+        es: 'Tienda de ropa urbana planteada como producto y no como maqueta: un frontend React contra una API Laravel propia, con base de datos y despliegue de producción.',
+        en: 'A streetwear shop built as a product rather than a mockup: a React frontend against my own Laravel API, with a production database and deployment.',
+        ca: 'Botiga de roba urbana plantejada com a producte i no com a maqueta: un frontend React contra una API Laravel pròpia, amb base de dades i desplegament de producció.',
+      },
+      highlights: {
+        es: [
+          'Catálogo servido por la API, con filtros por categoría, talla, color y precio, y ordenación.',
+          'Registro y login con sesiones por cookie de Laravel Sanctum.',
+          'Carrito y wishlist sincronizados con el backend, no solo guardados en el navegador.',
+          'Checkout que convierte el carrito autenticado en un pedido real en base de datos.',
+          'Backend en repositorio aparte (obsidian-api) con MySQL en producción.',
+          'CI en GitHub Actions: lint, typecheck, tests y build en cada push.',
+        ],
+        en: [
+          'API-served catalog with category, size, colour and price filters, plus sorting.',
+          'Sign-up and login through Laravel Sanctum cookie sessions.',
+          'Cart and wishlist synced with the backend, not just kept in the browser.',
+          'Checkout that turns the authenticated cart into a real order in the database.',
+          'Backend in its own repository (obsidian-api) with MySQL in production.',
+          'GitHub Actions CI: lint, typecheck, tests and build on every push.',
+        ],
+        ca: [
+          "Catàleg servit per l'API, amb filtres per categoria, talla, color i preu, i ordenació.",
+          'Registre i inici de sessió amb sessions per cookie de Laravel Sanctum.',
+          'Cistella i wishlist sincronitzades amb el backend, no només desades al navegador.',
+          'Checkout que converteix la cistella autenticada en una comanda real a la base de dades.',
+          'Backend en un repositori a part (obsidian-api) amb MySQL en producció.',
+          'CI a GitHub Actions: lint, typecheck, tests i build a cada push.',
+        ],
+      },
+      stack: 'React 19 · TypeScript · Vite · TanStack Query · Laravel 11 · MySQL',
+      status: {
+        tone: 'pending',
+        es: 'El checkout crea pedidos reales, pero todavía no cobra: queda por conectar la pasarela de pago.',
+        en: 'Checkout creates real orders but does not charge yet: the payment gateway is still to be connected.',
+        ca: 'El checkout crea comandes reals, però encara no cobra: queda per connectar la passarel·la de pagament.',
+      },
+    },
   },
   {
     title: 'Orbex',
-    img: '/orbex-icon.jpg',
+    img: '/orbex-icon.webp',
     imgCls: 'scale-[1.10] md:scale-[1.25] md:group-hover:scale-[1.32] p-0',
     desc: {
-      es: 'Juego arcade móvil estilo Zuma con más de 50 mapas, personajes y magias en pixel art hecho a mano. Backend Supabase con auth, ranking online, telemetría y anti-trampas.',
-      en: 'Zuma-style mobile arcade game with 50+ maps, characters, and spells in hand-crafted pixel art. Supabase backend with auth, online ranking, telemetry, and anti-cheat.',
-      ca: 'Joc arcade mòbil estil Zuma amb més de 50 mapes, personatges i màgies en pixel art fet a mà. Backend Supabase amb auth, rànquing online, telemetria i anti-trampes.',
+      es: 'Juego arcade móvil estilo Zuma con 10 mundos y 80 niveles, personajes y animaciones en pixel art hecho a mano. Backend Supabase con auth, ranking online, telemetría y anti-trampas.',
+      en: 'Zuma-style mobile arcade game with 10 worlds and 80 levels, characters and animations in hand-crafted pixel art. Supabase backend with auth, online ranking, telemetry, and anti-cheat.',
+      ca: 'Joc arcade mòbil estil Zuma amb 10 mons i 80 nivells, personatges i animacions en pixel art fet a mà. Backend Supabase amb auth, rànquing online, telemetria i anti-trampes.',
     },
     tags: [
       { label: 'Godot',      cls: 'bg-blue-400/10    text-blue-400    border-blue-400/20'    },
@@ -40,16 +89,57 @@ export const PROJECTS = [
       { label: 'PostgreSQL', cls: 'bg-sky-400/10     text-sky-400     border-sky-400/20'     },
     ],
     github: 'https://github.com/AleixAj/orbex-web',
-    demo: 'https://orbex.aleixaj.com/',
+    demo: 'https://kylen02.itch.io/orbex?utm_source=portfolio&utm_medium=card&utm_campaign=orbex_site',
+    store: 'https://play.google.com/store/apps/details?id=com.aleix.orbex&referrer=utm_source%3Dportfolio%26utm_medium%3Dcard%26utm_campaign%3Dorbex_site',
+    details: {
+      summary: {
+        es: 'Juego de puntería tipo Zuma para Android hecho en solitario: el motor de la cadena, el editor de recorridos, el backend de ranking y el arte están construidos desde cero.',
+        en: 'A Zuma-style aiming game for Android built solo: the chain engine, the path editor, the ranking backend and the art are all built from scratch.',
+        ca: "Joc de punteria estil Zuma per a Android fet en solitari: el motor de la cadena, l'editor de recorreguts, el backend de rànquing i l'art estan construïts des de zero.",
+      },
+      highlights: {
+        es: [
+          '10 mundos ambientados en épocas históricas, de los dinosaurios al espacio, con 8 niveles y un jefe de 2 o 3 fases cada uno.',
+          'Motor de cadena propio: inserción del disparo, retrocesos, fusiones, portales y varias cadenas a la vez.',
+          'Plugin de editor hecho a medida para trazar los recorridos dentro de Godot.',
+          'Dificultad y listón de estrellas calculados por script y calibrados con telemetría real de partidas.',
+          'Backend Supabase: ranking global y por nivel, amigos, guardado en la nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.',
+          'Misiones diarias y semanales, desafío semanal con tablero propio y traducción a 10 idiomas.',
+        ],
+        en: [
+          '10 worlds set in historical eras, from dinosaurs to space, each with 8 levels and a boss with 2 or 3 phases.',
+          'Custom chain engine: shot insertion, rollbacks, merges, portals and several chains at once.',
+          'Purpose-built editor plugin for drawing the chain paths inside Godot.',
+          'Difficulty and star thresholds computed by script and calibrated with real gameplay telemetry.',
+          'Supabase backend: global and per-level ranking, friends, cloud saves, account deletion (GDPR) and server-side caps against cheating.',
+          'Daily and weekly quests, a weekly challenge with its own board, and 10 languages.',
+        ],
+        ca: [
+          "10 mons ambientats en èpoques històriques, dels dinosaures a l'espai, amb 8 nivells i un cap de 2 o 3 fases cadascun.",
+          'Motor de cadena propi: inserció del tret, retrocessos, fusions, portals i diverses cadenes alhora.',
+          "Plugin d'editor fet a mida per traçar els recorreguts dins de Godot.",
+          "Dificultat i llistó d'estrelles calculats per script i calibrats amb telemetria real de partides.",
+          'Backend Supabase: rànquing global i per nivell, amics, desat al núvol, esborrat de compte (RGPD) i límits al servidor contra trampes.',
+          'Missions diàries i setmanals, desafiament setmanal amb tauler propi i traducció a 10 idiomes.',
+        ],
+      },
+      stack: 'Godot 4.6 · GDScript · Supabase · PostgreSQL · Android',
+      status: {
+        tone: 'ok',
+        es: 'Publicado en Google Play y disponible para todo el mundo, con anuncios y compras en marcha.',
+        en: 'Live on Google Play and available to everyone, with ads and in-app purchases running.',
+        ca: 'Publicat a Google Play i disponible per a tothom, amb anuncis i compres en marxa.',
+      },
+    },
   },
   {
     title: 'Lord of the Clicks',
     img: '/onering-gif.gif',
     imgCls: 'scale-[1.25] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',
     desc: {
-      es: 'Clicker incremental inspirado en la Tierra Media, con progresión por zonas, combate, compañeros, equipo, misiones y guardado persistente.',
-      en: 'Middle-earth-inspired incremental clicker with zone progression, combat, companions, equipment, quests, and persistent saves.',
-      ca: 'Clicker incremental inspirat en la Terra Mitjana, amb progressió per zones, combat, companys, equip, missions i desat persistent.',
+      es: 'Clicker incremental inspirado en la Tierra Media: 30 zonas, 20 compañeros, 24 misiones, equipo, jefes con temporizador y guardado persistente.',
+      en: 'Middle-earth-inspired incremental clicker: 30 zones, 20 companions, 24 quests, equipment, timed bosses, and persistent saves.',
+      ca: 'Clicker incremental inspirat en la Terra Mitjana: 30 zones, 20 companys, 24 missions, equip, caps amb temporitzador i desat persistent.',
     },
     tags: [
       { label: 'React',      cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
@@ -59,6 +149,46 @@ export const PROJECTS = [
     ],
     github: 'https://github.com/AleixAj/lordoftheclicks',
     demo: 'https://lotrclicker.aleixaj.com/',
+    details: {
+      summary: {
+        es: 'Un juego pequeño tratado como app frontend completa: la lógica separada de React, el contenido dirigido por datos y los problemas reales de un producto con progresión y economía.',
+        en: 'A small game treated as a full frontend app: game logic kept apart from React, data-driven content, and the real problems of a product with progression and an economy.',
+        ca: "Un joc petit tractat com una app frontend completa: la lògica separada de React, el contingut dirigit per dades i els problemes reals d'un producte amb progressió i economia.",
+      },
+      highlights: {
+        es: [
+          '30 zonas, 20 compañeros, 24 misiones y 14 mejoras, definidos como datos y no cableados en la interfaz.',
+          'Jefes y semi-jefes con temporizador: si no bajas al enemigo a tiempo, se escapa.',
+          'Equipo situacional, donde cada objeto rinde distinto según el tipo de enemigo.',
+          'Tope de nivel de los compañeros ligado al progreso, para que no se pueda farmear el principio.',
+          'Estado global con Zustand, TypeScript estricto y tests de la lógica de juego.',
+          'Guardado persistente con migraciones de versión y una interfaz de tres columnas que aguanta en móvil.',
+        ],
+        en: [
+          '30 zones, 20 companions, 24 quests and 14 upgrades, defined as data instead of being wired into the UI.',
+          'Bosses and mini-bosses on a timer: fail to bring the enemy down in time and it escapes.',
+          'Situational equipment, where each item performs differently against each enemy type.',
+          'Companion level caps tied to progress, so the early game cannot be farmed.',
+          'Global state with Zustand, strict TypeScript and tests over the game logic.',
+          'Persistent saves with schema migrations, and a three-column layout that holds up on mobile.',
+        ],
+        ca: [
+          '30 zones, 20 companys, 24 missions i 14 millores, definits com a dades i no cablejats a la interfície.',
+          "Caps i semi-caps amb temporitzador: si no baixes l'enemic a temps, s'escapa.",
+          "Equip situacional, on cada objecte rendeix diferent segons el tipus d'enemic.",
+          'Límit de nivell dels companys lligat al progrés, perquè no es pugui fer farming del principi.',
+          'Estat global amb Zustand, TypeScript estricte i tests de la lògica de joc.',
+          'Desat persistent amb migracions de versió i una interfície de tres columnes que aguanta al mòbil.',
+        ],
+      },
+      stack: 'React 19 · TypeScript · Zustand · Tailwind CSS · Vitest · Cloudflare',
+      status: {
+        tone: 'pending',
+        es: 'Faltan las imágenes y animaciones de la mitad final del juego, y sigo afinando las curvas de dificultad.',
+        en: 'The art and animations for the back half of the game are still missing, and I am still tuning the difficulty curves.',
+        ca: 'Falten les imatges i animacions de la meitat final del joc, i encara estic afinant les corbes de dificultat.',
+      },
+    },
   },
   {
     title: 'Solar Explorer',
@@ -73,41 +203,147 @@ export const PROJECTS = [
       { label: 'React',       cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
       { label: 'TypeScript',  cls: 'bg-blue-400/10   text-blue-400   border-blue-400/20'   },
       { label: 'Three.js',    cls: 'bg-violet-400/10 text-violet-400 border-violet-400/20' },
+      { label: 'React Three Fiber', cls: 'bg-teal-400/10 text-teal-400 border-teal-400/20' },
       { label: 'TailwindCSS', cls: 'bg-sky-400/10    text-sky-400    border-sky-400/20'    },
     ],
     github: 'https://github.com/AleixAj/solar-system',
     demo: 'https://solarsystem.aleixaj.com',
+    details: {
+      summary: {
+        es: 'Sistema Solar navegable en el navegador. Lo difícil no era el 3D en sí, sino hacer convivir la escena WebGL con una interfaz que funcione igual de bien en escritorio y en móvil.',
+        en: 'A Solar System you can fly through in the browser. The hard part was not the 3D itself but making the WebGL scene live alongside an interface that works as well on mobile as on desktop.',
+        ca: "Sistema Solar navegable al navegador. El difícil no era el 3D en si, sinó fer conviure l'escena WebGL amb una interfície que funcioni igual de bé a l'escriptori i al mòbil.",
+      },
+      highlights: {
+        es: [
+          'Escena en React Three Fiber con texturas, atmósferas, halo solar y los anillos de Saturno por bandas.',
+          'Planetas seleccionables con transiciones de cámara y ficha de datos físicos, lunas y curiosidades.',
+          'Tour guiado que recorre los astros con la cámara siguiendo al planeta mientras orbita.',
+          'Control de velocidad del tiempo de 0x a 10x.',
+          'Interfaz distinta por dispositivo: panel lateral en escritorio, drawer y botones flotantes en móvil para no tapar la escena.',
+          'Datos tipados, traducción ES/EN sin librerías extra y respeto por prefers-reduced-motion.',
+        ],
+        en: [
+          'React Three Fiber scene with textures, atmospheres, a solar halo and Saturn rings drawn as bands.',
+          'Selectable planets with camera transitions and a panel of physical data, moons and trivia.',
+          'Guided tour that flies between bodies, the camera tracking each planet as it orbits.',
+          'Time-speed control from 0x to 10x.',
+          'A different interface per device: a side panel on desktop, a drawer and floating buttons on mobile so the scene stays visible.',
+          'Typed data, ES/EN translation with no extra libraries, and prefers-reduced-motion support.',
+        ],
+        ca: [
+          'Escena en React Three Fiber amb textures, atmosferes, halo solar i els anells de Saturn per bandes.',
+          'Planetes seleccionables amb transicions de càmera i fitxa de dades físiques, llunes i curiositats.',
+          'Tour guiat que recorre els astres amb la càmera seguint el planeta mentre orbita.',
+          'Control de velocitat del temps de 0x a 10x.',
+          "Interfície diferent per dispositiu: panell lateral a l'escriptori, drawer i botons flotants al mòbil per no tapar l'escena.",
+          'Dades tipades, traducció ES/EN sense llibreries extra i respecte per prefers-reduced-motion.',
+        ],
+      },
+      stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Tailwind CSS',
+    },
   },
   {
     title: 'CashDrop',
     img: '/CashDrop.webp',
     desc: {
-      es: 'Juego web inspirado en concursos de televisión, con mecánica de apuestas, preguntas por rondas y una interfaz pensada para partidas ágiles.',
-      en: 'Web game inspired by TV quiz shows, with betting mechanics, round-based questions, and an interface designed for quick sessions.',
-      ca: 'Joc web inspirat en concursos de televisió, amb mecànica d\'apostes, preguntes per rondes i una interfície pensada per a partides àgils.',
+      es: 'Juego web inspirado en el concurso de televisión: repartes 1.000.000 € en 20 fajos entre cuatro respuestas y solo conservas lo que hay sobre la correcta.',
+      en: 'Web game inspired by the TV show: split €1,000,000 in 20 bundles across four answers and keep only what sits on the right one.',
+      ca: 'Joc web inspirat en el concurs de televisió: reparteixes 1.000.000 € en 20 fajos entre quatre respostes i només conserves el que hi ha sobre la correcta.',
     },
     tags: [
       { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
       { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
       { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+      { label: 'Bootstrap',  cls: 'bg-purple-400/10 text-purple-400 border-purple-400/20' },
     ],
     github: 'https://github.com/AleixAj/cashdrop',
     demo: 'https://cashdrop.aleixaj.com/',
+    details: {
+      summary: {
+        es: 'Adaptación web del concurso, hecha a propósito sin frameworks ni build: el repositorio se despliega tal cual, sin npm install.',
+        en: 'A web take on the TV show, deliberately built with no frameworks and no build step: the repository deploys exactly as it is, with no npm install.',
+        ca: 'Adaptació web del concurs, feta expressament sense frameworks ni build: el repositori es desplega tal qual, sense npm install.',
+      },
+      highlights: {
+        es: [
+          'Reparto de fajos por arrastre, con soporte táctil escrito a mano y sin librerías.',
+          'Más de 125 preguntas en 5 categorías y 3 niveles de dificultad, con pista y explicación.',
+          'Antes de cada ronda se ofrecen 3 categorías sorteadas de las 5, así que cada partida es distinta.',
+          'Sin preguntas repetidas dentro de una misma partida.',
+          'Reglas validadas: no se pueden cubrir las cuatro opciones a la vez ni confirmar con fajos sin colocar.',
+          'Pantalla final con confeti al conservar dinero y game over cuando te quedas a cero.',
+        ],
+        en: [
+          'Drag-and-drop money bundles, with hand-written touch support and no libraries.',
+          'Over 125 questions across 5 categories and 3 difficulty levels, each with a hint and an explanation.',
+          'Before every round the game offers 3 categories drawn from the 5, so no two games are alike.',
+          'No repeated questions within a single game.',
+          'Validated rules: you cannot cover all four options at once, nor confirm with bundles left over.',
+          'Final screen with confetti when you keep money, and game over when you end at zero.',
+        ],
+        ca: [
+          'Repartiment de fajos per arrossegament, amb suport tàctil escrit a mà i sense llibreries.',
+          'Més de 125 preguntes en 5 categories i 3 nivells de dificultat, amb pista i explicació.',
+          "Abans de cada ronda s'ofereixen 3 categories sortejades de les 5, així que cada partida és diferent.",
+          "Sense preguntes repetides dins d'una mateixa partida.",
+          'Regles validades: no es poden cobrir les quatre opcions alhora ni confirmar amb fajos sense col·locar.',
+          'Pantalla final amb confeti quan conserves diners i game over quan et quedes a zero.',
+        ],
+      },
+      stack: 'HTML · CSS · JavaScript · Bootstrap 5',
+    },
   },
   {
     title: 'FamilyTrivia',
     img: '/FamilyTrivia.webp',
     desc: {
-      es: 'Trivia web interactiva para jugar en grupo, con tablero por categorías, puntuación dinámica y una experiencia rápida para compartir en pantalla.',
-      en: 'Interactive web trivia for group play, with a category board, dynamic scoring, and a fast experience designed for shared screens.',
-      ca: 'Trivia web interactiva per jugar en grup, amb tauler per categories, puntuació dinàmica i una experiència ràpida per compartir en pantalla.',
+      es: 'Trivia de tablero para jugar en grupo: preguntas por categorías, respuestas simultáneas, ruletas para formar parejas y ranking final con estadísticas.',
+      en: 'Board-style trivia for group play: category questions, simultaneous answers, wheels to pair up teams, and a final ranking with stats.',
+      ca: 'Trivia de tauler per jugar en grup: preguntes per categories, respostes simultànies, ruletes per formar parelles i rànquing final amb estadístiques.',
     },
     tags: [
       { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
       { label: 'CSS',        cls: 'bg-cyan-400/10   text-cyan-400   border-cyan-400/20'   },
       { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+      { label: 'Bootstrap',  cls: 'bg-purple-400/10 text-purple-400 border-purple-400/20' },
+      { label: 'Chart.js',   cls: 'bg-pink-400/10   text-pink-400   border-pink-400/20'   },
     ],
     github: 'https://github.com/AleixAj/familytrivia',
     demo: 'https://familytrivia.aleixaj.com',
+    details: {
+      summary: {
+        es: 'Un trivial de tablero para jugar en casa en una pantalla compartida. Un equipo elige casilla, pero responden todos a la vez, así que nadie espera turno.',
+        en: 'A board trivia meant for playing at home on one shared screen. One team picks the square, but everybody answers at the same time, so nobody sits waiting for a turn.',
+        ca: 'Un trivial de tauler per jugar a casa en una pantalla compartida. Un equip tria casella, però responen tots alhora, així que ningú espera torn.',
+      },
+      highlights: {
+        es: [
+          'Tablero de 6 categorías por 6 valores, de 150 a 800 puntos, con la dificultad ligada al valor de la casilla.',
+          'Tres modos: un jugador, hasta 15 jugadores individuales o hasta 15 parejas formadas con ruletas.',
+          'Preguntas con audio (bandas sonoras y Disney) con reproductor propio que admite clic y arrastre táctil.',
+          'Tres comodines por equipo: ver la pista, no restar al fallar y leer las respuestas de los demás.',
+          'Adivinanzas sin opciones, donde acertar suma y fallar no resta.',
+          'Ranking final con confeti y estadísticas de acierto por equipo y por categoría.',
+        ],
+        en: [
+          'A 6-category by 6-value board, from 150 to 800 points, with difficulty tied to the value of each square.',
+          'Three modes: single player, up to 15 individual players, or up to 15 pairs drawn by the wheels.',
+          'Audio questions (soundtracks and Disney) with a custom player that takes both clicks and touch dragging.',
+          "Three lifelines per team: see the hint, lose nothing on a wrong answer, and read everyone else's answers.",
+          'Riddles with no options, where a right answer scores and a wrong one costs nothing.',
+          'Final ranking with confetti and hit-rate stats per team and per category.',
+        ],
+        ca: [
+          'Tauler de 6 categories per 6 valors, de 150 a 800 punts, amb la dificultat lligada al valor de la casella.',
+          'Tres modes: un jugador, fins a 15 jugadors individuals o fins a 15 parelles formades amb ruletes.',
+          'Preguntes amb àudio (bandes sonores i Disney) amb reproductor propi que admet clic i arrossegament tàctil.',
+          'Tres comodins per equip: veure la pista, no restar en fallar i llegir les respostes dels altres.',
+          'Endevinalles sense opcions, on encertar suma i fallar no resta.',
+          "Rànquing final amb confeti i estadístiques d'encert per equip i per categoria.",
+        ],
+      },
+      stack: 'HTML · CSS · JavaScript · Bootstrap 5 · Chart.js',
+    },
   },
 ]

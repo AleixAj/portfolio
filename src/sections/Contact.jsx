@@ -123,7 +123,9 @@ function Footer({ t, cv }) {
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaGithub className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href={cv.href} download={cv.name} aria-label="Download CV"
+            {/* Opens the PDF instead of downloading it: from the footer the visitor is
+                usually just checking, and the hero keeps the download button. */}
+            <a href={cv.href} target="_blank" rel="noopener noreferrer" aria-label={t.viewCV} title={t.viewCV}
               className="text-gray-400 hover:text-cyan-400 transition-colors">
               <FaFileAlt className="w-4 h-4 md:w-5 md:h-5" />
             </a>

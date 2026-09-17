@@ -1,5 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // Tailwind v4's default, opted into here: `hover:` styles only apply on devices
+  // with a real pointer. On touch, a tap otherwise leaves the hover state stuck.
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   content: [
     "./index.html",
     "./src/**/*.{js,jsx}",

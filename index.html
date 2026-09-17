@@ -12,10 +12,12 @@
     <meta name="theme-color" content="#000000" />
     <link rel="canonical" href="https://aleixaj.com/" />
 
-    <!-- Multilingual hints for crawlers (ES default, EN/CA switch via in-app toggle) -->
+    <!-- Multilingual: ?lang= gives each language a real, shareable URL. The app
+         reads it on load and keeps <html lang>, the canonical link and the meta
+         tags in sync, so these alternates point at pages that truly exist. -->
     <link rel="alternate" hreflang="es" href="https://aleixaj.com/" />
-    <link rel="alternate" hreflang="en" href="https://aleixaj.com/" />
-    <link rel="alternate" hreflang="ca" href="https://aleixaj.com/" />
+    <link rel="alternate" hreflang="en" href="https://aleixaj.com/?lang=en" />
+    <link rel="alternate" hreflang="ca" href="https://aleixaj.com/?lang=ca" />
     <link rel="alternate" hreflang="x-default" href="https://aleixaj.com/" />
 
     <!-- Open Graph (LinkedIn, Facebook, WhatsApp) -->
@@ -40,18 +42,22 @@
     <meta name="twitter:image:alt" content="Aleix Auqué · Software Developer" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/AJ.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Speed up font and third-party connections -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Speed up the contact form's first request -->
     <link rel="preconnect" href="https://api.emailjs.com" />
 
-    <!-- Preload hero 3D model before React mounts the scene -->
-    <link rel="preload" href="/gaming_bedroom.glb" as="fetch" type="model/gltf-binary" crossorigin fetchpriority="high" />
+    <!-- Fonts are self-hosted (see index.css). Only the latin ranges are preloaded:
+         they cover the three languages of the site, and the rest load on demand. -->
+    <link rel="preload" href="/fonts/dm-sans-rP2Hp2ywxg089UriCZOIHQ.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/space-grotesk-V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Fonts: Space Grotesk (display/headings) + DM Sans (body) -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Preload the hero 3D model before React mounts the scene. Gated to desktop
+         widths: on phones the 3 MB model would compete with the critical CSS/JS,
+         and the scene itself may be skipped entirely (data saver / slow network),
+         in which case the file is never requested. -->
+    <link rel="preload" href="/gaming_bedroom.glb" as="fetch" type="model/gltf-binary" crossorigin fetchpriority="high" media="(min-width: 1024px)" />
 
     <script type="application/ld+json">
       {
