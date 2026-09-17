@@ -4,11 +4,21 @@
  */
 import { lazy, Suspense } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FaLinkedin, FaFileAlt, FaMapMarkerAlt, FaBriefcase, FaLaptopCode, FaGlobe } from 'react-icons/fa'
+import { FaLinkedin, FaFileAlt, FaDownload, FaMapMarkerAlt, FaBriefcase, FaLaptopCode, FaGlobe, FaCode } from 'react-icons/fa'
 import RotatingText from '../components/RotatingText'
+import { LIGHT_MODE } from '../consts/device'
 
 // Three.js in a separate chunk; does not block initial React load
 const Scene3D = lazy(() => import('../components/Scene3D'))
+
+/**
+ * Static stand-in for the 3D scene. Used while the scene loads and, on data-saver
+ * or 2G connections, in its place — there the chunk and the 3 MB model are never
+ * requested at all.
+ */
+function HeroBackdrop() {
+  return <div className="w-full h-full bg-[radial-gradient(circle_at_70%_40%,rgba(34,211,238,0.16),transparent_35%)]" />
+}
 
 // Premium easing reused across the hero entrance
 const EASE = [0.16, 1, 0.3, 1]
@@ -91,13 +101,17 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
     <section id="inicio" className="min-h-full md:h-[100dvh] relative flex flex-col md:block">
 
       <div className="absolute inset-0">
-        <Suspense fallback={<div className="w-full h-full bg-[radial-gradient(circle_at_70%_40%,rgba(34,211,238,0.16),transparent_35%)]" />}>
-          <Scene3D heroActive={heroActive} />
-        </Suspense>
+        {LIGHT_MODE ? (
+          <HeroBackdrop />
+        ) : (
+          <Suspense fallback={<HeroBackdrop />}>
+            <Scene3D heroActive={heroActive} />
+          </Suspense>
+        )}
       </div>
 
       {/* Mobile: title at top */}
-      <div className="md:hidden flex-shrink-0 pt-20 ls:pt-12 px-8 pb-12 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
+      <div className="md:hidden flex-shrink-0 pt-20 ls:pt-12 px-8 pb-8 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
         <motion.h1 {...enter(0)} className="text-[7vw] font-bold tracking-tighter leading-none">
           {t.transform}{' '}
           <HeroWord words={words} reduceMotion={reduceMotion} />
@@ -110,10 +124,11 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
       <div className="md:hidden flex-1" />
 
       {/* Mobile: content at bottom */}
-      <div className="md:hidden flex-shrink-0 px-8 pt-10 ls:pt-8 pb-20 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+      <div className="md:hidden flex-shrink-0 px-8 pt-10 ls:pt-8 pb-16 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
         <p className="text-xl text-gray-300">Software Developer</p>
         <div className="mt-1.5 ls:hidden flex flex-wrap gap-1 pointer-events-auto">
           <OpenToWorkBadge label={t.openToWork} />
+          <ProfileChip icon={FaCode} label={t.roles} />
           <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
           <ProfileChip icon={FaBriefcase} label={t.experience} />
         </div>
@@ -139,9 +154,13 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
             className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
             <FaLinkedin className="w-3 h-3" /> LinkedIn
           </a>
-          <a href={cv.href} download={cv.name}
+          <a href={cv.href} target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
-            <FaFileAlt className="w-3 h-3" /> CV
+            <FaFileAlt className="w-3 h-3" /> {t.viewCV}
+          </a>
+          <a href={cv.href} download={cv.name} aria-label={t.downloadCV} title={t.downloadCV}
+            className="flex items-center justify-center w-9 px-2 py-1.5 border border-cyan-400/50 text-cyan-300 rounded-xl hover:bg-cyan-400/15 hover:border-cyan-400 transition-colors">
+            <FaDownload className="w-3 h-3" />
           </a>
         </div>
       </div>
@@ -162,6 +181,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
             <p className="text-2xl text-gray-300">Software Developer</p>
             <div className="mt-3 flex flex-wrap gap-2 max-w-[40rem] pointer-events-auto">
               <OpenToWorkBadge label={t.openToWork} />
+              <ProfileChip icon={FaCode} label={t.roles} />
               <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
               <ProfileChip icon={FaBriefcase} label={t.experience} />
               <ProfileChip icon={FaLaptopCode} label={t.modality} />
@@ -189,9 +209,13 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
                 className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
                 <FaLinkedin className="w-5 h-5" /> LinkedIn
               </a>
-              <a href={cv.href} download={cv.name}
+              <a href={cv.href} target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
-                <FaFileAlt className="w-5 h-5" /> CV
+                <FaFileAlt className="w-5 h-5" /> {t.viewCV}
+              </a>
+              <a href={cv.href} download={cv.name} aria-label={t.downloadCV} title={t.downloadCV}
+                className="flex items-center justify-center px-4 py-3.5 border border-cyan-400/50 text-cyan-300 rounded-2xl hover:bg-cyan-400/15 hover:border-cyan-400 transition-colors">
+                <FaDownload className="w-5 h-5" />
               </a>
             </div>
           </motion.div>

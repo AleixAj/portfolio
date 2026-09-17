@@ -4,12 +4,13 @@
 # CSP notes:
 # - 'wasm-unsafe-eval' is required by the meshopt WebAssembly decoder used to load the hero GLB.
 # - 'unsafe-inline' in style-src covers React/Framer Motion inline style attributes and Tailwind.
-# - style/font origins are Google Fonts; connect-src allows the EmailJS contact API.
+# - fonts are self-hosted, so no external style or font origin is allowed at all.
+# - connect-src allows the EmailJS contact API.
 # - connect-src also allows blob:/data: because Three.js GLTFLoader fetches the GLB's
 #   embedded textures through blob: URLs (without it the 3D model loads untextured/white).
 # - script-src has no 'unsafe-inline' or external origins: the build ships only one self-hosted module.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.emailjs.com blob: data:; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://api.emailjs.com blob: data:; worker-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
@@ -17,6 +18,55 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
   Cross-Origin-Opener-Policy: same-origin
   X-XSS-Protection: 0
+
+# Caching. Cloudflare Workers assets revalidate on every visit by default, which
+# costs a round trip per file. Build output under /assets/ is content-hashed, so
+# it can be cached forever. The files in public/ keep their name across deploys,
+# so they get a long but finite cache instead of "immutable": replacing one still
+# reaches returning visitors, while repeat visits (the 3 MB hero model above all)
+# cost nothing in the meantime.
+# Only trailing wildcards are used, which is the form Cloudflare matches reliably.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/hobbies/*
+  Cache-Control: public, max-age=2592000
+
+/gaming_bedroom.glb
+  Cache-Control: public, max-age=2592000
+
+/AJ.png
+  Cache-Control: public, max-age=2592000
+
+/favicon-32.png
+  Cache-Control: public, max-age=2592000
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=2592000
+
+/og-image.png
+  Cache-Control: public, max-age=2592000
+
+/obsidian-pixelart.webp
+  Cache-Control: public, max-age=2592000
+
+/orbex-icon.webp
+  Cache-Control: public, max-age=2592000
+
+/solar-explorerlogo.webp
+  Cache-Control: public, max-age=2592000
+
+/CashDrop.webp
+  Cache-Control: public, max-age=2592000
+
+/FamilyTrivia.webp
+  Cache-Control: public, max-age=2592000
+
+/onering-gif.gif
+  Cache-Control: public, max-age=2592000
 
 # app-ads.txt: crawled by AdMob to verify the Orbex app. No caching, so that
 # adding another ad network propagates immediately instead of in 24h.
