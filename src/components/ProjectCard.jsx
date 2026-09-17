@@ -5,14 +5,17 @@
  */
 import { memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FaGithub } from 'react-icons/fa'
+import { FaGithub, FaGooglePlay, FaInfo } from 'react-icons/fa'
 
 // True only on devices with a real pointer (mouse/trackpad). Hover effects are
 // gated on this because on touch a tap sticks the :hover state, which would leave
 // a card stuck in its expanded state after being tapped.
 const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia?.('(hover: hover)').matches
 
-const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo }) {
+// Shared styling for the card's action links.
+const LINK_CLS = 'flex-1 flex items-center justify-center gap-1 whitespace-nowrap px-1.5 py-0.5 md:px-2 md:py-2 2xl:py-2.5 rounded-md md:rounded-lg 2xl:rounded-xl transition-all duration-200 text-[0.6rem] md:text-xs 2xl:text-sm font-medium'
+
+const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo, store, onInfo, infoLabel }) {
   const reduceMotion = useReducedMotion()
   return (
     <motion.div
@@ -23,7 +26,20 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
       whileHover={(reduceMotion || !CAN_HOVER) ? undefined : { scale: 1.04, transition: { type: 'spring', stiffness: 260, damping: 18 } }}
       className="group relative hover:z-20 project-card rounded-xl md:rounded-2xl 2xl:rounded-3xl overflow-hidden flex flex-row md:flex-col">
 
-      <div className="w-16 flex-shrink-0 md:w-auto md:h-28 lg:h-28 2xl:h-36 3xl:h-44 flex items-center justify-center overflow-hidden self-stretch">
+      {/* Opens the project's info dialog. Sits in the corner so it never competes
+          with the two action buttons at the bottom of the card. */}
+      {onInfo && (
+        <button
+          type="button"
+          onClick={() => onInfo(title)}
+          aria-label={infoLabel}
+          className="absolute top-1.5 right-1.5 md:top-2 md:right-2 2xl:top-3 2xl:right-3 z-20 w-7 h-7 md:w-9 md:h-9 2xl:w-10 2xl:h-10 flex items-center justify-center rounded-full border border-cyan-400 bg-cyan-400/25 text-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.4)] hover:bg-white/20 hover:border-white hover:text-white transition-colors"
+        >
+          <FaInfo className="w-2.5 h-2.5 md:w-4 md:h-4 2xl:w-4 2xl:h-4" />
+        </button>
+      )}
+
+      <div className="w-16 flex-shrink-0 md:w-auto md:h-28 lg:h-28 2xl:h-36 3xl:h-44 md:box-content md:pt-3.5 2xl:pt-5 flex items-center justify-center overflow-hidden self-stretch">
         <picture className="w-full h-full flex items-center justify-center">
           {mobileImg && <source media="(max-width: 767px)" srcSet={mobileImg} />}
           <img
@@ -38,22 +54,28 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
       </div>
 
       <div className="flex-1 flex flex-col p-1.5 md:p-3.5 2xl:p-5 min-w-0">
-        <h3 className="text-sm md:text-lg 2xl:text-xl 3xl:text-2xl font-bold mb-0.5 md:mb-2 2xl:mb-2.5 text-white text-center leading-tight">{title}</h3>
-        <p className="hidden md:block text-cyan-400/80 text-xs 2xl:text-sm 3xl:text-base leading-snug line-clamp-3">{desc}</p>
-        <div className="flex mt-0.5 md:mt-2.5 2xl:mt-3 gap-0.5 md:gap-1 2xl:gap-1.5 flex-wrap">
+        <h3 className="text-sm md:text-lg 2xl:text-xl 3xl:text-2xl font-bold mb-0.5 md:mb-2 2xl:mb-2.5 text-white text-center leading-tight px-8 md:px-0">{title}</h3>
+        <p className="hidden md:block text-cyan-400/80 text-xs 2xl:text-sm 3xl:text-base leading-snug line-clamp-3 text-center">{desc}</p>
+        <div className="flex justify-center mt-0.5 md:mt-2.5 2xl:mt-3 gap-0.5 md:gap-1 2xl:gap-1.5 flex-wrap pr-8 md:pr-0">
           {tags.map(({ label, cls }) => (
             <span key={label} className={`text-[0.55rem] md:text-xs 2xl:text-sm px-1 md:px-2 2xl:px-2.5 py-px md:py-0.5 rounded-full border leading-tight ${cls}`}>{label}</span>
           ))}
         </div>
         <div className="mt-auto pt-1 md:pt-3 2xl:pt-5 flex gap-1 md:gap-1.5 2xl:gap-2">
           <a href={github} target="_blank" rel="noopener noreferrer" aria-label={`${title} GitHub repository`}
-            className="flex-1 flex items-center justify-center gap-1 px-1.5 py-0.5 md:px-3 md:py-2 2xl:py-2.5 rounded-md md:rounded-lg 2xl:rounded-xl border border-white/20 text-white/70 hover:border-cyan-400/60 hover:text-cyan-400 transition-all duration-200 text-[0.6rem] md:text-xs 2xl:text-sm font-medium">
+            className={`${LINK_CLS} border border-white/20 text-white/70 hover:border-cyan-400/60 hover:text-cyan-400`}>
             <FaGithub className="w-2.5 h-2.5 md:w-4 md:h-4 2xl:w-4 2xl:h-4" /> GitHub
           </a>
           <a href={demo} target="_blank" rel="noopener noreferrer" aria-label={`${title} live demo`}
-            className="flex-1 flex items-center justify-center gap-1 px-1.5 py-0.5 md:px-3 md:py-2 2xl:py-2.5 rounded-md md:rounded-lg 2xl:rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-all duration-200 text-[0.6rem] md:text-xs 2xl:text-sm font-medium">
+            className={`${LINK_CLS} bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60`}>
             ↗ Demo
           </a>
+          {store && (
+            <a href={store} target="_blank" rel="noopener noreferrer" aria-label={`${title} on Google Play`}
+              className={`${LINK_CLS} bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60`}>
+              <FaGooglePlay className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4" /> Play
+            </a>
+          )}
         </div>
       </div>
     </motion.div>
