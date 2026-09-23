@@ -11,6 +11,7 @@
 <p>
   <a href="README.md"><img src="docs/readme/lang-es.svg" alt="Español" width="170"></a>
   <img src="docs/readme/lang-en-active.svg" alt="English" width="170">
+  <a href="README.ca.md"><img src="docs/readme/lang-ca.svg" alt="Català" width="170"></a>
 </p>
 
 **Live portfolio:** [aleixaj.com](https://aleixaj.com)  
