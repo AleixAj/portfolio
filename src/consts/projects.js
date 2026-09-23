@@ -300,7 +300,7 @@ export const PROJECTS = [
           'Tour guiat que recorre els astres amb la càmera seguint el planeta mentre orbita.',
           'Control de velocitat del temps de 0x a 10x.',
           "Interfície diferent per dispositiu: panell lateral a l'escriptori, drawer i botons flotants al mòbil per no tapar l'escena.",
-          'Dades tipades, traducció ES/EN sense llibreries extra i respecte per prefers-reduced-motion.',
+          'Dades tipades, traducció ES/EN sense biblioteques addicionals i respecte per prefers-reduced-motion.',
         ],
       },
       stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Tailwind CSS',
@@ -312,7 +312,7 @@ export const PROJECTS = [
     desc: {
       es: 'Juego web inspirado en el concurso de televisión: repartes 1.000.000 € en 20 fajos entre cuatro respuestas y solo conservas lo que hay sobre la correcta.',
       en: 'Web game inspired by the TV show: split €1,000,000 in 20 bundles across four answers and keep only what sits on the right one.',
-      ca: 'Joc web inspirat en el concurs de televisió: reparteixes 1.000.000 € en 20 fajos entre quatre respostes i només conserves el que hi ha sobre la correcta.',
+      ca: 'Joc web inspirat en el concurs de televisió: reparteixes 1.000.000 € en 20 feixos entre quatre respostes i només conserves el que hi ha sobre la correcta.',
     },
     tags: [
       { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
@@ -346,11 +346,11 @@ export const PROJECTS = [
           'Final screen with confetti when you keep money, and game over when you end at zero.',
         ],
         ca: [
-          'Repartiment de fajos per arrossegament, amb suport tàctil escrit a mà i sense llibreries.',
+          'Repartiment de feixos per arrossegament, amb suport tàctil escrit a mà i sense biblioteques.',
           'Més de 125 preguntes en 5 categories i 3 nivells de dificultat, amb pista i explicació.',
           "Abans de cada ronda s'ofereixen 3 categories sortejades de les 5, així que cada partida és diferent.",
           "Sense preguntes repetides dins d'una mateixa partida.",
-          'Regles validades: no es poden cobrir les quatre opcions alhora ni confirmar amb fajos sense col·locar.',
+          'Regles validades: no es poden cobrir les quatre opcions alhora ni confirmar amb feixos sense col·locar.',
           'Pantalla final amb confeti quan conserves diners i game over quan et quedes a zero.',
         ],
       },
