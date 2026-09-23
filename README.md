@@ -177,7 +177,7 @@ ventana transparente que queda siempre encima del juego y deja pasar los clics.
   automáticas desde GitHub Releases, versión para Mac (Intel y Apple Silicon)
   compilada automáticamente con GitHub Actions, chat en tiempo real con reconexión robusta,
   emotes de 7TV/BTTV/FFZ, rendimiento medido (menos del 2 % de un núcleo en chats
-  muy rápidos, sin usar la tarjeta gráfica), perfiles por juego con atajo global,
+  muy rápidos, sin usar la tarjeta gráfica), perfiles por juego con atajo global, avisos de directo con recuadro propio encima del juego,
   interfaz en español e inglés y validación de todos los datos que llegan.
 - **Estado**: publicada para Windows y para Mac (en pruebas), código abierto con licencia MIT.
 - **En el portfolio**: la ficha incluye una captura de la app en uso encima de una partida.

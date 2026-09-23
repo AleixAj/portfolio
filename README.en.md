@@ -179,7 +179,7 @@ that stays on top of the game and lets clicks pass through.
   updates from GitHub Releases, a Mac version (Intel and Apple Silicon) built
   automatically with GitHub Actions, real-time chat with robust reconnection,
   7TV/BTTV/FFZ emotes, measured performance (under 2 % of one core in very fast
-  chats, without using the GPU), per-game profiles with a global shortcut,
+  chats, without using the GPU), per-game profiles with a global shortcut, live alerts in their own box on top of the game,
   Spanish and English interface, and validation of all incoming data.
 - **Status**: released for Windows and for Mac (in beta), open source under the MIT license.
 - **In the portfolio**: the project details include a screenshot of the app in use over a game.
