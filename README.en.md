@@ -155,7 +155,7 @@ catalog to checkout.
 
 **[GitHub (game website)](https://github.com/AleixAj/orbex-web) · [Play in the browser](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
 
-*Zuma*-style marble shooter for Android, built solo and published on Google
+*Zuma*-style aiming game for Android, built solo and published on Google
 Play, with its own backend.
 
 - **Role**: design, programming, art and backend.
@@ -181,7 +181,7 @@ that stays on top of the game and lets clicks pass through.
   7TV/BTTV/FFZ emotes, measured performance (under 2 % of one core in very fast
   chats, without using the GPU), per-game profiles with a global shortcut,
   Spanish and English interface, and validation of all incoming data.
-- **Status**: released for Windows and Mac (in testing), open source under the MIT license.
+- **Status**: released for Windows and for Mac (in beta), open source under the MIT license.
 - **In the portfolio**: the project details include a screenshot of the app in use over a game.
 
 ### Solar Explorer
@@ -277,7 +277,7 @@ same order as the UI (from foundational to specialized).
 |-------|-------------------|
 | **JSON** | Standard format for APIs, configuration and state serialization. |
 | **PHP** | Backend language for websites and APIs (personal and professional projects). |
-| **Java** | OO language used in training and work on enterprise backends. |
+| **Java** | OO language used in my studies and at work on enterprise backends. |
 | **Laravel** | Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in `Obsidian`). |
 | **.NET** | Microsoft stack for services and APIs in corporate environments. |
 | **MySQL** | Relational database for domain modeling and queries with indexes/joins. |
@@ -309,7 +309,7 @@ same order as the UI (from foundational to specialized).
   open-to-work badge, professional mini profile (roles, location, years of
   experience, work arrangement and languages), dual CTA to projects and contact,
   and the CV in two actions: view it in the browser or download it.
-- **Background**: work experience and education with no inner scroll, with
+- **Journey**: work experience and education with no inner scroll, with
   **client chips** (`CaixaBank`, `Nestlé`, `Naturgy`) on the roles where
   projects reached recognizable brands.
 - **Projects**: cards with a **neon-style cyan glow**, mobile-adapted logos,
@@ -319,7 +319,7 @@ same order as the UI (from foundational to specialized).
   summary, optional screenshot, highlights, stack and actual status, taken from
   its repository's README. Ordered by technical depth (full-stack first, then
   published products); if the last card ends up alone in its row, it's centered.
-- **Technologies** (`Skills` in EN): technologies grouped into frontend
+- **Skills** (*Tecnologías* in Spanish, *Tecnologies* in Catalan): technologies grouped into frontend
   (including HTML, CSS, XML and UI tools), backend, DevOps and tools (including
   `Godot` for mobile game dev and `Aseprite` for pixel art), with brand icons.
   Each icon **links to the technology's official website** and has a *glare*
@@ -457,7 +457,7 @@ to enable the form.
   separately and only where appropriate), **CLS 0.034** and 261 ms of main
   thread blocking.
 - Full walkthrough with no console errors or failed requests: six sections, all
-  seven project details dialogs and the gallery, in all three languages.
+  seven project detail dialogs and the gallery, in all three languages.
 - Reviewed with no findings: parity of the 51 translation keys across `es`,
   `en` and `ca`; heading hierarchy with no skipped levels; no images without
   `alt`; no buttons or links without an accessible name; no duplicate `id`s; all
@@ -560,7 +560,7 @@ Other optimizations applied:
 - **3D model** compressed with meshopt + WebP textures (2.98 MB), with preload
   restricted to desktop screens (`media="(min-width: 1024px)"`) so it doesn't
   compete with critical CSS and JS on mobile.
-- **Connection-aware throttling**: with data saver enabled or on 2G, neither
+- **Connection-aware loading**: with data saver enabled or on 2G, neither
   Three.js nor the model is downloaded (`src/consts/device.js`); the hero shows
   its gradient.
 - **Star background** with `frameloop="demand"` (static render; CSS animation),

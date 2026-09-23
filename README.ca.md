@@ -24,10 +24,10 @@ acurada, multilingüe, amb projectes reals desplegats, trajectòria professional
 stack tècnic i contacte directe.
 
 L'objectiu no és només mostrar una landing visual, sinó demostrar criteri de
-producte, atenció al detall, capacitat full-stack i experiència portant
+producte, atenció al detall, capacitat full-stack i experiència a l'hora de portar
 projectes des d'una idea fins a producció.
 
-## Què Demostra
+## Què demostra
 
 - Desenvolupament frontend modern amb **React 19**, components reutilitzables i
   una experiència responsive pensada per a escriptori, tauleta i mòbil.
@@ -40,7 +40,7 @@ projectes des d'una idea fins a producció.
 - **La URL reflecteix el que es veu**: a més de l'idioma, la secció visible
   s'escriu com a fragment (`#projects`), així que qualsevol secció es pot
   enllaçar, desar a les adreces d'interès o compartir.
-- **Navegable sencer amb el teclat**: enllaç de salt al contingut, contenidor de
+- **Totalment navegable amb el teclat**: enllaç de salt al contingut, contenidor de
   desplaçament enfocable i suport d'AvPàg/RePàg, Inici/Fi, fletxes i espai, que
   en una pàgina el desplaçament de la qual viu en un `div` no funcionen per
   defecte.
@@ -61,7 +61,7 @@ projectes des d'una idea fins a producció.
 - Presentació clara de l'experiència laboral amb **xips de client** per destacar
   marques reconeixibles, formació i projectes amb demos públiques, repositoris
   reals i enllaços verificables.
-- Cura per la UX: navegació per seccions amb **indicador de secció activa**,
+- Cura de la UX: navegació per seccions amb **indicador de secció activa**,
   animacions subtils, targetes de projecte coherents, formularis, estats
   responsive, adaptació a dispositius tàctils i escalat progressiu en pantalles
   ultraamples (`2xl` des de 2200px, `3xl` des de 2560px; `1920x1080` manté el
@@ -78,11 +78,11 @@ projectes des d'una idea fins a producció.
   `focus-visible` global, menú mòbil i diàlegs amb `Escape` i focus trap,
   `aria-current` a la navbar, formularis amb labels i estats `aria-live`, àrees
   tàctils de 44 px als diàlegs, estils `:hover` restringits a dispositius amb
-  punter real i respecte de `prefers-reduced-motion`.
+  punter real i respecte per `prefers-reduced-motion`.
 - Preparació per a producció amb **Vite**, **Tailwind CSS**, **EmailJS** i
   desplegament a **Cloudflare Workers + Assets**.
 
-## Decisions Tècniques Clau
+## Decisions tècniques clau
 
 - **Arquitectura data-driven**: textos, navegació, experiència (amb clients
   destacats per lloc de treball), skills, hobbies i projectes viuen a
@@ -92,7 +92,7 @@ projectes des d'una idea fins a producció.
 - **Rendiment 3D**: el model GLB (2,98 MB: 1,22 MB de textures WebP i la resta
   geometria comprimida amb meshopt) fa servir DPR adaptatiu i només es precarrega
   en pantalles d'escriptori; en connexions amb estalvi de dades o 2G no es
-  descarrega ni el model ni Three.js, i el hero es queda amb el seu degradat.
+  descarreguen ni el model ni Three.js, i el hero es queda amb el seu degradat.
   L'animació flotant també funciona al mòbil (sense control tàctil, només
   visual).
 - **Animació i tipografia**: Framer Motion per a entrades, hovers i la paraula
@@ -109,11 +109,12 @@ projectes des d'una idea fins a producció.
   `/?lang=ca`), declarada a `hreflang` i al sitemap, i `App.jsx` manté
   `canonical`, `title`, `description`, `og:*` i `twitter:*` apuntant a la URL
   de l'idioma actiu. Abans els tres `hreflang` apuntaven a la mateixa adreça,
-  que és justament el que fa que un cercador els ignori. Les banderes del switcher (Espanya, Regne Unit i la **senyera**)
-  són SVG inline perquè es renderitzin idèntiques en qualsevol sistema operatiu.
+  i això és justament el que fa que un cercador els ignori. Les banderes del
+  switcher (Espanya, Regne Unit i la **senyera**) són SVG inline perquè es
+  renderitzin idèntiques en qualsevol sistema operatiu.
 - **Rastreig i indexació**: `public/robots.txt` (amb referència al sitemap) i
   `public/sitemap.xml`; la imatge social declara `og:image:width/height/alt`
-  perquè LinkedIn/WhatsApp la renderitzin sense retallades ni una segona petició.
+  perquè LinkedIn/WhatsApp la renderitzin sense retalls ni una segona petició.
 - **Scroll lock controlat**: `html`/`body`/`#root` no es desplacen; només ho fa
   `#app-scroll` amb `overscroll-behavior: none` i `touch-action: pan-y`. Les
   seccions fan servir `min-h-full` al mòbil i `100dvh` només a l'escriptori per
@@ -134,7 +135,7 @@ projectes des d'una idea fins a producció.
   recurs (un any per al build amb hash i les fonts, 30 dies per al model i les
   imatges).
 
-## Projectes Destacats
+## Projectes destacats
 
 ### Obsidian
 
@@ -155,7 +156,7 @@ real, des del catàleg fins al checkout.
 
 **[GitHub (web del joc)](https://github.com/AleixAj/orbex-web) · [Jugar al navegador](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
 
-Joc de punteria tipus *Zuma* per a Android, fet en solitari i publicat a Google
+Joc de punteria estil *Zuma* per a Android, fet en solitari i publicat a Google
 Play, amb backend propi.
 
 - **Rol**: disseny, programació, art i backend.
@@ -171,7 +172,7 @@ Play, amb backend propi.
 **[GitHub](https://github.com/AleixAj/kylenchat) · [Instal·lador per a Windows](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe) · [Instal·lador per a Mac](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Mac.dmg)**
 
 App d'escriptori per a streamers amb una sola pantalla: el xat de Twitch en una
-finestra transparent que queda sempre per sobre del joc i deixa passar els clics.
+finestra transparent que queda sempre damunt del joc i deixa passar els clics.
 
 - **Rol**: idea, desenvolupament, disseny i identitat visual, publicació i manteniment.
 - **Stack**: Electron, JavaScript, Node.js, WebSocket (Twitch IRC), electron-builder, GitHub Actions.
@@ -182,7 +183,7 @@ finestra transparent que queda sempre per sobre del joc i deixa passar els clics
   molt ràpids, sense fer servir la targeta gràfica), perfils per joc amb drecera global,
   interfície en castellà i anglès i validació de totes les dades que arriben.
 - **Estat**: publicada per a Windows i per a Mac (en proves), codi obert amb llicència MIT.
-- **Al portfolio**: la fitxa inclou una captura de l'app en ús per sobre d'una partida.
+- **Al portfolio**: la fitxa inclou una captura de l'app en ús damunt d'una partida.
 
 ### Solar Explorer
 
@@ -234,7 +235,7 @@ respostes i només es conserva el que s'ha col·locat sobre la correcta.
   mà, banc de més de 125 preguntes desacoblat del motor i control de l'estat de
   la partida.
 
-## Stack Principal
+## Stack principal
 
 - **React 19** + **Vite 8**
 - **Three.js** + **React Three Fiber** + **Drei**
@@ -244,12 +245,12 @@ respostes i només es conserva el que s'ha col·locat sobre la correcta.
 - **EmailJS**
 - **Cloudflare Workers + Assets**
 - **Laravel**, **PHP**, **MySQL**, **.NET**, **Docker** i eines
-  d'automatització/desplegament presents a la secció de skills.
+  d'automatització/desplegament presents a la secció de tecnologies.
 - **Godot** per al desenvolupament de jocs mòbils fora del portfolio.
 
-## Skills · Per a Què Faig Servir Cada Tecnologia
+## Skills · Per a què faig servir cada tecnologia
 
-Resum breu de cada eina llistada a la secció Skills del portfolio, ordenat igual
+Resum breu de cada eina llistada a la secció Tecnologies del portfolio, ordenat igual
 que a la UI (de base a especialitzat).
 
 ### Frontend
@@ -264,7 +265,7 @@ que a la UI (de base a especialitzat).
 | **Bootstrap** | Prototipatge ràpid i projectes on el sistema de components és suficient. |
 | **Tailwind** | Sistema d'utilitats per a un disseny coherent i ràpid (utilitzat en aquest portfolio). |
 | **Vite** | Build tool amb HMR ràpid i bundles optimitzats per a producció. |
-| **React** | Llibreria d'UI basada en components; base de les apps d'aquest portfolio. |
+| **React** | Biblioteca d'UI basada en components; base de les apps d'aquest portfolio. |
 | **Three.js** | Escenes 3D en WebGL (càmeres, materials, llums, geometria). |
 | **React Three Fiber** | Renderer declaratiu de Three.js a React; utilitzat al hero 3D i a `Solar Explorer`. |
 | **GSAP** | Animacions avançades amb timelines i control precís del temps. |
@@ -299,9 +300,9 @@ que a la UI (de base a especialitzat).
 | **Claude** | Model d'IA com a suport en arquitectura, codi i documentació tècnica. |
 | **Godot** | Motor 2D/3D utilitzat per al desenvolupament de jocs mòbils personals. |
 | **Photoshop** | Edició d'imatge i disseny d'assets per a la UI. |
-| **Aseprite** | Pixel art i animació d'sprites per a projectes personals i game dev. |
+| **Aseprite** | Pixel art i animació de sprites per a projectes personals i game dev. |
 
-## Seccions del Portfolio
+## Seccions del portfolio
 
 - **Inici**: presentació personal, escena 3D interactiva, missatges dinàmics,
   badge de cerca activa de feina, minifitxa professional (perfils, ubicació,
@@ -318,7 +319,7 @@ que a la UI (de base a especialitzat).
   README del seu repositori. Ordre per profunditat tècnica (full-stack primer,
   després els productes publicats); si l'última targeta queda sola a la seva
   fila, es centra.
-- **Tecnologies** (`Skills` en EN): tecnologies agrupades per frontend (inclou
+- **Tecnologies** (`Skills` en anglès): tecnologies agrupades en frontend (inclou
   HTML, CSS, XML i eines d'UI), backend, DevOps i eines (inclou `Godot` per a
   game dev mòbil i `Aseprite` per a pixel art), amb icones de marca. Cada icona
   **enllaça al web oficial** de la tecnologia i té un efecte *glare* en passar-hi
@@ -356,7 +357,7 @@ src/
 | `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Targetes de projectes (màx. 400 px; `npm run optimize:images` les manté a la mida) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galeria d'art (completa + miniatura) |
 
-## Execució Local
+## Execució local
 
 Requisits:
 
@@ -376,7 +377,7 @@ Build de producció:
 npm run build
 ```
 
-## Variables d'Entorn
+## Variables d'entorn
 
 Per activar el formulari de contacte, crea `.env.local` amb credencials
 d'[EmailJS](https://www.emailjs.com/):
@@ -427,7 +428,7 @@ activar el formulari.
   **`hreflang` `es/en/ca/x-default`** apuntant a la URL real de cada idioma i
   **`og:locale:alternate`**, a més d'un sitemap amb les tres adreces.
 - `App.jsx` actualitza `title`, `description`, `og:*` i `twitter:*` en temps
-  d'execució en canviar l'idioma, mantenint el SEO coherent per a cada locale.
+  d'execució en canviar l'idioma, i així manté el SEO coherent per a cada locale.
 - JSON-LD `Person` per millorar el context semàntic del portfolio.
 - Accessibilitat acurada: **enllaç de salt al contingut** i landmark `<main>`,
   `focus-visible` global, labels reals al formulari, navegació amb el teclat
@@ -467,18 +468,18 @@ activar el formulari.
 
 > Nota: la puntuació de performance de Lighthouse local queda condicionada pel
 > hero 3D (Three.js/WebGL). El projecte prioritza una experiència visual 3D, amb
-> optimitzacions específiques per reduir pes, diferir la càrrega i alliberar GPU.
+> optimitzacions específiques per reduir pes, diferir la càrrega i alliberar la GPU.
 
 ## Seguretat
 
-SPA estàtica (sense backend propi excepte el formulari via EmailJS) amb diverses
+SPA estàtica (sense backend propi excepte el formulari, que passa per EmailJS) amb diverses
 capes de defensa:
 
 - **Capçaleres de seguretat** (`public/_headers`, aplicades per Cloudflare a
   cada resposta):
   - **Content-Security-Policy** estricta: scripts només del mateix origen (amb
     `'wasm-unsafe-eval'` per al descodificador meshopt del model 3D), estils
-    inline acotats (React/Framer Motion + Tailwind) i un únic origen extern
+    inline limitats (React/Framer Motion + Tailwind) i un únic origen extern
     permès: l'API d'EmailJS. En autoallotjar les fonts, `style-src` i
     `font-src` queden en `'self'`.
   - **HSTS**, **X-Frame-Options: DENY** + `frame-ancestors 'none'` (anti-clickjacking),
@@ -497,7 +498,7 @@ capes de defensa:
 > *public key* és visible al bundle del client, com en qualsevol integració
 > d'EmailJS del costat del navegador).
 
-## Per a Revisors Tècnics
+## Per a revisors tècnics
 
 Punts concrets que val la pena revisar al codi:
 
@@ -560,7 +561,7 @@ Altres optimitzacions aplicades:
 - **Fre per connexió**: amb l'estalvi de dades activat o en 2G no es descarreguen
   ni Three.js ni el model (`src/consts/device.js`); el hero mostra el seu degradat.
 - **Fons d'estrelles** en `frameloop="demand"` (render estàtic; animació en
-  CSS), amb el nombre d'estrelles reduït al mòbil per alliberar GPU.
+  CSS), amb el nombre d'estrelles reduït al mòbil per alliberar la GPU.
 - **Fonts autoallotjades** amb preload dels dos fitxers llatins i tall per rang
   Unicode (84 KB en total; la resta només si el text ho necessita).
 - **Art de les targetes retallat** a 400 px: de 509 KB a 145 KB, amb la icona
