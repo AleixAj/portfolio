@@ -165,7 +165,7 @@ export const PROJECTS = [
           'Emotes oficiales y de 7TV, BTTV y FFZ, incluidos los superpuestos de 7TV, con versión estática por defecto para ahorrar CPU.',
           'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, canjes y respuestas.',
           'Pensada para no restar FPS: sin tarjeta gráfica y mensajes agrupados; medida por debajo del 2 % de un núcleo en chats muy rápidos.',
-          'Perfiles por juego con atajo global, 7 estilos, modo prueba, filtros, español e inglés y copia de la configuración.',
+          'Perfiles por juego con atajo global, 13 estilos con fuente propia, modo prueba, filtros, español e inglés y copia de la configuración.',
           'Instalador con actualizaciones automáticas desde GitHub Releases y una versión portable.',
         ],
         en: [
@@ -173,7 +173,7 @@ export const PROJECTS = [
           'Official, 7TV, BTTV and FFZ emotes, including 7TV zero-width overlays, with static versions by default to save CPU.',
           'Mentions and keywords in red, first-time chatters, badges, subs, raids, bits, redemptions and replies.',
           'Built not to cost FPS: no GPU use and batched rendering; measured under 2% of one core on very fast chats.',
-          'Per-game profiles with a global shortcut, 7 styles, preview mode, filters, Spanish and English, and settings backup.',
+          'Per-game profiles with a global shortcut, 13 styles with their own fonts, preview mode, filters, Spanish and English, and settings backup.',
           'Installer with automatic updates from GitHub Releases, plus a portable build.',
         ],
         ca: [
@@ -181,7 +181,7 @@ export const PROJECTS = [
           "Emotes oficials i de 7TV, BTTV i FFZ, inclosos els superposats de 7TV, amb versió estàtica per defecte per estalviar CPU.",
           'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, bescanvis i respostes.',
           'Pensada per no restar FPS: sense targeta gràfica i missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
-          'Perfils per joc amb drecera global, 7 estils, mode prova, filtres, castellà i anglès i còpia de la configuració.',
+          'Perfils per joc amb drecera global, 13 estils amb font pròpia, mode prova, filtres, castellà i anglès i còpia de la configuració.',
           'Instal·lador amb actualitzacions automàtiques des de GitHub Releases i una versió portable.',
         ],
       },
