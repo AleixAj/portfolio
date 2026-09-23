@@ -42,6 +42,7 @@ export const TRANSLATIONS = {
       viewDemo: 'Probar la demo',
       viewStore: 'Google Play',
       viewDownload: 'Descargar para Windows',
+      preview: 'captura de la app en uso',
     },
     skills: {
       title: 'Tecnologías',
@@ -110,6 +111,7 @@ export const TRANSLATIONS = {
       viewDemo: 'Try the demo',
       viewStore: 'Google Play',
       viewDownload: 'Download for Windows',
+      preview: 'screenshot of the app in use',
     },
     skills: {
       title: 'Skills',
@@ -178,6 +180,7 @@ export const TRANSLATIONS = {
       viewDemo: 'Provar la demo',
       viewStore: 'Google Play',
       viewDownload: 'Descarregar per a Windows',
+      preview: "captura de l'app en ús",
     },
     skills: {
       title: 'Tecnologies',

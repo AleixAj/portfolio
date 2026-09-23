@@ -33,3 +33,6 @@ dist-ssr
 !.dev.vars.example
 .env*
 !.env.example
+
+# Impeccable (ajustes locales de la máquina)
+.impeccable/config.local.json

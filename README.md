@@ -184,6 +184,7 @@ ventana transparente que queda siempre encima del juego y deja pasar los clics.
   muy rápidos, sin usar la tarjeta gráfica), perfiles por juego con atajo global,
   interfaz en español e inglés y validación de todos los datos que llegan.
 - **Estado**: publicada, código abierto con licencia MIT.
+- **En el portfolio**: la ficha incluye una captura de la app en uso encima de una partida.
 - **Repo**: [github.com/AleixAj/kylenchat](https://github.com/AleixAj/kylenchat)
 - **Descarga**: [instalador para Windows](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe)
 
@@ -317,7 +318,7 @@ ordenado igual que en la UI (de base a especializado).
   descripciones trilingües, tecnologías, GitHub y, según el proyecto, demo,
   Google Play o descarga para Windows, con hover de expansión (muelle) en
   escritorio. Cada tarjeta tiene un botón de información que abre una **ficha del
-  proyecto** con resumen, puntos destacados, stack y estado real, sacada del
+  proyecto** con resumen, captura opcional, puntos destacados, stack y estado real, sacada del
   README de su repositorio. Orden por profundidad técnica (full-stack primero,
   después los productos publicados); si la última tarjeta queda sola en su fila,
   se centra.
@@ -356,7 +357,7 @@ src/
 | `fonts/*.woff2` | Space Grotesk y DM Sans autoalojadas (generadas desde Google Fonts, licencia OFL) |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact). ES y CAT comparten el mismo PDF; el atributo `download` fija el nombre con el que se guarda (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lugar del slug interno |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `kylen-chat.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local

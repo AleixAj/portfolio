@@ -37,6 +37,7 @@ const CARD_IMAGES = [
   'CashDrop.webp',
   'FamilyTrivia.webp',
   'kylen-chat.webp',
+  'kylen-chat-demo.webp',
 ]
 
 const THUMB_WIDTH = 320

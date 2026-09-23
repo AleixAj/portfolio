@@ -5,6 +5,8 @@
  *
  * Each entry defines image, description, tags and repo, plus whichever of these apply:
  * a live `demo`, a `store` link for mobile apps, or a `download` link for desktop apps.
+ * `preview` is an optional screenshot shown large inside the info dialog; the card keeps
+ * the logo, because a screenshot at card size is unreadable.
  *
  * `details` feeds the info dialog opened from the card. It is the short version of
  * each repo's README: what the project is, what it actually does, the stack, and an
@@ -136,6 +138,7 @@ export const PROJECTS = [
   {
     title: 'Kylen Chat for Twitch',
     img: '/kylen-chat.webp',
+    preview: '/kylen-chat-demo.webp',
     imgCls: 'scale-[0.85] md:scale-[1.15] md:group-hover:scale-[1.22] p-0',
     desc: {
       es: 'App de escritorio para streamers con una sola pantalla: el chat de Twitch transparente encima del juego, con menciones destacadas, emotes de 7TV/BTTV/FFZ y perfiles por juego.',

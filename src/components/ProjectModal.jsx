@@ -23,7 +23,7 @@ const FOCUSABLE = 'a[href], button:not([disabled])'
 export default function ProjectModal({ project, lang, t, onClose }) {
   const reduceMotion = useReducedMotion()
   const panelRef = useRef(null)
-  const { title, img, tags, github, demo, store, download, details } = project
+  const { title, img, preview, tags, github, demo, store, download, details } = project
 
   /** Resolves a { es, en, ca } field, falling back to Spanish. */
   const localize = useCallback((field) => field?.[lang] ?? field?.es, [lang])
@@ -122,6 +122,16 @@ export default function ProjectModal({ project, lang, t, onClose }) {
           <p className="mt-4 md:mt-5 text-sm md:text-base 2xl:text-lg text-cyan-400/85 leading-relaxed">
             {localize(details.summary)}
           </p>
+
+          {preview && (
+            <img
+              src={preview}
+              alt={`${title}: ${t.preview}`}
+              loading="lazy"
+              decoding="async"
+              className="mt-4 mx-auto block w-full max-w-sm rounded-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+            />
+          )}
 
           <div className="mt-4 flex gap-1 md:gap-1.5 flex-wrap">
             {tags.map(({ label, cls }) => (
