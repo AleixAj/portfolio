@@ -171,6 +171,22 @@ Google Play, con backend propio.
 - **Jugar en el navegador**: [kylen02.itch.io/orbex](https://kylen02.itch.io/orbex)
 - **Google Play**: [com.aleix.orbex](https://play.google.com/store/apps/details?id=com.aleix.orbex)
 
+### Kylen Chat for Twitch
+
+App de escritorio para streamers con una sola pantalla: el chat de Twitch en una
+ventana transparente que queda siempre encima del juego y deja pasar los clics.
+
+- **Rol**: idea, desarrollo, diseño e identidad visual, publicación y mantenimiento.
+- **Stack**: Electron, JavaScript, Node.js, WebSocket (Twitch IRC), electron-builder.
+- **Qué demuestra**: app de escritorio real con instalador y actualizaciones
+  automáticas desde GitHub Releases, chat en tiempo real con reconexión robusta,
+  emotes de 7TV/BTTV/FFZ, rendimiento medido (menos del 2 % de un núcleo en chats
+  muy rápidos, sin usar la tarjeta gráfica), perfiles por juego con atajo global,
+  interfaz en español e inglés y validación de todos los datos que llegan.
+- **Estado**: publicada, código abierto con licencia MIT.
+- **Repo**: [github.com/AleixAj/kylentwitchchat](https://github.com/AleixAj/kylentwitchchat)
+- **Descarga**: [instalador para Windows](https://github.com/AleixAj/kylentwitchchat/releases/latest/download/KylenChat-Setup.exe)
+
 ### Solar Explorer
 
 Explorador 3D del Sistema Solar con escena WebGL, planetas seleccionables y
@@ -298,11 +314,13 @@ ordenado igual que en la UI (de base a especializado).
   con **chips de cliente** (`CaixaBank`, `Nestlé`, `Naturgy`) en los puestos
   donde los proyectos llegaron a marcas reconocibles.
 - **Proyectos**: tarjetas con **glow cian estilo neón**, logos adaptados a móvil,
-  descripciones trilingües, tecnologías, GitHub, demo y —donde aplica— Google
-  Play, con hover de expansión (muelle) en escritorio. Cada tarjeta tiene un
-  botón de información que abre una **ficha del proyecto** con resumen, puntos
-  destacados, stack y estado real, sacada del README de su repositorio. Orden por
-  profundidad técnica (full-stack primero).
+  descripciones trilingües, tecnologías, GitHub y, según el proyecto, demo,
+  Google Play o descarga para Windows, con hover de expansión (muelle) en
+  escritorio. Cada tarjeta tiene un botón de información que abre una **ficha del
+  proyecto** con resumen, puntos destacados, stack y estado real, sacada del
+  README de su repositorio. Orden por profundidad técnica (full-stack primero,
+  después los productos publicados); si la última tarjeta queda sola en su fila,
+  se centra.
 - **Tecnologías** (`Skills` en EN): tecnologías agrupadas por frontend (incluye
   HTML, CSS, XML y herramientas de UI), backend, DevOps y herramientas (incluye
   `Godot` para game dev móvil y `Aseprite` para pixel art), con iconos de marca.
@@ -338,7 +356,7 @@ src/
 | `fonts/*.woff2` | Space Grotesk y DM Sans autoalojadas (generadas desde Google Fonts, licencia OFL) |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact). ES y CAT comparten el mismo PDF; el atributo `download` fija el nombre con el que se guarda (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lugar del slug interno |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `kylen-chat.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local
@@ -440,7 +458,7 @@ quiere activar el formulario.
   móvil: **674 KB** sin contar el modelo 3D (que se descarga aparte y sólo donde
   procede), **CLS 0,034** y 261 ms de bloqueo del hilo principal.
 - Recorrido completo sin errores de consola ni peticiones fallidas: seis
-  secciones, las seis fichas de proyecto y la galería, en los tres idiomas.
+  secciones, las siete fichas de proyecto y la galería, en los tres idiomas.
 - Revisado sin hallazgos: paridad de las 51 claves de traducción entre `es`,
   `en` y `ca`; jerarquía de encabezados sin saltos; ninguna imagen sin `alt`;
   ningún botón o enlace sin nombre accesible; sin `id` duplicados; todos los

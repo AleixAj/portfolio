@@ -16,14 +16,14 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FaGithub, FaGooglePlay } from 'react-icons/fa'
+import { FaGithub, FaGooglePlay, FaWindows } from 'react-icons/fa'
 
 const FOCUSABLE = 'a[href], button:not([disabled])'
 
 export default function ProjectModal({ project, lang, t, onClose }) {
   const reduceMotion = useReducedMotion()
   const panelRef = useRef(null)
-  const { title, img, tags, github, demo, store, details } = project
+  const { title, img, tags, github, demo, store, download, details } = project
 
   /** Resolves a { es, en, ca } field, falling back to Spanish. */
   const localize = useCallback((field) => field?.[lang] ?? field?.es, [lang])
@@ -150,10 +150,18 @@ export default function ProjectModal({ project, lang, t, onClose }) {
               className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl border border-white/20 text-white/75 hover:border-cyan-400/60 hover:text-cyan-400 transition-colors text-sm md:text-base font-medium">
               <FaGithub className="w-4 h-4" /> {t.viewCode}
             </a>
-            <a href={demo} target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
-              ↗ {t.viewDemo}
-            </a>
+            {demo && (
+              <a href={demo} target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
+                ↗ {t.viewDemo}
+              </a>
+            )}
+            {download && (
+              <a href={download} rel="noopener noreferrer"
+                className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
+                <FaWindows className="w-4 h-4" /> {t.viewDownload}
+              </a>
+            )}
             {store && (
               <a href={store} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60 transition-colors text-sm md:text-base font-medium">

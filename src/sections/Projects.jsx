@@ -7,6 +7,18 @@ import { PROJECTS } from '../consts/projects'
 import ProjectCard from '../components/ProjectCard'
 import ProjectModal from '../components/ProjectModal'
 
+// When the last card sits alone in its row it is centred instead of hugging the left edge.
+// 2 columns on tablet, 3 on desktop; the width matches one column minus half the gap.
+function orphanCls(i) {
+  const total = PROJECTS.length
+  if (i !== total - 1) return ''
+  const cls = []
+  if (total % 2 === 1) cls.push('md:col-span-2 md:justify-self-center md:w-[calc(50%-0.375rem)] 2xl:w-[calc(50%-0.625rem)]')
+  if (total % 3 === 1) cls.push('lg:col-span-1 lg:col-start-2 lg:w-auto 2xl:w-auto')
+  else if (total % 2 === 1) cls.push('lg:col-span-1 lg:justify-self-stretch lg:w-auto 2xl:w-auto')
+  return cls.join(' ')
+}
+
 export default function Projects({ lang, t }) {
   // The open project is tracked by title so the card stays memoized.
   const [openTitle, setOpenTitle] = useState(null)
@@ -27,6 +39,7 @@ export default function Projects({ lang, t }) {
               desc={p.desc[lang] ?? p.desc.es}
               onInfo={p.details ? openInfo : undefined}
               infoLabel={`${t.more}: ${p.title}`}
+              className={orphanCls(i)}
             />
           ))}
         </div>

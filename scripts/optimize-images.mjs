@@ -36,6 +36,7 @@ const CARD_IMAGES = [
   'solar-explorerlogo.webp',
   'CashDrop.webp',
   'FamilyTrivia.webp',
+  'kylen-chat.webp',
 ]
 
 const THUMB_WIDTH = 320

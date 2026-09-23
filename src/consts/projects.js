@@ -1,9 +1,10 @@
 /**
  * Featured portfolio projects.
- * Ordered by technical depth (full-stack first) so recruiters see the strongest work first.
+ * Ordered by technical depth (full-stack first, then shipped products) so recruiters
+ * see the strongest work first.
  *
- * Each entry defines image, description, tags, repo, live demo and, where the
- * project ships as an app, an optional `store` link.
+ * Each entry defines image, description, tags and repo, plus whichever of these apply:
+ * a live `demo`, a `store` link for mobile apps, or a `download` link for desktop apps.
  *
  * `details` feeds the info dialog opened from the card. It is the short version of
  * each repo's README: what the project is, what it actually does, the stack, and an
@@ -129,6 +130,64 @@ export const PROJECTS = [
         es: 'Publicado en Google Play y disponible para todo el mundo, con anuncios y compras en marcha.',
         en: 'Live on Google Play and available to everyone, with ads and in-app purchases running.',
         ca: 'Publicat a Google Play i disponible per a tothom, amb anuncis i compres en marxa.',
+      },
+    },
+  },
+  {
+    title: 'Kylen Chat for Twitch',
+    img: '/kylen-chat.webp',
+    imgCls: 'scale-[0.85] md:scale-[1.15] md:group-hover:scale-[1.22] p-0',
+    desc: {
+      es: 'App de escritorio para streamers con una sola pantalla: el chat de Twitch transparente encima del juego, con menciones destacadas, emotes de 7TV/BTTV/FFZ y perfiles por juego.',
+      en: 'Desktop app for single-monitor streamers: a transparent Twitch chat on top of the game, with highlighted mentions, 7TV/BTTV/FFZ emotes and per-game profiles.',
+      ca: "App d'escriptori per a streamers amb una sola pantalla: el xat de Twitch transparent damunt del joc, amb mencions destacades, emotes de 7TV/BTTV/FFZ i perfils per joc.",
+    },
+    tags: [
+      { label: 'Electron',   cls: 'bg-teal-400/10   text-teal-400   border-teal-400/20'   },
+      { label: 'JavaScript', cls: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20' },
+      { label: 'Node.js',    cls: 'bg-green-400/10  text-green-400  border-green-400/20'  },
+      { label: 'WebSocket',  cls: 'bg-violet-400/10 text-violet-400 border-violet-400/20' },
+    ],
+    github: 'https://github.com/AleixAj/kylentwitchchat',
+    download: 'https://github.com/AleixAj/kylentwitchchat/releases/latest/download/KylenChat-Setup.exe',
+    details: {
+      summary: {
+        es: 'Nació de ver a streamers con una sola pantalla mirando el chat en el móvil. Es una ventana transparente que queda siempre encima del juego y deja pasar los clics, así que se lee el chat sin dejar de jugar.',
+        en: 'It started from watching single-monitor streamers read chat on their phones. It is a transparent, always-on-top window that lets clicks through, so chat can be read without stopping play.',
+        ca: "Va néixer de veure streamers amb una sola pantalla mirant el xat al mòbil. És una finestra transparent que queda sempre damunt del joc i deixa passar els clics, així que es llegeix el xat sense deixar de jugar.",
+      },
+      highlights: {
+        es: [
+          'Chat de Twitch en tiempo real por WebSocket, anónimo y de solo lectura, con reconexión progresiva y detección de conexiones caídas al volver de suspensión.',
+          'Emotes oficiales y de 7TV, BTTV y FFZ, incluidos los superpuestos de 7TV, con versión estática por defecto para ahorrar CPU.',
+          'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, canjes y respuestas.',
+          'Pensada para no restar FPS: sin tarjeta gráfica y mensajes agrupados; medida por debajo del 2 % de un núcleo en chats muy rápidos.',
+          'Perfiles por juego con atajo global, 7 estilos, modo prueba, filtros, español e inglés y copia de la configuración.',
+          'Instalador con actualizaciones automáticas desde GitHub Releases y una versión portable.',
+        ],
+        en: [
+          'Real-time Twitch chat over WebSocket, anonymous and read-only, with backoff reconnection and dead-connection detection after sleep.',
+          'Official, 7TV, BTTV and FFZ emotes, including 7TV zero-width overlays, with static versions by default to save CPU.',
+          'Mentions and keywords in red, first-time chatters, badges, subs, raids, bits, redemptions and replies.',
+          'Built not to cost FPS: no GPU use and batched rendering; measured under 2% of one core on very fast chats.',
+          'Per-game profiles with a global shortcut, 7 styles, preview mode, filters, Spanish and English, and settings backup.',
+          'Installer with automatic updates from GitHub Releases, plus a portable build.',
+        ],
+        ca: [
+          'Xat de Twitch en temps real per WebSocket, anònim i de només lectura, amb reconnexió progressiva i detecció de connexions caigudes en tornar de la suspensió.',
+          "Emotes oficials i de 7TV, BTTV i FFZ, inclosos els superposats de 7TV, amb versió estàtica per defecte per estalviar CPU.",
+          'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, bescanvis i respostes.',
+          'Pensada per no restar FPS: sense targeta gràfica i missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
+          'Perfils per joc amb drecera global, 7 estils, mode prova, filtres, castellà i anglès i còpia de la configuració.',
+          'Instal·lador amb actualitzacions automàtiques des de GitHub Releases i una versió portable.',
+        ],
+      },
+      stack: 'Electron · JavaScript · Node.js · WebSocket (Twitch IRC) · electron-builder',
+      status: {
+        tone: 'ok',
+        es: 'Publicada con instalador para Windows, actualizaciones automáticas y código abierto con licencia MIT.',
+        en: 'Released with a Windows installer, automatic updates, and open source under the MIT license.',
+        ca: 'Publicada amb instal·lador per a Windows, actualitzacions automàtiques i codi obert amb llicència MIT.',
       },
     },
   },
