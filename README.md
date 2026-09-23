@@ -8,6 +8,8 @@
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
 
+**🇪🇸 Español · 🇬🇧 [English](README.en.md)**
+
 **Live portfolio:** [aleixaj.com](https://aleixaj.com)  
 **LinkedIn:** [linkedin.com/in/aleixauque](https://linkedin.com/in/aleixauque/)  
 **GitHub:** [github.com/AleixAj](https://github.com/AleixAj)
@@ -20,18 +22,6 @@ técnico y contacto directo.
 El objetivo no es solo mostrar una landing visual, sino demostrar criterio de
 producto, atención al detalle, capacidad full-stack y experiencia llevando
 proyectos desde una idea hasta producción.
-
-## English Summary
-
-Professional portfolio built to present my work as a software developer through
-a polished, production-ready web experience. It combines a responsive React UI,
-a performant Three.js hero scene, trilingual content (ES/EN/CA) with a real URL
-per language, keyboard-accessible navigation, real deployed projects, technical
-background, and direct contact.
-
-The goal is to show not only visual presentation, but also product thinking,
-performance awareness, maintainable structure, and the ability to take projects
-from idea to production.
 
 ## Qué Demuestra
 
