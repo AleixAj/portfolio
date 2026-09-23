@@ -148,8 +148,8 @@ export const PROJECTS = [
       { label: 'Node.js',    cls: 'bg-green-400/10  text-green-400  border-green-400/20'  },
       { label: 'WebSocket',  cls: 'bg-violet-400/10 text-violet-400 border-violet-400/20' },
     ],
-    github: 'https://github.com/AleixAj/kylentwitchchat',
-    download: 'https://github.com/AleixAj/kylentwitchchat/releases/latest/download/KylenChat-Setup.exe',
+    github: 'https://github.com/AleixAj/kylenchat',
+    download: 'https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe',
     details: {
       summary: {
         es: 'Nació de ver a streamers con una sola pantalla mirando el chat en el móvil. Es una ventana transparente que queda siempre encima del juego y deja pasar los clics, así que se lee el chat sin dejar de jugar.',

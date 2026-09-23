@@ -184,8 +184,8 @@ ventana transparente que queda siempre encima del juego y deja pasar los clics.
   muy rápidos, sin usar la tarjeta gráfica), perfiles por juego con atajo global,
   interfaz en español e inglés y validación de todos los datos que llegan.
 - **Estado**: publicada, código abierto con licencia MIT.
-- **Repo**: [github.com/AleixAj/kylentwitchchat](https://github.com/AleixAj/kylentwitchchat)
-- **Descarga**: [instalador para Windows](https://github.com/AleixAj/kylentwitchchat/releases/latest/download/KylenChat-Setup.exe)
+- **Repo**: [github.com/AleixAj/kylenchat](https://github.com/AleixAj/kylenchat)
+- **Descarga**: [instalador para Windows](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe)
 
 ### Solar Explorer
 
