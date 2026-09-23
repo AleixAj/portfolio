@@ -153,6 +153,7 @@ export const PROJECTS = [
     ],
     github: 'https://github.com/AleixAj/kylenchat',
     download: 'https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe',
+    downloadMac: 'https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Mac.dmg',
     details: {
       summary: {
         es: 'Nació de ver a streamers con una sola pantalla mirando el chat en el móvil. Es una ventana transparente que queda siempre encima del juego y deja pasar los clics, así que se lee el chat sin dejar de jugar.',
@@ -166,7 +167,7 @@ export const PROJECTS = [
           'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, canjes y respuestas.',
           'Pensada para no restar FPS: sin tarjeta gráfica y mensajes agrupados; medida por debajo del 2 % de un núcleo en chats muy rápidos.',
           'Perfiles por juego con atajo global, 13 estilos con fuente propia, modo prueba, filtros, español e inglés y copia de la configuración.',
-          'Instalador con actualizaciones automáticas desde GitHub Releases y una versión portable.',
+          'Instalador para Windows con actualizaciones desde GitHub Releases, versión portable y versión para Mac (Intel y Apple Silicon) compilada con GitHub Actions.',
         ],
         en: [
           'Real-time Twitch chat over WebSocket, anonymous and read-only, with backoff reconnection and dead-connection detection after sleep.',
@@ -174,7 +175,7 @@ export const PROJECTS = [
           'Mentions and keywords in red, first-time chatters, badges, subs, raids, bits, redemptions and replies.',
           'Built not to cost FPS: no GPU use and batched rendering; measured under 2% of one core on very fast chats.',
           'Per-game profiles with a global shortcut, 13 styles with their own fonts, preview mode, filters, Spanish and English, and settings backup.',
-          'Installer with automatic updates from GitHub Releases, plus a portable build.',
+          'Windows installer with updates from GitHub Releases, a portable build, and a Mac build (Intel and Apple Silicon) compiled with GitHub Actions.',
         ],
         ca: [
           'Xat de Twitch en temps real per WebSocket, anònim i de només lectura, amb reconnexió progressiva i detecció de connexions caigudes en tornar de la suspensió.',
@@ -182,15 +183,15 @@ export const PROJECTS = [
           'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, bescanvis i respostes.',
           'Pensada per no restar FPS: sense targeta gràfica i missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
           'Perfils per joc amb drecera global, 13 estils amb font pròpia, mode prova, filtres, castellà i anglès i còpia de la configuració.',
-          'Instal·lador amb actualitzacions automàtiques des de GitHub Releases i una versió portable.',
+          "Instal·lador per a Windows amb actualitzacions des de GitHub Releases, versió portable i versió per a Mac (Intel i Apple Silicon) compilada amb GitHub Actions.",
         ],
       },
-      stack: 'Electron · JavaScript · Node.js · WebSocket (Twitch IRC) · electron-builder',
+      stack: 'Electron · JavaScript · Node.js · WebSocket (Twitch IRC) · electron-builder · GitHub Actions',
       status: {
         tone: 'ok',
-        es: 'Publicada con instalador para Windows, actualizaciones automáticas y código abierto con licencia MIT.',
-        en: 'Released with a Windows installer, automatic updates, and open source under the MIT license.',
-        ca: 'Publicada amb instal·lador per a Windows, actualitzacions automàtiques i codi obert amb llicència MIT.',
+        es: 'Publicada para Windows (con actualizaciones automáticas) y para Mac, en pruebas. Código abierto con licencia MIT.',
+        en: 'Released for Windows (with automatic updates) and for Mac, in beta. Open source under the MIT license.',
+        ca: 'Publicada per a Windows (amb actualitzacions automàtiques) i per a Mac, en proves. Codi obert amb llicència MIT.',
       },
     },
   },

@@ -16,14 +16,14 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FaGithub, FaGooglePlay, FaWindows } from 'react-icons/fa'
+import { FaApple, FaGithub, FaGooglePlay, FaWindows } from 'react-icons/fa'
 
 const FOCUSABLE = 'a[href], button:not([disabled])'
 
 export default function ProjectModal({ project, lang, t, onClose }) {
   const reduceMotion = useReducedMotion()
   const panelRef = useRef(null)
-  const { title, img, preview, tags, github, demo, store, download, details } = project
+  const { title, img, preview, tags, github, demo, store, download, downloadMac, details } = project
 
   /** Resolves a { es, en, ca } field, falling back to Spanish. */
   const localize = useCallback((field) => field?.[lang] ?? field?.es, [lang])
@@ -170,6 +170,12 @@ export default function ProjectModal({ project, lang, t, onClose }) {
               <a href={download} rel="noopener noreferrer"
                 className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
                 <FaWindows className="w-4 h-4" /> {t.viewDownload}
+              </a>
+            )}
+            {downloadMac && (
+              <a href={downloadMac} rel="noopener noreferrer"
+                className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
+                <FaApple className="w-4 h-4" /> {t.viewDownloadMac}
               </a>
             )}
             {store && (

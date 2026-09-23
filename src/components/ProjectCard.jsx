@@ -5,7 +5,7 @@
  */
 import { memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FaGithub, FaGooglePlay, FaInfo, FaWindows } from 'react-icons/fa'
+import { FaApple, FaGithub, FaGooglePlay, FaInfo, FaWindows } from 'react-icons/fa'
 
 // True only on devices with a real pointer (mouse/trackpad). Hover effects are
 // gated on this because on touch a tap sticks the :hover state, which would leave
@@ -15,7 +15,7 @@ const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia?.('(hover: 
 // Shared styling for the card's action links.
 const LINK_CLS = 'flex-1 flex items-center justify-center gap-1 whitespace-nowrap px-1.5 py-0.5 md:px-2 md:py-2 2xl:py-2.5 rounded-md md:rounded-lg 2xl:rounded-xl transition-all duration-200 text-[0.6rem] md:text-xs 2xl:text-sm font-medium'
 
-const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo, store, download, onInfo, infoLabel, className = '' }) {
+const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo, store, download, downloadMac, onInfo, infoLabel, className = '' }) {
   const reduceMotion = useReducedMotion()
   return (
     <motion.div
@@ -76,6 +76,12 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
             <a href={download} rel="noopener noreferrer" aria-label={`Download ${title} for Windows`}
               className={`${LINK_CLS} bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60`}>
               <FaWindows className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4" /> Windows
+            </a>
+          )}
+          {downloadMac && (
+            <a href={downloadMac} rel="noopener noreferrer" aria-label={`Download ${title} for Mac`}
+              className={`${LINK_CLS} bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60`}>
+              <FaApple className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4" /> Mac
             </a>
           )}
           {store && (

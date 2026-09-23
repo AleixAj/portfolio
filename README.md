@@ -142,6 +142,8 @@ from idea to production.
 
 ### Obsidian
 
+**[GitHub](https://github.com/AleixAj/obsidian) · [Demo](https://obsidian.aleixaj.com)**
+
 E-commerce full-stack de streetwear construido para mostrar un flujo de tienda
 real, desde catálogo hasta checkout.
 
@@ -152,10 +154,10 @@ real, desde catálogo hasta checkout.
   checkout que genera pedidos reales en base de datos.
 - **Estado**: la pasarela de pago está pendiente de conectar; el checkout crea
   pedidos pero todavía no cobra.
-- **Repo**: [github.com/AleixAj/obsidian](https://github.com/AleixAj/obsidian)
-- **Demo**: [obsidian.aleixaj.com](https://obsidian.aleixaj.com)
 
 ### Orbex
+
+**[GitHub (web del juego)](https://github.com/AleixAj/orbex-web) · [Jugar en el navegador](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
 
 Juego de puntería tipo *Zuma* para Android, hecho en solitario y publicado en
 Google Play, con backend propio.
@@ -167,28 +169,28 @@ Google Play, con backend propio.
   trazar los recorridos, curva de dificultad calculada por script y calibrada
   con telemetría, backend con ranking global y por nivel, amigos, guardado en la
   nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.
-- **Repo (web del juego)**: [github.com/AleixAj/orbex-web](https://github.com/AleixAj/orbex-web)
-- **Jugar en el navegador**: [kylen02.itch.io/orbex](https://kylen02.itch.io/orbex)
-- **Google Play**: [com.aleix.orbex](https://play.google.com/store/apps/details?id=com.aleix.orbex)
 
 ### Kylen Chat for Twitch
+
+**[GitHub](https://github.com/AleixAj/kylenchat) · [Instalador para Windows](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe) · [Instalador para Mac](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Mac.dmg)**
 
 App de escritorio para streamers con una sola pantalla: el chat de Twitch en una
 ventana transparente que queda siempre encima del juego y deja pasar los clics.
 
 - **Rol**: idea, desarrollo, diseño e identidad visual, publicación y mantenimiento.
-- **Stack**: Electron, JavaScript, Node.js, WebSocket (Twitch IRC), electron-builder.
+- **Stack**: Electron, JavaScript, Node.js, WebSocket (Twitch IRC), electron-builder, GitHub Actions.
 - **Qué demuestra**: app de escritorio real con instalador y actualizaciones
-  automáticas desde GitHub Releases, chat en tiempo real con reconexión robusta,
+  automáticas desde GitHub Releases, versión para Mac (Intel y Apple Silicon)
+  compilada automáticamente con GitHub Actions, chat en tiempo real con reconexión robusta,
   emotes de 7TV/BTTV/FFZ, rendimiento medido (menos del 2 % de un núcleo en chats
   muy rápidos, sin usar la tarjeta gráfica), perfiles por juego con atajo global,
   interfaz en español e inglés y validación de todos los datos que llegan.
-- **Estado**: publicada, código abierto con licencia MIT.
+- **Estado**: publicada para Windows y para Mac (en pruebas), código abierto con licencia MIT.
 - **En el portfolio**: la ficha incluye una captura de la app en uso encima de una partida.
-- **Repo**: [github.com/AleixAj/kylenchat](https://github.com/AleixAj/kylenchat)
-- **Descarga**: [instalador para Windows](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe)
 
 ### Solar Explorer
+
+**[GitHub](https://github.com/AleixAj/solar-system) · [Demo](https://solarsystem.aleixaj.com)**
 
 Explorador 3D del Sistema Solar con escena WebGL, planetas seleccionables y
 cámara interactiva.
@@ -197,10 +199,10 @@ cámara interactiva.
 - **Stack**: React, TypeScript, Three.js, React Three Fiber, Tailwind CSS.
 - **Qué demuestra**: trabajo con WebGL, composición de escena, interacción de
   cámara, datos visuales y experiencia responsive.
-- **Repo**: [github.com/AleixAj/solar-system](https://github.com/AleixAj/solar-system)
-- **Demo**: [solarsystem.aleixaj.com](https://solarsystem.aleixaj.com)
 
 ### Lord of the Clicks
+
+**[GitHub](https://github.com/AleixAj/lordoftheclicks) · [Demo](https://lotrclicker.aleixaj.com/)**
 
 Clicker incremental inspirado en la Tierra Media (30 zonas, 20 compañeros,
 24 misiones), construido como una app frontend completa con progresión, guardado
@@ -210,10 +212,10 @@ persistente y lógica de juego separada de la interfaz.
 - **Stack**: React, TypeScript, Zustand, Tailwind CSS, Vitest.
 - **Qué demuestra**: dominio modelado con TypeScript, estado global persistente,
   contenido data-driven, tests de lógica, accesibilidad y deploy en Cloudflare.
-- **Repo**: [github.com/AleixAj/lordoftheclicks](https://github.com/AleixAj/lordoftheclicks)
-- **Demo**: [lotrclicker.aleixaj.com](https://lotrclicker.aleixaj.com/)
 
 ### FamilyTrivia
+
+**[GitHub](https://github.com/AleixAj/familytrivia) · [Demo](https://familytrivia.aleixaj.com)**
 
 Trivia web interactiva diseñada para jugar en grupo y compartir en pantalla.
 
@@ -222,10 +224,10 @@ Trivia web interactiva diseñada para jugar en grupo y compartir en pantalla.
 - **Qué demuestra**: tablero de 6 categorías por 6 valores, tres modos de juego
   (individual, por personas o por parejas sorteadas con ruletas), preguntas con
   audio y reproductor propio, comodines y ranking final con estadísticas.
-- **Repo**: [github.com/AleixAj/familytrivia](https://github.com/AleixAj/familytrivia)
-- **Demo**: [familytrivia.aleixaj.com](https://familytrivia.aleixaj.com)
 
 ### CashDrop
+
+**[GitHub](https://github.com/AleixAj/cashdrop) · [Demo](https://cashdrop.aleixaj.com/)**
 
 Adaptación web del concurso: se reparte 1.000.000 € en 20 fajos entre cuatro
 respuestas y solo se conserva lo colocado sobre la correcta.
@@ -235,8 +237,6 @@ respuestas y solo se conserva lo colocado sobre la correcta.
 - **Qué demuestra**: modelado de reglas, arrastre con soporte táctil escrito a
   mano, banco de más de 125 preguntas desacoplado del motor y control de estado
   de partida.
-- **Repo**: [github.com/AleixAj/cashdrop](https://github.com/AleixAj/cashdrop)
-- **Demo**: [cashdrop.aleixaj.com](https://cashdrop.aleixaj.com/)
 
 ## Stack Principal
 
@@ -316,7 +316,7 @@ ordenado igual que en la UI (de base a especializado).
   donde los proyectos llegaron a marcas reconocibles.
 - **Proyectos**: tarjetas con **glow cian estilo neón**, logos adaptados a móvil,
   descripciones trilingües, tecnologías, GitHub y, según el proyecto, demo,
-  Google Play o descarga para Windows, con hover de expansión (muelle) en
+  Google Play o descarga para Windows y Mac, con hover de expansión (muelle) en
   escritorio. Cada tarjeta tiene un botón de información que abre una **ficha del
   proyecto** con resumen, captura opcional, puntos destacados, stack y estado real, sacada del
   README de su repositorio. Orden por profundidad técnica (full-stack primero,
