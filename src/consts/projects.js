@@ -167,7 +167,7 @@ export const PROJECTS = [
           'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, canjes y respuestas.',
           'Pensada para no restar FPS: sin tarjeta gráfica y mensajes agrupados; medida por debajo del 2 % de un núcleo en chats muy rápidos.',
           'Perfiles por juego con atajo global, 13 estilos con fuente propia, modo prueba, filtros, español e inglés y copia de la configuración.',
-          'Avisos de directo: hasta 100 canales comprobados cada minuto con una sola petición por lote, y un recuadro propio encima del juego con animación, sonido y posición ajustable.',
+          'Avisos de directo: hasta 100 canales consultados a Twitch cada minuto en una sola petición, y un recuadro propio encima del juego con animación, sonido y posición ajustable.',
           'Instalador para Windows con actualizaciones desde GitHub Releases, versión portable y versión para Mac (Intel y Apple Silicon) compilada con GitHub Actions.',
         ],
         en: [
@@ -176,7 +176,7 @@ export const PROJECTS = [
           'Mentions and keywords in red, first-time chatters, badges, subs, raids, bits, redemptions and replies.',
           'Built not to cost FPS: no GPU use and batched rendering; measured under 2% of one core on very fast chats.',
           'Per-game profiles with a global shortcut, 13 styles with their own fonts, preview mode, filters, Spanish and English, and settings backup.',
-          'Live alerts: up to 100 channels checked every minute with one request per batch, and a dedicated box on top of the game with animation, sound and adjustable position.',
+          'Live alerts: up to 100 channels checked with Twitch every minute in a single request, and a dedicated box on top of the game with animation, sound and adjustable position.',
           'Windows installer with updates from GitHub Releases, a portable build, and a Mac build (Intel and Apple Silicon) compiled with GitHub Actions.',
         ],
         ca: [
@@ -185,7 +185,7 @@ export const PROJECTS = [
           'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, bescanvis i respostes.',
           'Pensada per no restar FPS: sense targeta gràfica i missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
           'Perfils per joc amb drecera global, 13 estils amb font pròpia, mode prova, filtres, castellà i anglès i còpia de la configuració.',
-          "Avisos de directe: fins a 100 canals comprovats cada minut amb una sola petició per lot, i un requadre propi damunt del joc amb animació, so i posició ajustable.",
+          "Avisos de directe: fins a 100 canals consultats a Twitch cada minut en una sola petició, i un requadre propi damunt del joc amb animació, so i posició ajustable.",
           "Instal·lador per a Windows amb actualitzacions des de GitHub Releases, versió portable i versió per a Mac (Intel i Apple Silicon) compilada amb GitHub Actions.",
         ],
       },
