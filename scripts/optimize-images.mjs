@@ -38,6 +38,7 @@ const CARD_IMAGES = [
   'FamilyTrivia.webp',
   'kylen-chat.webp',
   'kylen-chat-demo.webp',
+  'nadir-logo.webp',
 ]
 
 const THUMB_WIDTH = 320

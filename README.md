@@ -164,6 +164,25 @@ Google Play, con backend propio.
   con telemetría, backend con ranking global y por nivel, amigos, guardado en la
   nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.
 
+### Nadir
+
+**[GitHub](https://github.com/AleixAj/nadir) · [Demo](https://nadir.aleixaj.com)**
+
+Monitor de precios planteado como un SaaS real: compara el mismo producto en
+varias tiendas, guarda su histórico y avisa cuando baja del precio objetivo.
+
+- **Rol**: diseño, frontend, backend y despliegue.
+- **Stack**: Next.js 16, React 19, TypeScript, Tailwind CSS 4, Neon Postgres,
+  Drizzle ORM, Better Auth, Zod, Vitest, Cloudflare Workers (OpenNext).
+- **Qué demuestra**: Server Actions validadas con Zod que comprueban sesión y
+  propiedad de los datos, cuentas con Google o email, perfil con foto, listas
+  propias, gráfica del histórico hecha en SVG, comparativa de tiendas por precio
+  final, tarea programada con Cron Trigger, protección SSRF al leer páginas y
+  una demo sin registro.
+- **Estado**: publicado en `nadir.aleixaj.com`. Las grandes tiendas no dejan
+  leer sus precios, así que el catálogo es real pero su evolución se simula (la
+  web lo indica). Faltan los avisos por email.
+
 ### Kylen Chat for Twitch
 
 **[GitHub](https://github.com/AleixAj/kylenchat) · [Instalador para Windows](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Setup.exe) · [Instalador para Mac](https://github.com/AleixAj/kylenchat/releases/latest/download/KylenChat-Mac.dmg)**
@@ -351,7 +370,7 @@ src/
 | `fonts/*.woff2` | Space Grotesk y DM Sans autoalojadas (generadas desde Google Fonts, licencia OFL) |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact). ES y CAT comparten el mismo PDF; el atributo `download` fija el nombre con el que se guarda (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lugar del slug interno |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local

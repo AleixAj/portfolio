@@ -56,6 +56,9 @@
 /orbex-icon.webp
   Cache-Control: public, max-age=2592000
 
+/nadir-logo.webp
+  Cache-Control: public, max-age=2592000
+
 /solar-explorerlogo.webp
   Cache-Control: public, max-age=2592000
 
