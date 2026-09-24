@@ -164,7 +164,7 @@ export const PROJECTS = [
         es: [
           'Chat de Twitch en tiempo real por WebSocket, anónimo y de solo lectura, con reconexión progresiva y detección de conexiones caídas al volver de suspensión.',
           'Emotes oficiales y de 7TV, BTTV y FFZ, incluidos los superpuestos de 7TV, con versión estática por defecto para ahorrar CPU.',
-          'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, canjes y respuestas.',
+          'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, respuestas y todos los canjes de puntos (también los que no llevan mensaje, vía los eventos públicos de Twitch).',
           'Pensada para no restar FPS: sin tarjeta gráfica y mensajes agrupados; medida por debajo del 2 % de un núcleo en chats muy rápidos.',
           'Perfiles por juego con atajo global, 13 estilos con fuente propia, estilos guardados por el usuario, modo prueba, filtros, español e inglés y copia de la configuración.',
           'Avisos de directo: hasta 100 canales consultados a Twitch cada minuto en una sola petición, y un recuadro propio encima del juego con animación, sonido y posición ajustable.',
@@ -173,7 +173,7 @@ export const PROJECTS = [
         en: [
           'Real-time Twitch chat over WebSocket, anonymous and read-only, with backoff reconnection and dead-connection detection after sleep.',
           'Official, 7TV, BTTV and FFZ emotes, including 7TV zero-width overlays, with static versions by default to save CPU.',
-          'Mentions and keywords in red, first-time chatters, badges, subs, raids, bits, redemptions and replies.',
+          'Mentions and keywords in red, first-time chatters, badges, subs, raids, bits, replies and every channel point redemption (including ones without a message, via Twitch\'s public events).',
           'Built not to cost FPS: no GPU use and batched rendering; measured under 2% of one core on very fast chats.',
           'Per-game profiles with a global shortcut, 13 styles with their own fonts, user-saved styles, preview mode, filters, Spanish and English, and settings backup.',
           'Live alerts: up to 100 channels checked with Twitch every minute in a single request, and a dedicated box on top of the game with animation, sound and adjustable position.',
@@ -182,7 +182,7 @@ export const PROJECTS = [
         ca: [
           'Xat de Twitch en temps real per WebSocket, anònim i de només lectura, amb reconnexió progressiva i detecció de connexions caigudes en tornar de la suspensió.',
           "Emotes oficials i de 7TV, BTTV i FFZ, inclosos els superposats de 7TV, amb versió estàtica per defecte per estalviar CPU.",
-          'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, bescanvis i respostes.',
+          'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, respostes i tots els bescanvis de punts (també els que no porten missatge, via els esdeveniments públics de Twitch).',
           'Pensada per no restar FPS: sense targeta gràfica i missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
           "Perfils per joc amb drecera global, 13 estils amb font pròpia, estils desats per l'usuari, mode prova, filtres, castellà i anglès i còpia de la configuració.",
           "Avisos de directe: fins a 100 canals consultats a Twitch cada minut en una sola petició, i un requadre propi damunt del joc amb animació, so i posició ajustable.",
