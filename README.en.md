@@ -286,6 +286,8 @@ same order as the UI (from foundational to specialized).
 | **Tailwind** | Utility system for fast, consistent design (used in this portfolio). |
 | **Vite** | Build tool with fast HMR and optimized production bundles. |
 | **React** | Component-based UI library; the foundation of the apps in this portfolio. |
+| **Next.js** | React framework with Server Components and Server Actions (used in `Nadir`). |
+| **Electron** | Desktop apps built with web tech and their own installer (used in `Kylen Chat`). |
 | **Three.js** | 3D scenes in WebGL (cameras, materials, lights, geometry). |
 | **React Three Fiber** | Declarative Three.js renderer for React; used in the 3D hero and `Solar Explorer`. |
 | **GSAP** | Advanced animations with timelines and fine-grained timing control. |
@@ -299,7 +301,10 @@ same order as the UI (from foundational to specialized).
 | **Java** | OO language used in my studies and at work on enterprise backends. |
 | **Laravel** | Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in `Obsidian`). |
 | **.NET** | Microsoft stack for services and APIs in corporate environments. |
+| **Node.js** | JavaScript runtime for servers, scripts and desktop apps. |
 | **MySQL** | Relational database for domain modeling and queries with indexes/joins. |
+| **PostgreSQL** | Relational database in `Nadir` (Neon + Drizzle ORM) and `Orbex` (Supabase). |
+| **Supabase** | Backend with Postgres, auth and server functions (used in `Orbex`). |
 | **API Rest** | Design of HTTP endpoints, resources, versioning and contracts with frontends. |
 | **Stripe** | Payment gateway: checkout, webhooks and subscriptions. |
 
@@ -311,6 +316,8 @@ same order as the UI (from foundational to specialized).
 | **Bitbucket** | Repo and PR hosting in corporate environments. |
 | **Docker** | Reproducible containers for development and deployment. |
 | **Jenkins** | CI/CD pipelines: build, test, automated deployment. |
+| **GitHub Actions** | CI/CD: lint, tests, builds and automated releases. |
+| **Vitest** | Unit tests for app logic (prices, charts, game rules). |
 | **Cloudflare** | Workers + Assets for deploying the portfolio and global CDN. |
 | **Railway** | App and database hosting for quick projects. |
 | **Jira** | Ticket management, sprints and agile planning. |

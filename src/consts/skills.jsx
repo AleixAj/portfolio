@@ -3,7 +3,7 @@
  * Grouped by category to render the Skills section without extra logic.
  * Each skill carries the URL of its official website, opened from the Skills grid.
  */
-import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot, SiGodotengine, SiAseprite } from 'react-icons/si'
+import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot, SiGodotengine, SiAseprite, SiNextdotjs, SiElectron, SiNodedotjs, SiPostgresql, SiSupabase, SiVitest, SiGithubactions } from 'react-icons/si'
 import { TbApi, TbCursorText, TbPhotoEdit } from 'react-icons/tb'
 import { FaJava } from 'react-icons/fa'
 
@@ -20,6 +20,8 @@ export const SKILL_CATEGORIES = [
       { label: 'Tailwind',          Icon: SiTailwindcss, color: '#06B6D4', url: 'https://tailwindcss.com/' },
       { label: 'Vite',              Icon: SiVite,        color: '#646CFF', url: 'https://vite.dev/' },
       { label: 'React',             Icon: SiReact,       color: '#61DAFB', url: 'https://react.dev/' },
+      { label: 'Next.js',           Icon: SiNextdotjs,   color: '#ffffff', url: 'https://nextjs.org/' },
+      { label: 'Electron',          Icon: SiElectron,    color: '#47848F', url: 'https://www.electronjs.org/' },
       { label: 'Three.js',          Icon: SiThreedotjs,  color: '#ffffff', url: 'https://threejs.org/' },
       { label: 'React Three Fiber', Icon: SiThreedotjs,  color: '#ffffff', url: 'https://r3f.docs.pmnd.rs/' },
       { label: 'GSAP',              Icon: SiGreensock,   color: '#88CE02', url: 'https://gsap.com/' },
@@ -33,7 +35,10 @@ export const SKILL_CATEGORIES = [
       { label: 'Java',     Icon: FaJava,    color: '#ED8B00', url: 'https://www.java.com/' },
       { label: 'Laravel',  Icon: SiLaravel, color: '#FF2D20', url: 'https://laravel.com/' },
       { label: '.NET',     Icon: SiDotnet,  color: '#512BD4', url: 'https://dotnet.microsoft.com/' },
+      { label: 'Node.js',    Icon: SiNodedotjs,  color: '#5FA04E', url: 'https://nodejs.org/' },
       { label: 'MySQL',    Icon: SiMysql,   color: '#4479A1', url: 'https://www.mysql.com/' },
+      { label: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1', url: 'https://www.postgresql.org/' },
+      { label: 'Supabase',   Icon: SiSupabase,   color: '#3FCF8E', url: 'https://supabase.com/' },
       { label: 'API Rest', Icon: TbApi,     color: '#22D3EE', url: 'https://developer.mozilla.org/docs/Glossary/REST' },
       { label: 'Stripe',   Icon: SiStripe,  color: '#635BFF', url: 'https://stripe.com/' },
     ],
@@ -45,6 +50,8 @@ export const SKILL_CATEGORIES = [
       { label: 'Bitbucket',      Icon: SiBitbucket,           color: '#0052CC', url: 'https://bitbucket.org/' },
       { label: 'Docker',         Icon: SiDocker,              color: '#2496ED', url: 'https://www.docker.com/' },
       { label: 'Jenkins',        Icon: SiJenkins,             color: '#D24939', url: 'https://www.jenkins.io/' },
+      { label: 'GitHub Actions', Icon: SiGithubactions,       color: '#2088FF', url: 'https://github.com/features/actions' },
+      { label: 'Vitest',         Icon: SiVitest,              color: '#6E9F18', url: 'https://vitest.dev/' },
       { label: 'Cloudflare',     Icon: SiCloudflareworkers,   color: '#F38020', url: 'https://www.cloudflare.com/' },
       { label: 'Railway',        Icon: SiRailway,             color: '#ffffff', url: 'https://railway.com/' },
       { label: 'Jira',           Icon: SiJira,                color: '#0052CC', url: 'https://www.atlassian.com/software/jira' },

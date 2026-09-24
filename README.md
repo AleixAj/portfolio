@@ -282,6 +282,8 @@ ordenado igual que en la UI (de base a especializado).
 | **Tailwind** | Sistema de utilidades para diseño consistente y rápido (usado en este portfolio). |
 | **Vite** | Build tool con HMR rápido y bundles optimizados para producción. |
 | **React** | Librería UI basada en componentes; base de las apps de este portfolio. |
+| **Next.js** | Framework de React con Server Components y Server Actions (usado en `Nadir`). |
+| **Electron** | Apps de escritorio con tecnologías web e instalador propio (usado en `Kylen Chat`). |
 | **Three.js** | Escenas 3D en WebGL (cámaras, materiales, luces, geometría). |
 | **React Three Fiber** | Renderer declarativo de Three.js en React; usado en el hero 3D y `Solar Explorer`. |
 | **GSAP** | Animaciones avanzadas con timelines y control fino sobre el tiempo. |
@@ -295,7 +297,10 @@ ordenado igual que en la UI (de base a especializado).
 | **Java** | Lenguaje OO usado en formación y trabajos con backends empresariales. |
 | **Laravel** | Framework PHP full-stack: autenticación, ORM Eloquent, queues y APIs (usado en `Obsidian`). |
 | **.NET** | Stack de Microsoft para servicios y APIs en entornos corporativos. |
+| **Node.js** | Entorno de JavaScript para servidores, scripts y apps de escritorio. |
 | **MySQL** | Base de datos relacional para modelar dominio y consultas con índices/joins. |
+| **PostgreSQL** | Base de datos relacional en `Nadir` (Neon + Drizzle ORM) y `Orbex` (Supabase). |
+| **Supabase** | Backend con Postgres, login y funciones en servidor (usado en `Orbex`). |
 | **API Rest** | Diseño de endpoints HTTP, recursos, versiones y contratos con frontends. |
 | **Stripe** | Pasarela de pagos: checkout, webhooks y suscripciones. |
 
@@ -307,6 +312,8 @@ ordenado igual que en la UI (de base a especializado).
 | **Bitbucket** | Hosting de repos y PRs en entornos corporativos. |
 | **Docker** | Contenedores reproducibles para desarrollo y despliegue. |
 | **Jenkins** | Pipelines de CI/CD: build, test, despliegue automatizado. |
+| **GitHub Actions** | CI/CD: lint, tests, builds y publicación automática de versiones. |
+| **Vitest** | Tests unitarios de la lógica de las apps (precios, gráficas, juego). |
 | **Cloudflare** | Workers + Assets para despliegue del portfolio y CDN global. |
 | **Railway** | Hosting de aplicaciones y bases de datos para proyectos rápidos. |
 | **Jira** | Gestión de tickets, sprints y planificación ágil. |

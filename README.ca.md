@@ -285,6 +285,8 @@ que a la UI (de base a especialitzat).
 | **Tailwind** | Sistema d'utilitats per a un disseny coherent i ràpid (utilitzat en aquest portfolio). |
 | **Vite** | Build tool amb HMR ràpid i bundles optimitzats per a producció. |
 | **React** | Biblioteca d'UI basada en components; base de les apps d'aquest portfolio. |
+| **Next.js** | Framework de React amb Server Components i Server Actions (usat a `Nadir`). |
+| **Electron** | Apps d'escriptori amb tecnologies web i instal·lador propi (usat a `Kylen Chat`). |
 | **Three.js** | Escenes 3D en WebGL (càmeres, materials, llums, geometria). |
 | **React Three Fiber** | Renderer declaratiu de Three.js a React; utilitzat al hero 3D i a `Solar Explorer`. |
 | **GSAP** | Animacions avançades amb timelines i control precís del temps. |
@@ -298,7 +300,10 @@ que a la UI (de base a especialitzat).
 | **Java** | Llenguatge OO utilitzat en formació i feines amb backends empresarials. |
 | **Laravel** | Framework PHP full-stack: autenticació, ORM Eloquent, queues i APIs (utilitzat a `Obsidian`). |
 | **.NET** | Stack de Microsoft per a serveis i APIs en entorns corporatius. |
+| **Node.js** | Entorn de JavaScript per a servidors, scripts i apps d'escriptori. |
 | **MySQL** | Base de dades relacional per modelar el domini i consultes amb índexs/joins. |
+| **PostgreSQL** | Base de dades relacional a `Nadir` (Neon + Drizzle ORM) i `Orbex` (Supabase). |
+| **Supabase** | Backend amb Postgres, inici de sessió i funcions al servidor (usat a `Orbex`). |
 | **API Rest** | Disseny d'endpoints HTTP, recursos, versions i contractes amb frontends. |
 | **Stripe** | Passarel·la de pagaments: checkout, webhooks i subscripcions. |
 
@@ -310,6 +315,8 @@ que a la UI (de base a especialitzat).
 | **Bitbucket** | Hosting de repos i PRs en entorns corporatius. |
 | **Docker** | Contenidors reproduïbles per a desenvolupament i desplegament. |
 | **Jenkins** | Pipelines de CI/CD: build, test, desplegament automatitzat. |
+| **GitHub Actions** | CI/CD: lint, tests, builds i publicació automàtica de versions. |
+| **Vitest** | Tests unitaris de la lògica de les apps (preus, gràfiques, joc). |
 | **Cloudflare** | Workers + Assets per al desplegament del portfolio i CDN global. |
 | **Railway** | Hosting d'aplicacions i bases de dades per a projectes ràpids. |
 | **Jira** | Gestió de tiquets, sprints i planificació àgil. |
