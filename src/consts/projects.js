@@ -184,7 +184,7 @@ export const PROJECTS = [
           "Emotes oficials i de 7TV, BTTV i FFZ, inclosos els superposats de 7TV, amb versió estàtica per defecte per estalviar CPU.",
           'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, bescanvis i respostes.',
           'Pensada per no restar FPS: sense targeta gràfica i missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
-          'Perfils per joc amb drecera global, 13 estils amb font pròpia, estils desats per l'usuari, mode prova, filtres, castellà i anglès i còpia de la configuració.',
+          "Perfils per joc amb drecera global, 13 estils amb font pròpia, estils desats per l'usuari, mode prova, filtres, castellà i anglès i còpia de la configuració.",
           "Avisos de directe: fins a 100 canals consultats a Twitch cada minut en una sola petició, i un requadre propi damunt del joc amb animació, so i posició ajustable.",
           "Instal·lador per a Windows amb actualitzacions des de GitHub Releases, versió portable i versió per a Mac (Intel i Apple Silicon) compilada amb GitHub Actions.",
         ],
