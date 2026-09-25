@@ -169,6 +169,7 @@ export const PROJECTS = [
           'Revisión automática de precios con un Cron Trigger de Cloudflare cada 10 minutos.',
           'Server Actions validadas con Zod que comprueban sesión y propiedad de cada dato; lectura de páginas protegida contra SSRF.',
           'Protección contra bots y spam: captcha invisible de Cloudflare Turnstile, límites por IP y por usuario guardados en la base de datos, tope de emails por destinatario y política de seguridad de contenidos (CSP).',
+          'Accesible: diálogos y desplegables propios que se usan con teclado, contraste AA en tema claro y oscuro, y respeta la opción de reducir movimiento.',
           'Demo sin registro con 12 productos y un año de histórico, instalable como PWA.',
         ],
         en: [
@@ -179,6 +180,7 @@ export const PROJECTS = [
           'Automatic price checks with a Cloudflare Cron Trigger every 10 minutes.',
           'Server Actions validated with Zod that check the session and ownership of every record; page fetching protected against SSRF.',
           'Bot and spam protection: invisible Cloudflare Turnstile captcha, per-IP and per-user rate limits stored in the database, a cap on emails per recipient and a Content Security Policy (CSP).',
+          'Accessible: custom dialogs and dropdowns that work with the keyboard, AA contrast in light and dark themes, and it respects the reduce motion setting.',
           'No-signup demo with 12 products and a year of history, installable as a PWA.',
         ],
         ca: [
@@ -189,6 +191,7 @@ export const PROJECTS = [
           'Revisió automàtica de preus amb un Cron Trigger de Cloudflare cada 10 minuts.',
           "Server Actions validades amb Zod que comproven la sessió i la propietat de cada dada; lectura de pàgines protegida contra SSRF.",
           "Protecció contra bots i spam: captcha invisible de Cloudflare Turnstile, límits per IP i per usuari desats a la base de dades, topall de correus per destinatari i política de seguretat de continguts (CSP).",
+          'Accessible: diàlegs i desplegables propis que es fan servir amb el teclat, contrast AA en tema clar i fosc, i respecta l\'opció de reduir el moviment.',
           "Demo sense registre amb 12 productes i un any d'històric, instal·lable com a PWA.",
         ],
       },
