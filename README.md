@@ -173,15 +173,16 @@ varias tiendas, guarda su histórico y avisa cuando baja del precio objetivo.
 
 - **Rol**: diseño, frontend, backend y despliegue.
 - **Stack**: Next.js 16, React 19, TypeScript, Tailwind CSS 4, Neon Postgres,
-  Drizzle ORM, Better Auth, Zod, Vitest, Cloudflare Workers (OpenNext).
+  Drizzle ORM, Better Auth, Resend, Zod, Vitest, Cloudflare Workers (OpenNext).
 - **Qué demuestra**: Server Actions validadas con Zod que comprueban sesión y
-  propiedad de los datos, cuentas con Google o email, perfil con foto, listas
+  propiedad de los datos, cuentas con Google o email (con confirmación por
+  email y recuperación de contraseña), avisos de precio por email, perfil con foto, listas
   propias, gráfica del histórico hecha en SVG, comparativa de tiendas por precio
   final, tarea programada con Cron Trigger, protección SSRF al leer páginas y
   una demo sin registro.
 - **Estado**: publicado en `nadir.aleixaj.com`. Las grandes tiendas no dejan
   leer sus precios, así que el catálogo es real pero su evolución se simula (la
-  web lo indica). Faltan los avisos por email.
+  web lo indica). Faltan los avisos por Telegram.
 
 ### Kylen Chat for Twitch
 

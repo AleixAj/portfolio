@@ -176,14 +176,15 @@ target price.
 
 - **Role**: design, frontend, backend and deployment.
 - **Stack**: Next.js 16, React 19, TypeScript, Tailwind CSS 4, Neon Postgres,
-  Drizzle ORM, Better Auth, Zod, Vitest, Cloudflare Workers (OpenNext).
+  Drizzle ORM, Better Auth, Resend, Zod, Vitest, Cloudflare Workers (OpenNext).
 - **What it shows**: Server Actions validated with Zod that check session and
-  data ownership, Google or email accounts, profile photo, custom lists, an SVG
+  data ownership, Google or email accounts (with email confirmation and
+  password reset), email price alerts, profile photo, custom lists, an SVG
   price history chart, store comparison by final price, a scheduled job with a
   Cron Trigger, SSRF protection when reading pages, and a no-signup demo.
 - **Status**: live at `nadir.aleixaj.com`. Big stores do not allow reading
   their prices, so the catalog is real but its price changes are simulated (the
-  site says so). Email alerts are still to come.
+  site says so). Telegram alerts are still to come.
 
 ### Kylen Chat for Twitch
 

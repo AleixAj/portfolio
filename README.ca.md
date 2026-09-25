@@ -176,15 +176,16 @@ diverses botigues, en desa l'històric i avisa quan baixa del preu objectiu.
 
 - **Rol**: disseny, frontend, backend i desplegament.
 - **Stack**: Next.js 16, React 19, TypeScript, Tailwind CSS 4, Neon Postgres,
-  Drizzle ORM, Better Auth, Zod, Vitest, Cloudflare Workers (OpenNext).
+  Drizzle ORM, Better Auth, Resend, Zod, Vitest, Cloudflare Workers (OpenNext).
 - **Què demostra**: Server Actions validades amb Zod que comproven la sessió i
-  la propietat de les dades, comptes amb Google o correu, perfil amb foto,
+  la propietat de les dades, comptes amb Google o correu (amb confirmació per correu
+  i recuperació de contrasenya), avisos de preu per correu, perfil amb foto,
   llistes pròpies, gràfica de l'històric feta en SVG, comparativa de botigues
   per preu final, tasca programada amb Cron Trigger, protecció SSRF en llegir
   pàgines i una demo sense registre.
 - **Estat**: publicat a `nadir.aleixaj.com`. Les grans botigues no deixen
   llegir els seus preus, així que el catàleg és real però la seva evolució se
-  simula (la web ho indica). Falten els avisos per correu.
+  simula (la web ho indica). Falten els avisos per Telegram.
 
 ### Kylen Chat for Twitch
 
