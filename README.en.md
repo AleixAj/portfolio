@@ -181,7 +181,8 @@ target price.
   data ownership, Google or email accounts (with email confirmation and
   password reset), email price alerts, profile photo, custom lists, an SVG
   price history chart, store comparison by final price, a scheduled job with a
-  Cron Trigger, SSRF protection when reading pages, and a no-signup demo.
+  Cron Trigger, SSRF protection when reading pages, bot and spam protection
+  (Turnstile captcha, per-IP and per-user limits, CSP), and a no-signup demo.
 - **Status**: live at `nadir.aleixaj.com`. Big stores do not allow reading
   their prices, so the catalog is real but its price changes are simulated (the
   site says so). Telegram alerts are still to come.

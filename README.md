@@ -178,8 +178,9 @@ varias tiendas, guarda su histórico y avisa cuando baja del precio objetivo.
   propiedad de los datos, cuentas con Google o email (con confirmación por
   email y recuperación de contraseña), avisos de precio por email, perfil con foto, listas
   propias, gráfica del histórico hecha en SVG, comparativa de tiendas por precio
-  final, tarea programada con Cron Trigger, protección SSRF al leer páginas y
-  una demo sin registro.
+  final, tarea programada con Cron Trigger, protección SSRF al leer páginas,
+  protección contra bots y spam (captcha Turnstile, límites por IP y por usuario,
+  CSP) y una demo sin registro.
 - **Estado**: publicado en `nadir.aleixaj.com`. Las grandes tiendas no dejan
   leer sus precios, así que el catálogo es real pero su evolución se simula (la
   web lo indica). Faltan los avisos por Telegram.

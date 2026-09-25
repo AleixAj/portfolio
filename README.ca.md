@@ -182,7 +182,8 @@ diverses botigues, en desa l'històric i avisa quan baixa del preu objectiu.
   i recuperació de contrasenya), avisos de preu per correu, perfil amb foto,
   llistes pròpies, gràfica de l'històric feta en SVG, comparativa de botigues
   per preu final, tasca programada amb Cron Trigger, protecció SSRF en llegir
-  pàgines i una demo sense registre.
+  pàgines, protecció contra bots i spam (captcha Turnstile, límits per IP i per
+  usuari, CSP) i una demo sense registre.
 - **Estat**: publicat a `nadir.aleixaj.com`. Les grans botigues no deixen
   llegir els seus preus, així que el catàleg és real però la seva evolució se
   simula (la web ho indica). Falten els avisos per Telegram.
