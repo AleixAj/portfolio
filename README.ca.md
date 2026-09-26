@@ -202,7 +202,7 @@ finestra transparent que queda sempre damunt del joc i deixa passar els clics.
   automàtiques des de GitHub Releases, versió per a Mac (Intel i Apple Silicon)
   compilada automàticament amb GitHub Actions, xat en temps real amb reconnexió robusta,
   emotes de 7TV/BTTV/FFZ, rendiment mesurat (menys del 2 % d'un nucli en xats
-  molt ràpids, sense fer servir la targeta gràfica), perfils per joc amb drecera global, avisos de directe amb un requadre propi damunt del joc,
+  molt ràpids, sense fer servir la targeta gràfica), perfils per joc amb drecera global, avisos de directe amb un requadre propi damunt del joc, estils que imiten el xat de 8 jocs,
   interfície en castellà i anglès i validació de totes les dades que arriben.
 - **Estat**: publicada per a Windows i per a Mac (en proves), codi obert amb llicència MIT.
 - **Al portfolio**: la fitxa inclou una captura de l'app en ús damunt d'una partida.
