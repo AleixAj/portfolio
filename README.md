@@ -164,6 +164,27 @@ Google Play, con backend propio.
   con telemetría, backend con ranking global y por nivel, amigos, guardado en la
   nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.
 
+### Waymark
+
+**[GitHub](https://github.com/AleixAj/waymark) · [Demo](https://waymark.aleixaj.com)**
+
+Álbum de viajes sobre un globo 3D: lee el GPS de cada foto, la coloca en el
+planeta y detecta los viajes solo. Planteado como producto real y sin backend.
+
+- **Rol**: idea, diseño, desarrollo y despliegue.
+- **Stack**: SvelteKit 2, Svelte 5, TypeScript, MapLibre GL, Web Workers,
+  IndexedDB (Dexie), Google Identity Services, Google Drive API, Vitest,
+  Cloudflare Workers.
+- **Qué demuestra**: importación en paralelo con Web Workers (EXIF, miniaturas,
+  duplicados, HEIC y RAW), país, ciudad y barrio calculados sin conexión con
+  34.000 ciudades empaquetadas, viajes detectados automáticamente con ruta y
+  exportación GPX, ubicación estimada de fotos sin GPS, importación desde Google
+  Drive y Google Fotos (Takeout), sincronización con el Drive del usuario sin
+  servidor propio, funcionamiento sin conexión, accesibilidad comprobada con axe
+  y rendimiento medido con perfiles de Chrome. Demo sin registro con 600 fotos
+  reales de Wikimedia Commons.
+- **Estado**: publicado en `waymark.aleixaj.com`. La interfaz está en español.
+
 ### Nadir
 
 **[GitHub](https://github.com/AleixAj/nadir) · [Demo](https://nadir.aleixaj.com)**
@@ -286,10 +307,12 @@ ordenado igual que en la UI (de base a especializado).
 | **Vite** | Build tool con HMR rápido y bundles optimizados para producción. |
 | **React** | Librería UI basada en componentes; base de las apps de este portfolio. |
 | **Next.js** | Framework de React con Server Components y Server Actions (usado en `Nadir`). |
+| **Svelte** | Framework compilado con reactividad fina (runes); SvelteKit como SPA estática en `Waymark`. |
 | **Electron** | Apps de escritorio con tecnologías web e instalador propio (usado en `Kylen Chat`). |
 | **Three.js** | Escenas 3D en WebGL (cámaras, materiales, luces, geometría). |
 | **React Three Fiber** | Renderer declarativo de Three.js en React; usado en el hero 3D y `Solar Explorer`. |
 | **GSAP** | Animaciones avanzadas con timelines y control fino sobre el tiempo. |
+| **MapLibre** | Mapas vectoriales y globo 3D en WebGL, open source y sin claves (usado en `Waymark`). |
 
 ### Backend
 
@@ -380,7 +403,7 @@ src/
 | `fonts/*.woff2` | Space Grotesk y DM Sans autoalojadas (generadas desde Google Fonts, licencia OFL) |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact). ES y CAT comparten el mismo PDF; el atributo `download` fija el nombre con el que se guarda (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lugar del slug interno |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local

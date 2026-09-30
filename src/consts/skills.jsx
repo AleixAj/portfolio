@@ -3,7 +3,7 @@
  * Grouped by category to render the Skills section without extra logic.
  * Each skill carries the URL of its official website, opened from the Skills grid.
  */
-import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot, SiGodotengine, SiAseprite, SiNextdotjs, SiElectron, SiNodedotjs, SiPostgresql, SiSupabase, SiVitest, SiGithubactions } from 'react-icons/si'
+import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot, SiGodotengine, SiAseprite, SiNextdotjs, SiElectron, SiNodedotjs, SiPostgresql, SiSupabase, SiVitest, SiGithubactions, SiSvelte, SiMaplibre } from 'react-icons/si'
 import { TbApi, TbCursorText, TbPhotoEdit } from 'react-icons/tb'
 import { FaJava } from 'react-icons/fa'
 
@@ -21,10 +21,12 @@ export const SKILL_CATEGORIES = [
       { label: 'Vite',              Icon: SiVite,        color: '#646CFF', url: 'https://vite.dev/' },
       { label: 'React',             Icon: SiReact,       color: '#61DAFB', url: 'https://react.dev/' },
       { label: 'Next.js',           Icon: SiNextdotjs,   color: '#ffffff', url: 'https://nextjs.org/' },
+      { label: 'Svelte',            Icon: SiSvelte,      color: '#FF3E00', url: 'https://svelte.dev/' },
       { label: 'Electron',          Icon: SiElectron,    color: '#47848F', url: 'https://www.electronjs.org/' },
       { label: 'Three.js',          Icon: SiThreedotjs,  color: '#ffffff', url: 'https://threejs.org/' },
       { label: 'React Three Fiber', Icon: SiThreedotjs,  color: '#ffffff', url: 'https://r3f.docs.pmnd.rs/' },
       { label: 'GSAP',              Icon: SiGreensock,   color: '#88CE02', url: 'https://gsap.com/' },
+      { label: 'MapLibre',          Icon: SiMaplibre,    color: '#4A90D9', url: 'https://maplibre.org/' },
     ],
   },
   {

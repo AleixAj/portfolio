@@ -59,6 +59,12 @@
 /nadir-logo.webp
   Cache-Control: public, max-age=2592000
 
+/waymark-logo.webp
+  Cache-Control: public, max-age=2592000
+
+/waymark-demo.webp
+  Cache-Control: public, max-age=2592000
+
 /solar-explorerlogo.webp
   Cache-Control: public, max-age=2592000
 
