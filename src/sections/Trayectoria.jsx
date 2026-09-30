@@ -6,7 +6,7 @@
  * `safe center`: centred while it fits, aligned to the top the moment it doesn't,
  * instead of overflowing symmetrically and pushing the heading behind the navbar.
  */
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { FaBriefcase, FaGraduationCap } from 'react-icons/fa'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import TimelineItem from '../components/TimelineItem'
@@ -14,7 +14,7 @@ import TimelineItem from '../components/TimelineItem'
 /** Resolves bilingual fields { es, en } or returns the value as-is */
 const localize = (value, lang) => (typeof value === 'object' ? (value[lang] ?? value.es) : value)
 
-export default function Trayectoria({ lang, t }) {
+function Trayectoria({ lang, t }) {
   const [tab, setTab] = useState(0)
 
   return (
@@ -71,3 +71,7 @@ export default function Trayectoria({ lang, t }) {
     </section>
   )
 }
+
+// Its props only change with the language, so scrolling to another section
+// (which re-renders the App) leaves it alone
+export default memo(Trayectoria)

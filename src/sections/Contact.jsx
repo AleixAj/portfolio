@@ -2,7 +2,7 @@
  * Contact form (EmailJS) and footer with professional links.
  * Requires VITE_EMAILJS_* variables in .env.local for production.
  */
-import { useRef, useState } from 'react'
+import { useRef, useState, memo } from 'react'
 import emailjs from '@emailjs/browser'
 import { FaLinkedin, FaEnvelope, FaGithub, FaFileAlt } from 'react-icons/fa'
 
@@ -143,7 +143,7 @@ function Footer({ t, cv }) {
   )
 }
 
-export default function Contact({ t, cv }) {
+function Contact({ t, cv }) {
   return (
     <section id="contact" className="min-h-full md:h-[100dvh] ls:h-auto bg-black/45 flex flex-col relative overflow-hidden ls:overflow-visible">
       <div className="flex-1 flex items-center justify-center pt-16 md:pt-24 pb-2 md:pb-[60px]">
@@ -153,3 +153,7 @@ export default function Contact({ t, cv }) {
     </section>
   )
 }
+
+// Its props only change with the language, so scrolling to another section
+// (which re-renders the App) leaves it alone
+export default memo(Contact)

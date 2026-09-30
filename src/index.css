@@ -167,23 +167,44 @@ h1, h2, h3, h4, .font-tech {
   }
 }
 
+/* Pulsing cyan glow. The glow is a fixed shadow on a pseudo-element and only its
+   opacity is animated, which the GPU does without repainting the button
+   (animating the filter itself repainted it on every frame). */
 @keyframes glow-pulse {
-  0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.4)); }
-  50%       { filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.9)); }
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 1; }
 }
 
 .glow-pulse {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.9);
+  pointer-events: none;
   animation: glow-pulse 4s ease-in-out infinite;
 }
 
+/* Loops of the hero stop while it is scrolled away */
+.hero-idle .text-gradient-cyan,
+.hero-idle .glow-pulse::after {
+  animation-play-state: paused;
+}
+
+/* Only opacity and transform: the GPU animates them without repainting */
 @keyframes revealFadeUp {
-  from { opacity: 0; transform: translateY(26px) scale(0.965); filter: blur(8px); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);     filter: blur(0);    }
+  from { opacity: 0; transform: translateY(26px) scale(0.965); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
 }
 
 .reveal-item {
   opacity: 0;
-  will-change: transform, opacity, filter;
 }
 
 .reveal-item.in-view {

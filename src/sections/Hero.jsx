@@ -2,14 +2,36 @@
  * Home section: personal intro + interactive 3D scene.
  * Different layout on mobile (title top, CTA bottom) vs desktop (side content).
  */
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { FaLinkedin, FaFileAlt, FaDownload, FaMapMarkerAlt, FaBriefcase, FaLaptopCode, FaGlobe, FaCode } from 'react-icons/fa'
 import RotatingText from '../components/RotatingText'
 import { LIGHT_MODE } from '../consts/device'
 
 // Three.js in a separate chunk; does not block initial React load
-const Scene3D = lazy(() => import('../components/Scene3D'))
+const loadScene3D = () => import('../components/Scene3D')
+const Scene3D = lazy(loadScene3D)
+
+/**
+ * The 3D room starts once the page has been painted and the browser is idle:
+ * setting up WebGL and the model is the heaviest work of the page, and doing it
+ * first delayed the text of the hero. Its code starts downloading right away.
+ */
+function useSceneWhenIdle() {
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    if (LIGHT_MODE) return
+    loadScene3D()
+    const start = () => setReady(true)
+    if ('requestIdleCallback' in window) {
+      const id = requestIdleCallback(start, { timeout: 1500 })
+      return () => cancelIdleCallback(id)
+    }
+    const id = setTimeout(start, 300)
+    return () => clearTimeout(id)
+  }, [])
+  return ready
+}
 
 /**
  * Static stand-in for the 3D scene. Used while the scene loads and, on data-saver
@@ -27,14 +49,16 @@ const EASE = [0.16, 1, 0.3, 1]
  * Hero headline word that rotates through the localized list with a
  * per-character staggered roll (React Bits RotatingText). Keyed by the word
  * list so switching language resets it cleanly; under reduced-motion it swaps
- * instantly with no roll.
+ * instantly with no roll. It stops rotating while the hero is off screen: every
+ * change measures the layout, which would otherwise run during the page scroll.
  */
-function HeroWord({ words, reduceMotion }) {
+function HeroWord({ words, reduceMotion, active }) {
   if (reduceMotion) {
     return (
       <RotatingText
         key={words.join('|')}
         texts={words}
+        auto={active}
         splitBy="words"
         rotationInterval={2800}
         staggerDuration={0}
@@ -50,6 +74,7 @@ function HeroWord({ words, reduceMotion }) {
     <RotatingText
       key={words.join('|')}
       texts={words}
+      auto={active}
       splitBy="characters"
       staggerFrom="first"
       staggerDuration={0.025}
@@ -89,6 +114,7 @@ function OpenToWorkBadge({ label }) {
 
 export default function Hero({ words, goToSection, heroActive, t, cv }) {
   const reduceMotion = useReducedMotion()
+  const sceneReady = useSceneWhenIdle()
   const enter = (delay = 0) =>
     reduceMotion
       ? {}
@@ -98,10 +124,10 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
           transition: { duration: 0.6, ease: EASE, delay },
         }
   return (
-    <section id="inicio" className="min-h-full md:h-[100dvh] relative flex flex-col md:block">
+    <section id="inicio" className={`min-h-full md:h-[100dvh] relative flex flex-col md:block ${heroActive ? '' : 'hero-idle'}`}>
 
       <div className="absolute inset-0">
-        {LIGHT_MODE ? (
+        {LIGHT_MODE || !sceneReady ? (
           <HeroBackdrop />
         ) : (
           <Suspense fallback={<HeroBackdrop />}>
@@ -114,7 +140,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
       <div className="md:hidden flex-shrink-0 pt-20 ls:pt-12 px-8 pb-8 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
         <motion.h1 {...enter(0)} className="text-[7vw] font-bold tracking-tighter leading-none">
           {t.transform}{' '}
-          <HeroWord words={words} reduceMotion={reduceMotion} />
+          <HeroWord words={words} reduceMotion={reduceMotion} active={heroActive} />
         </motion.h1>
         <motion.h2 {...enter(0.1)} className="text-[5.5vw] font-bold text-gradient-cyan tracking-tight mt-2">
           {t.subtitle}
@@ -170,7 +196,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
         <div className="flex flex-col justify-center text-white max-w-lg lg:max-w-none">
           <motion.h1 {...enter(0)} className="text-5xl lg:text-6xl font-bold tracking-tighter leading-none">
             {t.transform}{' '}
-            <HeroWord words={words} reduceMotion={reduceMotion} />
+            <HeroWord words={words} reduceMotion={reduceMotion} active={heroActive} />
           </motion.h1>
           <motion.h2 {...enter(0.1)} className="text-4xl lg:text-5xl font-bold text-gradient-cyan tracking-tight mt-2.5">
             {t.subtitle}

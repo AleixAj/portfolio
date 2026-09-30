@@ -10,7 +10,7 @@
  *
  * Navigation: arrows, dots, keyboard (← → Esc), and drag/swipe (mouse + touch).
  */
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect, memo } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 
@@ -32,7 +32,7 @@ const slideVariants = {
   exit: (dir) => ({ x: dir >= 0 ? '-100%' : '100%', opacity: 0 }),
 }
 
-export default function Hobbies({ t }) {
+function Hobbies({ t }) {
   const reduceMotion = useReducedMotion()
   const [modalOpen, setModalOpen] = useState(false)
   const [current, setCurrent] = useState(0)
@@ -71,8 +71,8 @@ export default function Hobbies({ t }) {
               key={i}
               onClick={() => open(i)}
               aria-label={`${t.viewDrawing} ${i + 1}`}
-              initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.96, filter: 'blur(6px)' }}
-              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+              initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, delay: Math.min(i * 0.03, 0.5), ease: [0.16, 1, 0.3, 1] }}
               whileHover={(reduceMotion || !CAN_HOVER) ? undefined : { scale: 1.06, transition: { type: 'spring', stiffness: 260, damping: 18 } }}
@@ -170,3 +170,7 @@ export default function Hobbies({ t }) {
     </section>
   )
 }
+
+// Its props only change with the language, so scrolling to another section
+// (which re-renders the App) leaves it alone
+export default memo(Hobbies)

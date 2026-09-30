@@ -19,8 +19,8 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
   const reduceMotion = useReducedMotion()
   return (
     <motion.div
-      initial={reduceMotion ? false : { opacity: 0, y: 28, filter: 'blur(8px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={reduceMotion ? false : { opacity: 0, y: 28, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, delay: Math.min(index * 0.08, 0.4), ease: [0.16, 1, 0.3, 1] }}
       whileHover={(reduceMotion || !CAN_HOVER) ? undefined : { scale: 1.04, transition: { type: 'spring', stiffness: 260, damping: 18 } }}

@@ -623,5 +623,17 @@ Otras optimizaciones aplicadas:
 - **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor` y
   animación flotante también en móvil (sin control táctil); el render continuo
   solo se mantiene mientras el hero está visible (`frameloop="demand"` al salir).
+- **Escena 3D en diferido**: su código empieza a descargarse al instante, pero
+  WebGL y el modelo se montan cuando el navegador queda libre
+  (`requestIdleCallback`), así el texto del hero se pinta primero.
+- **Animaciones solo en la GPU**: las entradas de secciones, tarjetas y dibujos
+  animan `opacity` y `transform` en vez de `filter: blur`, y el brillo de los
+  botones anima la opacidad de una sombra fija. Nada se repinta en cada fotograma.
+- **Bucles en pausa**: la palabra que rota, el degradado del título y el brillo de
+  los botones del hero se detienen cuando el hero no se ve.
+- **Menos renders**: las secciones van en `memo`, así que el cambio de sección
+  activa al hacer scroll ya no vuelve a renderizar toda la página.
+- **Medido**: con la CPU ralentizada 4 veces, los fotogramas lentos al recorrer la
+  página pasan de 18 a 6, y el percentil 95 de 33 ms a 17 ms (60 fps).
 
 El código fuente incluye comentarios en inglés orientados a revisión técnica en GitHub.

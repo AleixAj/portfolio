@@ -626,5 +626,17 @@ Altres optimitzacions aplicades:
 - **Hero 3D**: antialias actiu, DPR adaptatiu amb `PerformanceMonitor` i
   animació flotant també al mòbil (sense control tàctil); el render continu
   només es manté mentre el hero és visible (`frameloop="demand"` en sortir).
+- **Escena 3D en diferit**: el seu codi comença a baixar-se a l'instant, però
+  WebGL i el model es munten quan el navegador queda lliure
+  (`requestIdleCallback`), així el text del hero es pinta primer.
+- **Animacions només a la GPU**: les entrades de seccions, targetes i dibuixos
+  animen `opacity` i `transform` en lloc de `filter: blur`, i la brillantor dels
+  botons anima l'opacitat d'una ombra fixa. No es repinta res a cada fotograma.
+- **Bucles en pausa**: la paraula que gira, el degradat del títol i la brillantor
+  dels botons del hero s'aturen quan el hero no es veu.
+- **Menys renders**: les seccions van amb `memo`, així que el canvi de secció
+  activa en fer scroll ja no torna a renderitzar tota la pàgina.
+- **Mesurat**: amb la CPU alentida 4 vegades, els fotogrames lents en recórrer la
+  pàgina passen de 18 a 6, i el percentil 95 de 33 ms a 17 ms (60 fps).
 
 El codi font inclou comentaris en anglès orientats a la revisió tècnica a GitHub.

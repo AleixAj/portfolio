@@ -1,9 +1,10 @@
 /**
  * Tech stack grouped by category (frontend, backend, DevOps, tools).
  */
+import { memo } from 'react'
 import { SKILL_CATEGORIES } from '../consts/skills'
 
-export default function Skills({ lang, t }) {
+function Skills({ lang, t }) {
   return (
     <section id="skills" className="min-h-full md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-20 2xl:pt-24 pb-5 ls:pb-12 md:pb-10 relative overflow-visible">
       <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
@@ -35,3 +36,7 @@ export default function Skills({ lang, t }) {
     </section>
   )
 }
+
+// Its props only change with the language, so scrolling to another section
+// (which re-renders the App) leaves it alone
+export default memo(Skills)

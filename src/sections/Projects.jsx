@@ -2,7 +2,7 @@
  * Featured projects grid with links to GitHub and live demos.
  * Each card opens an info dialog with the short version of its repo README.
  */
-import { useCallback, useState } from 'react'
+import { useCallback, useState, memo } from 'react'
 import { PROJECTS } from '../consts/projects'
 import ProjectCard from '../components/ProjectCard'
 import ProjectModal from '../components/ProjectModal'
@@ -19,7 +19,7 @@ function orphanCls(i) {
   return cls.join(' ')
 }
 
-export default function Projects({ lang, t }) {
+function Projects({ lang, t }) {
   // The open project is tracked by title so the card stays memoized.
   const [openTitle, setOpenTitle] = useState(null)
   const openInfo = useCallback((title) => setOpenTitle(title), [])
@@ -51,3 +51,7 @@ export default function Projects({ lang, t }) {
     </section>
   )
 }
+
+// Its props only change with the language, so scrolling to another section
+// (which re-renders the App) leaves it alone
+export default memo(Projects)
