@@ -53,7 +53,7 @@ const svg = `
   <text x="88" y="200" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700" letter-spacing="-2">Aleix Auqué</text>
   <text x="92" y="266" fill="#22d3ee" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700">Software Developer</text>
   <text x="92" y="340" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="27">JavaScript · TypeScript · PHP</text>
-  <text x="92" y="378" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="27">React · Laravel · Electron · AI agents</text>
+  <text x="92" y="378" fill="#cbd5e1" font-family="Arial, Helvetica, sans-serif" font-size="27">React · Laravel · Three.js · AI agents</text>
   <text x="92" y="436" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="23">Full-stack web, desktop apps and games,</text>
   <text x="92" y="466" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="23">shipped and open source.</text>
   <text x="92" y="578" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="600">aleixaj.com</text>
