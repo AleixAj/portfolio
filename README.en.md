@@ -428,7 +428,7 @@ src/
 | `AJ.png` | Logo in the navbar and footer (295x224, 21 KB) |
 | `favicon-32.png`, `apple-touch-icon.png` | Tab icon and home screen icon |
 | `fonts/*.woff2` | Self-hosted Space Grotesk and DM Sans (generated from Google Fonts, OFL license) |
-| `og-image.png` | Social image for LinkedIn, WhatsApp and Twitter/X |
+| `og-image.png` | Social image for LinkedIn, WhatsApp and Twitter/X, with the featured projects' logos (`npm run generate:og`) |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | CV download based on the active language (Hero and Contact). ES and CAT share the same PDF; the `download` attribute sets the saved file name (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) instead of the internal slug |
 | `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `nexus-logo.webp`, `nexus-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Project cards (max. 400 px; `npm run optimize:images` keeps them at size) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Art gallery (full size + thumbnail) |
