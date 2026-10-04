@@ -151,6 +151,31 @@ catalog to checkout.
 - **Status**: the payment gateway is not connected yet; checkout creates orders
   but does not charge yet.
 
+### NEXUS
+
+**[GitHub](https://github.com/AleixAj/nexus) · [Windows installer](https://github.com/AleixAj/nexus/releases/latest/download/NEXUS-Setup.exe)**
+
+A J.A.R.V.I.S.-style desktop assistant for Windows: an AI agent that talks,
+listens and acts on the PC, with an animated live-wallpaper mode.
+
+- **Role**: idea, product and engineering direction, design, testing on a real
+  machine and release. Built with Claude Code as an AI pair programmer (AI
+  authorship visible in the commits).
+- **Stack**: Electron 44, React 19, TypeScript, electron-vite, sherpa-onnx,
+  OpenAI-compatible LLM APIs, PowerShell + C# (Win32), Vitest, electron-builder,
+  GitHub Actions.
+- **What it shows**: an agent loop with 46 tools that runs on free tiers
+  (rotation across Groq, Gemini, OpenRouter, Cerebras, Mistral and Ollama, simple
+  commands without the LLM and per-topic tools: from ~5,000 to ~1,900 tokens per
+  request), an offline wake phrase with on-device speech recognition, a wallpaper
+  behind the desktop icons (WorkerW) kept clickable through a mouse hook, security
+  against untrusted content (approvals in the user's own words, redacted secrets,
+  web reads limited to the public internet, Electron with sandboxing, CSP,
+  origin-checked IPC and fuses), measured usage of 0.1–0.5% of one core, undo and
+  an activity log, tests, CI and automatic updates.
+- **Status**: version 1.0.2 released for Windows. The interface is in Spanish.
+  Open source under the MIT license.
+
 ### Orbex
 
 **[GitHub (game website)](https://github.com/AleixAj/orbex-web) · [Play in the browser](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
@@ -311,7 +336,7 @@ same order as the UI (from foundational to specialized).
 | **React** | Component-based UI library; the foundation of the apps in this portfolio. |
 | **Next.js** | React framework with Server Components and Server Actions (used in `Nadir`). |
 | **Svelte** | Compiled framework with fine-grained reactivity (runes); SvelteKit as a static SPA in `Waymark`. |
-| **Electron** | Desktop apps built with web tech and their own installer (used in `Kylen Chat`). |
+| **Electron** | Desktop apps built with web tech and their own installer (used in `Kylen Chat` and `NEXUS`). |
 | **Three.js** | 3D scenes in WebGL (cameras, materials, lights, geometry). |
 | **React Three Fiber** | Declarative Three.js renderer for React; used in the 3D hero and `Solar Explorer`. |
 | **GSAP** | Advanced animations with timelines and fine-grained timing control. |
@@ -405,7 +430,7 @@ src/
 | `fonts/*.woff2` | Self-hosted Space Grotesk and DM Sans (generated from Google Fonts, OFL license) |
 | `og-image.png` | Social image for LinkedIn, WhatsApp and Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | CV download based on the active language (Hero and Contact). ES and CAT share the same PDF; the `download` attribute sets the saved file name (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) instead of the internal slug |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Project cards (max. 400 px; `npm run optimize:images` keeps them at size) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `nexus-logo.webp`, `nexus-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Project cards (max. 400 px; `npm run optimize:images` keeps them at size) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Art gallery (full size + thumbnail) |
 
 ## Running Locally

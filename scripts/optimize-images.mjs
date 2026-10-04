@@ -40,6 +40,7 @@ const CARD_IMAGES = [
   'kylen-chat-demo.webp',
   'nadir-logo.webp',
   'waymark-logo.webp',
+  'nexus-logo.webp',
 ]
 
 const THUMB_WIDTH = 320

@@ -65,6 +65,12 @@
 /waymark-demo.webp
   Cache-Control: public, max-age=2592000
 
+/nexus-logo.webp
+  Cache-Control: public, max-age=2592000
+
+/nexus-demo.webp
+  Cache-Control: public, max-age=2592000
+
 /solar-explorerlogo.webp
   Cache-Control: public, max-age=2592000
 

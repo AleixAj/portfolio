@@ -149,6 +149,31 @@ real, desde catálogo hasta checkout.
 - **Estado**: la pasarela de pago está pendiente de conectar; el checkout crea
   pedidos pero todavía no cobra.
 
+### NEXUS
+
+**[GitHub](https://github.com/AleixAj/nexus) · [Instalador para Windows](https://github.com/AleixAj/nexus/releases/latest/download/NEXUS-Setup.exe)**
+
+Asistente de escritorio para Windows al estilo J.A.R.V.I.S.: un agente de IA que
+habla, escucha y actúa en el PC, con modo fondo de escritorio animado.
+
+- **Rol**: idea, dirección de producto e ingeniería, diseño, pruebas en equipo
+  real y publicación. Desarrollado con Claude Code como asistente de
+  programación (autoría de IA visible en los commits).
+- **Stack**: Electron 44, React 19, TypeScript, electron-vite, sherpa-onnx,
+  APIs de LLM compatibles con OpenAI, PowerShell + C# (Win32), Vitest,
+  electron-builder, GitHub Actions.
+- **Qué demuestra**: bucle de agente con 46 herramientas que funciona con planes
+  gratuitos (rotación entre Groq, Gemini, OpenRouter, Cerebras, Mistral y Ollama,
+  órdenes simples sin IA y herramientas por tema: de ~5.000 a ~1.900 tokens por
+  petición), frase de activación sin conexión con reconocimiento de voz local,
+  fondo de escritorio detrás de los iconos (WorkerW) clicable mediante un hook de
+  ratón, seguridad frente a contenido no fiable (aprobaciones con las palabras del
+  usuario, secretos ocultos, lecturas web solo a internet público, Electron con
+  sandbox, CSP, IPC verificado y fuses), consumo medido de 0,1–0,5 % de un núcleo,
+  deshacer y registro de actividad, tests, CI y actualizaciones automáticas.
+- **Estado**: versión 1.0.2 publicada para Windows. La interfaz está en español.
+  Código abierto con licencia MIT.
+
 ### Orbex
 
 **[GitHub (web del juego)](https://github.com/AleixAj/orbex-web) · [Jugar en el navegador](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
@@ -308,7 +333,7 @@ ordenado igual que en la UI (de base a especializado).
 | **React** | Librería UI basada en componentes; base de las apps de este portfolio. |
 | **Next.js** | Framework de React con Server Components y Server Actions (usado en `Nadir`). |
 | **Svelte** | Framework compilado con reactividad fina (runes); SvelteKit como SPA estática en `Waymark`. |
-| **Electron** | Apps de escritorio con tecnologías web e instalador propio (usado en `Kylen Chat`). |
+| **Electron** | Apps de escritorio con tecnologías web e instalador propio (usado en `Kylen Chat` y `NEXUS`). |
 | **Three.js** | Escenas 3D en WebGL (cámaras, materiales, luces, geometría). |
 | **React Three Fiber** | Renderer declarativo de Three.js en React; usado en el hero 3D y `Solar Explorer`. |
 | **GSAP** | Animaciones avanzadas con timelines y control fino sobre el tiempo. |
@@ -403,7 +428,7 @@ src/
 | `fonts/*.woff2` | Space Grotesk y DM Sans autoalojadas (generadas desde Google Fonts, licencia OFL) |
 | `og-image.png` | Imagen social para LinkedIn, WhatsApp y Twitter/X |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descarga del CV según idioma activo (Hero y Contact). ES y CAT comparten el mismo PDF; el atributo `download` fija el nombre con el que se guarda (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lugar del slug interno |
-| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
+| `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `nexus-logo.webp`, `nexus-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
 ## Ejecución Local
