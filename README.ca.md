@@ -152,6 +152,21 @@ real, des del catàleg fins al checkout.
 - **Estat**: la passarel·la de pagament està pendent de connectar; el checkout
   crea comandes però encara no cobra.
 
+### Orbex
+
+**[GitHub (web del joc)](https://github.com/AleixAj/orbex-web) · [Jugar al navegador](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
+
+Joc de punteria estil *Zuma* per a Android, fet en solitari i publicat a Google
+Play, amb backend propi.
+
+- **Rol**: disseny, programació, art i backend.
+- **Stack**: Godot 4.6, GDScript amb tipatge estàtic, Supabase (PostgreSQL),
+  Android.
+- **Què demostra**: motor de cadena propi, plugin d'editor a mida per traçar els
+  recorreguts, corba de dificultat calculada per script i calibrada amb
+  telemetria, backend amb rànquing global i per nivell, amics, desament al núvol,
+  esborrament del compte (RGPD) i límits al servidor contra trampes.
+
 ### NEXUS
 
 **[GitHub](https://github.com/AleixAj/nexus) · [Instal·lador per a Windows](https://github.com/AleixAj/nexus/releases/latest/download/NEXUS-Setup.exe)**
@@ -176,21 +191,6 @@ parla, escolta i actua al PC, amb mode fons d'escriptori animat.
   nucli, desfer i registre d'activitat, tests, CI i actualitzacions automàtiques.
 - **Estat**: versió 1.0.2 publicada per a Windows. La interfície és en castellà.
   Codi obert amb llicència MIT.
-
-### Orbex
-
-**[GitHub (web del joc)](https://github.com/AleixAj/orbex-web) · [Jugar al navegador](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
-
-Joc de punteria estil *Zuma* per a Android, fet en solitari i publicat a Google
-Play, amb backend propi.
-
-- **Rol**: disseny, programació, art i backend.
-- **Stack**: Godot 4.6, GDScript amb tipatge estàtic, Supabase (PostgreSQL),
-  Android.
-- **Què demostra**: motor de cadena propi, plugin d'editor a mida per traçar els
-  recorreguts, corba de dificultat calculada per script i calibrada amb
-  telemetria, backend amb rànquing global i per nivell, amics, desament al núvol,
-  esborrament del compte (RGPD) i límits al servidor contra trampes.
 
 ### Waymark
 

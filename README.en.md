@@ -151,6 +151,21 @@ catalog to checkout.
 - **Status**: the payment gateway is not connected yet; checkout creates orders
   but does not charge yet.
 
+### Orbex
+
+**[GitHub (game website)](https://github.com/AleixAj/orbex-web) · [Play in the browser](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
+
+*Zuma*-style aiming game for Android, built solo and published on Google
+Play, with its own backend.
+
+- **Role**: design, programming, art and backend.
+- **Stack**: Godot 4.6, statically typed GDScript, Supabase (PostgreSQL),
+  Android.
+- **What it demonstrates**: custom chain engine, bespoke editor plugin for
+  drawing the paths, script-calculated difficulty curve calibrated with
+  telemetry, backend with global and per-level leaderboards, friends, cloud
+  saves, account deletion (GDPR) and server-side limits against cheating.
+
 ### NEXUS
 
 **[GitHub](https://github.com/AleixAj/nexus) · [Windows installer](https://github.com/AleixAj/nexus/releases/latest/download/NEXUS-Setup.exe)**
@@ -175,21 +190,6 @@ listens and acts on the PC, with an animated live-wallpaper mode.
   an activity log, tests, CI and automatic updates.
 - **Status**: version 1.0.2 released for Windows. The interface is in Spanish.
   Open source under the MIT license.
-
-### Orbex
-
-**[GitHub (game website)](https://github.com/AleixAj/orbex-web) · [Play in the browser](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
-
-*Zuma*-style aiming game for Android, built solo and published on Google
-Play, with its own backend.
-
-- **Role**: design, programming, art and backend.
-- **Stack**: Godot 4.6, statically typed GDScript, Supabase (PostgreSQL),
-  Android.
-- **What it demonstrates**: custom chain engine, bespoke editor plugin for
-  drawing the paths, script-calculated difficulty curve calibrated with
-  telemetry, backend with global and per-level leaderboards, friends, cloud
-  saves, account deletion (GDPR) and server-side limits against cheating.
 
 ### Waymark
 

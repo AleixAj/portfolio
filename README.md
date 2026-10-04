@@ -149,6 +149,21 @@ real, desde catálogo hasta checkout.
 - **Estado**: la pasarela de pago está pendiente de conectar; el checkout crea
   pedidos pero todavía no cobra.
 
+### Orbex
+
+**[GitHub (web del juego)](https://github.com/AleixAj/orbex-web) · [Jugar en el navegador](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
+
+Juego de puntería tipo *Zuma* para Android, hecho en solitario y publicado en
+Google Play, con backend propio.
+
+- **Rol**: diseño, programación, arte y backend.
+- **Stack**: Godot 4.6, GDScript con tipado estático, Supabase (PostgreSQL),
+  Android.
+- **Qué demuestra**: motor de cadena propio, plugin de editor a medida para
+  trazar los recorridos, curva de dificultad calculada por script y calibrada
+  con telemetría, backend con ranking global y por nivel, amigos, guardado en la
+  nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.
+
 ### NEXUS
 
 **[GitHub](https://github.com/AleixAj/nexus) · [Instalador para Windows](https://github.com/AleixAj/nexus/releases/latest/download/NEXUS-Setup.exe)**
@@ -173,21 +188,6 @@ habla, escucha y actúa en el PC, con modo fondo de escritorio animado.
   deshacer y registro de actividad, tests, CI y actualizaciones automáticas.
 - **Estado**: versión 1.0.2 publicada para Windows. La interfaz está en español.
   Código abierto con licencia MIT.
-
-### Orbex
-
-**[GitHub (web del juego)](https://github.com/AleixAj/orbex-web) · [Jugar en el navegador](https://kylen02.itch.io/orbex) · [Google Play](https://play.google.com/store/apps/details?id=com.aleix.orbex)**
-
-Juego de puntería tipo *Zuma* para Android, hecho en solitario y publicado en
-Google Play, con backend propio.
-
-- **Rol**: diseño, programación, arte y backend.
-- **Stack**: Godot 4.6, GDScript con tipado estático, Supabase (PostgreSQL),
-  Android.
-- **Qué demuestra**: motor de cadena propio, plugin de editor a medida para
-  trazar los recorridos, curva de dificultad calculada por script y calibrada
-  con telemetría, backend con ranking global y por nivel, amigos, guardado en la
-  nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.
 
 ### Waymark
 
