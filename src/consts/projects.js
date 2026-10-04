@@ -196,9 +196,9 @@ export const PROJECTS = [
       stack: 'Electron 44 · React 19 · TypeScript · electron-vite · sherpa-onnx · LLM APIs (OpenAI-compatible) · PowerShell + C# (Win32) · Vitest · electron-builder · GitHub Actions',
       status: {
         tone: 'ok',
-        es: 'Versión 1.0.2 publicada para Windows, con actualizaciones automáticas. La interfaz está en español. Hecho con Claude Code como asistente de programación (autoría de IA visible en los commits). Código abierto con licencia MIT.',
-        en: 'Version 1.0.2 released for Windows, with automatic updates. The interface is in Spanish. Built with Claude Code as an AI pair programmer (AI authorship visible in the commits). Open source under the MIT license.',
-        ca: "Versió 1.0.2 publicada per a Windows, amb actualitzacions automàtiques. La interfície és en castellà. Fet amb Claude Code com a assistent de programació (autoria d'IA visible als commits). Codi obert amb llicència MIT.",
+        es: 'Versión 1.0.3 publicada para Windows, con actualizaciones automáticas. La interfaz está en español. Hecho con Claude Code como asistente de programación (autoría de IA visible en los commits). Código abierto con licencia MIT.',
+        en: 'Version 1.0.3 released for Windows, with automatic updates. The interface is in Spanish. Built with Claude Code as an AI pair programmer (AI authorship visible in the commits). Open source under the MIT license.',
+        ca: "Versió 1.0.3 publicada per a Windows, amb actualitzacions automàtiques. La interfície és en castellà. Fet amb Claude Code com a assistent de programació (autoria d'IA visible als commits). Codi obert amb llicència MIT.",
       },
     },
   },

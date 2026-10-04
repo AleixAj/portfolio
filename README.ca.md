@@ -189,7 +189,7 @@ parla, escolta i actua al PC, amb mode fons d'escriptori animat.
   de l'usuari, secrets amagats, lectures web només a internet públic, Electron
   amb sandbox, CSP, IPC verificat i fuses), consum mesurat de 0,1–0,5 % d'un
   nucli, desfer i registre d'activitat, tests, CI i actualitzacions automàtiques.
-- **Estat**: versió 1.0.2 publicada per a Windows. La interfície és en castellà.
+- **Estat**: versió 1.0.3 publicada per a Windows. La interfície és en castellà.
   Codi obert amb llicència MIT.
 
 ### Waymark

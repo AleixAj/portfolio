@@ -188,7 +188,7 @@ listens and acts on the PC, with an animated live-wallpaper mode.
   web reads limited to the public internet, Electron with sandboxing, CSP,
   origin-checked IPC and fuses), measured usage of 0.1–0.5% of one core, undo and
   an activity log, tests, CI and automatic updates.
-- **Status**: version 1.0.2 released for Windows. The interface is in Spanish.
+- **Status**: version 1.0.3 released for Windows. The interface is in Spanish.
   Open source under the MIT license.
 
 ### Waymark
