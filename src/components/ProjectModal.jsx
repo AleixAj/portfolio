@@ -1,34 +1,37 @@
 /**
- * Project info dialog, opened from the ⓘ button on a project card.
+ * Project details dialog, opened from the ⓘ button on a card.
  *
- * It holds the short version of the repo's README — what the project is, what it
- * does, the stack and an honest note on anything unfinished — so a recruiter can
- * size up the work without leaving the page or opening GitHub.
+ * It's a short version of the repo's README (what it is, what it does, the
+ * stack and anything still unfinished) so a recruiter can get the idea without
+ * leaving the page.
  *
- * Accessibility: real dialog semantics, Escape closes, Tab is trapped inside, and
- * focus returns to the card button on close. The page behind it is locked without
- * shifting, thanks to the stable scrollbar gutter declared on the container.
- *
- * Rendered through a portal into <body>: the cards live inside the scroll container,
- * which creates its own stacking context, so a dialog rendered in place would end up
- * underneath the fixed navbar and the section arrows no matter its z-index.
+ * It's rendered into <body> with a portal. The cards live inside the scroll
+ * container, which has its own stacking context, so if the dialog stayed there
+ * it would end up under the fixed navbar whatever z-index I gave it.
  */
 import { useCallback, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import { FaApple, FaGithub, FaGooglePlay, FaWindows } from 'react-icons/fa'
 
 const FOCUSABLE = 'a[href], button:not([disabled])'
+
+// Classes for the action buttons at the bottom
+const BTN = 'flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl transition-colors text-sm md:text-base font-medium'
+const GREY = 'border border-white/20 text-white/75 hover:border-cyan-400/60 hover:text-cyan-400'
+const CYAN = 'bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60'
+const GREEN = 'bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60'
 
 export default function ProjectModal({ project, lang, t, onClose }) {
   const reduceMotion = useReducedMotion()
   const panelRef = useRef(null)
   const { title, img, preview, tags, github, demo, store, download, downloadMac, details } = project
 
-  /** Resolves a { es, en, ca } field, falling back to Spanish. */
+  // Picks the right language from a { es, en, ca } field (Spanish if missing)
   const localize = useCallback((field) => field?.[lang] ?? field?.es, [lang])
 
-  // Escape closes; Tab cycles inside the dialog; focus returns where it came from.
+  // Escape closes, Tab stays inside the dialog, and when it closes the focus
+  // goes back to wherever it was before (the ⓘ button).
   useEffect(() => {
     const panel = panelRef.current
     const previouslyFocused = document.activeElement
@@ -61,9 +64,8 @@ export default function ProjectModal({ project, lang, t, onClose }) {
     }
   }, [onClose])
 
-  // Freeze the page behind the dialog. The container reserves its scrollbar gutter
-  // permanently (see index.css), so hiding the overflow changes no width and costs
-  // no reflow of the whole page.
+  // Stop the page behind from scrolling. The scrollbar space is always reserved
+  // (see index.css), so hiding it doesn't make the page jump sideways.
   useEffect(() => {
     const scroller = document.getElementById('app-scroll')
     if (!scroller) return
@@ -74,7 +76,7 @@ export default function ProjectModal({ project, lang, t, onClose }) {
 
   const highlights = localize(details.highlights) ?? []
   const status = localize(details.status)
-  // A shipped project reads as good news; a caveat has to look like one.
+  // Green if it's finished, amber if there is a caveat
   const statusCls = details.status?.tone === 'ok'
     ? 'text-emerald-300/85 bg-emerald-400/5 border-emerald-400/25'
     : 'text-amber-300/80 bg-amber-400/5 border-amber-400/20'
@@ -84,21 +86,20 @@ export default function ProjectModal({ project, lang, t, onClose }) {
       className="fixed inset-0 z-[200] flex items-center justify-center px-4 py-8 md:p-8"
       onClick={onClose}
     >
-      {/* Flat colour, no backdrop-filter: blurring the backdrop means blurring the two
-          WebGL canvases behind it on every frame of the entry animation, which is what
-          made opening the dialog feel sluggish. */}
-      <div className="absolute inset-0 bg-black/90" />
+      {/* Plain dark overlay, no blur. Blurring the 3D canvas behind it on every
+          frame made the dialog feel slow to open. */}
+      <div className="fade-in absolute inset-0 bg-black/90" />
 
-      <motion.div
+      <m.div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-modal-title"
         tabIndex={-1}
         onClick={e => e.stopPropagation()}
-        initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+        initial={reduceMotion ? false : { opacity: 0, y: 14, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-full max-w-2xl 2xl:max-w-3xl max-h-full overflow-y-auto overscroll-contain rounded-2xl 2xl:rounded-3xl border border-cyan-400/25 bg-[#04080c] shadow-[0_0_50px_rgba(34,211,238,0.12)] focus:outline-none"
       >
         <button
@@ -157,37 +158,37 @@ export default function ProjectModal({ project, lang, t, onClose }) {
 
           <div className="mt-6 flex flex-wrap gap-2 md:gap-3">
             <a href={github} target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl border border-white/20 text-white/75 hover:border-cyan-400/60 hover:text-cyan-400 transition-colors text-sm md:text-base font-medium">
+              className={`${BTN} ${GREY}`}>
               <FaGithub className="w-4 h-4" /> {t.viewCode}
             </a>
             {demo && (
               <a href={demo} target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
+                className={`${BTN} ${CYAN}`}>
                 ↗ {t.viewDemo}
               </a>
             )}
             {download && (
               <a href={download} rel="noopener noreferrer"
-                className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
+                className={`${BTN} ${CYAN}`}>
                 <FaWindows className="w-4 h-4" /> {t.viewDownload}
               </a>
             )}
             {downloadMac && (
               <a href={downloadMac} rel="noopener noreferrer"
-                className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60 transition-colors text-sm md:text-base font-medium">
+                className={`${BTN} ${CYAN}`}>
                 <FaApple className="w-4 h-4" /> {t.viewDownloadMac}
               </a>
             )}
             {store && (
               <a href={store} target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center md:justify-start w-full md:w-auto gap-2 px-4 py-3 md:px-5 md:py-2.5 rounded-xl bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60 transition-colors text-sm md:text-base font-medium">
+                className={`${BTN} ${GREEN}`}>
                 <FaGooglePlay className="w-4 h-4" /> {t.viewStore}
               </a>
             )}
           </div>
 
         </div>
-      </motion.div>
+      </m.div>
     </div>,
     document.body,
   )

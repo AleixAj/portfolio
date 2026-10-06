@@ -1,18 +1,13 @@
-/**
- * Global portfolio styles.
- * - Tailwind utility base
- * - Reusable animations (glow, reveal, shooting stars)
- * - Media queries for mobile landscape (ls:) and hero 3D touch adjustments
- */
+/* Global styles: Tailwind, fonts, the shared animations
+   and a few fixes for phones in landscape. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Self-hosted fonts (SIL Open Font License), taken from the Google Fonts build.
-   Serving them from our own domain removes a render-blocking stylesheet plus two
-   extra TLS handshakes from the critical path, and means no visitor data reaches
-   a third party. Both families are variable, so one file covers 400-700.
-   The unicode-range split is kept: a visitor only downloads the ranges they read. */
+/* Fonts are served from this site instead of Google Fonts: one less blocking
+   request and no visitor data sent to anyone else. They're variable fonts, so
+   one file covers every weight (400-700). Split by character set so people
+   only download the parts they need. */
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
@@ -58,7 +53,7 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Lock document scroll; the app scrolls inside #app-scroll only. */
+/* The document itself never scrolls; everything scrolls inside #app-scroll */
 html,
 body {
   height: 100%;
@@ -72,17 +67,54 @@ body {
   background-color: #000;
 }
 
-/* The scrollbar gutter is reserved for good, so a modal that hides the overflow
-   doesn't change the width of the page and force a reflow behind it. */
+/* Always keep the scrollbar's space, so opening a dialog (which hides the
+   scrollbar) doesn't make the page jump sideways. */
 #app-scroll {
   scrollbar-gutter: stable;
+}
+
+/* Dark scrollbar with a cyan thumb. Chrome, Edge and Safari use the
+   ::-webkit rules (rounded, no arrows). scrollbar-color is only for Firefox:
+   in Chrome it would override those rules and bring the arrows back. */
+@supports (-moz-appearance: none) {
+  #app-scroll,
+  [role="dialog"] {
+    scrollbar-color: rgba(34, 211, 238, 0.55) #05080c;
+  }
+}
+
+#app-scroll::-webkit-scrollbar,
+[role="dialog"]::-webkit-scrollbar {
+  width: 10px;
+}
+
+#app-scroll::-webkit-scrollbar-track,
+[role="dialog"]::-webkit-scrollbar-track {
+  background: #05080c;
+}
+
+#app-scroll::-webkit-scrollbar-thumb,
+[role="dialog"]::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.55);
+  border: 2px solid #05080c;
+  border-radius: 999px;
+}
+
+#app-scroll::-webkit-scrollbar-thumb:hover,
+[role="dialog"]::-webkit-scrollbar-thumb:hover {
+  background: #22d3ee;
+}
+
+#app-scroll::-webkit-scrollbar-button,
+[role="dialog"]::-webkit-scrollbar-button {
+  display: none;
 }
 
 body, button, input, textarea {
   font-family: 'DM Sans', sans-serif;
 }
 
-/* Display font for all headings + brand wordmark */
+/* Headings and the logo text use the display font */
 h1, h2, h3, h4, .font-tech {
   font-family: 'Space Grotesk', sans-serif;
   letter-spacing: -0.01em;
@@ -93,52 +125,59 @@ h1, h2, h3, h4, .font-tech {
   outline-offset: 4px;
 }
 
-/* Animated cyan gradient text (headings / name highlight) */
-@keyframes gradientPan {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
+/* Cyan gradient text. It used to be animated, but that repainted the text on
+   every frame and made the hero stutter next to the 3D scene. */
 .text-gradient-cyan {
-  /* On-brand cyan gradient: page accent (#22d3ee), logo teal (#3adbd3) and a
-     deeper cyan (#06b6d4) for depth; animated horizontally for a subtle sheen. */
-  background-image: linear-gradient(100deg, #22d3ee 0%, #3adbd3 25%, #22d3ee 50%, #06b6d4 75%, #22d3ee 100%);
-  background-size: 200% auto;
+  background-image: linear-gradient(100deg, #22d3ee 0%, #3adbd3 45%, #06b6d4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: gradientPan 6s linear infinite;
 }
 
-/* Project card — dark surface with a steady cyan neon glow (no animated border).
-   Cyan is the on-brand #22d3ee with a hint of the logo teal in the surface. */
+/* Project card. On hover it lifts a bit and a soft light follows the cursor
+   (--mx / --my come from ProjectCard.jsx). */
 .project-card {
   background:
-    radial-gradient(120% 100% at 50% 0%, rgba(34, 211, 238, 0.06) 0%, transparent 55%),
-    linear-gradient(180deg, rgba(12, 19, 31, 0.72) 0%, rgba(7, 10, 17, 0.72) 100%);
-  border: 1.5px solid rgba(34, 211, 238, 0.45);
+    radial-gradient(120% 100% at 50% 0%, rgba(34, 211, 238, 0.05) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(12, 19, 31, 0.78) 0%, rgba(7, 10, 17, 0.78) 100%);
+  border: 1px solid rgba(34, 211, 238, 0.28);
   box-shadow:
-    0 0 0 1px rgba(34, 211, 238, 0.10),
-    0 0 16px rgba(34, 211, 238, 0.30),
-    0 0 38px rgba(34, 211, 238, 0.12),
-    inset 0 0 16px rgba(34, 211, 238, 0.05);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    0 18px 40px -24px rgba(0, 0, 0, 0.9),
+    0 0 22px rgba(34, 211, 238, 0.08);
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.45s ease;
 }
 
-.project-card:hover {
-  border-color: rgba(58, 219, 211, 0.9);
-  box-shadow:
-    0 0 0 1px rgba(34, 211, 238, 0.20),
-    0 0 22px rgba(34, 211, 238, 0.55),
-    0 0 54px rgba(34, 211, 238, 0.25),
-    inset 0 0 20px rgba(34, 211, 238, 0.08);
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(34, 211, 238, 0.13), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
-/* Glare sweep on hover — the GlareHover effect from React Bits, adapted as a
-   utility that overlays an existing element via ::before. The diagonal shine
-   slides across on hover. Restricted to pointer (desktop) devices so a tap on
-   touch screens does not leave the glare stuck mid-sweep. */
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(58, 219, 211, 0.7);
+    box-shadow:
+      0 26px 50px -24px rgba(0, 0, 0, 0.95),
+      0 0 32px rgba(34, 211, 238, 0.2);
+  }
+
+  .project-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Shine that sweeps across on hover (based on React Bits' GlareHover).
+   Mouse only, otherwise a tap on a phone leaves it stuck halfway. */
 .glare-hover {
   position: relative;
   overflow: hidden;
@@ -152,7 +191,7 @@ h1, h2, h3, h4, .font-tech {
   background: linear-gradient(
     -45deg,
     rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0.38) 70%,
+    rgba(255, 255, 255, 0.28) 70%,
     rgba(255, 255, 255, 0) 80%
   );
   background-size: 250% 250%;
@@ -167,48 +206,141 @@ h1, h2, h3, h4, .font-tech {
   }
 }
 
-/* Pulsing cyan glow. The glow is a fixed shadow on a pseudo-element and only its
-   opacity is animated, which the GPU does without repainting the button
-   (animating the filter itself repainted it on every frame). */
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.35; }
-  50%       { opacity: 1; }
-}
-
-.glow-pulse {
+/* Main button: cyan glow that gets stronger on hover. Only the glow's opacity
+   changes, which is cheap for the browser. */
+.btn-glow {
   position: relative;
   isolation: isolate;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glow-pulse::after {
+.btn-glow::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  box-shadow: 0 0 18px rgba(34, 211, 238, 0.9);
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.75);
+  opacity: 0.45;
   pointer-events: none;
-  animation: glow-pulse 4s ease-in-out infinite;
+  transition: opacity 0.35s ease;
 }
 
-/* Loops of the hero stop while it is scrolled away */
-.hero-idle .text-gradient-cyan,
-.hero-idle .glow-pulse::after {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .btn-glow:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-glow:hover::after {
+    opacity: 1;
+  }
 }
 
-/* Only opacity and transform: the GPU animates them without repainting */
+.btn-glow:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Small lift on hover for the other buttons and links */
+.btn-lift {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-lift:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.btn-lift:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ---------- Scroll-in animations ----------
+   Anything with .reveal-item starts hidden. App.jsx adds .in-view the first
+   time it scrolls into view, and it fades up. --d is its position in the
+   group, so items come in one after another. */
 @keyframes revealFadeUp {
-  from { opacity: 0; transform: translateY(26px) scale(0.965); }
-  to   { opacity: 1; transform: translateY(0)    scale(1); }
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 .reveal-item {
   opacity: 0;
 }
 
+/* "backwards" instead of "both": when the animation ends the element goes back
+   to its normal transform, otherwise the hover lift on the cards wouldn't work. */
 .reveal-item.in-view {
-  animation: revealFadeUp 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+  opacity: 1;
+  animation: revealFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--d, 0) * 55ms);
+}
+
+/* The timeline line draws itself from top to bottom */
+@keyframes drawDown {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+.reveal-line {
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.reveal-line.in-view {
+  animation: drawDown 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.15s both;
+}
+
+/* The little line next to the section number grows from the left */
+@keyframes growX {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.eyebrow-rule {
+  transform-origin: left;
+}
+
+.in-view .eyebrow-rule {
+  animation: growX 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* Hero intro. Plain CSS so it starts right away, without waiting for the
+   animation library to load. */
+.hero-enter {
+  animation: revealFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--d, 0) * 110ms + 80ms);
+}
+
+/* Fade-in for dialog backgrounds and the mobile menu */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.25s ease-out both;
+}
+
+/* Scroll hint in the hero: a dot moving down inside a mouse outline */
+@keyframes scrollCue {
+  0%   { transform: translateY(0);    opacity: 0; }
+  25%  { opacity: 1; }
+  80%  { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(14px); opacity: 0; }
+}
+
+.scroll-cue-dot {
+  animation: scrollCue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.hero-idle .scroll-cue-dot {
+  animation-play-state: paused;
 }
 
 @keyframes shootingStar {
@@ -219,12 +351,12 @@ h1, h2, h3, h4, .font-tech {
 }
 
 @media (orientation: landscape) and (max-width: 1023px) {
-  /* Hide section navigation arrows */
-  .nav-section-arrow {
+  /* No side index here */
+  .section-rail {
     display: none !important;
   }
 
-  /* Disable touch interaction with the 3D model */
+  /* Don't let touches grab the 3D room */
   #inicio > div:first-child {
     pointer-events: none !important;
   }
@@ -234,12 +366,12 @@ h1, h2, h3, h4, .font-tech {
     min-height: 100% !important;
   }
 
-  #inicio h1 {
+  #inicio h1 > span {
     font-size: clamp(1.4rem, 4vw, 2.5rem) !important;
     line-height: 1.1 !important;
   }
 
-  #inicio h2 {
+  #inicio h2 > span {
     font-size: clamp(1.1rem, 3vw, 2rem) !important;
   }
 
@@ -253,8 +385,8 @@ h1, h2, h3, h4, .font-tech {
 
 }
 
-/* Accessibility: honour the OS "reduce motion" setting.
-   Disables decorative loops and reveal animations, leaving content fully visible. */
+/* If the system asks for reduced motion, turn the animations off and just
+   show everything. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -266,13 +398,15 @@ h1, h2, h3, h4, .font-tech {
   }
 
   .reveal-item,
-  .reveal-item.in-view {
+  .reveal-item.in-view,
+  .reveal-line,
+  .hero-enter {
     opacity: 1 !important;
     transform: none !important;
-    filter: none !important;
+    animation: none !important;
   }
 
-  .text-gradient-cyan {
-    animation: none !important;
+  .scroll-cue-dot {
+    display: none;
   }
 }

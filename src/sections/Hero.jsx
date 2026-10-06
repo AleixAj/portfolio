@@ -1,22 +1,21 @@
 /**
- * Home section: personal intro + interactive 3D scene.
- * Different layout on mobile (title top, CTA bottom) vs desktop (side content).
+ * Hero: my intro plus the 3D room.
+ * On mobile the title sits at the top and the rest at the bottom, with the room
+ * in between. On desktop the text is on the left and the room on the right.
  */
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import { FaLinkedin, FaFileAlt, FaDownload, FaMapMarkerAlt, FaBriefcase, FaLaptopCode, FaGlobe, FaCode } from 'react-icons/fa'
 import RotatingText from '../components/RotatingText'
 import { LIGHT_MODE } from '../consts/device'
 
-// Three.js in a separate chunk; does not block initial React load
+// Three.js and the scene live in their own chunk so they don't slow down the first load
 const loadScene3D = () => import('../components/Scene3D')
 const Scene3D = lazy(loadScene3D)
 
-/**
- * The 3D room starts once the page has been painted and the browser is idle:
- * setting up WebGL and the model is the heaviest work of the page, and doing it
- * first delayed the text of the hero. Its code starts downloading right away.
- */
+// Starts downloading the 3D code straight away, but only mounts the scene once
+// the browser is idle. Setting up WebGL is the heaviest thing on the page and
+// doing it first was delaying the hero text.
 function useSceneWhenIdle() {
   const [ready, setReady] = useState(false)
   useEffect(() => {
@@ -33,25 +32,15 @@ function useSceneWhenIdle() {
   return ready
 }
 
-/**
- * Static stand-in for the 3D scene. Used while the scene loads and, on data-saver
- * or 2G connections, in its place — there the chunk and the 3 MB model are never
- * requested at all.
- */
+// Soft cyan glow shown while the 3D room loads, or instead of it on slow connections
 function HeroBackdrop() {
   return <div className="w-full h-full bg-[radial-gradient(circle_at_70%_40%,rgba(34,211,238,0.16),transparent_35%)]" />
 }
 
-// Premium easing reused across the hero entrance
-const EASE = [0.16, 1, 0.3, 1]
-
-/**
- * Hero headline word that rotates through the localized list with a
- * per-character staggered roll (React Bits RotatingText). Keyed by the word
- * list so switching language resets it cleanly; under reduced-motion it swaps
- * instantly with no roll. It stops rotating while the hero is off screen: every
- * change measures the layout, which would otherwise run during the page scroll.
- */
+// The word that keeps changing in the headline ("ideas", "projects"...).
+// The key resets it when the language changes. With reduced motion it just
+// swaps the word without the roll. It pauses while the hero is off screen,
+// because each change measures the layout and that would happen mid-scroll.
 function HeroWord({ words, reduceMotion, active }) {
   if (reduceMotion) {
     return (
@@ -89,7 +78,7 @@ function HeroWord({ words, reduceMotion, active }) {
   )
 }
 
-/** Compact pill with icon for profile metadata (location, experience, etc.). */
+// Small pill with an icon (location, years of experience...)
 function ProfileChip({ icon: Icon, label }) {
   return (
     <span className="inline-flex items-center gap-1 md:gap-1.5 px-2 py-0.5 md:px-3 md:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/85 text-[0.6rem] md:text-sm whitespace-nowrap">
@@ -99,7 +88,7 @@ function ProfileChip({ icon: Icon, label }) {
   )
 }
 
-/** Highlighted "open to work" status badge with a pulsing green dot. */
+// Green "open to work" badge with a pulsing dot
 function OpenToWorkBadge({ label }) {
   return (
     <span className="inline-flex items-center gap-1.5 md:gap-2 px-2 py-0.5 md:px-3 md:py-1.5 rounded-full bg-emerald-400/15 border border-emerald-400/40 text-emerald-300 text-[0.6rem] md:text-sm font-semibold whitespace-nowrap">
@@ -112,17 +101,56 @@ function OpenToWorkBadge({ label }) {
   )
 }
 
-export default function Hero({ words, goToSection, heroActive, t, cv }) {
+const SOLID_LINK = 'btn-lift flex items-center bg-cyan-400 text-black font-semibold hover:bg-cyan-300 hover:shadow-[0_8px_28px_-6px_rgba(34,211,238,0.75)]'
+
+// LinkedIn, view CV and download CV. Same three links on mobile and desktop,
+// just smaller on mobile.
+function ProfileLinks({ cv, t, compact }) {
+  const solid = compact ? 'gap-1.5 px-3.5 py-1.5 rounded-xl text-xs' : 'gap-2 px-6 py-3.5 rounded-2xl text-base'
+  const icon = compact ? 'w-3 h-3' : 'w-5 h-5'
+  return (
+    <>
+      <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
+        className={`${SOLID_LINK} ${solid}`}>
+        <FaLinkedin className={icon} /> LinkedIn
+      </a>
+      <a href={cv.href} target="_blank" rel="noopener noreferrer"
+        className={`${SOLID_LINK} ${solid}`}>
+        <FaFileAlt className={icon} /> {t.viewCV}
+      </a>
+      <a href={cv.href} download={cv.name} aria-label={t.downloadCV} title={t.downloadCV}
+        className={`btn-lift flex items-center justify-center border border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/15 hover:border-cyan-400 ${compact ? 'w-9 px-2 py-1.5 rounded-xl' : 'px-4 py-3.5 rounded-2xl'}`}>
+        <FaDownload className={icon} />
+      </a>
+    </>
+  )
+}
+
+// Little mouse icon at the bottom of the desktop hero, hinting that you can scroll.
+// Hidden on short screens where it would bump into the buttons.
+function ScrollCue({ onClick, label }) {
+  return (
+    <div className="hidden md:block [@media(max-height:760px)]:hidden absolute bottom-7 left-1/2 -translate-x-1/2 z-20">
+      <button
+        onClick={onClick}
+        aria-label={label}
+        className="hero-enter flex p-2 text-white/45 hover:text-cyan-300 transition-colors"
+        style={{ '--d': 7 }}
+      >
+        <span className="relative block w-[22px] h-[34px] rounded-full border border-current">
+          <span className="scroll-cue-dot absolute left-1/2 top-[7px] -ml-[2px] w-1 h-1.5 rounded-full bg-current" />
+        </span>
+      </button>
+    </div>
+  )
+}
+
+export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabel }) {
   const reduceMotion = useReducedMotion()
   const sceneReady = useSceneWhenIdle()
-  const enter = (delay = 0) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 20 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.6, ease: EASE, delay },
-        }
+  // Intro animation is plain CSS (.hero-enter) so it starts on the very first paint.
+  // --d is the order, each step starts a little later.
+  const enter = (d) => ({ className: 'hero-enter', style: { '--d': d } })
   return (
     <section id="inicio" className={`min-h-full md:h-[100dvh] relative flex flex-col md:block ${heroActive ? '' : 'hero-idle'}`}>
 
@@ -138,19 +166,21 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
 
       {/* Mobile: title at top */}
       <div className="md:hidden flex-shrink-0 pt-20 ls:pt-12 px-8 pb-8 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
-        <motion.h1 {...enter(0)} className="text-[7vw] font-bold tracking-tighter leading-none">
-          {t.transform}{' '}
-          <HeroWord words={words} reduceMotion={reduceMotion} active={heroActive} />
-        </motion.h1>
-        <motion.h2 {...enter(0.1)} className="text-[5.5vw] font-bold text-gradient-cyan tracking-tight mt-2">
-          {t.subtitle}
-        </motion.h2>
+        <h1 {...enter(0)}>
+          <span className="block text-[7vw] font-bold tracking-tighter leading-none">
+            {t.transform}{' '}
+            <HeroWord words={words} reduceMotion={reduceMotion} active={heroActive} />
+          </span>
+        </h1>
+        <h2 {...enter(1)}>
+          <span className="block text-[5.5vw] font-bold text-gradient-cyan tracking-tight mt-2">{t.subtitle}</span>
+        </h2>
       </div>
 
       <div className="md:hidden flex-1" />
 
-      {/* Mobile: content at bottom */}
-      <div className="md:hidden flex-shrink-0 px-8 pt-10 ls:pt-8 pb-16 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+      {/* Mobile: everything else at the bottom */}
+      <div className="hero-enter md:hidden flex-shrink-0 px-8 pt-10 ls:pt-8 pb-16 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent" style={{ '--d': 2 }}>
         <p className="text-xl text-gray-300">Software Developer</p>
         <div className="mt-1.5 ls:hidden flex flex-wrap gap-1 pointer-events-auto">
           <OpenToWorkBadge label={t.openToWork} />
@@ -164,48 +194,38 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
         <div className="mt-4 ls:mt-3 flex flex-col gap-1.5 pointer-events-auto items-start">
           <button
             onClick={() => goToSection('projects')}
-            className="w-[13.75rem] px-5 py-2 bg-white text-black font-semibold rounded-2xl text-sm hover:scale-105 transition-transform glow-pulse"
+            className="w-[13.75rem] px-5 py-2 bg-white text-black font-semibold rounded-2xl text-sm btn-glow"
           >
             {t.cta}
           </button>
           <button
             onClick={() => goToSection('contact')}
-            className="ls:hidden w-[13.75rem] px-5 py-1.5 bg-cyan-400/10 border border-cyan-400/50 text-cyan-300 font-semibold rounded-2xl text-sm hover:bg-cyan-400/20 transition-colors"
+            className="btn-lift ls:hidden w-[13.75rem] px-5 py-1.5 bg-cyan-400/10 border border-cyan-400/50 text-cyan-300 font-semibold rounded-2xl text-sm hover:bg-cyan-400/20"
           >
             {t.ctaSecondary} →
           </button>
         </div>
         <div className="mt-3 ls:mt-2 flex gap-2 pointer-events-auto flex-wrap">
-          <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
-            <FaLinkedin className="w-3 h-3" /> LinkedIn
-          </a>
-          <a href={cv.href} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-400 rounded-xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-xs font-semibold">
-            <FaFileAlt className="w-3 h-3" /> {t.viewCV}
-          </a>
-          <a href={cv.href} download={cv.name} aria-label={t.downloadCV} title={t.downloadCV}
-            className="flex items-center justify-center w-9 px-2 py-1.5 border border-cyan-400/50 text-cyan-300 rounded-xl hover:bg-cyan-400/15 hover:border-cyan-400 transition-colors">
-            <FaDownload className="w-3 h-3" />
-          </a>
+          <ProfileLinks cv={cv} t={t} compact />
         </div>
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:flex absolute inset-0 z-10 items-center px-6 lg:pl-[22rem] xl:pl-[26rem] 2xl:pl-[34rem] pointer-events-none">
+      <div className="hidden md:flex absolute inset-0 z-10 items-center pt-20 px-6 lg:pl-20 xl:pl-28 2xl:pl-[12rem] pointer-events-none">
         <div className="flex flex-col justify-center text-white max-w-lg lg:max-w-none">
-          <motion.h1 {...enter(0)} className="text-5xl lg:text-6xl font-bold tracking-tighter leading-none">
-            {t.transform}{' '}
-            <HeroWord words={words} reduceMotion={reduceMotion} active={heroActive} />
-          </motion.h1>
-          <motion.h2 {...enter(0.1)} className="text-4xl lg:text-5xl font-bold text-gradient-cyan tracking-tight mt-2.5">
-            {t.subtitle}
-          </motion.h2>
-          <motion.div
-            {...(reduceMotion ? {} : { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.7, ease: EASE, delay: 0.22 } })}
-            className="translate-y-20">
-            <p className="text-2xl text-gray-300">Software Developer</p>
-            <div className="mt-3 flex flex-wrap gap-2 max-w-[40rem] pointer-events-auto">
+          <h1 {...enter(0)}>
+            <span className="block text-5xl lg:text-6xl font-bold tracking-tighter leading-none">
+              {t.transform}{' '}
+              <HeroWord words={words} reduceMotion={reduceMotion} active={heroActive} />
+            </span>
+          </h1>
+          <h2 {...enter(1)}>
+            <span className="block text-4xl lg:text-5xl font-bold text-gradient-cyan tracking-tight mt-2.5">{t.subtitle}</span>
+          </h2>
+          {/* A real margin (not a transform) so the block stays centred and fits on short screens */}
+          <div className="mt-8 [@media(min-height:850px)]:mt-16">
+            <p {...enter(2)}><span className="block text-2xl text-gray-300">Software Developer</span></p>
+            <div className="hero-enter mt-3 flex flex-wrap gap-2 max-w-[40rem] pointer-events-auto" style={{ '--d': 3 }}>
               <OpenToWorkBadge label={t.openToWork} />
               <ProfileChip icon={FaCode} label={t.roles} />
               <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
@@ -213,41 +233,31 @@ export default function Hero({ words, goToSection, heroActive, t, cv }) {
               <ProfileChip icon={FaLaptopCode} label={t.modality} />
               <ProfileChip icon={FaGlobe} label={t.languages} />
             </div>
-            <p className="mt-3 text-base text-gray-300 max-w-[38rem] text-justify">
+            <p className="hero-enter mt-3 text-base text-gray-300 max-w-[38rem] text-justify" style={{ '--d': 4 }}>
               {t.intro}
             </p>
-            <div className="mt-6 flex flex-wrap gap-3 pointer-events-auto">
+            <div className="hero-enter mt-6 flex flex-wrap gap-3 pointer-events-auto" style={{ '--d': 5 }}>
               <button
                 onClick={() => goToSection('projects')}
-                className="px-6 py-3.5 bg-white text-black font-semibold rounded-2xl text-base lg:text-lg hover:scale-105 transition-transform glow-pulse"
+                className="px-6 py-3.5 bg-white text-black font-semibold rounded-2xl text-base lg:text-lg btn-glow"
               >
                 {t.cta}
               </button>
               <button
                 onClick={() => goToSection('contact')}
-                className="px-6 py-3.5 bg-cyan-400/10 border border-cyan-400/50 text-cyan-300 font-semibold rounded-2xl text-base lg:text-lg hover:bg-cyan-400/20 hover:scale-105 transition-all"
+                className="group btn-lift px-6 py-3.5 bg-cyan-400/10 border border-cyan-400/50 text-cyan-300 font-semibold rounded-2xl text-base lg:text-lg hover:bg-cyan-400/20 hover:border-cyan-400"
               >
-                {t.ctaSecondary} →
+                {t.ctaSecondary} <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
               </button>
             </div>
-            <div className="mt-5 flex gap-4 pointer-events-auto flex-wrap">
-              <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
-                <FaLinkedin className="w-5 h-5" /> LinkedIn
-              </a>
-              <a href={cv.href} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3.5 bg-cyan-400 rounded-2xl text-black hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.8),0_0_40px_rgba(34,211,238,0.4)] transition-none hover:transition-none text-base font-semibold">
-                <FaFileAlt className="w-5 h-5" /> {t.viewCV}
-              </a>
-              <a href={cv.href} download={cv.name} aria-label={t.downloadCV} title={t.downloadCV}
-                className="flex items-center justify-center px-4 py-3.5 border border-cyan-400/50 text-cyan-300 rounded-2xl hover:bg-cyan-400/15 hover:border-cyan-400 transition-colors">
-                <FaDownload className="w-5 h-5" />
-              </a>
+            <div className="hero-enter mt-5 flex gap-4 pointer-events-auto flex-wrap" style={{ '--d': 6 }}>
+              <ProfileLinks cv={cv} t={t} />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
+      <ScrollCue onClick={() => goToSection('about')} label={scrollLabel} />
     </section>
   )
 }

@@ -1,7 +1,4 @@
-/**
- * Navigation config: navbar links, section order,
- * and rotating hero words per language.
- */
+// Navbar links, the order of the sections and the rotating words in the hero
 export const NAV_ITEMS = [
   { id: 'inicio',   labels: { es: 'Inicio',      en: 'Home',       ca: 'Inici'      } },
   { id: 'about',    labels: { es: 'Trayectoria', en: 'Journey',    ca: 'Trajectòria' } },

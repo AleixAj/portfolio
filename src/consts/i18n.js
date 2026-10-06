@@ -1,6 +1,6 @@
 /**
- * UI copy in Spanish, English, and Catalan.
- * Data-driven pattern: sections receive only the sub-object they need (t.hero, t.contact…).
+ * All the UI text in Spanish, English and Catalan.
+ * Each section only gets its own part (t.hero, t.contact...).
  */
 export const TRANSLATIONS = {
   es: {
@@ -8,6 +8,7 @@ export const TRANSLATIONS = {
     skipToContent: 'Ir al contenido',
     previousSection: 'Sección anterior',
     nextSection: 'Siguiente sección',
+    sectionIndex: 'Índice de secciones',
     hero: {
       transform: 'Transformando',
       subtitle: 'en experiencias digitales inolvidables',
@@ -78,6 +79,7 @@ export const TRANSLATIONS = {
     skipToContent: 'Skip to content',
     previousSection: 'Previous section',
     nextSection: 'Next section',
+    sectionIndex: 'Section index',
     hero: {
       transform: 'Turning',
       subtitle: 'into unforgettable digital experiences',
@@ -148,6 +150,7 @@ export const TRANSLATIONS = {
     skipToContent: 'Vés al contingut',
     previousSection: 'Secció anterior',
     nextSection: 'Secció següent',
+    sectionIndex: 'Índex de seccions',
     hero: {
       transform: 'Transformant',
       subtitle: 'en experiències digitals inoblidables',

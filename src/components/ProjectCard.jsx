@@ -1,33 +1,40 @@
 /**
- * Reusable project card.
- * Memoized to avoid re-renders when language changes in other sections.
- * Mobile: compact horizontal layout; desktop: vertical with description.
+ * One project card. On mobile it's a compact row, on desktop a tall card
+ * with the description. Memoized so it only re-renders when its own props change.
  */
 import { memo } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
 import { FaApple, FaGithub, FaGooglePlay, FaInfo, FaWindows } from 'react-icons/fa'
 
-// True only on devices with a real pointer (mouse/trackpad). Hover effects are
-// gated on this because on touch a tap sticks the :hover state, which would leave
-// a card stuck in its expanded state after being tapped.
+// Only devices with a real mouse/trackpad get the cursor spotlight.
+// On touch there's no cursor to follow.
 const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia?.('(hover: hover)').matches
 
-// Shared styling for the card's action links.
+// Passes the cursor position to the CSS spotlight through --mx / --my.
+// Writing the variables directly avoids a React re-render on every mouse move.
+function trackSpotlight(e) {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+  el.style.setProperty('--my', `${e.clientY - r.top}px`)
+}
+
+// Classes for the buttons at the bottom of the card
 const LINK_CLS = 'flex-1 flex items-center justify-center gap-1 whitespace-nowrap px-1.5 py-0.5 md:px-2 md:py-2 2xl:py-2.5 rounded-md md:rounded-lg 2xl:rounded-xl transition-all duration-200 text-[0.6rem] md:text-xs 2xl:text-sm font-medium'
+const GREY = 'border border-white/20 text-white/70 hover:border-cyan-400/60 hover:text-cyan-400'
+const CYAN = 'bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60'
+const GREEN = 'bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60'
+const ICON_CLS = 'w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4'
 
 const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo, store, download, downloadMac, onInfo, infoLabel, className = '' }) {
-  const reduceMotion = useReducedMotion()
   return (
-    <motion.div
-      initial={reduceMotion ? false : { opacity: 0, y: 28, scale: 0.98 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, delay: Math.min(index * 0.08, 0.4), ease: [0.16, 1, 0.3, 1] }}
-      whileHover={(reduceMotion || !CAN_HOVER) ? undefined : { scale: 1.04, transition: { type: 'spring', stiffness: 260, damping: 18 } }}
-      className={`group relative hover:z-20 project-card rounded-xl md:rounded-2xl 2xl:rounded-3xl overflow-hidden flex flex-row md:flex-col ${className}`}>
+    <div
+      onPointerMove={CAN_HOVER ? trackSpotlight : undefined}
+      // Stagger the entrance by column + row, so the grid fills in diagonally
+      style={{ '--d': index % 3 + Math.floor(index / 3) }}
+      className={`reveal-item group relative hover:z-20 project-card rounded-xl md:rounded-2xl 2xl:rounded-3xl overflow-hidden flex flex-row md:flex-col ${className}`}>
 
-      {/* Opens the project's info dialog. Sits in the corner so it never competes
-          with the two action buttons at the bottom of the card. */}
+      {/* ⓘ button: opens the project's details. Up in the corner so it
+          doesn't get mixed up with the buttons at the bottom. */}
       {onInfo && (
         <button
           type="button"
@@ -48,7 +55,7 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
             loading="lazy"
             decoding="async"
             fetchPriority="low"
-            className={`w-full h-full object-contain scale-110 md:scale-125 md:h-20 lg:h-20 2xl:h-28 3xl:h-32 md:w-auto md:group-hover:scale-[1.32] transition-transform duration-300 ${imgCls ?? 'p-1 md:p-0'}`}
+            className={`w-full h-full object-contain scale-110 md:scale-125 md:h-20 lg:h-20 2xl:h-28 3xl:h-32 md:w-auto md:group-hover:scale-[1.3] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${imgCls ?? 'p-1 md:p-0'}`}
           />
         </picture>
       </div>
@@ -63,36 +70,36 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
         </div>
         <div className="mt-auto pt-1 md:pt-3 2xl:pt-5 flex gap-1 md:gap-1.5 2xl:gap-2">
           <a href={github} target="_blank" rel="noopener noreferrer" aria-label={`${title} GitHub repository`}
-            className={`${LINK_CLS} border border-white/20 text-white/70 hover:border-cyan-400/60 hover:text-cyan-400`}>
+            className={`${LINK_CLS} ${GREY}`}>
             <FaGithub className="w-2.5 h-2.5 md:w-4 md:h-4 2xl:w-4 2xl:h-4" /> GitHub
           </a>
           {demo && (
             <a href={demo} target="_blank" rel="noopener noreferrer" aria-label={`${title} live demo`}
-              className={`${LINK_CLS} bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60`}>
+              className={`${LINK_CLS} ${CYAN}`}>
               ↗ Demo
             </a>
           )}
           {download && (
             <a href={download} rel="noopener noreferrer" aria-label={`Download ${title} for Windows`}
-              className={`${LINK_CLS} bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60`}>
-              <FaWindows className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4" /> Windows
+              className={`${LINK_CLS} ${CYAN}`}>
+              <FaWindows className={ICON_CLS} /> Windows
             </a>
           )}
           {downloadMac && (
             <a href={downloadMac} rel="noopener noreferrer" aria-label={`Download ${title} for Mac`}
-              className={`${LINK_CLS} bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/20 hover:border-cyan-400/60`}>
-              <FaApple className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4" /> Mac
+              className={`${LINK_CLS} ${CYAN}`}>
+              <FaApple className={ICON_CLS} /> Mac
             </a>
           )}
           {store && (
             <a href={store} target="_blank" rel="noopener noreferrer" aria-label={`${title} on Google Play`}
-              className={`${LINK_CLS} bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60`}>
-              <FaGooglePlay className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4" /> Play
+              className={`${LINK_CLS} ${GREEN}`}>
+              <FaGooglePlay className={ICON_CLS} /> Play
             </a>
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 })
 

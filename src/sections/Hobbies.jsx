@@ -1,31 +1,27 @@
 /**
- * Pencil drawing gallery with a fullscreen, swipeable lightbox.
+ * My pencil drawings, with a fullscreen gallery you can swipe through.
  *
- * Performance strategy:
- * - Grid uses pre-generated thumbnails (~5 KB each instead of ~150 KB)
- * - Modal blur background uses the same thumbnail (it's heavily blurred anyway)
- * - The active slide loads the full-resolution image; previous/next are
- *   preloaded so swiping is instant
- * - All grid thumbnails get loading="lazy" + decoding="async"
+ * The grid uses small thumbnails (~5 KB instead of ~150 KB). The gallery loads
+ * the full image only for the current drawing and preloads the next and
+ * previous ones so swiping feels instant. The blurred background reuses the
+ * thumbnail, since you can't tell once it's blurred.
  *
- * Navigation: arrows, dots, keyboard (← → Esc), and drag/swipe (mouse + touch).
+ * You can move with the arrows, the dots, the keyboard (← → Esc) or by dragging.
  */
 import { useCallback, useState, useEffect, memo } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { m, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
+import SectionHeading from '../components/SectionHeading'
 
-/** Derives the thumbnail path from a full-size photo path. */
+// 01.webp -> 01-thumb.webp
 const toThumb = (src) => src.replace(/\.webp$/i, '-thumb.webp')
 
-// Hover scale only runs where there's a real pointer (on touch a tap sticks :hover).
-const CAN_HOVER = typeof window !== 'undefined' && window.matchMedia?.('(hover: hover)').matches
-
-// Swipe must clear this horizontal distance (px) — or a flick velocity — to change
-// image, so accidental taps/short drags never trigger a navigation.
+// How far (px) or how fast you have to swipe to change drawing,
+// so a tap or a tiny drag doesn't skip to the next one by accident.
 const SWIPE_DISTANCE = 70
 const SWIPE_VELOCITY = 500
 
-// Slide enters from the side it's coming from and exits to the opposite side.
+// The new drawing comes in from the side you swiped towards, the old one leaves the other way
 const slideVariants = {
   enter: (dir) => ({ x: dir >= 0 ? '100%' : '-100%', opacity: 0 }),
   center: { x: '0%', opacity: 1 },
@@ -63,20 +59,16 @@ function Hobbies({ t }) {
   return (
     <section id="hobbies" className="min-h-full md:h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
       <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
-        <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-1.5 md:mb-2 2xl:mb-3">{t.title}</h2>
-        <p className="text-cyan-400 text-sm md:text-lg 2xl:text-2xl mb-4 md:mb-8 2xl:mb-10">{t.subtitle}</p>
+        <SectionHeading index={5} title={t.title} className="mb-1.5 md:mb-2 2xl:mb-3" />
+        <p className="reveal-item text-cyan-400 text-sm md:text-lg 2xl:text-2xl mb-4 md:mb-8 2xl:mb-10" style={{ '--d': 1 }}>{t.subtitle}</p>
         <div className="grid grid-cols-4 md:grid-cols-6 2xl:grid-cols-8 gap-2 md:gap-3 2xl:gap-4">
           {HOBBIES_PHOTOS.map((photo, i) => (
-            <motion.button
+            <button
               key={i}
               onClick={() => open(i)}
               aria-label={`${t.viewDrawing} ${i + 1}`}
-              initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.5, delay: Math.min(i * 0.03, 0.5), ease: [0.16, 1, 0.3, 1] }}
-              whileHover={(reduceMotion || !CAN_HOVER) ? undefined : { scale: 1.06, transition: { type: 'spring', stiffness: 260, damping: 18 } }}
-              className="relative hover:z-20 aspect-square overflow-hidden rounded-xl 2xl:rounded-2xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] transition-[border-color,box-shadow] duration-200 bg-white/5"
+              style={{ '--d': 2 + Math.min(i, 12) * 0.5 }}
+              className="reveal-item group relative aspect-square overflow-hidden rounded-xl 2xl:rounded-2xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-[border-color,box-shadow] duration-300 bg-white/5"
             >
               <img
                 src={toThumb(photo.src)}
@@ -86,22 +78,29 @@ function Hobbies({ t }) {
                 fetchPriority="low"
                 width="320"
                 height="320"
-                className="w-full h-full object-cover opacity-0 transition-opacity duration-300"
+                className="w-full h-full object-cover opacity-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]"
                 onLoad={e => e.currentTarget.classList.replace('opacity-0', 'opacity-100')}
               />
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
 
       {modalOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 pt-14 pb-4 md:p-8" onClick={close}>
-          <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
-          <div className="relative z-10 w-full max-w-5xl select-none" onClick={e => e.stopPropagation()}>
+          {/* Plain dark overlay, no blur (blurring the 3D canvas every frame is slow) */}
+          <div className="fade-in absolute inset-0 bg-black/90" />
+          <m.div
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 w-full max-w-5xl select-none"
+            onClick={e => e.stopPropagation()}
+          >
             <button onClick={close} className="absolute -top-10 right-0 text-white/60 hover:text-white text-2xl transition-colors" aria-label={t.closeGallery}>✕</button>
 
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-black h-[50vh] md:h-[65vh] lg:h-[78vh] relative">
-              {/* Blurred background — uses the lightweight thumbnail (still looks good blurred) */}
+              {/* Blurred background, using the thumbnail (looks the same once blurred) */}
               <img
                 key={`bg-${current}`}
                 src={toThumb(HOBBIES_PHOTOS[current].src)}
@@ -111,9 +110,9 @@ function Hobbies({ t }) {
                 style={{ filter: 'blur(18px) brightness(0.35)' }}
               />
 
-              {/* Swipeable / draggable full-size slide */}
+              {/* Full-size drawing, can be dragged sideways */}
               <AnimatePresence initial={false} custom={direction}>
-                <motion.img
+                <m.img
                   key={current}
                   src={HOBBIES_PHOTOS[current].src}
                   custom={direction}
@@ -138,7 +137,7 @@ function Hobbies({ t }) {
                 />
               </AnimatePresence>
 
-              {/* Preload neighbours (full-res) so the next swipe is instant */}
+              {/* Preload the previous and next drawings so swiping is instant */}
               {[-1, 1].map(o => {
                 const i = (current + o + total) % total
                 return <img key={`pre-${i}`} src={HOBBIES_PHOTOS[i].src} alt="" aria-hidden="true" className="hidden" />
@@ -164,13 +163,13 @@ function Hobbies({ t }) {
                 />
               ))}
             </div>
-          </div>
+          </m.div>
         </div>
       )}
     </section>
   )
 }
 
-// Its props only change with the language, so scrolling to another section
-// (which re-renders the App) leaves it alone
+// memo: its props only change with the language, so scrolling around
+// (which re-renders App) doesn't touch it
 export default memo(Hobbies)

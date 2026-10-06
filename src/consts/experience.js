@@ -1,7 +1,7 @@
 /**
- * Work experience and education data.
- * Translatable fields as { es, en, ca }; plain strings are used where the value is
- * the same in every language (a company or school name, for instance).
+ * My work experience and education.
+ * Translated fields are { es, en, ca }. Things that don't change between
+ * languages (company or school names) are plain strings.
  */
 export const EXPERIENCE = [
   {

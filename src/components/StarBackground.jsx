@@ -1,17 +1,14 @@
 /**
- * Static star background for the full page.
+ * Starry background behind the whole page.
  *
- * Performance strategy:
- * - Canvas runs in frameloop="demand" — renders once on mount and on resize,
- *   never per frame. This frees the GPU for the hero 3D scene and keeps the
- *   PC interaction smooth even when both layers are visible.
- * - Movement comes from CSS-animated shooting stars (no WebGL cost).
+ * It's a plain 2D canvas, drawn once and redrawn only when the window size
+ * changes. It used to be a second Three.js scene, which was overkill for
+ * something that doesn't move. The only movement is the shooting stars, and
+ * those are CSS animations.
  *
- * Uses seeded PRNG so positions are deterministic across reloads.
+ * Positions come from a seeded random function, so the sky looks the same on every visit.
  */
-import { Canvas } from '@react-three/fiber'
-import { Stars } from '@react-three/drei'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 function seededUnit(seed) {
   const x = Math.sin(seed * 12.9898) * 43758.5453
@@ -22,35 +19,62 @@ function rnd(seed, min, max) {
   return seededUnit(seed) * (max - min) + min
 }
 
-function StaticStarField({ count = 6500 }) {
-  const positions = useMemo(() => {
-    const arr = new Float32Array(count * 3)
-    for (let i = 0; i < count; i++) {
-      const r = 300
-      const theta = seededUnit(i + 1) * Math.PI * 2
-      const phi = Math.acos(2 * seededUnit(i + 1001) - 1)
-      arr[i * 3]     = r * Math.sin(phi) * Math.cos(theta)
-      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
-      arr[i * 3 + 2] = r * Math.cos(phi)
-    }
-    return arr
-  }, [count])
+// Stars per million pixels: about 1900 on a 1440x900 screen, 600 on a phone
+const DENSITY = 1450
 
-  return (
-    <points>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial size={0.45} color="white" sizeAttenuation transparent opacity={0.75} />
-    </points>
-  )
+function drawStars(canvas) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+  const w = window.innerWidth
+  const h = window.innerHeight
+  canvas.width = Math.round(w * dpr)
+  canvas.height = Math.round(h * dpr)
+
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  ctx.clearRect(0, 0, w, h)
+
+  const count = Math.round((w * h / 1e6) * DENSITY)
+  for (let i = 0; i < count; i++) {
+    const x = seededUnit(i + 1) * w
+    const y = seededUnit(i + 5001) * h
+    const t = seededUnit(i + 9001)
+    // Most stars are tiny and faint, a few are bigger and brighter,
+    // and some are slightly cyan so it doesn't look flat grey.
+    const r = t > 0.985 ? 1.25 : t > 0.9 ? 0.9 : 0.55
+    const a = t > 0.985 ? 0.95 : 0.25 + seededUnit(i + 13001) * 0.5
+    ctx.fillStyle = seededUnit(i + 17001) > 0.94
+      ? `rgba(165, 243, 252, ${a})`
+      : `rgba(255, 255, 255, ${a})`
+    ctx.beginPath()
+    ctx.arc(x, y, r, 0, Math.PI * 2)
+    ctx.fill()
+  }
 }
 
 export default function StarBackground() {
-  // Mobile shares the GPU with the hero 3D model, so render far fewer stars there.
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-  const fieldCount = isMobile ? 2500 : 6500
-  const driftCount = isMobile ? 500 : 1500
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    drawStars(canvas)
+
+    // On phones the address bar hiding/showing fires resize too. Only redraw
+    // when the width really changed (or the canvas got too short).
+    let lastW = window.innerWidth
+    let timer
+    const onResize = () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        if (Math.abs(window.innerWidth - lastW) < 2 && canvas.height >= window.innerHeight) return
+        lastW = window.innerWidth
+        drawStars(canvas)
+      }, 150)
+    }
+    window.addEventListener('resize', onResize)
+    return () => { clearTimeout(timer); window.removeEventListener('resize', onResize) }
+  }, [])
 
   const shootingStars = useMemo(() =>
     Array.from({ length: 7 }, (_, i) => ({
@@ -66,17 +90,8 @@ export default function StarBackground() {
   , [])
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
-      <Canvas
-        style={{ pointerEvents: 'none' }}
-        camera={{ position: [0, 0, 1] }}
-        dpr={[1, 1.5]}
-        frameloop="demand"
-        gl={{ antialias: false, alpha: true, powerPreference: 'low-power', stencil: false, depth: false }}
-      >
-        <StaticStarField count={fieldCount} />
-        <Stars radius={300} depth={60} count={driftCount} factor={7} saturation={0} fade />
-      </Canvas>
+    <div className="fixed inset-0 z-0 pointer-events-none bg-black" aria-hidden="true">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
       <div className="absolute inset-0 overflow-hidden">
         {shootingStars.map(s => (

@@ -1,13 +1,10 @@
 /**
- * Asset optimization pipeline.
+ * Image optimisation (npm run optimize:images):
+ * 1. Converts big PNGs/JPEGs (cards, logos) to WebP
+ * 2. Shrinks the project card images to the size they're actually shown at
+ * 3. Makes 320px thumbnails for the Art grid (hobbies/*-thumb.webp)
  *
- * - Converts oversized PNGs and JPEGs (project cards, logos) to WebP
- * - Shrinks the project card artwork to the size it is actually drawn at
- * - Generates 320px-wide thumbnails for the hobbies grid (hobbies/*-thumb.webp)
- *
- * Idempotent: re-run safely after adding new assets.
- *
- * Usage: npm run optimize:images
+ * Safe to run again after adding new images.
  */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
@@ -16,7 +13,7 @@ import sharp from 'sharp'
 const PUBLIC_DIR = path.resolve('public')
 const HOBBIES_DIR = path.join(PUBLIC_DIR, 'hobbies')
 
-// PNGs/JPEGs converted to WebP (kept original PNG for transparency-sensitive logos)
+// PNGs/JPEGs to convert to WebP (the originals stay, for logos with transparency)
 const PNG_TO_WEBP = [
   { src: 'FamilyTrivia.png',          out: 'FamilyTrivia.webp',          quality: 85 },
   { src: 'CashDrop.png',              out: 'CashDrop.webp',              quality: 85 },
@@ -25,9 +22,8 @@ const PNG_TO_WEBP = [
   { src: 'orbex-icon.jpg',            out: 'orbex-icon.webp',            quality: 88 },
 ]
 
-// Card artwork never draws larger than ~180 CSS px, so 400 px covers even a 2x
-// screen with room to spare. The originals were 500-1000 px wide, which cost
-// about half a megabyte on the first visit for images the size of a thumbnail.
+// Card images are never shown bigger than ~180px, so 400px is plenty even on
+// 2x screens. The originals were 500-1000px wide, about half a MB for nothing.
 const CARD_MAX_SIZE = 400
 const CARD_QUALITY = 88
 const CARD_IMAGES = [
@@ -68,7 +64,7 @@ async function convertPng() {
   }
 }
 
-/** Downsizes card artwork in place; skips anything already within the limit. */
+// Resizes the card images in place, skipping the ones already small enough
 async function shrinkCardArtwork() {
   console.log('\n[2/3] Shrinking project card artwork...')
   for (const file of CARD_IMAGES) {

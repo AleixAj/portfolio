@@ -1,10 +1,10 @@
 /**
- * RotatingText — vendored from React Bits (reactbits.dev/text-animations/rotating-text).
- * Cycles through a list of strings, swapping the active one with a per-character
- * staggered roll. Motion comes from `framer-motion`, this project's animation library.
+ * RotatingText, copied from React Bits (reactbits.dev/text-animations/rotating-text).
+ * Cycles through a list of words, rolling each letter in one after another.
+ * I only changed `motion` to the lighter `m` (App.jsx loads the features lazily).
  */
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 
 import './RotatingText.css';
 

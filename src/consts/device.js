@@ -1,13 +1,9 @@
 /**
- * Connection hints, resolved once before the heavy 3D chunks are imported.
+ * LIGHT_MODE is true when the visitor has data saver on or a very slow (2G)
+ * connection. In that case the hero skips the 3D room completely, so neither
+ * Three.js nor the 3 MB model gets downloaded.
  *
- * The hero scene is by far the most expensive part of the page: Three.js plus the
- * 3 MB gaming-room model. On a data-saver or 2G connection that cost is not worth
- * paying, so the app keeps the static gradient hero and never downloads either the
- * library or the model.
- *
- * Read at module load (not inside a hook) so the lazy imports can be skipped
- * before React ever renders.
+ * Worked out once when the file loads, before React renders anything.
  */
 const connection =
   typeof navigator !== 'undefined'

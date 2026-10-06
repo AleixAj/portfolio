@@ -1,12 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-/**
- * Vite config.
- * - manualChunks splits Three.js + R3F + Drei into their own bundle so the
- *   initial JS payload only contains React + UI code. The 3D chunk loads
- *   asynchronously when the Hero scene mounts.
- */
+// Three.js (and R3F/Drei), React and EmailJS each go in their own chunk.
+// That way the first load is just React + the UI, and the 3D part comes later.
 export default defineConfig({
   plugins: [react()],
   build: {

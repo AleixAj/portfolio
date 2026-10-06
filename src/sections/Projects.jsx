@@ -1,14 +1,15 @@
 /**
- * Featured projects grid with links to GitHub and live demos.
- * Each card opens an info dialog with the short version of its repo README.
+ * Projects grid. Each card links to GitHub / the demo, and the ⓘ button
+ * opens a dialog with a short summary of the project.
  */
 import { useCallback, useState, memo } from 'react'
 import { PROJECTS } from '../consts/projects'
 import ProjectCard from '../components/ProjectCard'
 import ProjectModal from '../components/ProjectModal'
+import SectionHeading from '../components/SectionHeading'
 
-// When the last card sits alone in its row it is centred instead of hugging the left edge.
-// 2 columns on tablet, 3 on desktop; the width matches one column minus half the gap.
+// If the last card ends up alone in its row, centre it instead of leaving it
+// stuck to the left. 2 columns on tablet, 3 on desktop.
 function orphanCls(i) {
   const total = PROJECTS.length
   if (i !== total - 1) return ''
@@ -20,16 +21,16 @@ function orphanCls(i) {
 }
 
 function Projects({ lang, t }) {
-  // The open project is tracked by title so the card stays memoized.
+  // I store the title (not the object) so the callbacks stay stable and the cards don't re-render
   const [openTitle, setOpenTitle] = useState(null)
   const openInfo = useCallback((title) => setOpenTitle(title), [])
   const closeInfo = useCallback(() => setOpenTitle(null), [])
   const openProject = PROJECTS.find(p => p.title === openTitle)
 
   return (
-    <section id="projects" className="min-h-full md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-20 2xl:pt-24 pb-5 ls:pb-12 md:pb-10 relative overflow-visible">
+    <section id="projects" className="min-h-full md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-28 2xl:pt-32 pb-5 ls:pb-12 md:pb-10 relative overflow-visible">
       <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
-        <h2 className="text-2xl md:text-5xl 2xl:text-6xl 3xl:text-7xl font-bold mb-3 md:mb-7 2xl:mb-9">{t.title}</h2>
+        <SectionHeading index={3} title={t.title} />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 2xl:gap-5">
           {PROJECTS.map((p, i) => (
             <ProjectCard
@@ -52,6 +53,6 @@ function Projects({ lang, t }) {
   )
 }
 
-// Its props only change with the language, so scrolling to another section
-// (which re-renders the App) leaves it alone
+// memo: its props only change with the language, so scrolling around
+// (which re-renders App) doesn't touch it
 export default memo(Projects)

@@ -66,11 +66,13 @@ full-stack skills and experience taking projects from an idea to production.
   subtle animations, consistent project cards, forms, responsive states,
   adaptation to touch devices and progressive scaling on ultra-wide screens
   (`2xl` from 2200px, `3xl` from 2560px; `1920x1080` keeps the standard layout).
-- **Animation layer with Framer Motion**: staggered scroll-in entrances, hover
-  micro-interactions (cards that expand with a spring), the hero's rotating word
-  animated letter by letter (React Bits' *RotatingText* component) and an art
-  gallery with **swipe/drag** + slide transition. Everything respects
-  `prefers-reduced-motion`.
+- **Scroll animations**: each block fades in, staggered, the first time it
+  appears (CSS + a single `IntersectionObserver`), the journey timeline draws
+  itself from top to bottom, project cards lift with a spotlight that follows
+  the cursor, the navbar underline slides to the active section and a thin line
+  shows reading progress. Framer Motion is kept for the hero's rotating word
+  (React Bits' *RotatingText*), the dialogs and the art gallery with
+  **swipe/drag**. Everything respects `prefers-reduced-motion`.
 - **Typographic identity**: headings in **Space Grotesk** and body text in **DM
   Sans**, both **self-hosted** (no third-party requests), with a neon cyan accent
   consistent with the logo on headings and cards.
@@ -87,17 +89,19 @@ full-stack skills and experience taking projects from an idea to production.
 - **Data-driven architecture**: copy, navigation, experience (with featured
   clients per role), skills, hobbies and projects live in `src/consts/`,
   separating content from UI.
-- **Progressive loading**: `React.lazy` splits the 3D scene and the star
-  background out of the initial bundle.
+- **Progressive loading**: `React.lazy` splits the 3D scene out of the initial
+  bundle, and Framer Motion's features load separately with `LazyMotion` after
+  the first paint.
 - **3D performance**: the GLB model (2.98 MB: 1.22 MB of WebP textures and the
   rest meshopt-compressed geometry) uses adaptive DPR and is only preloaded on
   desktop screens; on data-saver or 2G connections neither the model nor
   Three.js is downloaded, and the hero stays on its gradient. The floating
   animation also runs on mobile (no touch control, visual only).
-- **Animation and typography**: Framer Motion for entrances, hovers and the
-  hero's rotating word (React Bits' *RotatingText*); Space Grotesk + DM Sans
-  typography; project cards with a cyan glow (`.project-card` class). All under
-  `prefers-reduced-motion` control.
+- **Animation and typography**: the hero entrance and the reveals are plain CSS
+  (they start on the first paint); Framer Motion only for the rotating word
+  (React Bits' *RotatingText*), the dialogs and the gallery. Space Grotesk + DM
+  Sans typography; project cards with a cyan edge and glow (`.project-card`
+  class). All under `prefers-reduced-motion` control.
 - **Optimized gallery**: WebP thumbnails for the grid and full-size files only
   when the viewer is opened, with **swipe/drag** (mobile and desktop) and
   preloading of neighboring images for instant switching.
@@ -388,13 +392,14 @@ same order as the UI (from foundational to specialized).
 - **Journey**: work experience and education with no inner scroll, with
   **client chips** (`CaixaBank`, `Nestlé`, `Naturgy`) on the roles where
   projects reached recognizable brands.
-- **Projects**: cards with a **neon-style cyan glow**, mobile-adapted logos,
+- **Projects**: cards with a **cyan edge and glow**, mobile-adapted logos,
   trilingual descriptions, technologies, GitHub and, depending on the project,
-  demo, Google Play or a Windows and Mac download, with a spring expansion hover
-  on desktop. Each card has an info button that opens **project details** with a
-  summary, optional screenshot, highlights, stack and actual status, taken from
-  its repository's README. Ordered by technical depth (full-stack first, then
-  published products); if the last card ends up alone in its row, it's centered.
+  demo, Google Play or a Windows and Mac download. On desktop they lift on hover
+  with a spotlight that follows the cursor. Each card has an info button that
+  opens **project details** with a summary, optional screenshot, highlights,
+  stack and actual status, taken from its repository's README. Ordered by
+  technical depth (full-stack first, then shipped products); if the last card
+  ends up alone in its row, it is centred.
 - **Skills** (*Tecnologías* in Spanish, *Tecnologies* in Catalan): technologies grouped into frontend
   (including HTML, CSS, XML and UI tools), backend, DevOps and tools (including
   `Godot` for mobile game dev and `Aseprite` for pixel art), with brand icons.
@@ -412,7 +417,7 @@ public/              # Static assets (WebP images, GLB, CV, fonts, hobbies/ gall
 scripts/             # Image optimization pipeline (sharp)
 src/
 ├── consts/          # Static data: i18n, nav, skills, projects, experience, hobbies, device
-├── components/      # Navbar, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground, RotatingText
+├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground, RotatingText
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact
 ├── App.jsx          # Navigation, language, URL, keyboard, scroll and reveal animations
 ├── main.jsx
@@ -513,8 +518,9 @@ to enable the form.
   `Escape` + focus trap**,
   `aria-current="page"` for the active section in the navbar and respect for
   **`prefers-reduced-motion`** (reduced or disabled animations).
-- **Active section indicator** in the navbar (underline on desktop, side marker
-  on mobile) synced with scrolling.
+- **Active section indicator** synced with scrolling: a sliding underline in the
+  desktop navbar, a side marker in the mobile menu, a section index on the right
+  edge (from 1280px) and a reading-progress line under the navbar.
 - Form with distinct states: sending, success, service error and missing
   EmailJS configuration.
 - Phone number kept out of the public footer to prevent scraping; contact goes
@@ -522,7 +528,8 @@ to enable the form.
 - **Stable scroll and viewport on mobile**: locked document, fixed scroll
   container and sections with `min-h-full` on mobile to avoid the typical jump
   when the address bar hides; the star background stays fixed to the viewport
-  and shows through the semi-transparent sections.
+  and shows through the semi-transparent sections. Dark scrollbar in the site's
+  cyan.
 
 ### Verification
 
@@ -594,9 +601,10 @@ Specific points in the code worth reviewing:
 - `src/consts/i18n.js`, `nav.js`, `projects.js`, `experience.js`, `skills.jsx`:
   trilingual content (`es`, `en`, `ca`) in a single source of truth.
 - `src/sections/Hero.jsx`: open-to-work badge, reusable
-  `ProfileChip`/`OpenToWorkBadge`, dual CTA (projects + contact), CV view/download,
-  staggered Framer Motion entrance and letter-by-letter rotating word
-  (`src/components/RotatingText.jsx`, adapted React Bits component).
+  `ProfileChip`/`OpenToWorkBadge`/`ProfileLinks`, dual CTA (projects + contact),
+  CV view/download, staggered CSS entrance, scroll cue and letter-by-letter
+  rotating word (`src/components/RotatingText.jsx`, adapted React Bits
+  component).
 - `src/components/ProjectModal.jsx`: project dialog rendered in a portal on
   `<body>` (the scroll container creates its own stacking context), with dialog
   semantics, focus trap, focus return and background lock without layout shift
@@ -604,12 +612,15 @@ Specific points in the code worth reviewing:
 - `src/consts/device.js`: data-saver/slow-connection detection resolved at
   module level, before React decides whether to import the heavy chunks.
 - `src/components/ProjectCard.jsx`: card with cyan glow (`.project-card` class),
-  `whileInView` entrance and spring expansion hover, active only on devices with
-  a real pointer (`matchMedia('(hover: hover)')`).
-- `src/components/Scene3D.jsx`: GLB loading, automatic model centering,
-  OrbitControls (desktop only), floating animation also on mobile, and the
-  performance/sharpness balance with adaptive DPR.
-- `src/components/StarBackground.jsx`: static WebGL background with `frameloop="demand"`.
+  scroll-in entrance and a hover lift with a spotlight that follows the cursor
+  (CSS variables, no re-render), the latter only on devices with a real pointer
+  (`matchMedia('(hover: hover)')`).
+- `src/components/Scene3D.jsx`: GLB loading, automatic model centering, shifted
+  to the right on desktop with `setViewOffset` (so the hero text and the room
+  don't overlap), OrbitControls (desktop only), floating animation also on
+  mobile, and the performance/sharpness balance with adaptive DPR.
+- `src/components/StarBackground.jsx`: star background on a 2D canvas drawn once
+  (and again on window resize); the shooting stars are CSS.
 - `src/components/TimelineItem.jsx`: client chips with brand colors per role to
   highlight relevant references (CaixaBank, Nestlé, Naturgy).
 - `src/sections/Hobbies.jsx`: gallery with thumbnails and a viewer with
@@ -632,15 +643,17 @@ Other optimizations applied:
 
 - **Split chunks** (Vite `manualChunks`): React, Three.js and EmailJS ship in
   separate bundles for better caching across deployments.
-- **Lazy loading** of the 3D scene and the star background (`React.lazy`).
+- **Lazy loading** of the 3D scene (`React.lazy`) and of Framer Motion's
+  features (`LazyMotion`): initial JavaScript drops from about 173 KB to 149 KB
+  gzipped.
 - **3D model** compressed with meshopt + WebP textures (2.98 MB), with preload
   restricted to desktop screens (`media="(min-width: 1024px)"`) so it doesn't
   compete with critical CSS and JS on mobile.
 - **Connection-aware loading**: with data saver enabled or on 2G, neither
   Three.js nor the model is downloaded (`src/consts/device.js`); the hero shows
   its gradient.
-- **Star background** with `frameloop="demand"` (static render; CSS animation),
-  with fewer stars on mobile to free up the GPU.
+- **Star background** on a static 2D canvas instead of a second WebGL scene: it
+  shows up before Three.js loads and leaves the GPU free for the hero.
 - **Self-hosted fonts** with preload of the two Latin files and Unicode-range
   subsetting (84 KB in total; the rest only if the text needs it).
 - **Card art cropped** to 400 px: from 509 KB to 145 KB, with the Orbex icon
@@ -657,10 +670,11 @@ Other optimizations applied:
   model are set up when the browser is idle (`requestIdleCallback`), so the hero
   text paints first.
 - **GPU-only animations**: section, card and drawing entrances animate `opacity`
-  and `transform` instead of `filter: blur`, and the button glow animates the
-  opacity of a fixed shadow. Nothing is repainted on every frame.
-- **Paused loops**: the rotating word, the title gradient and the hero button glow
-  stop while the hero is off screen.
+  and `transform`, and the button glow only changes the opacity of a fixed
+  shadow on hover. The hero title uses a static gradient and the navbar has no
+  `backdrop-filter`, since both forced a repaint on every frame of the 3D scene.
+- **Paused loops**: the rotating word and the hero's scroll cue stop while the
+  hero is off screen.
 - **Fewer renders**: sections are wrapped in `memo`, so changing the active section
   while scrolling no longer re-renders the whole page.
 - **Measured**: with the CPU slowed down 4x, slow frames while scrolling through

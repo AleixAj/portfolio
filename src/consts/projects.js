@@ -1,18 +1,14 @@
 /**
- * Featured portfolio projects.
- * Ordered by technical depth (full-stack first, then shipped products) so recruiters
- * see the strongest work first.
+ * My projects, strongest first (full-stack ones, then the shipped products).
  *
- * Each entry defines image, description, tags and repo, plus whichever of these apply:
- * a live `demo`, a `store` link for mobile apps, or a `download` link for desktop apps.
- * `preview` is an optional screenshot shown large inside the info dialog; the card keeps
- * the logo, because a screenshot at card size is unreadable.
+ * Each one has an image, description, tags and the repo, plus whatever applies:
+ * a live `demo`, a `store` link (mobile) or a `download` link (desktop).
+ * `preview` is an optional screenshot shown big in the details dialog. The card
+ * keeps the logo because a screenshot that small is unreadable.
  *
- * `details` feeds the info dialog opened from the card. It is the short version of
- * each repo's README: what the project is, what it actually does, the stack, and an
- * honest note about anything still unfinished. `status.tone` is 'ok' for a finished,
- * shipped project and 'pending' for a caveat. Everything here comes from the source
- * repos, so it has to be updated when those change.
+ * `details` is what the dialog shows: a short version of the repo's README.
+ * `status.tone` is 'ok' for finished projects and 'pending' if there's a caveat.
+ * It's copied from the repos, so remember to update it when they change.
  */
 export const PROJECTS = [
   {

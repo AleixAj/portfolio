@@ -66,11 +66,14 @@ projectes des d'una idea fins a producció.
   responsive, adaptació a dispositius tàctils i escalat progressiu en pantalles
   ultraamples (`2xl` des de 2200px, `3xl` des de 2560px; `1920x1080` manté el
   layout estàndard).
-- **Capa d'animació amb Framer Motion**: entrades esglaonades en fer scroll,
-  microinteraccions de hover (targetes que s'expandeixen amb efecte molla),
-  paraula rotativa del hero animada lletra a lletra (component *RotatingText* de
-  React Bits) i galeria d'art amb **swipe/arrossegament** + transició de slide.
-  Tot respecta `prefers-reduced-motion`.
+- **Animacions en fer scroll**: cada bloc entra amb una fosa esglaonada la
+  primera vegada que apareix (CSS + un únic `IntersectionObserver`), la línia de
+  la trajectòria es dibuixa de dalt a baix, les targetes de projecte s'eleven
+  amb un focus de llum que segueix el cursor, el subratllat de la navbar llisca
+  fins a la secció activa i una línia fina marca el progrés de lectura. Framer
+  Motion es reserva per a la paraula rotativa del hero (*RotatingText* de React
+  Bits), els diàlegs i la galeria d'art amb **swipe/arrossegament**. Tot
+  respecta `prefers-reduced-motion`.
 - **Identitat tipogràfica**: titulars en **Space Grotesk** i cos en **DM
   Sans**, totes dues **autoallotjades** (sense peticions a tercers), amb un
   accent cian neó coherent amb el logo en titulars i targetes.
@@ -87,18 +90,20 @@ projectes des d'una idea fins a producció.
 - **Arquitectura data-driven**: textos, navegació, experiència (amb clients
   destacats per lloc de treball), skills, hobbies i projectes viuen a
   `src/consts/`, separant el contingut de la UI.
-- **Càrrega progressiva**: `React.lazy` separa l'escena 3D i el fons d'estrelles
-  del bundle inicial.
+- **Càrrega progressiva**: `React.lazy` separa l'escena 3D del bundle inicial, i
+  les funcions de Framer Motion es carreguen a part amb `LazyMotion` després del
+  primer pintat.
 - **Rendiment 3D**: el model GLB (2,98 MB: 1,22 MB de textures WebP i la resta
   geometria comprimida amb meshopt) fa servir DPR adaptatiu i només es precarrega
   en pantalles d'escriptori; en connexions amb estalvi de dades o 2G no es
   descarreguen ni el model ni Three.js, i el hero es queda amb el seu degradat.
   L'animació flotant també funciona al mòbil (sense control tàctil, només
   visual).
-- **Animació i tipografia**: Framer Motion per a entrades, hovers i la paraula
-  rotativa del hero (*RotatingText* de React Bits); tipografia Space Grotesk +
-  DM Sans; targetes de projecte amb glow cian (classe `.project-card`). Tot sota
-  el control de `prefers-reduced-motion`.
+- **Animació i tipografia**: l'entrada del hero i els reveals són CSS pur
+  (comencen al primer pintat); Framer Motion només per a la paraula rotativa
+  (*RotatingText* de React Bits), els diàlegs i la galeria. Tipografia Space
+  Grotesk + DM Sans; targetes de projecte amb vora i glow cian (classe
+  `.project-card`). Tot sota el control de `prefers-reduced-motion`.
 - **Galeria optimitzada**: miniatures WebP per a la graella i fitxers complets
   només quan s'obre el visor, amb **swipe/arrossegament** (mòbil i escriptori) i
   precàrrega de les imatges veïnes per a un canvi instantani.
@@ -388,14 +393,15 @@ que a la UI (de base a especialitzat).
 - **Trajectòria**: experiència laboral i formació acadèmica sense scroll intern,
   amb **xips de client** (`CaixaBank`, `Nestlé`, `Naturgy`) als llocs de treball
   on els projectes van arribar a marques reconeixibles.
-- **Projectes**: targetes amb **glow cian estil neó**, logos adaptats al mòbil,
+- **Projectes**: targetes amb **vora i glow cian**, logos adaptats al mòbil,
   descripcions trilingües, tecnologies, GitHub i, segons el projecte, demo,
-  Google Play o descàrrega per a Windows i Mac, amb hover d'expansió (molla) a
-  l'escriptori. Cada targeta té un botó d'informació que obre una **fitxa del
-  projecte** amb resum, captura opcional, punts destacats, stack i estat real, extreta del
-  README del seu repositori. Ordre per profunditat tècnica (full-stack primer,
-  després els productes publicats); si l'última targeta queda sola a la seva
-  fila, es centra.
+  Google Play o descàrrega per a Windows i Mac. A l'escriptori s'eleven en
+  passar-hi el ratolí amb un focus de llum que segueix el cursor. Cada targeta
+  té un botó d'informació que obre una **fitxa del projecte** amb resum, captura
+  opcional, punts destacats, stack i estat real, extreta del README del seu
+  repositori. Ordre per profunditat tècnica (full-stack primer, després els
+  productes publicats); si l'última targeta queda sola a la seva fila, es
+  centra.
 - **Tecnologies** (`Skills` en anglès): tecnologies agrupades en frontend (inclou
   HTML, CSS, XML i eines d'UI), backend, DevOps i eines (inclou `Godot` per a
   game dev mòbil i `Aseprite` per a pixel art), amb icones de marca. Cada icona
@@ -413,7 +419,7 @@ public/              # Assets estàtics (imatges WebP, GLB, CV, fonts, galeria h
 scripts/             # Pipeline d'optimització d'imatges (sharp)
 src/
 ├── consts/          # Dades estàtiques: i18n, nav, skills, projects, experience, hobbies, device
-├── components/      # Navbar, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground, RotatingText
+├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground, RotatingText
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact
 ├── App.jsx          # Navegació, idioma, URL, teclat, scroll i reveal animations
 ├── main.jsx
@@ -514,16 +520,19 @@ activar el formulari.
   diàlegs amb `Escape` + focus trap**,
   `aria-current="page"` per a la secció activa a la navbar i respecte de
   **`prefers-reduced-motion`** (animacions reduïdes o desactivades).
-- **Indicador de secció activa** a la navbar (subratllat a l'escriptori,
-  marcador lateral al mòbil) sincronitzat amb el scroll.
+- **Indicador de secció activa** sincronitzat amb el scroll: subratllat que
+  llisca a la navbar d'escriptori, marcador lateral al menú mòbil, índex de
+  seccions a la vora dreta (des de 1280px) i línia de progrés de lectura sota la
+  navbar.
 - Formulari amb estats diferenciats: enviament, èxit, error del servei i manca
   de configuració d'EmailJS.
 - Telèfon fora del footer públic per evitar el scraping; el contacte passa per
   correu electrònic, formulari, LinkedIn o CV.
 - **Scroll i viewport estables al mòbil**: document bloquejat, contenidor de
   desplaçament fix i seccions amb `min-h-full` al mòbil per evitar el salt típic
-  quan s'amaga la barra d'adreces; el fons d'estrelles queda fix al viewport i es
-  veu a través de les seccions semitransparents.
+  quan s'amaga la barra d'adreces; el fons d'estrelles queda fix al viewport i
+  es veu a través de les seccions semitransparents. Barra de desplaçament fosca
+  amb el cian de la web.
 
 ### Verificació
 
@@ -593,23 +602,28 @@ Punts concrets que val la pena revisar al codi:
   hamburger i `LanguageSwitcher` amb banderes SVG (Espanya, UK i senyera).
 - `src/consts/i18n.js`, `nav.js`, `projects.js`, `experience.js`, `skills.jsx`:
   contingut trilingüe (`es`, `en`, `ca`) en una sola font de veritat.
-- `src/sections/Hero.jsx`: badge de cerca activa, `ProfileChip`/`OpenToWorkBadge`
-  reutilitzables, doble CTA (projectes + contacte), CV per veure o descarregar,
-  entrada esglaonada amb Framer Motion i paraula rotativa lletra a lletra (`src/components/RotatingText.jsx`,
-  component de React Bits adaptat).
+- `src/sections/Hero.jsx`: badge de cerca activa,
+  `ProfileChip`/`OpenToWorkBadge`/`ProfileLinks` reutilitzables, doble CTA
+  (projectes + contacte), CV per veure o descarregar, entrada esglaonada en CSS,
+  indicador de scroll i paraula rotativa lletra a lletra
+  (`src/components/RotatingText.jsx`, component de React Bits adaptat).
 - `src/components/ProjectModal.jsx`: diàleg de projecte renderitzat en un portal
   sobre `<body>` (el contenidor de scroll crea el seu propi context d'apilament),
   amb semàntica de diàleg, focus trap, retorn del focus i bloqueig del fons sense
   desplaçament lateral gràcies a `scrollbar-gutter: stable`.
 - `src/consts/device.js`: detecció d'estalvi de dades/connexió lenta resolta a
   nivell de mòdul, abans que React decideixi importar els chunks pesants.
-- `src/components/ProjectCard.jsx`: targeta amb glow cian (classe `.project-card`),
-  entrada `whileInView` i hover d'expansió amb molla, actiu només en
+- `src/components/ProjectCard.jsx`: targeta amb glow cian (classe
+  `.project-card`), entrada en fer scroll i elevació amb un focus de llum que
+  segueix el cursor (variables CSS, sense re-render), aquest últim només en
   dispositius amb punter real (`matchMedia('(hover: hover)')`).
 - `src/components/Scene3D.jsx`: càrrega del GLB, centrat automàtic del model,
-  OrbitControls (només escriptori), animació flotant també al mòbil i equilibri
-  rendiment/nitidesa amb DPR adaptatiu.
-- `src/components/StarBackground.jsx`: fons WebGL estàtic amb `frameloop="demand"`.
+  desplaçament a la dreta a l'escriptori amb `setViewOffset` (el text del hero i
+  l'habitació no es solapen), OrbitControls (només escriptori), animació flotant
+  també al mòbil i equilibri rendiment/nitidesa amb DPR adaptatiu.
+- `src/components/StarBackground.jsx`: fons d'estrelles en un canvas 2D que es
+  dibuixa una sola vegada (i en canviar la mida de la finestra); les estrelles
+  fugaces són CSS.
 - `src/components/TimelineItem.jsx`: xips de client amb color de marca per
   experiència per ressaltar referències rellevants (CaixaBank, Nestlé, Naturgy).
 - `src/sections/Hobbies.jsx`: galeria amb miniatures i visor amb **swipe/drag**
@@ -631,14 +645,17 @@ Altres optimitzacions aplicades:
 
 - **Chunks separats** (Vite `manualChunks`): React, Three.js i EmailJS viatgen en
   bundles independents per a una millor memòria cau entre desplegaments.
-- **Lazy loading** de l'escena 3D i del fons d'estrelles (`React.lazy`).
+- **Lazy loading** de l'escena 3D (`React.lazy`) i de les funcions de Framer
+  Motion (`LazyMotion`): el JavaScript inicial baixa d'uns 173 KB a 149 KB
+  comprimits.
 - **Model 3D** comprimit amb meshopt + textures WebP (2,98 MB), amb preload
   restringit a pantalles d'escriptori (`media="(min-width: 1024px)"`) perquè en
   un mòbil no competeixi amb el CSS i el JS crítics.
 - **Fre per connexió**: amb l'estalvi de dades activat o en 2G no es descarreguen
   ni Three.js ni el model (`src/consts/device.js`); el hero mostra el seu degradat.
-- **Fons d'estrelles** en `frameloop="demand"` (render estàtic; animació en
-  CSS), amb el nombre d'estrelles reduït al mòbil per alliberar la GPU.
+- **Fons d'estrelles** en un canvas 2D estàtic en lloc d'una segona escena
+  WebGL: apareix abans que es carregui Three.js i deixa la GPU lliure per al
+  hero.
 - **Fonts autoallotjades** amb preload dels dos fitxers llatins i tall per rang
   Unicode (84 KB en total; la resta només si el text ho necessita).
 - **Art de les targetes retallat** a 400 px: de 509 KB a 145 KB, amb la icona
@@ -655,10 +672,12 @@ Altres optimitzacions aplicades:
   WebGL i el model es munten quan el navegador queda lliure
   (`requestIdleCallback`), així el text del hero es pinta primer.
 - **Animacions només a la GPU**: les entrades de seccions, targetes i dibuixos
-  animen `opacity` i `transform` en lloc de `filter: blur`, i la brillantor dels
-  botons anima l'opacitat d'una ombra fixa. No es repinta res a cada fotograma.
-- **Bucles en pausa**: la paraula que gira, el degradat del títol i la brillantor
-  dels botons del hero s'aturen quan el hero no es veu.
+  animen `opacity` i `transform`, i la brillantor dels botons només canvia
+  l'opacitat d'una ombra fixa en passar-hi el ratolí. El títol del hero fa
+  servir un degradat estàtic i la navbar va sense `backdrop-filter`, perquè tots
+  dos obligaven a repintar a cada fotograma de l'escena 3D.
+- **Bucles en pausa**: la paraula que gira i l'indicador de scroll del hero
+  s'aturen quan el hero no es veu.
 - **Menys renders**: les seccions van amb `memo`, així que el canvi de secció
   activa en fer scroll ja no torna a renderitzar tota la pàgina.
 - **Mesurat**: amb la CPU alentida 4 vegades, els fotogrames lents en recórrer la

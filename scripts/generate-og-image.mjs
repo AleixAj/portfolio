@@ -1,16 +1,16 @@
 /**
- * Generates the social preview image used by Open Graph and Twitter cards:
- * name and role on the left, the featured projects' logos on the right, in the
- * same order as the projects section.
+ * Builds the preview image that shows up when the link is shared
+ * (LinkedIn, WhatsApp...): name and role on the left, project logos on the
+ * right, in the same order as the Projects section.
  *
- * Output: public/og-image.png (1200x630)
+ * Saves it to public/og-image.png (1200x630).
  */
 import sharp from 'sharp'
 
 const width = 1200
 const height = 630
 
-// featured projects, as in src/consts/projects.js
+// same projects as src/consts/projects.js
 const LOGOS = [
   'obsidian-pixelart.webp',
   'orbex-icon.webp',
@@ -59,7 +59,7 @@ const svg = `
   <text x="92" y="578" fill="#e2e8f0" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="600">aleixaj.com</text>
 </svg>`
 
-// each logo fitted inside its tile, with rounded corners so square artwork matches the tile
+// fit each logo in its tile, with rounded corners so square logos match
 const mask = Buffer.from(`<svg width="${LOGO}" height="${LOGO}"><rect width="${LOGO}" height="${LOGO}" rx="16" fill="#fff"/></svg>`)
 const logos = await Promise.all(LOGOS.map(async (file, i) => {
   const input = await sharp(`public/${file}`)

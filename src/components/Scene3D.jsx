@@ -1,15 +1,12 @@
 /**
- * Hero 3D scene: gaming bedroom (GLB) with React Three Fiber.
+ * The 3D gaming room in the hero (React Three Fiber).
  *
- * Quality / performance balance:
- * - Model: meshopt-compressed + WebP textures (~3 MB, 85% smaller than raw GLB).
- * - DPR: device pixel ratio capped at 2 (mobile) / 1.5 (desktop). Adaptive via
- *   PerformanceMonitor — drops automatically if FPS falls below ~45.
- * - Antialiasing enabled everywhere; the DPR caps keep the pixel budget sane.
- * - Floating animation only runs when the user is not actively orbiting,
- *   so dragging feels immediate and never fights the idle motion.
- * - Mobile has no OrbitControls so page scroll wins, and frameloop is
- *   "demand" (renders only on resize / state change).
+ * A few things to keep it smooth:
+ * - The model is compressed with meshopt + WebP textures (about 3 MB).
+ * - Resolution is capped (1.5x on desktop, 2x on mobile) and drops on its own
+ *   if the frame rate falls, thanks to PerformanceMonitor.
+ * - It only renders every frame while the hero is on screen.
+ * - On mobile you can't drag it, so swiping always scrolls the page.
  */
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, PerformanceMonitor, useGLTF } from '@react-three/drei'
@@ -17,12 +14,12 @@ import { memo, useRef, Suspense, useEffect, useMemo, useState, useCallback } fro
 import * as THREE from 'three'
 
 const MODEL_URL = '/gaming_bedroom.glb'
-// Drei's useGLTF: (path, useDraco, useMeshOpt, extendLoader)
-// We compress with meshopt only, so we skip the Draco decoder fetch.
+// useGLTF(path, useDraco, useMeshOpt). The model only uses meshopt,
+// so there's no need to download the Draco decoder.
 const USE_DRACO = false
 const USE_MESHOPT = true
 
-/** Loads the GLB and auto-centers/scales it from its bounding box. */
+// Loads the model, then centres and scales it based on its bounding box
 function GamingRoom({ floatingRef }) {
   const { scene } = useGLTF(MODEL_URL, USE_DRACO, USE_MESHOPT)
   const groupRef = useRef()
@@ -41,12 +38,9 @@ function GamingRoom({ floatingRef }) {
     groupRef.current.rotation.y = -0.6
   }, [scene])
 
-  // Subtle vertical idle float, on both desktop and mobile. It stays smooth because
-  // the hero canvas renders continuously (frameloop="always") while the hero is on
-  // screen. On mobile there are no OrbitControls, so the float never yields to a drag.
+  // Slow up-and-down float. It pauses while the user is dragging the room.
   useFrame((state) => {
-    if (!groupRef.current) return
-    if (floatingRef && floatingRef.current === false) return
+    if (!groupRef.current || !floatingRef.current) return
     groupRef.current.position.y = baseY.current + Math.sin(state.clock.elapsedTime * 0.5) * 0.15
   })
 
@@ -57,7 +51,7 @@ function GamingRoom({ floatingRef }) {
   )
 }
 
-/** Adjusts the camera based on the breakpoint (desktop vs mobile). */
+// Different camera position for desktop and mobile
 function CameraController({ isDesktop, cameraTarget }) {
   const { camera } = useThree()
   useEffect(() => {
@@ -66,6 +60,25 @@ function CameraController({ isDesktop, cameraTarget }) {
     camera.lookAt(...cameraTarget)
     camera.updateProjectionMatrix()
   }, [camera, cameraTarget, isDesktop])
+  return null
+}
+
+// Desktop only: shifts the whole image to the right so the room sits next to
+// the hero text instead of behind it. A view offset moves the picture without
+// touching the camera, so the angle and the drag pivot stay the same.
+function ViewShift() {
+  const { camera, size } = useThree()
+  useEffect(() => {
+    // Puts the room's centre at roughly 72% of the width. The camera framing
+    // already pushes it right by about 21% of the height, so I subtract that.
+    const shift = Math.max(0, Math.round(size.width * 0.22 - size.height * 0.21))
+    camera.setViewOffset(size.width, size.height, -shift, 0, size.width, size.height)
+    camera.updateProjectionMatrix()
+    return () => {
+      camera.clearViewOffset()
+      camera.updateProjectionMatrix()
+    }
+  }, [camera, size.width, size.height])
   return null
 }
 
@@ -82,6 +95,7 @@ function Scene({ orbitTarget, isDesktop, floatingRef }) {
   return (
     <>
       <CameraController isDesktop={isDesktop} cameraTarget={orbitTarget} />
+      {isDesktop && <ViewShift />}
       <ambientLight intensity={0.05} />
       <pointLight position={[-0.2, -0.8, 0.2]} intensity={1} color="#4488ff" distance={4} decay={0.5} />
       <pointLight position={[0, -0.8, 0.5]}    intensity={1} color="#ffaa44" distance={4} decay={0.5} />
@@ -91,7 +105,7 @@ function Scene({ orbitTarget, isDesktop, floatingRef }) {
         <GamingRoom floatingRef={floatingRef} />
       </Suspense>
 
-      {/* OrbitControls only on desktop — on mobile, page scroll wins. */}
+      {/* Drag to rotate, desktop only (on mobile the swipe has to scroll the page) */}
       {isDesktop && (
         <OrbitControls
           ref={controlsRef}
@@ -101,25 +115,23 @@ function Scene({ orbitTarget, isDesktop, floatingRef }) {
           enableDamping
           dampingFactor={0.15}
           rotateSpeed={0.9}
-          onStart={() => { if (floatingRef) floatingRef.current = false }}
-          onEnd={() => { if (floatingRef) floatingRef.current = true }}
+          onStart={() => { floatingRef.current = false }}
+          onEnd={() => { floatingRef.current = true }}
         />
       )}
     </>
   )
 }
 
-/** Caps to a sensible DPR for the device class. */
+// Phones have few pixels even at 3x, so 2x is affordable there.
+// Desktop screens can be 4K, so they're capped at 1.5x.
 function getInitialDpr(isDesktop) {
   const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
-  // Mobile screens are small in pixel count even at DPR 3, so we can afford 2x.
-  // Desktop monitors can be 4K, so cap at 1.5x.
   return Math.min(dpr, isDesktop ? 1.5 : 2)
 }
 
-// Memoized so parent re-renders that do not change `heroActive` (e.g. the rotating
-// hero word in App.jsx every 2.5s) don't propagate into the Canvas tree and
-// trigger spurious R3F invalidations that would step the idle animation.
+// memo so the hero re-rendering (the rotating word changes every 2.5 s)
+// doesn't reach the canvas unless heroActive actually changed.
 const Scene3D = memo(function Scene3D({ heroActive = true }) {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024)
   const [dpr, setDpr] = useState(() => getInitialDpr(window.innerWidth >= 1024))
@@ -140,12 +152,8 @@ const Scene3D = memo(function Scene3D({ heroActive = true }) {
   }, [])
 
   const orbitTarget = useMemo(() => (isDesktop ? [-5, 0, 0] : [-2, -1.5, 1]), [isDesktop])
-  // Render continuously (for the idle float) on desktop AND mobile while the hero
-  // is on screen. When the user scrolls away, heroActive=false drops back to
-  // "demand" so we don't waste battery rendering an off-screen canvas.
-  const shouldRenderContinuously = heroActive
 
-  // Stable references so PerformanceMonitor doesn't see new props on every render.
+  // If the frame rate drops, lower the resolution a bit; when it recovers, go back.
   const onDecline = useCallback(() => {
     setDpr(d => Math.max(1, +(d - 0.25).toFixed(2)))
   }, [])
@@ -159,10 +167,10 @@ const Scene3D = memo(function Scene3D({ heroActive = true }) {
         camera={{ position: [1, 4, 15], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false }}
         dpr={dpr}
-        frameloop={shouldRenderContinuously ? 'always' : 'demand'}
+        // Every frame while the hero is visible, otherwise only when something changes
+        frameloop={heroActive ? 'always' : 'demand'}
         style={!isDesktop ? { pointerEvents: 'none', touchAction: 'pan-y' } : undefined}
       >
-        {/* Adaptive DPR: drops if FPS falls under ~45, recovers when stable. */}
         <PerformanceMonitor
           onDecline={onDecline}
           onIncline={onIncline}
