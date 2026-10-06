@@ -186,7 +186,7 @@ habla, escucha y actúa en el PC, con modo fondo de escritorio animado.
   usuario, secretos ocultos, lecturas web solo a internet público, Electron con
   sandbox, CSP, IPC verificado y fuses), consumo medido de 0,1–0,5 % de un núcleo,
   deshacer y registro de actividad, tests, CI y actualizaciones automáticas.
-- **Estado**: versión 1.0.3 publicada para Windows. La interfaz está en español.
+- **Estado**: versión 1.0.4 publicada para Windows. La interfaz está en español.
   Código abierto con licencia MIT.
 
 ### Waymark
