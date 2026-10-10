@@ -13,20 +13,24 @@ function Skills({ lang, t }) {
             <div key={title[lang] ?? title.es} style={{ '--d': categoryIndex * 2 }} className="reveal-item bg-white/[0.04] hover:border-white/20 transition-colors duration-300 border border-white/10 rounded-xl md:rounded-2xl 2xl:rounded-3xl p-2 md:p-4 2xl:p-5">
               <h3 className="text-xs md:text-lg 2xl:text-xl 3xl:text-2xl font-bold text-cyan-400 mb-1 md:mb-3 2xl:mb-4">{title[lang] ?? title.es}</h3>
               <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-3 gap-1 md:gap-2 2xl:gap-3">
-                {skills.map(({ label, Icon, color, url }, skillIndex) => (
+                {skills.map(({ label, Icon, color, url }, skillIndex) => {
+                  // A few names change with the language (API REST / REST API)
+                  const name = typeof label === 'string' ? label : label[lang] ?? label.es
+                  return (
                   <a
-                    key={label}
+                    key={url}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title={label}
+                    title={name}
                     style={{ '--d': categoryIndex * 2 + Math.min(skillIndex, 12) * 0.5 }}
                     className="reveal-item group/skill glare-hover bg-black/20 border border-white/10 hover:border-cyan-400/50 hover:bg-cyan-400/[0.04] hover:shadow-[0_0_20px_rgba(34,211,238,0.22)] p-1 md:p-2.5 2xl:p-3.5 rounded-lg md:rounded-xl 2xl:rounded-2xl text-center transition-[border-color,background-color,box-shadow] duration-300 flex flex-col items-center gap-0.5 md:gap-1.5 2xl:gap-2"
                   >
                     <Icon className="w-4 h-4 md:w-8 md:h-8 2xl:w-11 2xl:h-11 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/skill:-translate-y-0.5 group-hover/skill:scale-110" style={{ color }} />
-                    <p className="font-semibold text-[0.5rem] md:text-xs 2xl:text-sm leading-tight">{label}</p>
+                    <p className="font-semibold text-[0.5rem] md:text-xs 2xl:text-sm leading-tight">{name}</p>
                   </a>
-                ))}
+                  )
+                })}
               </div>
             </div>
           ))}

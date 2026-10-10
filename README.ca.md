@@ -194,7 +194,7 @@ parla, escolta i actua al PC, amb mode fons d'escriptori animat.
   de l'usuari, secrets amagats, lectures web només a internet públic, Electron
   amb sandbox, CSP, IPC verificat i fuses), consum mesurat de 0,1–0,5 % d'un
   nucli, desfer i registre d'activitat, tests, CI i actualitzacions automàtiques.
-- **Estat**: publicada per a Windows, amb actualitzacions automàtiques. La interfície és en castellà.
+- **Estat**: publicat per a Windows, amb actualitzacions automàtiques. La interfície és en castellà.
   Codi obert amb llicència MIT.
 
 ### Waymark
@@ -202,7 +202,7 @@ parla, escolta i actua al PC, amb mode fons d'escriptori animat.
 **[GitHub](https://github.com/AleixAj/waymark) · [Demo](https://waymark.aleixaj.com)**
 
 Àlbum de viatges sobre un globus 3D: llegeix el GPS de cada foto, la col·loca al
-planeta i detecta els viatges sol. Plantejat com a producte real i sense backend.
+planeta i detecta els viatges automàticament. Plantejat com a producte real i sense backend.
 
 - **Rol**: idea, disseny, desenvolupament i desplegament.
 - **Stack**: SvelteKit 2, Svelte 5, TypeScript, MapLibre GL, Web Workers,
@@ -223,7 +223,7 @@ planeta i detecta els viatges sol. Plantejat com a producte real i sense backend
 **[GitHub](https://github.com/AleixAj/nadir) · [Demo](https://nadir.aleixaj.com)**
 
 Monitor de preus plantejat com un SaaS real: compara el mateix producte a
-diverses botigues, en desa l'històric i avisa quan baixa del preu objectiu.
+diverses botigues, en desa l'històric i avisa quan baixa per sota del preu objectiu.
 
 - **Rol**: disseny, frontend, backend i desplegament.
 - **Stack**: Next.js 16, React 19, TypeScript, Tailwind CSS 4, Neon Postgres,
@@ -353,14 +353,14 @@ que a la UI (de base a especialitzat).
 |-------|-----------------|
 | **JSON** | Format estàndard per a APIs, configuració i serialització d'estat. |
 | **PHP** | Llenguatge backend per a webs i APIs (projectes personals i professionals). |
-| **Java** | Llenguatge OO utilitzat en formació i feines amb backends empresarials. |
+| **Java** | Llenguatge orientat a objectes que vaig aprendre al bootcamp de Java (275 h). |
 | **Laravel** | Framework PHP full-stack: autenticació, ORM Eloquent, queues i APIs (utilitzat a `Obsidian`). |
 | **.NET** | Stack de Microsoft per a serveis i APIs en entorns corporatius. |
 | **Node.js** | Entorn de JavaScript per a servidors, scripts i apps d'escriptori. |
 | **MySQL** | Base de dades relacional per modelar el domini i consultes amb índexs/joins. |
 | **PostgreSQL** | Base de dades relacional a `Nadir` (Neon + Drizzle ORM) i `Orbex` (Supabase). |
 | **Supabase** | Backend amb Postgres, inici de sessió i funcions al servidor (usat a `Orbex`). |
-| **API Rest** | Disseny d'endpoints HTTP, recursos, versions i contractes amb frontends. |
+| **API REST** | Disseny d'endpoints HTTP, recursos, versions i contractes amb frontends. |
 | **Stripe** | Passarel·la de pagaments: checkout, webhooks i subscripcions. |
 
 ### DevOps i eines
@@ -376,7 +376,7 @@ que a la UI (de base a especialitzat).
 | **Cloudflare** | Workers + Assets per al desplegament del portfolio i CDN global. |
 | **Railway** | Hosting d'aplicacions i bases de dades per a projectes ràpids. |
 | **Jira** | Gestió de tiquets, sprints i planificació àgil. |
-| **Salesforce** | CRM empresarial (Apex, Lightning, integracions). |
+| **Salesforce** | CRM empresarial: gestió de releases i desplegaments entre entorns a VIEWNEXT. |
 | **GitHub Copilot** | Assistent d'IA integrat a l'IDE per autocompletar i fer refactors. |
 | **Cursor** | IDE amb agents d'IA per a desenvolupament assistit i revisió de codi. |
 | **Claude** | Model d'IA com a suport en arquitectura, codi i documentació tècnica. |
@@ -542,8 +542,8 @@ activar el formulari.
   xarxa mòbil: **674 KB** sense comptar el model 3D (que es descarrega a part i
   només on escau), **CLS 0,034** i 261 ms de bloqueig del fil principal.
 - Recorregut complet sense errors de consola ni peticions fallides: sis
-  seccions, les set fitxes de projecte i la galeria, en els tres idiomes.
-- Revisat sense incidències: paritat de les 51 claus de traducció entre `es`,
+  seccions, les deu fitxes de projecte i la galeria, en els tres idiomes.
+- Revisat sense incidències: paritat de les 63 claus de traducció entre `es`,
   `en` i `ca`; jerarquia d'encapçalaments sense salts; cap imatge sense `alt`;
   cap botó ni enllaç sense nom accessible; sense `id` duplicats; tots els
   `target="_blank"` amb `rel="noopener"`.

@@ -104,7 +104,7 @@ full-stack skills and experience taking projects from an idea to production.
   class). All under `prefers-reduced-motion` control.
 - **Optimized gallery**: WebP thumbnails for the grid and full-size files only
   when the viewer is opened, with **swipe/drag** (mobile and desktop) and
-  preloading of neighboring images for instant switching.
+  preloading of neighbouring images for instant switching.
 - **CV per language**: `CV_BY_LANG` in `App.jsx` is the single source of truth
   (path + download name) and feeds the site's three CV links (two in the hero,
   one in the footer), so changing the CV means touching a single place.
@@ -130,8 +130,8 @@ full-stack skills and experience taking projects from an idea to production.
   This saves a render-blocking stylesheet and two TLS handshakes on the critical
   path, the page stops making third-party requests (relevant for GDPR) and the
   CSP can be locked down to `style-src 'self'` and `font-src 'self'`.
-- **Safe centered alignment**: sections use `align-items: safe center`, which
-  centers while the content fits and aligns to the top when it doesn't, instead
+- **Safe centred alignment**: sections use `align-items: safe center`, which
+  centres while the content fits and aligns to the top when it doesn't, instead
   of overflowing on both sides and hiding the title behind the fixed bar.
 - **Simple deployment**: static build with Vite, published on Cloudflare
   Workers + Assets with SPA fallback and cache headers per resource type (one
@@ -144,7 +144,7 @@ full-stack skills and experience taking projects from an idea to production.
 **[GitHub](https://github.com/AleixAj/obsidian) · [Demo](https://obsidian.aleixaj.com)**
 
 Full-stack streetwear e-commerce built to showcase a real store flow, from
-catalog to checkout.
+catalogue to checkout.
 
 - **Role**: frontend and backend development.
 - **Stack**: React 19, TypeScript, Vite, TanStack Query, Laravel 11, Sanctum, MySQL.
@@ -152,8 +152,8 @@ catalog to checkout.
   authentication, cart/wishlist persistence against the backend, API
   consumption, server state and a checkout that creates real orders in the
   database.
-- **Status**: the payment gateway is not connected yet; checkout creates orders
-  but does not charge yet.
+- **Status**: the payment gateway isn't connected yet, so checkout creates
+  orders but doesn't charge.
 
 ### Orbex
 
@@ -193,13 +193,13 @@ listens and acts on the PC, with an animated live-wallpaper mode.
   origin-checked IPC and fuses), measured usage of 0.1–0.5% of one core, undo and
   an activity log, tests, CI and automatic updates.
 - **Status**: released for Windows, with automatic updates. The interface is in Spanish.
-  Open source under the MIT license.
+  Open source under the MIT licence.
 
 ### Waymark
 
 **[GitHub](https://github.com/AleixAj/waymark) · [Demo](https://waymark.aleixaj.com)**
 
-Travel album on a 3D globe: it reads the GPS of each photo, places it on the
+Travel album on a 3D globe: it reads the GPS data in each photo, places it on the
 planet and detects trips on its own. Built as a real product with no backend.
 
 - **Role**: idea, design, development and deployment.
@@ -233,8 +233,8 @@ target price.
   Cron Trigger, SSRF protection when reading pages, bot and spam protection
   (Turnstile captcha, per-IP and per-user limits, CSP), accessibility
   (keyboard, AA contrast, reduced motion), and a no-signup demo.
-- **Status**: live at `nadir.aleixaj.com`. Big stores do not allow reading
-  their prices, so the catalog is real but its price changes are simulated (the
+- **Status**: live at `nadir.aleixaj.com`. Big stores don't let their
+  prices be read, so the catalogue is real but its price changes are simulated (the
   site says so). Telegram alerts are still to come.
 
 ### Kylen Chat for Twitch
@@ -249,10 +249,10 @@ that stays on top of the game and lets clicks pass through.
 - **What it demonstrates**: a real desktop app with an installer and automatic
   updates from GitHub Releases, a Mac version (Intel and Apple Silicon) built
   automatically with GitHub Actions, real-time chat with robust reconnection,
-  7TV/BTTV/FFZ emotes, measured performance (under 2 % of one core in very fast
+  7TV/BTTV/FFZ emotes, measured performance (under 2% of one core in very fast
   chats, without using the GPU), per-game profiles with a global shortcut, live alerts in their own box on top of the game, styles that mimic the chat of 8 games,
   Spanish and English interface, and validation of all incoming data.
-- **Status**: released for Windows and for Mac (in beta), open source under the MIT license.
+- **Status**: released for Windows and for Mac (in beta), open source under the MIT licence.
 - **In the portfolio**: the project details include a screenshot of the app in use over a game.
 
 ### Solar Explorer
@@ -277,7 +277,7 @@ and game logic separated from the interface.
 
 - **Role**: frontend development, game architecture and responsive design.
 - **Stack**: React, TypeScript, Zustand, Tailwind CSS, Vitest.
-- **What it demonstrates**: domain modeled with TypeScript, persistent global
+- **What it demonstrates**: domain modelled with TypeScript, persistent global
   state, data-driven content, logic tests, accessibility and deployment on
   Cloudflare.
 
@@ -303,7 +303,7 @@ four answers, and only what's placed on the correct one is kept.
 
 - **Role**: full development of the experience.
 - **Stack**: HTML, CSS, JavaScript, Bootstrap 5, no build step.
-- **What it demonstrates**: rule modeling, hand-written drag-and-drop with touch
+- **What it demonstrates**: rule modelling, hand-written drag-and-drop with touch
   support, a bank of 125+ questions decoupled from the engine, and game state
   management.
 
@@ -352,14 +352,14 @@ same order as the UI (from foundational to specialized).
 |-------|-------------------|
 | **JSON** | Standard format for APIs, configuration and state serialization. |
 | **PHP** | Backend language for websites and APIs (personal and professional projects). |
-| **Java** | OO language used in my studies and at work on enterprise backends. |
+| **Java** | Object-oriented language I learned in a 275-hour Java bootcamp. |
 | **Laravel** | Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in `Obsidian`). |
 | **.NET** | Microsoft stack for services and APIs in corporate environments. |
 | **Node.js** | JavaScript runtime for servers, scripts and desktop apps. |
-| **MySQL** | Relational database for domain modeling and queries with indexes/joins. |
+| **MySQL** | Relational database for domain modelling and queries with indexes/joins. |
 | **PostgreSQL** | Relational database in `Nadir` (Neon + Drizzle ORM) and `Orbex` (Supabase). |
 | **Supabase** | Backend with Postgres, auth and server functions (used in `Orbex`). |
-| **API Rest** | Design of HTTP endpoints, resources, versioning and contracts with frontends. |
+| **REST API** | Design of HTTP endpoints, resources, versioning and contracts with frontends. |
 | **Stripe** | Payment gateway: checkout, webhooks and subscriptions. |
 
 ### DevOps and Tools
@@ -375,7 +375,7 @@ same order as the UI (from foundational to specialized).
 | **Cloudflare** | Workers + Assets for deploying the portfolio and global CDN. |
 | **Railway** | App and database hosting for quick projects. |
 | **Jira** | Ticket management, sprints and agile planning. |
-| **Salesforce** | Enterprise CRM (Apex, Lightning, integrations). |
+| **Salesforce** | Enterprise CRM: release management and deployments across environments at VIEWNEXT. |
 | **GitHub Copilot** | AI assistant built into the IDE for autocompletion and refactors. |
 | **Cursor** | IDE with AI agents for assisted development and code review. |
 | **Claude** | AI model for support with architecture, code and technical documentation. |
@@ -432,7 +432,7 @@ src/
 | `gaming_bedroom.glb` | Hero 3D model |
 | `AJ.png` | Logo in the navbar and footer (295x224, 21 KB) |
 | `favicon-32.png`, `apple-touch-icon.png` | Tab icon and home screen icon |
-| `fonts/*.woff2` | Self-hosted Space Grotesk and DM Sans (generated from Google Fonts, OFL license) |
+| `fonts/*.woff2` | Self-hosted Space Grotesk and DM Sans (generated from Google Fonts, OFL licence) |
 | `og-image.png` | Social image for LinkedIn, WhatsApp and Twitter/X, with the featured projects' logos (`npm run generate:og`) |
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | CV download based on the active language (Hero and Contact). ES and CAT share the same PDF; the `download` attribute sets the saved file name (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) instead of the internal slug |
 | `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `nexus-logo.webp`, `nexus-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Project cards (max. 400 px; `npm run optimize:images` keeps them at size) |
@@ -540,8 +540,8 @@ to enable the form.
   separately and only where appropriate), **CLS 0.034** and 261 ms of main
   thread blocking.
 - Full walkthrough with no console errors or failed requests: six sections, all
-  seven project detail dialogs and the gallery, in all three languages.
-- Reviewed with no findings: parity of the 51 translation keys across `es`,
+  ten project detail dialogs and the gallery, in all three languages.
+- Reviewed with no findings: parity of the 63 translation keys across `es`,
   `en` and `ca`; heading hierarchy with no skipped levels; no images without
   `alt`; no buttons or links without an accessible name; no duplicate `id`s; all
   `target="_blank"` links with `rel="noopener"`.
@@ -557,7 +557,7 @@ to enable the form.
 ## Security
 
 Static SPA (no backend of its own apart from the form via EmailJS) with several
-layers of defense:
+layers of defence:
 
 - **Security headers** (`public/_headers`, applied by Cloudflare on every
   response):
@@ -615,17 +615,17 @@ Specific points in the code worth reviewing:
   scroll-in entrance and a hover lift with a spotlight that follows the cursor
   (CSS variables, no re-render), the latter only on devices with a real pointer
   (`matchMedia('(hover: hover)')`).
-- `src/components/Scene3D.jsx`: GLB loading, automatic model centering, shifted
+- `src/components/Scene3D.jsx`: GLB loading, automatic model centring, shifted
   to the right on desktop with `setViewOffset` (so the hero text and the room
   don't overlap), OrbitControls (desktop only), floating animation also on
   mobile, and the performance/sharpness balance with adaptive DPR.
 - `src/components/StarBackground.jsx`: star background on a 2D canvas drawn once
   (and again on window resize); the shooting stars are CSS.
-- `src/components/TimelineItem.jsx`: client chips with brand colors per role to
+- `src/components/TimelineItem.jsx`: client chips with brand colours per role to
   highlight relevant references (CaixaBank, Nestlé, Naturgy).
 - `src/sections/Hobbies.jsx`: gallery with thumbnails and a viewer with
   **swipe/drag** (Framer Motion `drag="x"` with a distance/velocity threshold),
-  animated slide (`AnimatePresence`), keyboard, arrows, dots and neighbor
+  animated slide (`AnimatePresence`), keyboard, arrows, dots and neighbour
   preloading.
 - `scripts/optimize-images.mjs`: reproducible pipeline for optimizing assets.
 - `vite.config.js`: chunk splitting for React, Three.js and EmailJS.
@@ -662,7 +662,7 @@ Other optimizations applied:
   the hashed build and the fonts, 30 days for the model and images.
 - **Preconnect** to EmailJS for the form's first request.
 - **Gallery**: ~5 KB thumbnails for the grid, full-size file only in the active
-  viewer, and neighbor preloading, with adaptive `fetchPriority`.
+  viewer, and neighbour preloading, with adaptive `fetchPriority`.
 - **3D hero**: antialiasing on, adaptive DPR with `PerformanceMonitor` and the
   floating animation also on mobile (no touch control); continuous rendering
   only runs while the hero is visible (`frameloop="demand"` when leaving).

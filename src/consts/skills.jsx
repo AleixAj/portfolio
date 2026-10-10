@@ -37,7 +37,7 @@ export const SKILL_CATEGORIES = [
       { label: 'MySQL',    Icon: SiMysql,   color: '#4479A1', url: 'https://www.mysql.com/' },
       { label: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1', url: 'https://www.postgresql.org/' },
       { label: 'Supabase',   Icon: SiSupabase,   color: '#3FCF8E', url: 'https://supabase.com/' },
-      { label: 'API Rest', Icon: TbApi,     color: '#22D3EE', url: 'https://developer.mozilla.org/docs/Glossary/REST' },
+      { label: { es: 'API REST', en: 'REST API', ca: 'API REST' }, Icon: TbApi,     color: '#22D3EE', url: 'https://developer.mozilla.org/docs/Glossary/REST' },
       { label: 'Stripe',   Icon: SiStripe,  color: '#635BFF', url: 'https://stripe.com/' },
     ],
   },

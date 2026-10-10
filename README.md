@@ -27,7 +27,7 @@ El objetivo no es solo mostrar una landing visual, sino demostrar criterio de
 producto, atención al detalle, capacidad full-stack y experiencia llevando
 proyectos desde una idea hasta producción.
 
-## Qué Demuestra
+## Qué demuestra
 
 - Desarrollo frontend moderno con **React 19**, componentes reutilizables y una
   experiencia responsive pensada para desktop, tablet y móvil.
@@ -53,17 +53,17 @@ proyectos desde una idea hasta producción.
 - **Alineación lateral unificada**: todas las secciones comparten el mismo
   contenedor (`max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem]`) para que el contenido
   caiga sobre la misma línea vertical en todas las páginas.
-- Hero con **mini-ficha profesional** lista para reclutadores: badge de búsqueda
+- Hero con **minificha profesional** lista para reclutadores: badge de búsqueda
   activa, perfiles a los que opto (frontend, full-stack, backend), ubicación,
   años de experiencia, modalidad e idiomas, doble CTA (proyectos + contacto) y
   el CV tanto para verlo en el navegador como para descargarlo.
 - Presentación clara de experiencia laboral con **chips de cliente** para
   destacar marcas reconocibles, formación y proyectos con demos públicas,
   repositorios reales y enlaces verificables.
-- Cuidado por UX: navegación por secciones con **indicador de sección activa**,
+- Cuidado de la UX: navegación por secciones con **indicador de sección activa**,
   animaciones sutiles, tarjetas de proyecto consistentes, formularios, estados
   responsive, adaptación a dispositivos táctiles y escalado progresivo en
-  pantallas ultra anchas (`2xl` desde 2200px, `3xl` desde 2560px; `1920x1080`
+  pantallas ultraanchas (`2xl` desde 2200px, `3xl` desde 2560px; `1920x1080`
   mantiene layout estándar).
 - **Animaciones al hacer scroll**: cada bloque entra con un fundido escalonado
   la primera vez que aparece (CSS + un único `IntersectionObserver`), la línea
@@ -84,7 +84,7 @@ proyectos desde una idea hasta producción.
 - Preparación para producción con **Vite**, **Tailwind CSS**, **EmailJS** y
   despliegue en **Cloudflare Workers + Assets**.
 
-## Decisiones Técnicas Clave
+## Decisiones técnicas clave
 
 - **Arquitectura data-driven**: textos, navegación, experiencia (con clientes
   destacados por puesto), skills, hobbies y proyectos viven en `src/consts/`,
@@ -93,7 +93,7 @@ proyectos desde una idea hasta producción.
   las funciones de Framer Motion se cargan aparte con `LazyMotion` después del
   primer pintado.
 - **Rendimiento 3D**: el modelo GLB (2,98 MB: 1,22 MB de texturas WebP y el resto
-  geometría comprimida con meshopt) usa DPR adaptativo y sólo se precarga en
+  geometría comprimida con meshopt) usa DPR adaptativo y solo se precarga en
   pantallas de escritorio; en conexiones con ahorro de datos o 2G no se descarga
   ni el modelo ni Three.js, y el hero se queda en su degradado. La animación
   flotante corre también en móvil (sin control táctil, solo visual).
@@ -102,7 +102,7 @@ proyectos desde una idea hasta producción.
   (*RotatingText* de React Bits), los diálogos y la galería. Tipografía Space
   Grotesk + DM Sans; tarjetas de proyecto con borde y glow cian (clase
   `.project-card`). Todo bajo control de `prefers-reduced-motion`.
-- **Galería optimizada**: miniaturas WebP para la grilla y archivos completos
+- **Galería optimizada**: miniaturas WebP para la cuadrícula y archivos completos
   solo cuando se abre el visor, con **swipe/arrastre** (móvil y escritorio) y
   precarga de las imágenes vecinas para un cambio instantáneo.
 - **CV por idioma**: `CV_BY_LANG` en `App.jsx` es la única fuente de verdad
@@ -117,9 +117,9 @@ proyectos desde una idea hasta producción.
 - **Rastreo e indexación**: `public/robots.txt` (con referencia al sitemap) y
   `public/sitemap.xml`; la imagen social declara `og:image:width/height/alt`
   para que LinkedIn/WhatsApp la rendericen sin recortes ni segunda petición.
-- **Scroll lock controlado**: `html`/`body`/`#root` no scrollean; sólo lo hace
+- **Scroll lock controlado**: `html`/`body`/`#root` no scrollean; solo lo hace
   `#app-scroll` con `overscroll-behavior: none` y `touch-action: pan-y`. Las
-  secciones usan `min-h-full` en móvil y `100dvh` sólo en desktop para evitar
+  secciones usan `min-h-full` en móvil y `100dvh` solo en desktop para evitar
   reajustes al colapsar la barra del navegador.
 - **Responsive real**: móvil, desktop estándar, táctil landscape y pantallas
   ultra anchas tienen ajustes dedicados; el hero compacta chips y CTAs en
@@ -137,7 +137,7 @@ proyectos desde una idea hasta producción.
   (un año para el build con hash y las fuentes, 30 días para el modelo y las
   imágenes).
 
-## Proyectos Destacados
+## Proyectos destacados
 
 ### Obsidian
 
@@ -191,7 +191,7 @@ habla, escucha y actúa en el PC, con modo fondo de escritorio animado.
   usuario, secretos ocultos, lecturas web solo a internet público, Electron con
   sandbox, CSP, IPC verificado y fuses), consumo medido de 0,1–0,5 % de un núcleo,
   deshacer y registro de actividad, tests, CI y actualizaciones automáticas.
-- **Estado**: publicada para Windows, con actualizaciones automáticas. La interfaz está en español.
+- **Estado**: publicado para Windows, con actualizaciones automáticas. La interfaz está en español.
   Código abierto con licencia MIT.
 
 ### Waymark
@@ -199,7 +199,7 @@ habla, escucha y actúa en el PC, con modo fondo de escritorio animado.
 **[GitHub](https://github.com/AleixAj/waymark) · [Demo](https://waymark.aleixaj.com)**
 
 Álbum de viajes sobre un globo 3D: lee el GPS de cada foto, la coloca en el
-planeta y detecta los viajes solo. Planteado como producto real y sin backend.
+planeta y detecta los viajes automáticamente. Planteado como producto real y sin backend.
 
 - **Rol**: idea, diseño, desarrollo y despliegue.
 - **Stack**: SvelteKit 2, Svelte 5, TypeScript, MapLibre GL, Web Workers,
@@ -284,7 +284,7 @@ persistente y lógica de juego separada de la interfaz.
 
 **[GitHub](https://github.com/AleixAj/familytrivia) · [Demo](https://familytrivia.aleixaj.com)**
 
-Trivia web interactiva diseñada para jugar en grupo y compartir en pantalla.
+Trivial web interactivo diseñado para jugar en grupo en una pantalla compartida.
 
 - **Rol**: desarrollo completo de la experiencia.
 - **Stack**: HTML, CSS, JavaScript, Bootstrap 5, Chart.js.
@@ -305,7 +305,7 @@ respuestas y solo se conserva lo colocado sobre la correcta.
   mano, banco de más de 125 preguntas desacoplado del motor y control de estado
   de partida.
 
-## Stack Principal
+## Stack principal
 
 - **React 19** + **Vite 8**
 - **Three.js** + **React Three Fiber** + **Drei**
@@ -318,7 +318,7 @@ respuestas y solo se conserva lo colocado sobre la correcta.
   automatización/despliegue presentes en la sección de skills.
 - **Godot** para desarrollo de juegos móviles fuera del portfolio.
 
-## Skills · Para Qué Uso Cada Tecnología
+## Skills · Para qué uso cada tecnología
 
 Resumen breve de cada herramienta listada en la sección Skills del portfolio,
 ordenado igual que en la UI (de base a especializado).
@@ -350,14 +350,14 @@ ordenado igual que en la UI (de base a especializado).
 |-------|-----------------|
 | **JSON** | Formato estándar para APIs, configuración y serialización de estado. |
 | **PHP** | Lenguaje backend para webs y APIs (proyectos personales y profesionales). |
-| **Java** | Lenguaje OO usado en formación y trabajos con backends empresariales. |
+| **Java** | Lenguaje orientado a objetos que aprendí en el bootcamp de Java (275 h). |
 | **Laravel** | Framework PHP full-stack: autenticación, ORM Eloquent, queues y APIs (usado en `Obsidian`). |
 | **.NET** | Stack de Microsoft para servicios y APIs en entornos corporativos. |
 | **Node.js** | Entorno de JavaScript para servidores, scripts y apps de escritorio. |
 | **MySQL** | Base de datos relacional para modelar dominio y consultas con índices/joins. |
 | **PostgreSQL** | Base de datos relacional en `Nadir` (Neon + Drizzle ORM) y `Orbex` (Supabase). |
 | **Supabase** | Backend con Postgres, login y funciones en servidor (usado en `Orbex`). |
-| **API Rest** | Diseño de endpoints HTTP, recursos, versiones y contratos con frontends. |
+| **API REST** | Diseño de endpoints HTTP, recursos, versiones y contratos con frontends. |
 | **Stripe** | Pasarela de pagos: checkout, webhooks y suscripciones. |
 
 ### DevOps y herramientas
@@ -373,7 +373,7 @@ ordenado igual que en la UI (de base a especializado).
 | **Cloudflare** | Workers + Assets para despliegue del portfolio y CDN global. |
 | **Railway** | Hosting de aplicaciones y bases de datos para proyectos rápidos. |
 | **Jira** | Gestión de tickets, sprints y planificación ágil. |
-| **Salesforce** | CRM empresarial (Apex, Lightning, integraciones). |
+| **Salesforce** | CRM empresarial: gestión de releases y despliegues entre entornos en VIEWNEXT. |
 | **GitHub Copilot** | Asistente IA integrado en el IDE para autocompletar y refactors. |
 | **Cursor** | IDE con agentes IA para desarrollo asistido y revisión de código. |
 | **Claude** | Modelo IA para apoyo en arquitectura, código y documentación técnica. |
@@ -381,10 +381,10 @@ ordenado igual que en la UI (de base a especializado).
 | **Photoshop** | Edición de imagen y diseño de assets para UI. |
 | **Aseprite** | Pixel art y animación sprite para proyectos personales y game dev. |
 
-## Secciones Del Portfolio
+## Secciones del portfolio
 
 - **Inicio**: presentación personal, escena 3D interactiva, mensajes dinámicos,
-  badge de búsqueda activa de empleo, mini-ficha profesional (perfiles, ubicación,
+  badge de búsqueda activa de empleo, minificha profesional (perfiles, ubicación,
   años de experiencia, modalidad e idiomas), doble CTA hacia proyectos y contacto,
   y CV en dos acciones: verlo en el navegador o descargarlo.
 - **Trayectoria**: experiencia laboral y formación académica sin scroll interno,
@@ -436,7 +436,7 @@ src/
 | `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `nexus-logo.webp`, `nexus-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Tarjetas de proyectos (máx. 400 px; `npm run optimize:images` las mantiene en tamaño) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galería de arte (completa + thumbnail) |
 
-## Ejecución Local
+## Ejecución local
 
 Requisitos:
 
@@ -456,7 +456,7 @@ Build de producción:
 npm run build
 ```
 
-## Variables De Entorno
+## Variables de entorno
 
 Para activar el formulario de contacto, crea `.env.local` con credenciales de
 [EmailJS](https://www.emailjs.com/):
@@ -535,11 +535,11 @@ quiere activar el formulario.
 - `npm run lint`: sin errores.
 - `npm run build`: build de producción verificado.
 - Primera visita medida sobre el build de producción, con CPU 4x más lenta y red
-  móvil: **674 KB** sin contar el modelo 3D (que se descarga aparte y sólo donde
+  móvil: **674 KB** sin contar el modelo 3D (que se descarga aparte y solo donde
   procede), **CLS 0,034** y 261 ms de bloqueo del hilo principal.
 - Recorrido completo sin errores de consola ni peticiones fallidas: seis
-  secciones, las siete fichas de proyecto y la galería, en los tres idiomas.
-- Revisado sin hallazgos: paridad de las 51 claves de traducción entre `es`,
+  secciones, las diez fichas de proyecto y la galería, en los tres idiomas.
+- Revisado sin hallazgos: paridad de las 63 claves de traducción entre `es`,
   `en` y `ca`; jerarquía de encabezados sin saltos; ninguna imagen sin `alt`;
   ningún botón o enlace sin nombre accesible; sin `id` duplicados; todos los
   `target="_blank"` con `rel="noopener"`.
@@ -570,7 +570,7 @@ capas de defensa:
 - **Sin XSS**: React escapa el contenido por defecto; sin `dangerouslySetInnerHTML`,
   `innerHTML`, `eval` ni `new Function`.
 - **Enlaces externos** con `rel="noopener noreferrer"` (anti reverse-tabnabbing).
-- **Formulario de contacto endurecido**: honeypot anti-bots, rate limit entre
+- **Formulario de contacto endurecido**: honeypot antibots, rate limit entre
   envíos y `maxLength` en todos los campos.
 - **Secretos fuera del repo**: las claves de EmailJS viven en `.env.local`
   (gitignored); solo se versiona `.env.example`.
@@ -580,7 +580,7 @@ capas de defensa:
 > *public key* es visible en el bundle del cliente, como en cualquier integración
 > EmailJS del lado del navegador).
 
-## Para Revisores Técnicos
+## Para revisores técnicos
 
 Puntos concretos que merece la pena revisar en el código:
 
@@ -659,7 +659,7 @@ Otras optimizaciones aplicadas:
 - **Caché por tipo de recurso** en `public/_headers`: un año e `immutable` para
   el build con hash y las fuentes, 30 días para modelo e imágenes.
 - **Preconnect** a EmailJS para la primera petición del formulario.
-- **Galería**: thumbnails de ~5 KB para la grilla, archivo completo solo en el
+- **Galería**: thumbnails de ~5 KB para la cuadrícula, archivo completo solo en el
   visor activo y precarga de vecinas, con `fetchPriority` adaptativo.
 - **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor` y
   animación flotante también en móvil (sin control táctil); el render continuo
