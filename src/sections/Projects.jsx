@@ -40,6 +40,7 @@ function Projects({ lang, t }) {
               desc={p.desc[lang] ?? p.desc.es}
               onInfo={p.details ? openInfo : undefined}
               infoLabel={`${t.more}: ${p.title}`}
+              labels={t}
               className={orphanCls(i)}
             />
           ))}

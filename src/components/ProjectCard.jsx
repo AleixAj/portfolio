@@ -25,7 +25,7 @@ const CYAN = 'bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cy
 const GREEN = 'bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60'
 const ICON_CLS = 'w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4'
 
-const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo, store, download, downloadMac, onInfo, infoLabel, className = '' }) {
+const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo, store, download, downloadMac, onInfo, infoLabel, labels, className = '' }) {
   return (
     <div
       onPointerMove={CAN_HOVER ? trackSpotlight : undefined}
@@ -69,30 +69,30 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
           ))}
         </div>
         <div className="mt-auto pt-1 md:pt-3 2xl:pt-5 flex gap-1 md:gap-1.5 2xl:gap-2">
-          <a href={github} target="_blank" rel="noopener noreferrer" aria-label={`${title} GitHub repository`}
+          <a href={github} target="_blank" rel="noopener noreferrer" aria-label={labels.codeOf.replace('{p}', title)}
             className={`${LINK_CLS} ${GREY}`}>
             <FaGithub className="w-2.5 h-2.5 md:w-4 md:h-4 2xl:w-4 2xl:h-4" /> GitHub
           </a>
           {demo && (
-            <a href={demo} target="_blank" rel="noopener noreferrer" aria-label={`${title} live demo`}
+            <a href={demo} target="_blank" rel="noopener noreferrer" aria-label={labels.demoOf.replace('{p}', title)}
               className={`${LINK_CLS} ${CYAN}`}>
               ↗ Demo
             </a>
           )}
           {download && (
-            <a href={download} rel="noopener noreferrer" aria-label={`Download ${title} for Windows`}
+            <a href={download} rel="noopener noreferrer" aria-label={labels.windowsOf.replace('{p}', title)}
               className={`${LINK_CLS} ${CYAN}`}>
               <FaWindows className={ICON_CLS} /> Windows
             </a>
           )}
           {downloadMac && (
-            <a href={downloadMac} rel="noopener noreferrer" aria-label={`Download ${title} for Mac`}
+            <a href={downloadMac} rel="noopener noreferrer" aria-label={labels.macOf.replace('{p}', title)}
               className={`${LINK_CLS} ${CYAN}`}>
               <FaApple className={ICON_CLS} /> Mac
             </a>
           )}
           {store && (
-            <a href={store} target="_blank" rel="noopener noreferrer" aria-label={`${title} on Google Play`}
+            <a href={store} target="_blank" rel="noopener noreferrer" aria-label={labels.storeOf.replace('{p}', title)}
               className={`${LINK_CLS} ${GREEN}`}>
               <FaGooglePlay className={ICON_CLS} /> Play
             </a>

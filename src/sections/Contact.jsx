@@ -116,15 +116,15 @@ function Footer({ t, cv }) {
 
         <div className="flex flex-col items-end gap-2">
           <div className="flex gap-3">
-            <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"
+            <a href="https://linkedin.com/in/aleixauque/" target="_blank" rel="noopener noreferrer" aria-label={t.linkedin}
               className={FOOTER_LINK}>
               <FaLinkedin className={FOOTER_ICON} />
             </a>
-            <a href="mailto:aleixauque@gmail.com" aria-label="Send email"
+            <a href="mailto:aleixauque@gmail.com" aria-label={t.sendEmail}
               className={FOOTER_LINK}>
               <FaEnvelope className={FOOTER_ICON} />
             </a>
-            <a href="https://github.com/AleixAj" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"
+            <a href="https://github.com/AleixAj" target="_blank" rel="noopener noreferrer" aria-label={t.github}
               className={FOOTER_LINK}>
               <FaGithub className={FOOTER_ICON} />
             </a>

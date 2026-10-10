@@ -54,9 +54,9 @@ function CataloniaFlag({ compact = false }) {
 
 // Each button's label is written in its own language
 const LANG_OPTIONS = [
-  { id: 'es', label: 'ES',  Flag: SpainFlag,     ariaLabel: 'Cambiar idioma a Español' },
+  { id: 'es', label: 'ES',  Flag: SpainFlag,     ariaLabel: 'Cambiar el idioma a español' },
   { id: 'en', label: 'EN',  Flag: UkFlag,        ariaLabel: 'Switch language to English' },
-  { id: 'ca', label: 'CAT', Flag: CataloniaFlag, ariaLabel: 'Canviar idioma a Català' },
+  { id: 'ca', label: 'CAT', Flag: CataloniaFlag, ariaLabel: 'Canviar la llengua a català' },
 ]
 
 function LanguageSwitcher({ lang, setLang, setMenuOpen, compact = false }) {

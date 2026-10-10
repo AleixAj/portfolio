@@ -18,7 +18,7 @@ export const PROJECTS = [
     imgCls: 'scale-[1.10] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',
     desc: {
       es: 'E-commerce full-stack de streetwear con catálogo Laravel, autenticación Sanctum, carrito y wishlist sincronizados y checkout con pedidos reales.',
-      en: 'Full-stack streetwear e-commerce with a Laravel catalog, Sanctum authentication, synced cart and wishlist, and checkout that creates real orders.',
+      en: 'Full-stack streetwear e-commerce with a Laravel catalogue, Sanctum authentication, synced cart and wishlist, and checkout that creates real orders.',
       ca: 'E-commerce full-stack de streetwear amb catàleg Laravel, autenticació Sanctum, cistella i wishlist sincronitzades i checkout amb comandes reals.',
     },
     tags: [
@@ -33,9 +33,9 @@ export const PROJECTS = [
     demo: 'https://obsidian.aleixaj.com',
     details: {
       summary: {
-        es: 'Tienda de ropa urbana planteada como producto y no como maqueta: un frontend React contra una API Laravel propia, con base de datos y despliegue de producción.',
-        en: 'A streetwear shop built as a product rather than a mockup: a React frontend against my own Laravel API, with a production database and deployment.',
-        ca: 'Botiga de roba urbana plantejada com a producte i no com a maqueta: un frontend React contra una API Laravel pròpia, amb base de dades i desplegament de producció.',
+        es: 'Tienda de ropa urbana planteada como producto y no como maqueta: un frontend React que consume una API Laravel propia, con base de datos y despliegue de producción.',
+        en: 'A streetwear shop built as a product rather than a mockup: a React frontend that talks to my own Laravel API, with a production database and deployment.',
+        ca: 'Botiga de roba urbana plantejada com a producte i no com a maqueta: un frontend React que consumeix una API Laravel pròpia, amb base de dades i desplegament de producció.',
       },
       highlights: {
         es: [
@@ -47,7 +47,7 @@ export const PROJECTS = [
           'CI en GitHub Actions: lint, typecheck, tests y build en cada push.',
         ],
         en: [
-          'API-served catalog with category, size, colour and price filters, plus sorting.',
+          'API-served catalogue with category, size, colour and price filters, plus sorting.',
           'Sign-up and login through Laravel Sanctum cookie sessions.',
           'Cart and wishlist synced with the backend, not just kept in the browser.',
           'Checkout that turns the authenticated cart into a real order in the database.',
@@ -77,9 +77,9 @@ export const PROJECTS = [
     img: '/orbex-icon.webp',
     imgCls: 'scale-[1.10] md:scale-[1.25] md:group-hover:scale-[1.32] p-0',
     desc: {
-      es: 'Juego arcade móvil estilo Zuma con 10 mundos y 80 niveles, personajes y animaciones en pixel art hecho a mano. Backend Supabase con auth, ranking online, telemetría y anti-trampas.',
-      en: 'Zuma-style mobile arcade game with 10 worlds and 80 levels, characters and animations in hand-crafted pixel art. Supabase backend with auth, online ranking, telemetry, and anti-cheat.',
-      ca: 'Joc arcade mòbil estil Zuma amb 10 mons i 80 nivells, personatges i animacions en pixel art fet a mà. Backend Supabase amb auth, rànquing online, telemetria i anti-trampes.',
+      es: 'Juego arcade móvil estilo Zuma con 10 mundos y 80 niveles, personajes y animaciones en pixel art hecho a mano. Backend Supabase con auth, ranking online, telemetría y antitrampas.',
+      en: 'Zuma-style mobile arcade game with 10 worlds and 80 levels, characters and animations in handcrafted pixel art. Supabase backend with auth, online leaderboards, telemetry and anti-cheat.',
+      ca: 'Joc arcade mòbil estil Zuma amb 10 mons i 80 nivells, personatges i animacions en pixel art fet a mà. Backend Supabase amb auth, rànquing en línia, telemetria i antitrampes.',
     },
     tags: [
       { label: 'Godot',      cls: 'bg-blue-400/10    text-blue-400    border-blue-400/20'    },
@@ -93,7 +93,7 @@ export const PROJECTS = [
     details: {
       summary: {
         es: 'Juego de puntería tipo Zuma para Android hecho en solitario: el motor de la cadena, el editor de recorridos, el backend de ranking y el arte están construidos desde cero.',
-        en: 'A Zuma-style aiming game for Android built solo: the chain engine, the path editor, the ranking backend and the art are all built from scratch.',
+        en: 'A Zuma-style aiming game for Android built solo: the chain engine, the path editor, the leaderboard backend and the art are all built from scratch.',
         ca: "Joc de punteria estil Zuma per a Android fet en solitari: el motor de la cadena, l'editor de recorreguts, el backend de rànquing i l'art estan construïts des de zero.",
       },
       highlights: {
@@ -103,15 +103,15 @@ export const PROJECTS = [
           'Plugin de editor hecho a medida para trazar los recorridos dentro de Godot.',
           'Dificultad y listón de estrellas calculados por script y calibrados con telemetría real de partidas.',
           'Backend Supabase: ranking global y por nivel, amigos, guardado en la nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.',
-          'Misiones diarias y semanales, desafío semanal con tablero propio y traducción a 10 idiomas.',
+          'Misiones diarias y semanales, desafío semanal con ranking propio y traducción a 10 idiomas.',
         ],
         en: [
           '10 worlds set in historical eras, from dinosaurs to space, each with 8 levels and a boss with 2 or 3 phases.',
           'Custom chain engine: shot insertion, rollbacks, merges, portals and several chains at once.',
           'Purpose-built editor plugin for drawing the chain paths inside Godot.',
           'Difficulty and star thresholds computed by script and calibrated with real gameplay telemetry.',
-          'Supabase backend: global and per-level ranking, friends, cloud saves, account deletion (GDPR) and server-side caps against cheating.',
-          'Daily and weekly quests, a weekly challenge with its own board, and 10 languages.',
+          'Supabase backend: global and per-level leaderboards, friends, cloud saves, account deletion (GDPR) and server-side caps against cheating.',
+          'Daily and weekly quests, a weekly challenge with its own leaderboard, and translation into 10 languages.',
         ],
         ca: [
           "10 mons ambientats en èpoques històriques, dels dinosaures a l'espai, amb 8 nivells i un cap de 2 o 3 fases cadascun.",
@@ -119,7 +119,7 @@ export const PROJECTS = [
           "Plugin d'editor fet a mida per traçar els recorreguts dins de Godot.",
           "Dificultat i llistó d'estrelles calculats per script i calibrats amb telemetria real de partides.",
           'Backend Supabase: rànquing global i per nivell, amics, desat al núvol, esborrat de compte (RGPD) i límits al servidor contra trampes.',
-          'Missions diàries i setmanals, desafiament setmanal amb tauler propi i traducció a 10 idiomes.',
+          'Missions diàries i setmanals, repte setmanal amb rànquing propi i traducció a 10 idiomes.',
         ],
       },
       stack: 'Godot 4.6 · GDScript · Supabase · PostgreSQL · Android',
@@ -159,7 +159,7 @@ export const PROJECTS = [
       },
       highlights: {
         es: [
-          'Agente de IA con 46 herramientas: búsqueda e investigación en la web con fuentes, archivos (con deshacer), apps, Spotify, recordatorios, calendario, control del PC, visión de pantalla y cámara y creación de presentaciones de PowerPoint.',
+          'Agente de IA con 46 herramientas: búsqueda e investigación en la web con fuentes, archivos (con deshacer), apps, Spotify, recordatorios, calendario, control del PC, visión de pantalla y cámara, y creación de presentaciones de PowerPoint.',
           'Funciona con planes gratuitos: rota entre Groq, Gemini, OpenRouter, Cerebras, Mistral y Ollama local con control de límites por modelo; las órdenes simples se resuelven sin IA y cada pregunta solo recibe las herramientas de su tema (de ~5.000 a ~1.900 tokens por petición).',
           'Frase de activación personalizable y sin conexión («Oye Jarvis»), con reconocimiento de voz en el propio equipo (sherpa-onnx) y entrenamiento con la voz del usuario.',
           'Modo fondo de escritorio detrás de los iconos (técnica WorkerW), clicable gracias a un hook de ratón de bajo nivel, extensible a todos los monitores y en pausa cuando un juego ocupa la pantalla.',
@@ -179,7 +179,7 @@ export const PROJECTS = [
           'Activity log with undo, an emergency pause, a self-test of every service, Vitest tests, CI on GitHub Actions and an installer with automatic updates from GitHub Releases.',
         ],
         ca: [
-          "Agent d'IA amb 46 eines: cerca i investigació al web amb fonts, fitxers (amb desfer), apps, Spotify, recordatoris, calendari, control del PC, visió de pantalla i càmera i creació de presentacions de PowerPoint.",
+          "Agent d'IA amb 46 eines: cerca i investigació al web amb fonts, fitxers (amb desfer), apps, Spotify, recordatoris, calendari, control del PC, visió de pantalla i càmera, i creació de presentacions de PowerPoint.",
           "Funciona amb plans gratuïts: rota entre Groq, Gemini, OpenRouter, Cerebras, Mistral i Ollama local amb control de límits per model; les ordres simples es resolen sense IA i cada pregunta només rep les eines del seu tema (de ~5.000 a ~1.900 tokens per petició).",
           "Frase d'activació personalitzable i sense connexió («Oye Jarvis»), amb reconeixement de veu al mateix equip (sherpa-onnx) i entrenament amb la veu de l'usuari.",
           "Mode fons d'escriptori darrere de les icones (tècnica WorkerW), clicable gràcies a un hook de ratolí de baix nivell, ampliable a tots els monitors i en pausa quan un joc ocupa la pantalla.",
@@ -192,9 +192,9 @@ export const PROJECTS = [
       stack: 'Electron 44 · React 19 · TypeScript · electron-vite · sherpa-onnx · LLM APIs (OpenAI-compatible) · PowerShell + C# (Win32) · Vitest · electron-builder · GitHub Actions',
       status: {
         tone: 'ok',
-        es: 'Publicada para Windows, con actualizaciones automáticas. La interfaz está en español. Hecho con Claude Code como asistente de programación (autoría de IA visible en los commits). Código abierto con licencia MIT.',
-        en: 'Released for Windows, with automatic updates. The interface is in Spanish. Built with Claude Code as an AI pair programmer (AI authorship visible in the commits). Open source under the MIT license.',
-        ca: "Publicada per a Windows, amb actualitzacions automàtiques. La interfície és en castellà. Fet amb Claude Code com a assistent de programació (autoria d'IA visible als commits). Codi obert amb llicència MIT.",
+        es: 'Publicado para Windows, con actualizaciones automáticas. La interfaz está en español. Hecho con Claude Code como asistente de programación (autoría de IA visible en los commits). Código abierto con licencia MIT.',
+        en: 'Released for Windows, with automatic updates. The interface is in Spanish. Built with Claude Code as an AI pair programmer (AI authorship visible in the commits). Open source under the MIT licence.',
+        ca: "Publicat per a Windows, amb actualitzacions automàtiques. La interfície és en castellà. Fet amb Claude Code com a assistent de programació (autoria d'IA visible als commits). Codi obert amb llicència MIT.",
       },
     },
   },
@@ -205,8 +205,8 @@ export const PROJECTS = [
     imgCls: 'scale-[0.85] md:scale-[1.05] md:group-hover:scale-[1.12] p-0',
     desc: {
       es: 'Tus fotos de viaje sobre un globo 3D: lee el GPS de cada foto, detecta tus viajes solo y te deja explorarlos por país, ciudad y barrio. Sin servidor, sincronizada con tu propio Google Drive y con demo sin registro.',
-      en: 'Your travel photos on a 3D globe: it reads the GPS of each photo, detects your trips on its own and lets you explore them by country, city and neighbourhood. No server, synced with your own Google Drive, with a no-signup demo.',
-      ca: 'Les teves fotos de viatge sobre un globus 3D: llegeix el GPS de cada foto, detecta els teus viatges sol i et deixa explorar-los per país, ciutat i barri. Sense servidor, sincronitzada amb el teu propi Google Drive i amb demo sense registre.',
+      en: 'Your travel photos on a 3D globe: it reads the GPS data in each photo, detects your trips on its own and lets you explore them by country, city and neighbourhood. No server, synced with your own Google Drive, with a no-signup demo.',
+      ca: 'Les teves fotos de viatge sobre un globus 3D: llegeix el GPS de cada foto, detecta els teus viatges tot sol i et deixa explorar-los per país, ciutat i barri. Sense servidor, sincronitzada amb el teu propi Google Drive i amb demo sense registre.',
     },
     tags: [
       { label: 'SvelteKit',        cls: 'bg-orange-400/10  text-orange-400  border-orange-400/20'  },
@@ -229,7 +229,7 @@ export const PROJECTS = [
           'Globo 3D con MapLibre GL: grupos de fotos que se separan al hacer zoom, países visitados resaltados, estilos de color y fondo de estrellas.',
           'Importación en paralelo con Web Workers: lee el EXIF, crea miniaturas, salta duplicados y abre JPG, HEIC y RAW (extrae la vista previa de la cámara).',
           'Tres orígenes de fotos: el dispositivo, Google Drive y Google Fotos a través de Takeout, eligiendo álbumes.',
-          'País, ciudad y barrio de cada foto calculados sin conexión con 34.000 ciudades empaquetadas; viajes detectados solos con ruta animada y exportación GPX.',
+          'País, ciudad y barrio de cada foto calculados sin conexión con 34.000 ciudades empaquetadas; viajes detectados automáticamente con ruta animada y exportación GPX.',
           'Ubicación estimada para fotos sin GPS, según las fotos cercanas en el tiempo o del mismo álbum, y ubicación de álbumes enteros con un buscador de lugares.',
           'Login con Google y sincronización con Drive sin servidor propio, con el permiso mínimo drive.file.',
           'Funciona sin conexión con service worker, es instalable y pasa axe sin errores de accesibilidad en tema claro y oscuro.',
@@ -239,9 +239,9 @@ export const PROJECTS = [
         en: [
           '3D globe with MapLibre GL: photo clusters that split as you zoom in, visited countries highlighted, colour styles and a starfield background.',
           'Parallel import with Web Workers: reads EXIF, makes thumbnails, skips duplicates and opens JPG, HEIC and RAW (it extracts the camera preview).',
-          'Three photo sources: the device, Google Drive and Google Photos through Takeout, choosing albums.',
+          'Three photo sources: the device, Google Drive and Google Photos through Takeout, with album selection.',
           'Country, city and neighbourhood of every photo computed offline with 34,000 bundled cities; trips detected automatically with an animated route and GPX export.',
-          'Estimated location for photos without GPS, from photos taken around the same time or in the same album, and whole albums placed with a place search.',
+          'Estimated location for photos without GPS, from photos taken around the same time or in the same album, and whole albums can be placed on the map with a place search.',
           'Google sign-in and Drive sync with no server of its own, using the minimal drive.file permission.',
           'Works offline with a service worker, is installable and passes axe with no accessibility errors in light and dark themes.',
           'Demo with 600 real photos from Wikimedia Commons across 15 trips, loaded with a single download.',
@@ -251,7 +251,7 @@ export const PROJECTS = [
           'Globus 3D amb MapLibre GL: grups de fotos que se separen en fer zoom, països visitats ressaltats, estils de color i fons d\'estrelles.',
           "Importació en paral·lel amb Web Workers: llegeix l'EXIF, crea miniatures, salta duplicats i obre JPG, HEIC i RAW (extreu la vista prèvia de la càmera).",
           'Tres orígens de fotos: el dispositiu, Google Drive i Google Fotos a través de Takeout, triant àlbums.',
-          "País, ciutat i barri de cada foto calculats sense connexió amb 34.000 ciutats empaquetades; viatges detectats sols amb ruta animada i exportació GPX.",
+          "País, ciutat i barri de cada foto calculats sense connexió amb 34.000 ciutats empaquetades; viatges detectats automàticament amb ruta animada i exportació GPX.",
           "Ubicació estimada per a fotos sense GPS, segons les fotos properes en el temps o del mateix àlbum, i ubicació d'àlbums sencers amb un cercador de llocs.",
           'Inici de sessió amb Google i sincronització amb Drive sense servidor propi, amb el permís mínim drive.file.',
           "Funciona sense connexió amb service worker, és instal·lable i passa axe sense errors d'accessibilitat en tema clar i fosc.",
@@ -275,7 +275,7 @@ export const PROJECTS = [
     desc: {
       es: 'Monitor de precios full-stack: compara el mismo producto en varias tiendas, guarda su histórico y avisa cuando baja del precio objetivo. Cuentas con Google o email, avisos por email y demo sin registro.',
       en: 'Full-stack price tracker: compares the same product across several stores, keeps its price history and alerts you when it drops below your target. Google or email accounts, email alerts and a no-signup demo.',
-      ca: "Monitor de preus full-stack: compara el mateix producte a diverses botigues, desa l'històric i avisa quan baixa del preu objectiu. Comptes amb Google o correu, avisos per correu i demo sense registre.",
+      ca: "Monitor de preus full-stack: compara el mateix producte a diverses botigues, desa l'històric i avisa quan baixa per sota del preu objectiu. Comptes amb Google o correu, avisos per correu i demo sense registre.",
     },
     tags: [
       { label: 'Next.js',     cls: 'bg-zinc-400/10    text-zinc-300    border-zinc-400/20'    },
@@ -289,9 +289,9 @@ export const PROJECTS = [
     demo: 'https://nadir.aleixaj.com',
     details: {
       summary: {
-        es: 'Un monitor de precios planteado como un SaaS real: Next.js con Server Actions contra Postgres, cuentas de usuario, tareas programadas en Cloudflare y la lógica de precios separada de la interfaz y con tests.',
-        en: 'A price tracker built like a real SaaS: Next.js with Server Actions against Postgres, user accounts, scheduled jobs on Cloudflare, and the pricing logic kept apart from the UI and tested.',
-        ca: "Un monitor de preus plantejat com un SaaS real: Next.js amb Server Actions contra Postgres, comptes d'usuari, tasques programades a Cloudflare i la lògica de preus separada de la interfície i amb tests.",
+        es: 'Un monitor de precios planteado como un SaaS real: Next.js con Server Actions sobre Postgres, cuentas de usuario, tareas programadas en Cloudflare y la lógica de precios separada de la interfaz y con tests.',
+        en: 'A price tracker built like a real SaaS: Next.js with Server Actions on top of Postgres, user accounts, scheduled jobs on Cloudflare, and the pricing logic kept apart from the UI and tested.',
+        ca: "Un monitor de preus plantejat com un SaaS real: Next.js amb Server Actions sobre Postgres, comptes d'usuari, tasques programades a Cloudflare i la lògica de preus separada de la interfície i amb tests.",
       },
       highlights: {
         es: [
@@ -306,21 +306,21 @@ export const PROJECTS = [
           'Demo sin registro con 12 productos y un año de histórico, instalable como PWA.',
         ],
         en: [
-          'Search by name with suggestions and photos over a catalog of 347 real products, each priced in 2 or more stores.',
+          'Search by name with suggestions and photos over a catalogue of 347 real products, each priced in 2 or more stores.',
           'Product page with an SVG price history chart, store comparison by final price including shipping, and a target price alert.',
           'Google or email-and-password accounts (Better Auth), profile with an uploaded photo, and custom lists with name and colour.',
           'Emails with Resend: account confirmation before the first login, password reset and an alert when a price drops below the target.',
           'Automatic price checks with a Cloudflare Cron Trigger every 10 minutes.',
           'Server Actions validated with Zod that check the session and ownership of every record; page fetching protected against SSRF.',
           'Bot and spam protection: invisible Cloudflare Turnstile captcha, per-IP and per-user rate limits stored in the database, a cap on emails per recipient and a Content Security Policy (CSP).',
-          'Accessible: custom dialogs and dropdowns that work with the keyboard, AA contrast in light and dark themes, and it respects the reduce motion setting.',
+          'Accessible: custom dialogs and dropdowns that work with the keyboard, AA contrast in light and dark themes, and it respects the reduced-motion setting.',
           'No-signup demo with 12 products and a year of history, installable as a PWA.',
         ],
         ca: [
           'Cerca per nom amb suggeriments i fotos sobre un catàleg de 347 productes reals, cadascun amb preu a 2 botigues o més.',
           "Fitxa amb gràfica de l'històric feta en SVG, comparativa de botigues per preu final amb enviament i alerta de preu objectiu.",
           "Comptes amb Google o amb correu i contrasenya (Better Auth), perfil amb foto pujada i llistes pròpies amb nom i color.",
-          "Correus amb Resend: confirmar el compte abans d'entrar, recuperar la contrasenya i avís quan un preu baixa de l'objectiu.",
+          "Correus amb Resend: confirmar el compte abans d'entrar, recuperar la contrasenya i avís quan un preu baixa per sota de l'objectiu.",
           'Revisió automàtica de preus amb un Cron Trigger de Cloudflare cada 10 minuts.',
           "Server Actions validades amb Zod que comproven la sessió i la propietat de cada dada; lectura de pàgines protegida contra SSRF.",
           "Protecció contra bots i spam: captcha invisible de Cloudflare Turnstile, límits per IP i per usuari desats a la base de dades, topall de correus per destinatari i política de seguretat de continguts (CSP).",
@@ -332,7 +332,7 @@ export const PROJECTS = [
       status: {
         tone: 'pending',
         es: 'Las grandes tiendas no dejan leer sus precios: el catálogo es real pero su evolución se simula (la web lo indica). Faltan los avisos por Telegram.',
-        en: 'Big stores do not allow reading their prices: the catalog is real but its price changes are simulated (the site says so). Telegram alerts are still to come.',
+        en: "Big stores don't let their prices be read: the catalogue is real but the price changes are simulated (the site says so). Telegram alerts are still to come.",
         ca: "Les grans botigues no deixen llegir els seus preus: el catàleg és real però la seva evolució se simula (la web ho indica). Falten els avisos per Telegram.",
       },
     },
@@ -345,7 +345,7 @@ export const PROJECTS = [
     desc: {
       es: 'App de escritorio para streamers con una sola pantalla: el chat de Twitch transparente encima del juego, con menciones destacadas, emotes de 7TV/BTTV/FFZ y perfiles por juego.',
       en: 'Desktop app for single-monitor streamers: a transparent Twitch chat on top of the game, with highlighted mentions, 7TV/BTTV/FFZ emotes and per-game profiles.',
-      ca: "App d'escriptori per a streamers amb una sola pantalla: el xat de Twitch transparent damunt del joc, amb mencions destacades, emotes de 7TV/BTTV/FFZ i perfils per joc.",
+      ca: "App d'escriptori per a streamers amb una sola pantalla: el xat de Twitch transparent damunt del joc, amb mencions destacades, emotes de 7TV/BTTV/FFZ i perfils per a cada joc.",
     },
     tags: [
       { label: 'Electron',   cls: 'bg-teal-400/10   text-teal-400   border-teal-400/20'   },
@@ -359,15 +359,15 @@ export const PROJECTS = [
     details: {
       summary: {
         es: 'Nació de ver a streamers con una sola pantalla mirando el chat en el móvil. Es una ventana transparente que queda siempre encima del juego y deja pasar los clics, así que se lee el chat sin dejar de jugar.',
-        en: 'It started from watching single-monitor streamers read chat on their phones. It is a transparent, always-on-top window that lets clicks through, so chat can be read without stopping play.',
+        en: 'It started after seeing single-monitor streamers read chat on their phones. It is a transparent, always-on-top window that lets clicks through, so chat can be read without stopping play.',
         ca: "Va néixer de veure streamers amb una sola pantalla mirant el xat al mòbil. És una finestra transparent que queda sempre damunt del joc i deixa passar els clics, així que es llegeix el xat sense deixar de jugar.",
       },
       highlights: {
         es: [
           'Chat de Twitch en tiempo real por WebSocket, anónimo y de solo lectura, con reconexión progresiva y detección de conexiones caídas al volver de suspensión.',
           'Emotes oficiales y de 7TV, BTTV y FFZ, incluidos los superpuestos de 7TV, con versión estática por defecto para ahorrar CPU.',
-          'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, respuestas y todos los canjes de puntos (también los que no llevan mensaje, vía los eventos públicos de Twitch).',
-          'Pensada para no restar FPS: sin tarjeta gráfica y mensajes agrupados; medida por debajo del 2 % de un núcleo en chats muy rápidos.',
+          'Menciones y palabras clave en rojo, primer mensaje, insignias, subs, raids, bits, respuestas y todos los canjes de puntos (también los que no llevan mensaje, a través de los eventos públicos de Twitch).',
+          'Pensada para no restar FPS: sin usar la tarjeta gráfica y con mensajes agrupados; medida por debajo del 2 % de un núcleo en chats muy rápidos.',
           'Varios chats a la vez en ventanas aparte, perfiles por juego en etiquetas de colores con atajo global, 17 estilos con fuente propia, estilos guardados por el usuario, modo prueba, filtros, español e inglés y copia de la configuración.',
           'Estilos que imitan el chat de 8 juegos (WoW, LoL, Valorant, Minecraft, CS2, Overwatch 2, Fortnite y Rust): su letra, su formato de línea y sus detalles, con los nombres en el color de Twitch de cada usuario y el tipo de usuario donde cada juego tiene su hueco.',
           'Avisos de directo: hasta 100 canales consultados a Twitch cada minuto en una sola petición, y un recuadro propio encima del juego con animación, sonido y posición ajustable.',
@@ -378,16 +378,16 @@ export const PROJECTS = [
           'Official, 7TV, BTTV and FFZ emotes, including 7TV zero-width overlays, with static versions by default to save CPU.',
           'Mentions and keywords in red, first-time chatters, badges, subs, raids, bits, replies and every channel point redemption (including ones without a message, via Twitch\'s public events).',
           'Built not to cost FPS: no GPU use and batched rendering; measured under 2% of one core on very fast chats.',
-          'Several chats at once in separate windows, per-game profiles as colored tags with a global shortcut, 17 styles with their own fonts, user-saved styles, preview mode, filters, Spanish and English, and settings backup.',
-          'Styles that mimic the chat of 8 games (WoW, LoL, Valorant, Minecraft, CS2, Overwatch 2, Fortnite and Rust): their font, line format and details, with names in each user\'s Twitch color and the user type wherever each game has a spot for it.',
+          'Several chats at once in separate windows, per-game profiles as coloured tags with a global shortcut, 17 styles with their own fonts, user-saved styles, preview mode, filters, Spanish and English, and settings backup.',
+          'Styles that mimic the chat of 8 games (WoW, LoL, Valorant, Minecraft, CS2, Overwatch 2, Fortnite and Rust): their font, line format and details, with names in each user\'s Twitch colour and the user type wherever each game has a spot for it.',
           'Live alerts: up to 100 channels checked with Twitch every minute in a single request, and a dedicated box on top of the game with animation, sound and adjustable position.',
           'Windows installer with updates from GitHub Releases, a portable build, and a Mac build (Intel and Apple Silicon) compiled with GitHub Actions.',
         ],
         ca: [
           'Xat de Twitch en temps real per WebSocket, anònim i de només lectura, amb reconnexió progressiva i detecció de connexions caigudes en tornar de la suspensió.',
           "Emotes oficials i de 7TV, BTTV i FFZ, inclosos els superposats de 7TV, amb versió estàtica per defecte per estalviar CPU.",
-          'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, respostes i tots els bescanvis de punts (també els que no porten missatge, via els esdeveniments públics de Twitch).',
-          'Pensada per no restar FPS: sense targeta gràfica i missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
+          'Mencions i paraules clau en vermell, primer missatge, insígnies, subs, raids, bits, respostes i tots els bescanvis de punts (també els que no porten missatge, a través dels esdeveniments públics de Twitch).',
+          'Pensada per no restar FPS: sense fer servir la targeta gràfica i amb missatges agrupats; mesurada per sota del 2 % d\'un nucli en xats molt ràpids.',
           "Diversos xats alhora en finestres a part, perfils per joc en etiquetes de colors amb drecera global, 17 estils amb font pròpia, estils desats per l'usuari, mode prova, filtres, castellà i anglès i còpia de la configuració.",
           'Estils que imiten el xat de 8 jocs (WoW, LoL, Valorant, Minecraft, CS2, Overwatch 2, Fortnite i Rust): la seva lletra, el format de línia i els detalls, amb els noms en el color de Twitch de cada usuari i el tipus d\'usuari on cada joc té el seu lloc.',
           "Avisos de directe: fins a 100 canals consultats a Twitch cada minut en una sola petició, i un requadre propi damunt del joc amb animació, so i posició ajustable.",
@@ -397,9 +397,9 @@ export const PROJECTS = [
       stack: 'Electron · JavaScript · Node.js · WebSocket (Twitch IRC) · electron-builder · GitHub Actions',
       status: {
         tone: 'ok',
-        es: 'Publicada para Windows (con actualizaciones automáticas) y para Mac, en pruebas. Código abierto con licencia MIT.',
-        en: 'Released for Windows (with automatic updates) and for Mac, in beta. Open source under the MIT license.',
-        ca: 'Publicada per a Windows (amb actualitzacions automàtiques) i per a Mac, en proves. Codi obert amb llicència MIT.',
+        es: 'Publicada para Windows (con actualizaciones automáticas) y para Mac (en fase de pruebas). Código abierto con licencia MIT.',
+        en: 'Released for Windows (with automatic updates) and for Mac (in beta). Open source under the MIT licence.',
+        ca: 'Publicada per a Windows (amb actualitzacions automàtiques) i per a Mac (en fase de proves). Codi obert amb llicència MIT.',
       },
     },
   },
@@ -429,7 +429,7 @@ export const PROJECTS = [
       highlights: {
         es: [
           '30 zonas, 20 compañeros, 24 misiones y 14 mejoras, definidos como datos y no cableados en la interfaz.',
-          'Jefes y semi-jefes con temporizador: si no bajas al enemigo a tiempo, se escapa.',
+          'Jefes y semijefes con temporizador: si no bajas al enemigo a tiempo, se escapa.',
           'Equipo situacional, donde cada objeto rinde distinto según el tipo de enemigo.',
           'Tope de nivel de los compañeros ligado al progreso, para que no se pueda farmear el principio.',
           'Estado global con Zustand, TypeScript estricto y tests de la lógica de juego.',
@@ -445,7 +445,7 @@ export const PROJECTS = [
         ],
         ca: [
           '30 zones, 20 companys, 24 missions i 14 millores, definits com a dades i no cablejats a la interfície.',
-          "Caps i semi-caps amb temporitzador: si no baixes l'enemic a temps, s'escapa.",
+          "Caps i semicaps amb temporitzador: si no baixes l'enemic a temps, s'escapa.",
           "Equip situacional, on cada objecte rendeix diferent segons el tipus d'enemic.",
           'Límit de nivell dels companys lligat al progrés, perquè no es pugui fer farming del principi.',
           'Estat global amb Zustand, TypeScript estricte i tests de la lògica de joc.',
@@ -495,7 +495,7 @@ export const PROJECTS = [
           'Datos tipados, traducción ES/EN sin librerías extra y respeto por prefers-reduced-motion.',
         ],
         en: [
-          'React Three Fiber scene with textures, atmospheres, a solar halo and Saturn rings drawn as bands.',
+          "React Three Fiber scene with textures, atmospheres, a solar halo and Saturn's rings drawn as bands.",
           'Selectable planets with camera transitions and a panel of physical data, moons and trivia.',
           'Guided tour that flies between bodies, the camera tracking each planet as it orbits.',
           'Time-speed control from 0x to 10x.',
@@ -569,9 +569,9 @@ export const PROJECTS = [
     title: 'FamilyTrivia',
     img: '/FamilyTrivia.webp',
     desc: {
-      es: 'Trivia de tablero para jugar en grupo: preguntas por categorías, respuestas simultáneas, ruletas para formar parejas y ranking final con estadísticas.',
-      en: 'Board-style trivia for group play: category questions, simultaneous answers, wheels to pair up teams, and a final ranking with stats.',
-      ca: 'Trivia de tauler per jugar en grup: preguntes per categories, respostes simultànies, ruletes per formar parelles i rànquing final amb estadístiques.',
+      es: 'Trivial de tablero para jugar en grupo: preguntas por categorías, respuestas simultáneas, ruletas para formar parejas y ranking final con estadísticas.',
+      en: 'Board-style trivia for group play: category questions, simultaneous answers, spinning wheels to form pairs, and a final ranking with stats.',
+      ca: 'Trivial de tauler per jugar en grup: preguntes per categories, respostes simultànies, ruletes per formar parelles i rànquing final amb estadístiques.',
     },
     tags: [
       { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
@@ -599,7 +599,7 @@ export const PROJECTS = [
         ],
         en: [
           'A 6-category by 6-value board, from 150 to 800 points, with difficulty tied to the value of each square.',
-          'Three modes: single player, up to 15 individual players, or up to 15 pairs drawn by the wheels.',
+          'Three modes: single player, up to 15 individual players, or up to 15 pairs drawn with the spinning wheels.',
           'Audio questions (soundtracks and Disney) with a custom player that takes both clicks and touch dragging.',
           "Three lifelines per team: see the hint, lose nothing on a wrong answer, and read everyone else's answers.",
           'Riddles with no options, where a right answer scores and a wrong one costs nothing.',
