@@ -1,5 +1,5 @@
 // My tech stack by category, with its react-icons icon and official website
-import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiDotnet, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot, SiGodotengine, SiAseprite, SiNextdotjs, SiElectron, SiNodedotjs, SiPostgresql, SiSupabase, SiVitest, SiGithubactions, SiSvelte, SiMaplibre } from 'react-icons/si'
+import { SiHtml5, SiCss, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiJson, SiXml, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflareworkers, SiRailway, SiStripe, SiClaude, SiGithubcopilot, SiGodotengine, SiAseprite, SiNextdotjs, SiElectron, SiNodedotjs, SiPostgresql, SiSupabase, SiVitest, SiGithubactions, SiSvelte, SiMaplibre } from 'react-icons/si'
 import { TbApi, TbCursorText, TbPhotoEdit } from 'react-icons/tb'
 import { FaJava } from 'react-icons/fa'
 
@@ -32,7 +32,6 @@ export const SKILL_CATEGORIES = [
       { label: 'PHP',      Icon: SiPhp,     color: '#777BB4', url: 'https://www.php.net/' },
       { label: 'Java',     Icon: FaJava,    color: '#ED8B00', url: 'https://www.java.com/' },
       { label: 'Laravel',  Icon: SiLaravel, color: '#FF2D20', url: 'https://laravel.com/' },
-      { label: '.NET',     Icon: SiDotnet,  color: '#512BD4', url: 'https://dotnet.microsoft.com/' },
       { label: 'Node.js',    Icon: SiNodedotjs,  color: '#5FA04E', url: 'https://nodejs.org/' },
       { label: 'MySQL',    Icon: SiMysql,   color: '#4479A1', url: 'https://www.mysql.com/' },
       { label: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1', url: 'https://www.postgresql.org/' },

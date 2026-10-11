@@ -316,7 +316,7 @@ four answers, and only what's placed on the correct one is kept.
 - **React Icons**
 - **EmailJS**
 - **Cloudflare Workers + Assets**
-- **Laravel**, **PHP**, **MySQL**, **.NET**, **Docker** and automation/deployment
+- **Laravel**, **PHP**, **MySQL**, **Docker** and automation/deployment
   tools listed in the skills section.
 - **Godot** for mobile game development outside the portfolio.
 
@@ -354,7 +354,6 @@ same order as the UI (from foundational to specialized).
 | **PHP** | Backend language for websites and APIs (personal and professional projects). |
 | **Java** | Object-oriented language I learned in a 275-hour Java bootcamp. |
 | **Laravel** | Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in `Obsidian`). |
-| **.NET** | Microsoft stack for services and APIs in corporate environments. |
 | **Node.js** | JavaScript runtime for servers, scripts and desktop apps. |
 | **MySQL** | Relational database for domain modelling and queries with indexes/joins. |
 | **PostgreSQL** | Relational database in `Nadir` (Neon + Drizzle ORM) and `Orbex` (Supabase). |

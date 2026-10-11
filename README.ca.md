@@ -317,7 +317,7 @@ respostes i només es conserva el que s'ha col·locat sobre la correcta.
 - **React Icons**
 - **EmailJS**
 - **Cloudflare Workers + Assets**
-- **Laravel**, **PHP**, **MySQL**, **.NET**, **Docker** i eines
+- **Laravel**, **PHP**, **MySQL**, **Docker** i eines
   d'automatització/desplegament presents a la secció de tecnologies.
 - **Godot** per al desenvolupament de jocs mòbils fora del portfolio.
 
@@ -355,7 +355,6 @@ que a la UI (de base a especialitzat).
 | **PHP** | Llenguatge backend per a webs i APIs (projectes personals i professionals). |
 | **Java** | Llenguatge orientat a objectes que vaig aprendre al bootcamp de Java (275 h). |
 | **Laravel** | Framework PHP full-stack: autenticació, ORM Eloquent, queues i APIs (utilitzat a `Obsidian`). |
-| **.NET** | Stack de Microsoft per a serveis i APIs en entorns corporatius. |
 | **Node.js** | Entorn de JavaScript per a servidors, scripts i apps d'escriptori. |
 | **MySQL** | Base de dades relacional per modelar el domini i consultes amb índexs/joins. |
 | **PostgreSQL** | Base de dades relacional a `Nadir` (Neon + Drizzle ORM) i `Orbex` (Supabase). |
