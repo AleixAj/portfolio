@@ -8,10 +8,10 @@
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 ![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
 
-<p>
-  <a href="README.md"><img src="docs/readme/lang-es.svg" alt="Español" width="170"></a>
-  <img src="docs/readme/lang-en-active.svg" alt="English" width="170">
-  <a href="README.ca.md"><img src="docs/readme/lang-ca.svg" alt="Català" width="170"></a>
+<p align="center">
+  <a href="README.md"><img src="docs/readme/lang-es.svg" alt="Ver en español" width="180"></a>
+  <a href="README.en.md"><img src="docs/readme/lang-en-active.svg" alt="English (selected)" width="180"></a>
+  <a href="README.ca.md"><img src="docs/readme/lang-ca.svg" alt="Veure en català" width="180"></a>
 </p>
 
 **Live portfolio:** [aleixaj.com](https://aleixaj.com)  
