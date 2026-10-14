@@ -133,10 +133,7 @@ export default function QuickView({ onExit }) {
               <div key={title.es} className="sm:flex sm:gap-4">
                 <dt className="sm:w-44 flex-shrink-0 font-semibold text-white/85 print:text-black">{localize(title, lang)}</dt>
                 <dd className="text-white/65 print:text-black/80">
-                  {skills.filter(s => s.basic || s.main).map(s => localize(s.label, lang)).join(' · ')}
-                  {skills.some(s => !s.main && !s.basic) && (
-                    <span className="text-white/40 print:text-black/55"> · {t.skills.alsoUsed.toLowerCase()}: {skills.filter(s => !s.main && !s.basic).map(s => localize(s.label, lang)).join(', ')}</span>
-                  )}
+                  {skills.map(s => localize(s.label, lang)).join(' · ')}
                 </dd>
               </div>
             ))}

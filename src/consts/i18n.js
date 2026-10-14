@@ -62,9 +62,8 @@ export const TRANSLATIONS = {
     },
     skills: {
       title: 'Tecnologías',
-      alsoUsed: 'También he usado',
       aiTitle: 'Trabajo con IA',
-      aiText: 'Las uso en el día a día como apoyo para programar, revisando siempre lo que proponen.',
+      aiText: 'Las uso en el día a día para programar y para crear arte, imágenes, vídeo y música, revisando siempre lo que generan.',
     },
     hobbies: {
       title: 'Arte',
@@ -153,9 +152,8 @@ export const TRANSLATIONS = {
     },
     skills: {
       title: 'Skills',
-      alsoUsed: 'Also used',
       aiTitle: 'Working with AI',
-      aiText: 'I use them every day as coding assistants, and I always review what they suggest.',
+      aiText: 'I use them every day for coding and for creating art, images, video and music, always reviewing what they produce.',
     },
     hobbies: {
       title: 'Art',
@@ -244,9 +242,8 @@ export const TRANSLATIONS = {
     },
     skills: {
       title: 'Tecnologies',
-      alsoUsed: 'També he fet servir',
       aiTitle: 'Treballo amb IA',
-      aiText: 'Les faig servir cada dia com a suport per programar, revisant sempre el que proposen.',
+      aiText: 'Les faig servir cada dia per programar i per crear art, imatges, vídeo i música, revisant sempre el que generen.',
     },
     hobbies: {
       title: 'Art',
