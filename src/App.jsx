@@ -11,6 +11,7 @@ import { LazyMotion } from 'framer-motion'
 import Navbar from './components/Navbar'
 import SectionRail from './components/SectionRail'
 import StarBackground from './components/StarBackground'
+import SiteSwitch from './components/SiteSwitch'
 import Hero from './sections/Hero'
 import Trayectoria from './sections/Trayectoria'
 import Projects from './sections/Projects'
@@ -19,7 +20,7 @@ import Hobbies from './sections/Hobbies'
 import Contact from './sections/Contact'
 import { SECTIONS, ROTATING_WORDS } from './consts/nav'
 import { TRANSLATIONS } from './consts/i18n'
-import { CV_BY_LANG, DEFAULT_LANG, getInitialLang } from './consts/lang'
+import { CV_BY_LANG, DEFAULT_LANG, getInitialLang, savedLang } from './consts/lang'
 
 // Framer Motion's features load in their own chunk after the first paint.
 // Nothing at the top of the page needs them (the hero intro is plain CSS).
@@ -37,7 +38,7 @@ function getInitialSectionIdx() {
   return idx === -1 ? 0 : idx
 }
 
-function App({ onQuickView }) {
+function App({ onQuickView, onRoomView }) {
   const containerRef = useRef(null)
   const isScrolling = useRef(false) // true while goToSection is smooth-scrolling
   const offsetsRef = useRef([])     // top of each section, in px
@@ -52,7 +53,7 @@ function App({ onQuickView }) {
   // When the language changes, update <html lang>, the title and the meta tags
   // so link previews and search engines see the right language too.
   useEffect(() => {
-    localStorage.setItem('lang', lang)
+    savedLang.set(lang)
     document.documentElement.lang = lang
 
     const meta = t.meta
@@ -255,7 +256,8 @@ function App({ onQuickView }) {
           className="h-full overflow-y-auto overscroll-y-none relative z-10 focus:outline-none"
           style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
         >
-          <Hero words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cv={cv} scrollLabel={t.nextSection} />
+          <Hero words={words} goToSection={goToSection} heroActive={sectionIdx === 0} t={t.hero} cv={cv} scrollLabel={t.nextSection}
+            siteSwitch={<SiteSwitch value="site" onChange={onRoomView} t={t} />} />
           <Trayectoria lang={lang} t={t.journey} />
           <Projects lang={lang} t={t.projects} />
           <Skills lang={lang} t={t.skills} />

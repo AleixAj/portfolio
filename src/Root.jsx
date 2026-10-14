@@ -1,5 +1,7 @@
 /**
- * Chooses between the full site and the quick version (?view=quick).
+ * Chooses which version of the portfolio to show, from ?view=:
+ * the full site (default), the quick version (?view=quick) or the 3D room
+ * (?view=room).
  *
  * They're separate trees on purpose: the full site sets up its scroll
  * container and listeners once on mount, so switching remounts it cleanly.
@@ -7,38 +9,59 @@
  */
 import { lazy, Suspense, useEffect, useState } from 'react'
 import App from './App'
+import LoaderScreen from './components/LoaderScreen'
+import { TRANSLATIONS } from './consts/i18n'
+import { getInitialLang } from './consts/lang'
 
-// Most visitors never open it, so it lives in its own small chunk
+// Most visitors never open these, so each lives in its own chunk
 const QuickView = lazy(() => import('./sections/QuickView'))
+const RoomView = lazy(() => import('./room/RoomView'))
 
-const isQuickUrl = () => new URLSearchParams(window.location.search).get('view') === 'quick'
+const VIEWS = ['quick', 'room']
+const viewFromUrl = () => {
+  const view = new URLSearchParams(window.location.search).get('view')
+  return VIEWS.includes(view) ? view : null
+}
+
+function RoomCodeLoader() {
+  const r = TRANSLATIONS[getInitialLang()].room
+  return <LoaderScreen title={r.loading} steps={r.loadingSteps} />
+}
 
 export default function Root() {
-  const [quick, setQuick] = useState(isQuickUrl)
+  const [view, setView] = useState(viewFromUrl)
 
-  // Back / Forward between the two versions
+  // Back / Forward between the versions
   useEffect(() => {
-    const onPop = () => setQuick(isQuickUrl())
+    const onPop = () => setView(viewFromUrl())
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
-  const switchTo = (toQuick) => {
+  const switchTo = (next) => {
     const url = new URL(window.location.href)
-    if (toQuick) url.searchParams.set('view', 'quick')
+    if (next) url.searchParams.set('view', next)
     else url.searchParams.delete('view')
     url.hash = ''
     // pushState so the Back button returns to where they came from
     window.history.pushState(null, '', `${url.pathname}${url.search}`)
-    setQuick(toQuick)
+    setView(next)
   }
 
-  if (quick) {
+  if (view === 'quick') {
     return (
       <Suspense fallback={null}>
-        <QuickView onExit={() => switchTo(false)} />
+        <QuickView onExit={() => switchTo(null)} />
       </Suspense>
     )
   }
-  return <App onQuickView={() => switchTo(true)} />
+  if (view === 'room') {
+    return (
+      // While the room's code downloads, the same loading screen it starts with
+      <Suspense fallback={<RoomCodeLoader />}>
+        <RoomView onExit={() => switchTo(null)} />
+      </Suspense>
+    )
+  }
+  return <App onQuickView={() => switchTo('quick')} onRoomView={() => switchTo('room')} />
 }

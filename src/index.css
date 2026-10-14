@@ -397,6 +397,56 @@ h1, h2, h3, h4, .font-tech {
 
 }
 
+/* 3D room: the numbered dots on the floating labels send out a slow ring,
+   so it's clear they can be clicked. Reduced motion turns it off (below). */
+@keyframes markerPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(34, 211, 238, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+}
+
+.room-marker-dot {
+  animation: markerPulse 2.4s ease-out infinite;
+}
+
+/* 3D room loading screen (LoaderScreen.jsx): the logo breathes, the bar has
+   a sheen running along it, and the "no number yet" bar slides across. */
+@keyframes loaderGlow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.35)); }
+  50%      { filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.75)); }
+}
+
+@keyframes loaderSheen {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(250%); }
+}
+
+@keyframes loaderSlide {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(300%); }
+}
+
+.loader-logo {
+  animation: loaderGlow 2.4s ease-in-out infinite;
+}
+
+.loader-fill {
+  overflow: hidden;
+}
+
+.loader-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: loaderSheen 1.6s ease-in-out infinite;
+}
+
+.loader-indeterminate {
+  animation: loaderSlide 1.3s ease-in-out infinite;
+}
+
 /* If the system asks for reduced motion, turn the animations off and just
    show everything. */
 @media (prefers-reduced-motion: reduce) {

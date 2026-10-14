@@ -131,7 +131,7 @@ export default function ProjectModal({ project, lang, t, onClose }) {
               alt={`${title}: ${t.preview}`}
               loading="lazy"
               decoding="async"
-              className="mt-4 mx-auto block w-full max-w-sm rounded-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+              className="mt-4 mx-auto block w-full max-w-xl max-h-[22rem] object-contain rounded-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
             />
           )}
 

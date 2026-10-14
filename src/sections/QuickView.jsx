@@ -5,13 +5,14 @@
  * reads the same data as the full site, so there's nothing extra to keep up
  * to date. It also prints cleanly (white background), so "Save as PDF" works.
  */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FaLinkedin, FaGithub, FaEnvelope, FaDownload, FaPrint, FaArrowLeft, FaMapMarkerAlt } from 'react-icons/fa'
 import { TRANSLATIONS } from '../consts/i18n'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import { PROJECTS } from '../consts/projects'
 import { SKILL_CATEGORIES, AI_TOOLS } from '../consts/skills'
-import { CV_BY_LANG, DEFAULT_LANG, getInitialLang } from '../consts/lang'
+import { CV_BY_LANG, getInitialLang } from '../consts/lang'
+import { useLangInUrl } from '../consts/useLangInUrl'
 import { LanguageSwitcher } from '../components/Navbar'
 
 // Translated fields are { es, en, ca }; plain strings are the same in every language
@@ -34,17 +35,7 @@ export default function QuickView({ onExit }) {
   const q = t.quick
   const cv = CV_BY_LANG[lang] ?? CV_BY_LANG.es
 
-  // Same language bookkeeping as the full site: remember it, set <html lang>
-  // and keep ?lang= in the address bar so the link can be shared as is.
-  useEffect(() => {
-    localStorage.setItem('lang', lang)
-    document.documentElement.lang = lang
-    document.title = `${t.meta.title} · ${t.quickView}`
-    const url = new URL(window.location.href)
-    if (lang === DEFAULT_LANG) url.searchParams.delete('lang')
-    else url.searchParams.set('lang', lang)
-    window.history.replaceState(null, '', `${url.pathname}${url.search}`)
-  }, [lang, t])
+  useLangInUrl(lang, `${t.meta.title} · ${t.quickView}`)
 
   return (
     <div className="fixed inset-0 overflow-y-auto bg-[#05080c] text-white print:static print:overflow-visible print:bg-white print:text-black">

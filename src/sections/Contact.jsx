@@ -3,7 +3,6 @@
  * The form needs the VITE_EMAILJS_* variables in .env.local to work.
  */
 import { useRef, useState, memo } from 'react'
-import emailjs from '@emailjs/browser'
 import { FaLinkedin, FaEnvelope, FaGithub, FaFileAlt } from 'react-icons/fa'
 import SectionHeading from '../components/SectionHeading'
 
@@ -40,6 +39,10 @@ function ContactForm({ t }) {
     if (Date.now() - lastSubmitRef.current < COOLDOWN_MS) return
     setStatus('sending')
     try {
+      // Loaded only when sending: EmailJS touches localStorage as soon as it's
+      // imported, and where site data is blocked that throws. Imported up front,
+      // it took the whole page down; here it can only fail this one send.
+      const { default: emailjs } = await import('@emailjs/browser')
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
       lastSubmitRef.current = Date.now()
       setStatus('success')

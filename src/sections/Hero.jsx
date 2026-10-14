@@ -7,6 +7,7 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { FaLinkedin, FaFileAlt, FaDownload, FaMapMarkerAlt, FaBriefcase, FaLaptopCode, FaGlobe, FaCode } from 'react-icons/fa'
 import RotatingText from '../components/RotatingText'
+import ErrorBoundary from '../components/ErrorBoundary'
 import { LIGHT_MODE } from '../consts/device'
 
 // Three.js and the scene live in their own chunk so they don't slow down the first load
@@ -145,7 +146,7 @@ function ScrollCue({ onClick, label }) {
   )
 }
 
-export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabel }) {
+export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabel, siteSwitch }) {
   const reduceMotion = useReducedMotion()
   const sceneReady = useSceneWhenIdle()
   // Intro animation is plain CSS (.hero-enter) so it starts on the very first paint.
@@ -158,14 +159,26 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
         {LIGHT_MODE || !sceneReady ? (
           <HeroBackdrop />
         ) : (
-          <Suspense fallback={<HeroBackdrop />}>
-            <Scene3D heroActive={heroActive} />
-          </Suspense>
+          // If the room can't load, the glow stays and the rest of the page still works
+          <ErrorBoundary fallback={<HeroBackdrop />}>
+            <Suspense fallback={<HeroBackdrop />}>
+              <Scene3D heroActive={heroActive} />
+            </Suspense>
+          </ErrorBoundary>
         )}
       </div>
 
+      {/* Normal / 3D switch, centred at the very top of the page (just under the navbar).
+          Desktop: floats above the room. Mobile: first thing in the title block. */}
+      <div className="hero-enter hidden md:flex absolute inset-x-0 top-24 lg:top-[6.75rem] [@media(max-height:820px)]:top-20 lg:[@media(max-height:820px)]:top-[5.75rem] z-20 justify-center pointer-events-none" style={{ '--d': 0 }}>
+        <div className="pointer-events-auto">{siteSwitch}</div>
+      </div>
+
       {/* Mobile: title at top */}
-      <div className="md:hidden flex-shrink-0 pt-20 ls:pt-12 px-8 pb-8 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
+      <div className="md:hidden flex-shrink-0 pt-24 ls:pt-14 px-8 pb-8 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
+        <div {...enter(0)}>
+          <div className="flex justify-center mb-6 ls:mb-3">{siteSwitch}</div>
+        </div>
         <h1 {...enter(0)}>
           <span className="block text-[7vw] font-bold tracking-tighter leading-none">
             {t.transform}{' '}
@@ -210,20 +223,22 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
         </div>
       </div>
 
-      {/* Desktop */}
-      <div className="hidden md:flex absolute inset-0 z-10 items-center pt-20 px-6 lg:pl-20 xl:pl-28 2xl:pl-[12rem] pointer-events-none">
+      {/* Desktop. The top padding leaves room for the navbar and the Normal / 3D switch;
+          on short screens the block starts right below them instead of centring,
+          so it never slides up under the switch. */}
+      <div className="hidden md:flex absolute inset-0 z-10 items-center [@media(max-height:820px)]:items-start pt-40 lg:pt-44 [@media(max-height:820px)]:pt-36 lg:[@media(max-height:820px)]:pt-40 pb-6 px-6 lg:pl-20 xl:pl-28 2xl:pl-[12rem] pointer-events-none">
         <div className="flex flex-col justify-center text-white max-w-lg lg:max-w-none">
           <h1 {...enter(0)}>
-            <span className="block text-5xl lg:text-6xl font-bold tracking-tighter leading-none">
+            <span className="block text-5xl lg:text-6xl lg:[@media(max-height:820px)]:text-5xl font-bold tracking-tighter leading-none">
               {t.transform}{' '}
               <HeroWord words={words} reduceMotion={reduceMotion} active={heroActive} />
             </span>
           </h1>
           <h2 {...enter(1)}>
-            <span className="block text-4xl lg:text-5xl font-bold text-gradient-cyan tracking-tight mt-2.5">{t.subtitle}</span>
+            <span className="block text-4xl lg:text-5xl lg:[@media(max-height:820px)]:text-4xl font-bold text-gradient-cyan tracking-tight mt-2.5">{t.subtitle}</span>
           </h2>
           {/* A real margin (not a transform) so the block stays centred and fits on short screens */}
-          <div className="mt-8 [@media(min-height:850px)]:mt-16">
+          <div className="mt-4 [@media(min-height:800px)]:mt-8 [@media(min-height:850px)]:mt-16">
             <p {...enter(2)}><span className="block text-2xl text-gray-300">Software Developer</span></p>
             <div className="hero-enter mt-3 flex flex-wrap gap-2 max-w-[40rem] pointer-events-auto" style={{ '--d': 3 }}>
               <OpenToWorkBadge label={t.openToWork} />

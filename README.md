@@ -33,6 +33,11 @@ proyectos desde una idea hasta producción.
   experiencia responsive pensada para desktop, tablet y móvil.
 - Integración de una escena 3D ligera con **Three.js**, **React Three Fiber** y
   carga diferida para mantener buen rendimiento inicial.
+- **Tres formas de ver el portfolio**: la web normal, una **habitación 3D**
+  (`?view=room`) donde cada objeto abre una sección (estantería con la
+  trayectoria, monitores con los proyectos, cuadros con mis dibujos…) y una
+  **versión rápida** para reclutadores (`?view=quick`) que se imprime como PDF.
+  El interruptor «Estilo normal / Estilo 3D» está arriba en ambas.
 - Interfaz **trilingüe ES / EN / CAT** sin dependencias extra. Cada idioma tiene
   su propia URL (`/`, `/?lang=en`, `/?lang=ca`), de modo que un enlace compartido
   abre en el idioma en que se compartió; `hreflang`, `canonical`, `meta` y `og:*`
@@ -105,9 +110,10 @@ proyectos desde una idea hasta producción.
 - **Galería optimizada**: miniaturas WebP para la cuadrícula y archivos completos
   solo cuando se abre el visor, con **swipe/arrastre** (móvil y escritorio) y
   precarga de las imágenes vecinas para un cambio instantáneo.
-- **CV por idioma**: `CV_BY_LANG` en `App.jsx` es la única fuente de verdad
-  (ruta + nombre de descarga) y alimenta los tres enlaces de CV del sitio (dos
-  en el hero, uno en el footer), de modo que cambiar de CV es tocar un solo sitio.
+- **CV por idioma**: `CV_BY_LANG` en `src/consts/lang.js` es la única fuente de
+  verdad (ruta + nombre de descarga) y alimenta todos los enlaces de CV (web
+  normal, versión rápida y habitación 3D), de modo que cambiar de CV es tocar un
+  solo sitio.
 - **SEO multiidioma real**: cada idioma tiene URL propia (`/`, `/?lang=en`,
   `/?lang=ca`), declarada en `hreflang` y en el sitemap, y `App.jsx` mantiene
   `canonical`, `title`, `description`, `og:*` y `twitter:*` apuntando a la URL

@@ -35,6 +35,11 @@ full-stack skills and experience taking projects from an idea to production.
   responsive experience designed for desktop, tablet and mobile.
 - Integration of a lightweight 3D scene with **Three.js**, **React Three Fiber**
   and lazy loading to keep initial performance high.
+- **Three ways to view the portfolio**: the classic site, a **3D room**
+  (`?view=room`) where each object opens a section (bookshelf with the career,
+  monitors with the projects, frames with my drawings…) and a **quick version**
+  for recruiters (`?view=quick`) that prints as a PDF. The "Classic style / 3D
+  style" switch sits at the top of both.
 - **Trilingual ES / EN / CAT** interface with no extra dependencies. Each
   language has its own URL (`/`, `/?lang=en`, `/?lang=ca`), so a shared link
   opens in the language it was shared in; `hreflang`, `canonical`, `meta` and
@@ -105,9 +110,9 @@ full-stack skills and experience taking projects from an idea to production.
 - **Optimized gallery**: WebP thumbnails for the grid and full-size files only
   when the viewer is opened, with **swipe/drag** (mobile and desktop) and
   preloading of neighbouring images for instant switching.
-- **CV per language**: `CV_BY_LANG` in `App.jsx` is the single source of truth
-  (path + download name) and feeds the site's three CV links (two in the hero,
-  one in the footer), so changing the CV means touching a single place.
+- **CV per language**: `CV_BY_LANG` in `src/consts/lang.js` is the single source
+  of truth (path + download name) and feeds every CV link (classic site, quick
+  version and 3D room), so changing the CV means touching a single place.
 - **Real multilingual SEO**: each language has its own URL (`/`, `/?lang=en`,
   `/?lang=ca`), declared in `hreflang` and in the sitemap, and `App.jsx` keeps
   `canonical`, `title`, `description`, `og:*` and `twitter:*` pointing to the

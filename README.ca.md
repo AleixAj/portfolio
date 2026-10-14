@@ -33,6 +33,11 @@ projectes des d'una idea fins a producció.
   una experiència responsive pensada per a escriptori, tauleta i mòbil.
 - Integració d'una escena 3D lleugera amb **Three.js**, **React Three Fiber** i
   càrrega diferida per mantenir un bon rendiment inicial.
+- **Tres maneres de veure el portfolio**: la web normal, una **habitació 3D**
+  (`?view=room`) on cada objecte obre una secció (prestatgeria amb la
+  trajectòria, monitors amb els projectes, quadres amb els meus dibuixos…) i una
+  **versió ràpida** per a reclutadors (`?view=quick`) que s'imprimeix com a PDF.
+  L'interruptor «Estil normal / Estil 3D» és a dalt de totes dues.
 - Interfície **trilingüe ES / EN / CAT** sense dependències addicionals. Cada
   idioma té la seva pròpia URL (`/`, `/?lang=en`, `/?lang=ca`), de manera que un
   enllaç compartit s'obre en l'idioma en què es va compartir; `hreflang`,
@@ -107,9 +112,10 @@ projectes des d'una idea fins a producció.
 - **Galeria optimitzada**: miniatures WebP per a la graella i fitxers complets
   només quan s'obre el visor, amb **swipe/arrossegament** (mòbil i escriptori) i
   precàrrega de les imatges veïnes per a un canvi instantani.
-- **CV per idioma**: `CV_BY_LANG` a `App.jsx` és l'única font de veritat (ruta +
-  nom de descàrrega) i alimenta els tres enllaços de CV del lloc (dos al hero,
-  un al footer), de manera que canviar de CV vol dir tocar un sol lloc.
+- **CV per idioma**: `CV_BY_LANG` a `src/consts/lang.js` és l'única font de
+  veritat (ruta + nom de descàrrega) i alimenta tots els enllaços de CV (web
+  normal, versió ràpida i habitació 3D), de manera que canviar de CV vol dir
+  tocar un sol lloc.
 - **SEO multilingüe real**: cada idioma té URL pròpia (`/`, `/?lang=en`,
   `/?lang=ca`), declarada a `hreflang` i al sitemap, i `App.jsx` manté
   `canonical`, `title`, `description`, `og:*` i `twitter:*` apuntant a la URL

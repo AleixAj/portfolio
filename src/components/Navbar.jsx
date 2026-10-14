@@ -73,7 +73,7 @@ export function LanguageSwitcher({ lang, setLang, setMenuOpen, compact = false }
               setMenuOpen(false)
             }}
             className={`flex items-center rounded-full font-bold tracking-wider transition-all ${
-              compact ? 'px-2 py-1.5' : 'gap-1.5 px-2.5 py-1 text-xs'
+              compact ? 'px-1.5 sm:px-2 py-1.5' : 'gap-1.5 px-2.5 py-1 text-xs'
             } ${
               active
                 ? 'border border-cyan-400 text-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.65)] bg-cyan-400/10'
@@ -192,12 +192,12 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
       {/* Desktop: logo left, links centred, languages right */}
       <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] w-full px-5 md:px-5 lg:px-8 2xl:px-10 py-4 lg:py-5 items-center gap-4 lg:gap-6">
         <button onClick={() => goToSection('inicio')} aria-label={`Aleix Auqué — ${NAV_ITEMS[0].labels[lang]}`} className="flex items-center gap-3 lg:gap-4 cursor-pointer flex-shrink-0 justify-self-start">
-          <img src="/AJ.png" alt="" aria-hidden="true" className="h-8 lg:h-10 xl:h-11 w-auto object-contain flex-shrink-0" />
+          <img src="/AJ.png" alt="" aria-hidden="true" className="h-8 lg:h-10 xl:h-11 w-auto max-w-none object-contain flex-shrink-0" />
           {/* Below 1280px there's no room for the name next to the links */}
           <span aria-hidden="true" className="hidden xl:inline whitespace-nowrap font-tech text-2xl wide:text-3xl 2xl:text-4xl font-bold xl:tracking-widest text-white">ALEIX AUQUÉ</span>
         </button>
 
-        <div ref={linksRef} className="relative flex items-center justify-center gap-3.5 lg:gap-6 wide:gap-8 text-white font-medium font-tech text-[0.95rem] lg:text-lg tracking-wide lg:tracking-wider">
+        <div ref={linksRef} className="relative flex items-center justify-center gap-2.5 lg:gap-5 wide:gap-7 text-white font-medium font-tech text-[0.8125rem] lg:text-base xl:text-lg tracking-wide lg:tracking-wider">
           {NAV_ITEMS.map(({ labels, id }) => {
             const isActive = activeSection === id
             return (
@@ -220,7 +220,7 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
         </div>
 
         <div className="justify-self-end flex items-center gap-2 xl:gap-3">
-          {/* Quick version: icon only until there's room for the words */}
+          {/* Quick version: just the icon, the name is in the tooltip */}
           <button
             onClick={onQuickView}
             title={t.quickViewHint}
@@ -228,16 +228,15 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
             className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs font-semibold tracking-wide text-white/70 hover:text-cyan-300 hover:border-cyan-400/50 transition-colors"
           >
             <FaBolt className="w-3 h-3" aria-hidden="true" />
-            <span className="hidden wide:inline">{t.quickView}</span>
           </button>
           {/* Flags only until there's room for the labels too */}
-          <div className="xl:hidden"><LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} compact /></div>
-          <div className="hidden xl:block"><LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} /></div>
+          <div className="wide:hidden"><LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} compact /></div>
+          <div className="hidden wide:block"><LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} /></div>
         </div>
       </div>
 
       {/* Mobile: just the logo on the left (the name is in the footer), controls on the right */}
-      <div className="md:hidden w-full px-5 py-4 flex items-center justify-between gap-3">
+      <div className="md:hidden w-full px-4 py-4 flex items-center justify-between gap-2">
         <button
           onClick={() => goToSection('inicio')}
           className="flex-shrink-0 p-1"

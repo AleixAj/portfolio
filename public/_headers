@@ -19,6 +19,15 @@
   Cross-Origin-Opener-Policy: same-origin
   X-XSS-Protection: 0
 
+# The CV PDFs are shown inside the site (the 3D room has a CV viewer), so they
+# may be framed by this same site only. Everything else keeps DENY / 'none'.
+# "! Header" removes what the /* rule set, before setting the relaxed value.
+/cv-*
+  ! X-Frame-Options
+  ! Content-Security-Policy
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self'
+
 # Caching. Cloudflare Workers assets revalidate on every visit by default, which
 # costs a round trip per file. Build output under /assets/ is content-hashed, so
 # it can be cached forever. The files in public/ keep their name across deploys,
@@ -33,6 +42,9 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /hobbies/*
+  Cache-Control: public, max-age=2592000
+
+/skills/*
   Cache-Control: public, max-age=2592000
 
 /gaming_bedroom.glb
@@ -69,6 +81,27 @@
   Cache-Control: public, max-age=2592000
 
 /nexus-demo.webp
+  Cache-Control: public, max-age=2592000
+
+/obsidian-demo.webp
+  Cache-Control: public, max-age=2592000
+
+/orbex-demo.webp
+  Cache-Control: public, max-age=2592000
+
+/nadir-demo.webp
+  Cache-Control: public, max-age=2592000
+
+/lotr-demo.webp
+  Cache-Control: public, max-age=2592000
+
+/solar-explorer-demo.webp
+  Cache-Control: public, max-age=2592000
+
+/cashdrop-demo.webp
+  Cache-Control: public, max-age=2592000
+
+/familytrivia-demo.webp
   Cache-Control: public, max-age=2592000
 
 /solar-explorerlogo.webp

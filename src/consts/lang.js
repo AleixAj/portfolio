@@ -1,4 +1,4 @@
-// Language helpers shared by the full site (App) and the quick version (QuickView)
+// Language helpers shared by the full site (App), the quick version and the 3D room
 import { TRANSLATIONS } from './i18n'
 
 // There's no Catalan CV, so Catalan gets the Spanish one.
@@ -11,11 +11,22 @@ export const CV_BY_LANG = {
 
 export const DEFAULT_LANG = 'es'
 
+// localStorage can throw (private mode in some browsers, storage disabled).
+// Remembering the language is a nice-to-have, so failures are ignored.
+export const savedLang = {
+  get() {
+    try { return localStorage.getItem('lang') } catch { return null }
+  },
+  set(lang) {
+    try { localStorage.setItem('lang', lang) } catch { /* not available */ }
+  },
+}
+
 // A ?lang= in the link beats whatever the visitor picked last time,
 // so a shared link always opens in the language it was shared in.
 export function getInitialLang() {
   const fromUrl = new URLSearchParams(window.location.search).get('lang')
   if (TRANSLATIONS[fromUrl]) return fromUrl
-  const stored = localStorage.getItem('lang')
+  const stored = savedLang.get()
   return TRANSLATIONS[stored] ? stored : DEFAULT_LANG
 }

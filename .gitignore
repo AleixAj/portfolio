@@ -36,3 +36,6 @@ dist-ssr
 
 # Impeccable (ajustes locales de la máquina)
 .impeccable/config.local.json
+
+# Screenshots and logs from browser test runs
+.playwright-mcp/

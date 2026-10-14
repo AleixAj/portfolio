@@ -5,8 +5,9 @@
  *
  * Each one has an image, description, tags and the repo, plus whatever applies:
  * a live `demo`, a `store` link (mobile) or a `download` link (desktop).
- * `preview` is an optional screenshot shown big in the details dialog. The card
- * keeps the logo because a screenshot that small is unreadable.
+ * `preview` is a screenshot of the project in use, shown in the details dialog
+ * (every project has one). The card keeps the logo because a screenshot that
+ * small is unreadable.
  *
  * `details` is what the dialog shows: a short version of the repo's README.
  * `status.tone` is 'ok' for finished projects and 'pending' when there's still
@@ -18,6 +19,7 @@ export const PROJECTS = [
     title: 'Obsidian',
     featured: true,
     img: '/obsidian-pixelart.webp',
+    preview: '/obsidian-demo.webp',
     mobileImg: '/obsidian-pixelart.webp',
     imgCls: 'scale-[1.10] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',
     desc: {
@@ -80,6 +82,7 @@ export const PROJECTS = [
     title: 'Orbex',
     featured: true,
     img: '/orbex-icon.webp',
+    preview: '/orbex-demo.webp',
     imgCls: 'scale-[1.10] md:scale-[1.25] md:group-hover:scale-[1.32] p-0',
     desc: {
       es: 'Juego arcade móvil estilo Zuma con 10 mundos y 80 niveles, personajes y animaciones en pixel art hecho a mano. Backend Supabase con auth, ranking online, telemetría y antitrampas.',
@@ -277,6 +280,7 @@ export const PROJECTS = [
   {
     title: 'Nadir',
     img: '/nadir-logo.webp',
+    preview: '/nadir-demo.webp',
     imgCls: 'scale-[0.85] md:scale-[1.10] md:group-hover:scale-[1.17] p-0',
     desc: {
       es: 'Monitor de precios full-stack: compara el mismo producto en varias tiendas, guarda su histórico y avisa cuando baja del precio objetivo. Cuentas con Google o email, avisos por email y demo sin registro.',
@@ -412,6 +416,7 @@ export const PROJECTS = [
   {
     title: 'Lord of the Clicks',
     img: '/onering-gif.gif',
+    preview: '/lotr-demo.webp',
     imgCls: 'scale-[1.25] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',
     desc: {
       es: 'Clicker incremental inspirado en la Tierra Media: 30 zonas, 20 compañeros, 24 misiones, equipo, jefes con temporizador y guardado persistente.',
@@ -470,6 +475,7 @@ export const PROJECTS = [
   {
     title: 'Solar Explorer',
     img: '/solar-explorerlogo.webp',
+    preview: '/solar-explorer-demo.webp',
     imgCls: 'scale-[1.10] md:scale-125 p-0',
     desc: {
       es: 'Explorador 3D del Sistema Solar con escena WebGL, planetas seleccionables, cámara interactiva, datos astronómicos e interfaz responsive.',
@@ -523,6 +529,7 @@ export const PROJECTS = [
   {
     title: 'CashDrop',
     img: '/CashDrop.webp',
+    preview: '/cashdrop-demo.webp',
     desc: {
       es: 'Juego web inspirado en el concurso de televisión: repartes 1.000.000 € en 20 fajos entre cuatro respuestas y solo conservas lo que hay sobre la correcta.',
       en: 'Web game inspired by the TV show: split €1,000,000 in 20 bundles across four answers and keep only what sits on the right one.',
@@ -574,6 +581,7 @@ export const PROJECTS = [
   {
     title: 'FamilyTrivia',
     img: '/FamilyTrivia.webp',
+    preview: '/familytrivia-demo.webp',
     desc: {
       es: 'Trivial de tablero para jugar en grupo: preguntas por categorías, respuestas simultáneas, ruletas para formar parejas y ranking final con estadísticas.',
       en: 'Board-style trivia for group play: category questions, simultaneous answers, spinning wheels to form pairs, and a final ranking with stats.',
