@@ -15,6 +15,8 @@ export default {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
+      // Wide laptops: room for the full navbar (name, labels)
+      wide: '1440px',
       // Keep 1920x1080 on the standard desktop layout.
       // Large-content scaling starts only on wider displays.
       '2xl': '2200px',

@@ -37,7 +37,7 @@ function HeroBackdrop() {
   return <div className="w-full h-full bg-[radial-gradient(circle_at_70%_40%,rgba(34,211,238,0.16),transparent_35%)]" />
 }
 
-// The word that keeps changing in the headline ("ideas", "projects"...).
+// The word that keeps changing in the headline ("ideas", "sketches"...).
 // The key resets it when the language changes. With reduced motion it just
 // swaps the word without the roll. It pauses while the hero is off screen,
 // because each change measures the layout and that would happen mid-scroll.
@@ -188,7 +188,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
           <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
           <ProfileChip icon={FaBriefcase} label={t.experience} />
         </div>
-        <p className="mt-2 ls:hidden text-sm text-gray-300 w-full text-justify">
+        <p className="mt-2 ls:hidden text-sm text-gray-300 w-full">
           {t.intro}
         </p>
         <div className="mt-4 ls:mt-3 flex flex-col gap-1.5 pointer-events-auto items-start">
@@ -233,7 +233,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
               <ProfileChip icon={FaLaptopCode} label={t.modality} />
               <ProfileChip icon={FaGlobe} label={t.languages} />
             </div>
-            <p className="hero-enter mt-3 text-base text-gray-300 max-w-[38rem] text-justify" style={{ '--d': 4 }}>
+            <p className="hero-enter mt-3 text-base text-gray-300 max-w-[38rem]" style={{ '--d': 4 }}>
               {t.intro}
             </p>
             <div className="hero-enter mt-6 flex flex-wrap gap-3 pointer-events-auto" style={{ '--d': 5 }}>

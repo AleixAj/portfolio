@@ -1,5 +1,7 @@
 /**
  * My projects, strongest first (full-stack ones, then the shipped products).
+ * The ones with `featured: true` get the big cards at the top; the rest go in
+ * the compact "More projects" list below them.
  *
  * Each one has an image, description, tags and the repo, plus whatever applies:
  * a live `demo`, a `store` link (mobile) or a `download` link (desktop).
@@ -7,12 +9,14 @@
  * keeps the logo because a screenshot that small is unreadable.
  *
  * `details` is what the dialog shows: a short version of the repo's README.
- * `status.tone` is 'ok' for finished projects and 'pending' if there's a caveat.
+ * `status.tone` is 'ok' for finished projects and 'pending' when there's still
+ * work to do; then the text is written as the next step, not as a warning.
  * It's copied from the repos, so remember to update it when they change.
  */
 export const PROJECTS = [
   {
     title: 'Obsidian',
+    featured: true,
     img: '/obsidian-pixelart.webp',
     mobileImg: '/obsidian-pixelart.webp',
     imgCls: 'scale-[1.10] md:scale-[1.35] md:group-hover:scale-[1.42] p-0',
@@ -66,14 +70,15 @@ export const PROJECTS = [
       stack: 'React 19 · TypeScript · Vite · TanStack Query · Laravel 11 · MySQL',
       status: {
         tone: 'pending',
-        es: 'El checkout crea pedidos reales, pero todavía no cobra: queda por conectar la pasarela de pago.',
-        en: 'Checkout creates real orders but does not charge yet: the payment gateway is still to be connected.',
-        ca: 'El checkout crea comandes reals, però encara no cobra: queda per connectar la passarel·la de pagament.',
+        es: 'Conectar la pasarela de pago. El resto del flujo de compra, del catálogo al pedido en base de datos, ya funciona.',
+        en: 'Connecting the payment gateway. The rest of the purchase flow, from catalogue to order in the database, already works.',
+        ca: 'Connectar la passarel·la de pagament. La resta del flux de compra, del catàleg a la comanda a la base de dades, ja funciona.',
       },
     },
   },
   {
     title: 'Orbex',
+    featured: true,
     img: '/orbex-icon.webp',
     imgCls: 'scale-[1.10] md:scale-[1.25] md:group-hover:scale-[1.32] p-0',
     desc: {
@@ -133,6 +138,7 @@ export const PROJECTS = [
   },
   {
     title: 'NEXUS',
+    featured: true,
     img: '/nexus-logo.webp',
     preview: '/nexus-demo.webp',
     imgCls: 'scale-[0.92] md:scale-[1.30] md:group-hover:scale-[1.37] p-0',
@@ -331,9 +337,9 @@ export const PROJECTS = [
       stack: 'Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Neon Postgres · Drizzle · Better Auth · Resend · Cloudflare Workers',
       status: {
         tone: 'pending',
-        es: 'Las grandes tiendas no dejan leer sus precios: el catálogo es real pero su evolución se simula (la web lo indica). Faltan los avisos por Telegram.',
-        en: "Big stores don't let their prices be read: the catalogue is real but the price changes are simulated (the site says so). Telegram alerts are still to come.",
-        ca: "Les grans botigues no deixen llegir els seus preus: el catàleg és real però la seva evolució se simula (la web ho indica). Falten els avisos per Telegram.",
+        es: 'Añadir avisos por Telegram. El catálogo de productos es real; la evolución de precios se simula porque las grandes tiendas no dejan leerlos, y la web lo indica.',
+        en: "Adding Telegram alerts. The product catalogue is real; price history is simulated because big stores don't allow reading their prices, and the site says so.",
+        ca: "Afegir avisos per Telegram. El catàleg de productes és real; l'evolució de preus se simula perquè les grans botigues no deixen llegir-los, i la web ho indica.",
       },
     },
   },
@@ -455,9 +461,9 @@ export const PROJECTS = [
       stack: 'React 19 · TypeScript · Zustand · Tailwind CSS · Vitest · Cloudflare',
       status: {
         tone: 'pending',
-        es: 'Faltan las imágenes y animaciones de la mitad final del juego, y sigo afinando las curvas de dificultad.',
-        en: 'The art and animations for the back half of the game are still missing, and I am still tuning the difficulty curves.',
-        ca: 'Falten les imatges i animacions de la meitat final del joc, i encara estic afinant les corbes de dificultat.',
+        es: 'Terminar el arte y las animaciones de la segunda mitad del juego y ajustar la curva de dificultad.',
+        en: 'Finishing the art and animations for the second half of the game and fine-tuning the difficulty curve.',
+        ca: "Acabar l'art i les animacions de la segona meitat del joc i ajustar la corba de dificultat.",
       },
     },
   },

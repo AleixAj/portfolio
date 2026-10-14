@@ -12,7 +12,7 @@ const TimelineItem = memo(function TimelineItem({ index = 0, title, subtitle, pe
       <span className="text-xs md:text-sm 2xl:text-base font-medium text-cyan-400 tracking-wider">{period}</span>
       <h4 className="text-white font-semibold mt-0.5 2xl:mt-1 text-sm md:text-base 2xl:text-xl">{title}</h4>
       <p className="text-gray-300 mt-0.5 2xl:mt-1 text-xs md:text-sm 2xl:text-base">{subtitle}</p>
-      {desc && <p className={`text-gray-400 mt-0.5 2xl:mt-1 leading-snug md:leading-snug text-[0.65rem] md:text-sm 2xl:text-base text-justify ${right ? 'md:text-right' : ''}`}>{desc}</p>}
+      {desc && <p className={`text-gray-400 mt-0.5 2xl:mt-1 leading-snug md:leading-snug text-[0.65rem] md:text-sm 2xl:text-base ${right ? 'md:text-right' : ''}`}>{desc}</p>}
       {clients && clients.length > 0 && (
         <div className={`flex flex-wrap gap-1 md:gap-1.5 mt-1 md:mt-2 ${right ? 'md:justify-end' : ''}`}>
           {clients.map(({ name, color }) => (

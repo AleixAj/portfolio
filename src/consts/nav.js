@@ -11,7 +11,7 @@ export const NAV_ITEMS = [
 export const SECTIONS = ['inicio', 'about', 'projects', 'skills', 'hobbies', 'contact']
 
 export const ROTATING_WORDS = {
-  es: ['ideas', 'proyectos', 'sueños', 'visiones', 'retos'],
-  en: ['ideas', 'projects', 'dreams', 'visions', 'challenges'],
-  ca: ['idees', 'projectes', 'somnis', 'visions', 'reptes'],
+  es: ['ideas', 'bocetos', 'retos', 'cafés'],
+  en: ['ideas', 'sketches', 'challenges', 'coffee'],
+  ca: ['idees', 'esbossos', 'reptes', 'cafès'],
 }

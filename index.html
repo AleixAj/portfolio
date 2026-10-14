@@ -59,26 +59,69 @@
          in which case the file is never requested. -->
     <link rel="preload" href="/gaming_bedroom.glb" as="fetch" type="model/gltf-binary" crossorigin fetchpriority="high" media="(min-width: 1024px)" />
 
+    <!-- Structured data so search engines know who this page is about.
+         A WebSite that belongs to a Person, with the Person in full. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Aleix Auqué",
-        "jobTitle": "Software Developer",
-        "url": "https://aleixaj.com/",
-        "email": "mailto:aleixauque@gmail.com",
-        "sameAs": [
-          "https://github.com/AleixAj",
-          "https://linkedin.com/in/aleixauque/"
-        ],
-        "knowsAbout": [
-          "React",
-          "Three.js",
-          "React Three Fiber",
-          "TypeScript",
-          "Laravel",
-          "PHP",
-          "Cloudflare Workers"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://aleixaj.com/#website",
+            "url": "https://aleixaj.com/",
+            "name": "Aleix Auqué · Software Developer",
+            "inLanguage": ["es", "en", "ca"],
+            "author": { "@id": "https://aleixaj.com/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://aleixaj.com/#person",
+            "name": "Aleix Auqué",
+            "jobTitle": "Software Developer",
+            "description": "Full-stack software developer with 5+ years of experience in React, TypeScript, Laravel, PHP and Supabase. Creator of Orbex, a mobile game on Google Play.",
+            "url": "https://aleixaj.com/",
+            "image": "https://aleixaj.com/og-image.png",
+            "email": "mailto:aleixauque@gmail.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Reus",
+              "addressRegion": "Catalunya",
+              "addressCountry": "ES"
+            },
+            "knowsLanguage": ["es", "ca", "en"],
+            "alumniOf": [
+              { "@type": "EducationalOrganization", "name": "INS Baix Camp" },
+              { "@type": "Organization", "name": "Lemoncoders" },
+              { "@type": "Organization", "name": "Fundació Esplai" }
+            ],
+            "hasCredential": {
+              "@type": "EducationalOccupationalCredential",
+              "name": "CFGS Desarrollo de Aplicaciones Web (DAW)",
+              "credentialCategory": "degree"
+            },
+            "sameAs": [
+              "https://github.com/AleixAj",
+              "https://linkedin.com/in/aleixauque/"
+            ],
+            "knowsAbout": [
+              "React",
+              "TypeScript",
+              "JavaScript",
+              "Three.js",
+              "React Three Fiber",
+              "Electron",
+              "Laravel",
+              "PHP",
+              "Node.js",
+              "PostgreSQL",
+              "MySQL",
+              "Supabase",
+              "REST APIs",
+              "Cloudflare",
+              "GitHub Actions",
+              "Godot"
+            ]
+          }
         ]
       }
     </script>

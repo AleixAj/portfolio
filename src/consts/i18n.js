@@ -6,12 +6,19 @@ export const TRANSLATIONS = {
   es: {
     navMenu: 'Menú',
     skipToContent: 'Ir al contenido',
+    quickView: 'Versión rápida',
+    quickViewHint: 'Todo en una página, sin 3D',
+    quick: {
+      fullSite: 'Ver la web completa',
+      print: 'Imprimir / PDF',
+      clients: 'Clientes',
+    },
     previousSection: 'Sección anterior',
     nextSection: 'Siguiente sección',
     sectionIndex: 'Índice de secciones',
     hero: {
       transform: 'Transformando',
-      subtitle: 'en experiencias digitales inolvidables',
+      subtitle: 'en experiencias digitales que se recuerdan',
       intro: 'Hola, soy Aleix, desarrollador de software centrado en interfaces modernas, experiencias interactivas y aplicaciones web sólidas. Este año he publicado mi propio juego en Google Play, backend incluido, y ahora busco incorporarme a un equipo.',
       cta: 'Explorar mis proyectos',
       ctaSecondary: 'Hablemos',
@@ -35,10 +42,12 @@ export const TRANSLATIONS = {
     },
     projects: {
       title: 'Mis proyectos',
+      moreProjects: 'Más proyectos',
       more: 'Más información',
       close: 'Cerrar',
       highlights: 'Lo más destacado',
       status: 'Estado',
+      nextStep: 'Siguiente paso',
       viewCode: 'Ver el código',
       viewDemo: 'Probar la demo',
       viewStore: 'Google Play',
@@ -53,6 +62,9 @@ export const TRANSLATIONS = {
     },
     skills: {
       title: 'Tecnologías',
+      alsoUsed: 'También he usado',
+      aiTitle: 'Trabajo con IA',
+      aiText: 'Las uso en el día a día como apoyo para programar, revisando siempre lo que proponen.',
     },
     hobbies: {
       title: 'Arte',
@@ -85,12 +97,19 @@ export const TRANSLATIONS = {
   en: {
     navMenu: 'Menu',
     skipToContent: 'Skip to content',
+    quickView: 'Quick version',
+    quickViewHint: 'Everything on one page, no 3D',
+    quick: {
+      fullSite: 'See the full site',
+      print: 'Print / PDF',
+      clients: 'Clients',
+    },
     previousSection: 'Previous section',
     nextSection: 'Next section',
     sectionIndex: 'Section index',
     hero: {
       transform: 'Turning',
-      subtitle: 'into unforgettable digital experiences',
+      subtitle: 'into digital experiences people remember',
       intro: "Hi, I'm Aleix — a software developer focused on modern interfaces, interactive experiences, and solid web apps. This year I shipped my own game on Google Play, backend and all, and I'm now looking to join a team.",
       cta: 'Explore my projects',
       ctaSecondary: "Let's talk",
@@ -114,10 +133,12 @@ export const TRANSLATIONS = {
     },
     projects: {
       title: 'My projects',
+      moreProjects: 'More projects',
       more: 'More information',
       close: 'Close',
       highlights: 'Highlights',
       status: 'Status',
+      nextStep: 'Next step',
       viewCode: 'View the code',
       viewDemo: 'Try the demo',
       viewStore: 'Google Play',
@@ -132,6 +153,9 @@ export const TRANSLATIONS = {
     },
     skills: {
       title: 'Skills',
+      alsoUsed: 'Also used',
+      aiTitle: 'Working with AI',
+      aiText: 'I use them every day as coding assistants, and I always review what they suggest.',
     },
     hobbies: {
       title: 'Art',
@@ -164,12 +188,19 @@ export const TRANSLATIONS = {
   ca: {
     navMenu: 'Menú',
     skipToContent: 'Vés al contingut',
+    quickView: 'Versió ràpida',
+    quickViewHint: 'Tot en una pàgina, sense 3D',
+    quick: {
+      fullSite: 'Veure la web completa',
+      print: 'Imprimir / PDF',
+      clients: 'Clients',
+    },
     previousSection: 'Secció anterior',
     nextSection: 'Secció següent',
     sectionIndex: 'Índex de seccions',
     hero: {
       transform: 'Transformant',
-      subtitle: 'en experiències digitals inoblidables',
+      subtitle: 'en experiències digitals que es recorden',
       intro: "Hola, sóc l'Aleix, desenvolupador de programari centrat en interfícies modernes, experiències interactives i aplicacions web sòlides. Aquest any he publicat el meu propi joc a Google Play, backend inclòs, i ara busco incorporar-me a un equip.",
       cta: 'Explorar els meus projectes',
       ctaSecondary: 'Parlem',
@@ -193,10 +224,12 @@ export const TRANSLATIONS = {
     },
     projects: {
       title: 'Els meus projectes',
+      moreProjects: 'Més projectes',
       more: 'Més informació',
       close: 'Tancar',
       highlights: 'El més destacat',
       status: 'Estat',
+      nextStep: 'Següent pas',
       viewCode: 'Veure el codi',
       viewDemo: 'Provar la demo',
       viewStore: 'Google Play',
@@ -211,6 +244,9 @@ export const TRANSLATIONS = {
     },
     skills: {
       title: 'Tecnologies',
+      alsoUsed: 'També he fet servir',
+      aiTitle: 'Treballo amb IA',
+      aiText: 'Les faig servir cada dia com a suport per programar, revisant sempre el que proposen.',
     },
     hobbies: {
       title: 'Art',

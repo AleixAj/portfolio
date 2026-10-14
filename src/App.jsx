@@ -19,41 +19,25 @@ import Hobbies from './sections/Hobbies'
 import Contact from './sections/Contact'
 import { SECTIONS, ROTATING_WORDS } from './consts/nav'
 import { TRANSLATIONS } from './consts/i18n'
+import { CV_BY_LANG, DEFAULT_LANG, getInitialLang } from './consts/lang'
 
 // Framer Motion's features load in their own chunk after the first paint.
 // Nothing at the top of the page needs them (the hero intro is plain CSS).
 const loadMotionFeatures = () => import('./motionFeatures').then(m => m.default)
 
-// There's no Catalan CV, so Catalan gets the Spanish one.
-// `name` is what the file is called when someone downloads it.
-const CV_BY_LANG = {
-  es: { href: '/cv-aleix-es.pdf', name: 'CV Aleix Auqué.pdf' },
-  en: { href: '/cv-aleix-en.pdf', name: 'CV Aleix Auqué EN.pdf' },
-  ca: { href: '/cv-aleix-es.pdf', name: 'CV Aleix Auqué.pdf' },
-}
 const OG_LOCALE_BY_LANG = { es: 'es_ES', en: 'en_US', ca: 'ca_ES' }
 
 const SITE_URL = 'https://aleixaj.com/'
-const DEFAULT_LANG = 'es'
 
 // Spanish lives on the bare URL, the other languages on ?lang=xx
 const canonicalFor = (lang) => (lang === DEFAULT_LANG ? SITE_URL : `${SITE_URL}?lang=${lang}`)
-
-// A ?lang= in the link beats whatever the visitor picked last time,
-// so a shared link always opens in the language it was shared in.
-function getInitialLang() {
-  const fromUrl = new URLSearchParams(window.location.search).get('lang')
-  if (TRANSLATIONS[fromUrl]) return fromUrl
-  const stored = localStorage.getItem('lang')
-  return TRANSLATIONS[stored] ? stored : DEFAULT_LANG
-}
 
 function getInitialSectionIdx() {
   const idx = SECTIONS.indexOf(window.location.hash.slice(1))
   return idx === -1 ? 0 : idx
 }
 
-function App() {
+function App({ onQuickView }) {
   const containerRef = useRef(null)
   const isScrolling = useRef(false) // true while goToSection is smooth-scrolling
   const offsetsRef = useRef([])     // top of each section, in px
@@ -262,7 +246,7 @@ function App() {
 
         <SectionRail goToSection={goToSection} activeSection={SECTIONS[sectionIdx]} lang={lang} label={t.sectionIndex} />
 
-        <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={setLang} t={t} activeSection={SECTIONS[sectionIdx]} />
+        <Navbar goToSection={goToSection} menuOpen={menuOpen} setMenuOpen={setMenuOpen} lang={lang} setLang={setLang} t={t} activeSection={SECTIONS[sectionIdx]} onQuickView={onQuickView} />
 
         <main
           id="app-scroll"

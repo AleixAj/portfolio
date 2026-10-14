@@ -67,6 +67,18 @@ body {
   background-color: #000;
 }
 
+/* Printing (only the quick version is meant for it): let the page flow
+   onto as many sheets as it needs, on white. */
+@media print {
+  html,
+  body,
+  #root {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+  }
+}
+
 /* Always keep the scrollbar's space, so opening a dialog (which hides the
    scrollbar) doesn't make the page jump sideways. */
 #app-scroll {

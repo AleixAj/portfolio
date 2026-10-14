@@ -7,6 +7,7 @@
  * moved by writing styles straight to the DOM, so scrolling never re-renders React.
  */
 import { useEffect, useLayoutEffect, useRef } from 'react'
+import { FaBolt } from 'react-icons/fa'
 import { NAV_ITEMS } from '../consts/nav'
 
 // Shared <svg> wrapper for the little flags in the language switcher
@@ -59,7 +60,7 @@ const LANG_OPTIONS = [
   { id: 'ca', label: 'CAT', Flag: CataloniaFlag, ariaLabel: 'Canviar la llengua a català' },
 ]
 
-function LanguageSwitcher({ lang, setLang, setMenuOpen, compact = false }) {
+export function LanguageSwitcher({ lang, setLang, setMenuOpen, compact = false }) {
   return (
     <div className={`flex items-center rounded-full border border-white/10 bg-white/5 ${compact ? 'gap-1 p-1' : 'gap-1.5 p-1'}`}>
       {LANG_OPTIONS.map(({ id, label, Flag, ariaLabel }) => {
@@ -123,7 +124,7 @@ function ScrollProgress() {
   )
 }
 
-export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLang, t, activeSection }) {
+export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLang, t, activeSection, onQuickView }) {
   const menuRef = useRef(null)
   const hamburgerRef = useRef(null)
   const linksRef = useRef(null)
@@ -189,13 +190,14 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
     // every frame of the 3D scene behind it, and you could barely see it anyway.
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/[0.88] border-b border-cyan-500/20">
       {/* Desktop: logo left, links centred, languages right */}
-      <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] w-full px-5 md:px-6 lg:px-8 2xl:px-10 py-4 lg:py-5 items-center gap-6">
-        <button onClick={() => goToSection('inicio')} className="flex items-center gap-3 lg:gap-4 cursor-pointer min-w-0 justify-self-start">
+      <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] w-full px-5 md:px-5 lg:px-8 2xl:px-10 py-4 lg:py-5 items-center gap-4 lg:gap-6">
+        <button onClick={() => goToSection('inicio')} aria-label={`Aleix Auqué — ${NAV_ITEMS[0].labels[lang]}`} className="flex items-center gap-3 lg:gap-4 cursor-pointer flex-shrink-0 justify-self-start">
           <img src="/AJ.png" alt="" aria-hidden="true" className="h-8 lg:h-10 xl:h-11 w-auto object-contain flex-shrink-0" />
-          <span className="font-tech text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-[0.18em] lg:tracking-widest text-white truncate">ALEIX AUQUÉ</span>
+          {/* Below 1280px there's no room for the name next to the links */}
+          <span aria-hidden="true" className="hidden xl:inline whitespace-nowrap font-tech text-2xl wide:text-3xl 2xl:text-4xl font-bold xl:tracking-widest text-white">ALEIX AUQUÉ</span>
         </button>
 
-        <div ref={linksRef} className="relative flex items-center justify-center gap-5 lg:gap-6 xl:gap-8 text-white font-medium font-tech text-lg tracking-wider">
+        <div ref={linksRef} className="relative flex items-center justify-center gap-3.5 lg:gap-6 wide:gap-8 text-white font-medium font-tech text-[0.95rem] lg:text-lg tracking-wide lg:tracking-wider">
           {NAV_ITEMS.map(({ labels, id }) => {
             const isActive = activeSection === id
             return (
@@ -217,8 +219,20 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
           />
         </div>
 
-        <div className="justify-self-end">
-          <LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} />
+        <div className="justify-self-end flex items-center gap-2 xl:gap-3">
+          {/* Quick version: icon only until there's room for the words */}
+          <button
+            onClick={onQuickView}
+            title={t.quickViewHint}
+            aria-label={t.quickView}
+            className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1.5 text-xs font-semibold tracking-wide text-white/70 hover:text-cyan-300 hover:border-cyan-400/50 transition-colors"
+          >
+            <FaBolt className="w-3 h-3" aria-hidden="true" />
+            <span className="hidden wide:inline">{t.quickView}</span>
+          </button>
+          {/* Flags only until there's room for the labels too */}
+          <div className="xl:hidden"><LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} compact /></div>
+          <div className="hidden xl:block"><LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} /></div>
         </div>
       </div>
 
@@ -272,6 +286,14 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
               </button>
             )
           })}
+          <button
+            role="menuitem"
+            onClick={onQuickView}
+            className="mt-1 pt-4 border-t border-white/10 text-left text-base text-white/70 hover:text-cyan-400 flex items-center gap-2"
+          >
+            <FaBolt className="w-3.5 h-3.5 text-cyan-400" aria-hidden="true" />
+            {t.quickView}
+          </button>
         </div>
       )}
 

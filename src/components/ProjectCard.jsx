@@ -25,6 +25,58 @@ const CYAN = 'bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 hover:bg-cy
 const GREEN = 'bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 hover:bg-emerald-400/20 hover:border-emerald-400/60'
 const ICON_CLS = 'w-2.5 h-2.5 md:w-3.5 md:h-3.5 2xl:w-4 2xl:h-4'
 
+// GitHub / demo / store / download buttons, shared by the big card and the compact row
+function ProjectLinks({ title, github, demo, store, download, downloadMac, labels }) {
+  return (
+    <>
+      <a href={github} target="_blank" rel="noopener noreferrer" aria-label={labels.codeOf.replace('{p}', title)}
+        className={`${LINK_CLS} ${GREY}`}>
+        <FaGithub className={ICON_CLS} /> GitHub
+      </a>
+      {demo && (
+        <a href={demo} target="_blank" rel="noopener noreferrer" aria-label={labels.demoOf.replace('{p}', title)}
+          className={`${LINK_CLS} ${CYAN}`}>
+          ↗ Demo
+        </a>
+      )}
+      {download && (
+        <a href={download} rel="noopener noreferrer" aria-label={labels.windowsOf.replace('{p}', title)}
+          className={`${LINK_CLS} ${CYAN}`}>
+          <FaWindows className={ICON_CLS} /> Windows
+        </a>
+      )}
+      {downloadMac && (
+        <a href={downloadMac} rel="noopener noreferrer" aria-label={labels.macOf.replace('{p}', title)}
+          className={`${LINK_CLS} ${CYAN}`}>
+          <FaApple className={ICON_CLS} /> Mac
+        </a>
+      )}
+      {store && (
+        <a href={store} target="_blank" rel="noopener noreferrer" aria-label={labels.storeOf.replace('{p}', title)}
+          className={`${LINK_CLS} ${GREEN}`}>
+          <FaGooglePlay className={ICON_CLS} /> Play
+        </a>
+      )}
+    </>
+  )
+}
+
+// Same ⓘ button on both layouts
+function InfoButton({ title, onInfo, label, small }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onInfo(title)}
+      aria-label={label}
+      className={`absolute z-20 flex items-center justify-center rounded-full border border-cyan-400 bg-cyan-400/25 text-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.4)] hover:bg-white/20 hover:border-white hover:text-white transition-colors ${small
+        ? 'top-1.5 right-1.5 md:top-2 md:right-2 w-7 h-7 md:w-8 md:h-8'
+        : 'top-1.5 right-1.5 md:top-2 md:right-2 2xl:top-3 2xl:right-3 w-7 h-7 md:w-9 md:h-9 2xl:w-10 2xl:h-10'}`}
+    >
+      <FaInfo className={small ? 'w-2.5 h-2.5 md:w-3 md:h-3' : 'w-2.5 h-2.5 md:w-4 md:h-4 2xl:w-4 2xl:h-4'} />
+    </button>
+  )
+}
+
 const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg, imgCls, desc, tags, github, demo, store, download, downloadMac, onInfo, infoLabel, labels, className = '' }) {
   return (
     <div
@@ -35,16 +87,7 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
 
       {/* ⓘ button: opens the project's details. Up in the corner so it
           doesn't get mixed up with the buttons at the bottom. */}
-      {onInfo && (
-        <button
-          type="button"
-          onClick={() => onInfo(title)}
-          aria-label={infoLabel}
-          className="absolute top-1.5 right-1.5 md:top-2 md:right-2 2xl:top-3 2xl:right-3 z-20 w-7 h-7 md:w-9 md:h-9 2xl:w-10 2xl:h-10 flex items-center justify-center rounded-full border border-cyan-400 bg-cyan-400/25 text-cyan-300 shadow-[0_0_14px_rgba(34,211,238,0.4)] hover:bg-white/20 hover:border-white hover:text-white transition-colors"
-        >
-          <FaInfo className="w-2.5 h-2.5 md:w-4 md:h-4 2xl:w-4 2xl:h-4" />
-        </button>
-      )}
+      {onInfo && <InfoButton title={title} onInfo={onInfo} label={infoLabel} />}
 
       <div className="w-16 flex-shrink-0 md:w-auto md:h-28 lg:h-28 2xl:h-36 3xl:h-44 md:box-content md:pt-3.5 2xl:pt-5 flex items-center justify-center overflow-hidden self-stretch">
         <picture className="w-full h-full flex items-center justify-center">
@@ -69,34 +112,40 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
           ))}
         </div>
         <div className="mt-auto pt-1 md:pt-3 2xl:pt-5 flex gap-1 md:gap-1.5 2xl:gap-2">
-          <a href={github} target="_blank" rel="noopener noreferrer" aria-label={labels.codeOf.replace('{p}', title)}
-            className={`${LINK_CLS} ${GREY}`}>
-            <FaGithub className="w-2.5 h-2.5 md:w-4 md:h-4 2xl:w-4 2xl:h-4" /> GitHub
-          </a>
-          {demo && (
-            <a href={demo} target="_blank" rel="noopener noreferrer" aria-label={labels.demoOf.replace('{p}', title)}
-              className={`${LINK_CLS} ${CYAN}`}>
-              ↗ Demo
-            </a>
-          )}
-          {download && (
-            <a href={download} rel="noopener noreferrer" aria-label={labels.windowsOf.replace('{p}', title)}
-              className={`${LINK_CLS} ${CYAN}`}>
-              <FaWindows className={ICON_CLS} /> Windows
-            </a>
-          )}
-          {downloadMac && (
-            <a href={downloadMac} rel="noopener noreferrer" aria-label={labels.macOf.replace('{p}', title)}
-              className={`${LINK_CLS} ${CYAN}`}>
-              <FaApple className={ICON_CLS} /> Mac
-            </a>
-          )}
-          {store && (
-            <a href={store} target="_blank" rel="noopener noreferrer" aria-label={labels.storeOf.replace('{p}', title)}
-              className={`${LINK_CLS} ${GREEN}`}>
-              <FaGooglePlay className={ICON_CLS} /> Play
-            </a>
-          )}
+          <ProjectLinks title={title} github={github} demo={demo} store={store} download={download} downloadMac={downloadMac} labels={labels} />
+        </div>
+      </div>
+    </div>
+  )
+})
+
+// Compact row for the "More projects" list: logo, title, one line of
+// description and the links. No tags, so the featured cards above stand out.
+export const ProjectRow = memo(function ProjectRow({ index = 0, title, img, desc, github, demo, store, download, downloadMac, onInfo, infoLabel, labels, className = '' }) {
+  return (
+    <div
+      onPointerMove={CAN_HOVER ? trackSpotlight : undefined}
+      style={{ '--d': index % 3 + Math.floor(index / 3) }}
+      className={`reveal-item group relative hover:z-20 project-card rounded-xl md:rounded-2xl overflow-hidden flex items-center gap-2.5 md:gap-3 p-2 md:p-3 ${className}`}
+    >
+      {onInfo && <InfoButton title={title} onInfo={onInfo} label={infoLabel} small />}
+      <img
+        src={img}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
+        className="w-11 h-11 md:w-14 md:h-14 2xl:w-16 2xl:h-16 flex-shrink-0 object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:scale-110"
+      />
+      <div className="flex-1 min-w-0 flex flex-col gap-1 md:gap-1.5">
+        <h4 className="text-sm md:text-base 2xl:text-lg font-bold text-white leading-tight pr-9">{title}</h4>
+        {/* Wrapped so hiding it on mobile doesn't undo line-clamp's display */}
+        <div className="hidden md:block">
+          <p className="text-white/55 text-xs 2xl:text-sm leading-snug line-clamp-2">{desc}</p>
+        </div>
+        <div className="flex gap-1 md:gap-1.5 mt-0.5">
+          <ProjectLinks title={title} github={github} demo={demo} store={store} download={download} downloadMac={downloadMac} labels={labels} />
         </div>
       </div>
     </div>

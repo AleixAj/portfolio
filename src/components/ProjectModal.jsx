@@ -76,10 +76,11 @@ export default function ProjectModal({ project, lang, t, onClose }) {
 
   const highlights = localize(details.highlights) ?? []
   const status = localize(details.status)
-  // Green if it's finished, amber if there is a caveat
-  const statusCls = details.status?.tone === 'ok'
+  // Green "Status" if it's finished, a calm cyan "Next step" if there's work left
+  const finished = details.status?.tone === 'ok'
+  const statusCls = finished
     ? 'text-emerald-300/85 bg-emerald-400/5 border-emerald-400/25'
-    : 'text-amber-300/80 bg-amber-400/5 border-amber-400/20'
+    : 'text-cyan-200/80 bg-cyan-400/5 border-cyan-400/20'
 
   return createPortal(
     <div
@@ -152,7 +153,7 @@ export default function ProjectModal({ project, lang, t, onClose }) {
 
           {status && (
             <p className={`mt-5 text-xs md:text-sm 2xl:text-base border rounded-xl px-3 py-2 md:px-4 md:py-3 leading-relaxed ${statusCls}`}>
-              <span className="font-semibold">{t.status}: </span>{status}
+              <span className="font-semibold">{finished ? t.status : t.nextStep}: </span>{status}
             </p>
           )}
 
