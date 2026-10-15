@@ -146,12 +146,14 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSk
     if (!mesh || !showInfo) return
     const { title, details } = PROJECTS[projectIdx]
     const { lang } = texts
-    const ok = details.status.tone === 'ok'
+    // Not every project has a status (the older ones don't)
+    const { status } = details
+    const ok = status?.tone === 'ok'
     const tex = projectInfoTexture(title, {
       summary: localize(details.summary, lang),
       highlights: localize(details.highlights, lang),
       stack: details.stack,
-      status: { ok, label: ok ? texts.projectInfo.status : texts.projectInfo.nextStep, text: localize(details.status, lang) },
+      status: status && { ok, label: ok ? texts.projectInfo.status : texts.projectInfo.nextStep, text: localize(status, lang) },
     }, texts.projectInfo)
     const before = mesh.userData.baseEmissive
     setScreen(mesh, tex)

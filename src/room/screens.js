@@ -140,7 +140,7 @@ export function monitorTexture(project, label, onPainted) {
  * It's a two-panel screen with a bezel down the middle, so the text goes in two
  * columns that leave the centre free: what it is and its status on the left,
  * the highlights and the stack on the right.
- * text: { summary, highlights[], stack, status: { ok, label, text } }
+ * text: { summary, highlights[], stack, status?: { ok, label, text } }
  * labels: { highlights }
  */
 export function projectInfoTexture(title, text, labels) {
@@ -166,26 +166,10 @@ export function projectInfoTexture(title, text, labels) {
 
   ctx.fillStyle = 'rgba(255,255,255,0.75)'
   ctx.font = `500 23px ${FONT}`
-  wrapLines(ctx, text.summary, colW, 8).forEach((line, i) => ctx.fillText(line, pad, 170 + i * 32))
+  // Without a status card below, the summary can use the whole column
+  wrapLines(ctx, text.summary, colW, text.status ? 8 : 12).forEach((line, i) => ctx.fillText(line, pad, 170 + i * 32))
 
-  // Status card at the bottom: green when finished, amber for the next step
-  const tone = text.status.ok ? '#34d399' : '#fbbf24'
-  ctx.font = `500 19px ${FONT}`
-  const statusLines = wrapLines(ctx, text.status.text, colW - 36, 3)
-  const cardH = 60 + statusLines.length * 26
-  const cardY = h - pad - cardH
-  ctx.fillStyle = hexToRgba(tone, 0.08)
-  roundRect(ctx, pad, cardY, colW, cardH, 14)
-  ctx.fill()
-  ctx.strokeStyle = hexToRgba(tone, 0.4)
-  ctx.lineWidth = 2
-  ctx.stroke()
-  ctx.fillStyle = tone
-  ctx.font = `700 17px ${FONT}`
-  ctx.fillText(text.status.label.toUpperCase(), pad + 18, cardY + 32)
-  ctx.fillStyle = 'rgba(255,255,255,0.8)'
-  ctx.font = `500 19px ${FONT}`
-  statusLines.forEach((line, i) => ctx.fillText(line, pad + 18, cardY + 60 + i * 26))
+  if (text.status) paintStatus(ctx, text.status, pad, h - pad, colW)
 
   // Right column: highlights, then the stack
   ctx.fillStyle = CYAN
@@ -210,6 +194,27 @@ export function projectInfoTexture(title, text, labels) {
   wrapLines(ctx, text.stack, colW, 3).forEach((line, i) => ctx.fillText(line, rightX, h - 98 + i * 27))
 
   return toTexture(canvas)
+}
+
+// The status card under the summary: green when finished, amber for the next step
+function paintStatus(ctx, status, x, bottom, colW) {
+  const tone = status.ok ? '#34d399' : '#fbbf24'
+  ctx.font = `500 19px ${FONT}`
+  const statusLines = wrapLines(ctx, status.text, colW - 36, 3)
+  const cardH = 60 + statusLines.length * 26
+  const cardY = bottom - cardH
+  ctx.fillStyle = hexToRgba(tone, 0.08)
+  roundRect(ctx, x, cardY, colW, cardH, 14)
+  ctx.fill()
+  ctx.strokeStyle = hexToRgba(tone, 0.4)
+  ctx.lineWidth = 2
+  ctx.stroke()
+  ctx.fillStyle = tone
+  ctx.font = `700 17px ${FONT}`
+  ctx.fillText(status.label.toUpperCase(), x + 18, cardY + 32)
+  ctx.fillStyle = 'rgba(255,255,255,0.8)'
+  ctx.font = `500 19px ${FONT}`
+  statusLines.forEach((line, i) => ctx.fillText(line, x + 18, cardY + 60 + i * 26))
 }
 
 /**
