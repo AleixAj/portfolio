@@ -34,6 +34,11 @@ const maxDpr = () => Math.min(window.devicePixelRatio || 1, window.innerWidth >=
 
 // The loader never stays longer than this, whatever happens
 const LOADER_MAX_MS = 20000
+// End of loading: time for the bar to fill (matches LoaderScreen), how long it
+// stays full, and the fade-out (matches its duration-700)
+const FILL_MS = 500
+const FULL_HOLD_MS = 250
+const FADE_MS = 700
 
 /**
  * Loading screen until the room is on screen, then it fades out.
@@ -41,21 +46,25 @@ const LOADER_MAX_MS = 20000
  * be built and drawn (`ready`) before reaching 100%.
  */
 function Loader({ title, steps, download, ready }) {
-  const [gone, setGone] = useState(false)
   const [timedOut, setTimedOut] = useState(false)
+  const [fading, setFading] = useState(false)
+  const [gone, setGone] = useState(false)
   const done = ready || timedOut
   useEffect(() => {
     const id = setTimeout(() => setTimedOut(true), LOADER_MAX_MS)
     return () => clearTimeout(id)
   }, [])
+  // Finish in two steps: the bar fills up to 100% (its width animates in
+  // FILL_MS) and stays full for a moment, and only then the screen fades out
   useEffect(() => {
     if (!done) return
-    const id = setTimeout(() => setGone(true), 800)
-    return () => clearTimeout(id)
+    const fade = setTimeout(() => setFading(true), FILL_MS + FULL_HOLD_MS)
+    const hide = setTimeout(() => setGone(true), FILL_MS + FULL_HOLD_MS + FADE_MS)
+    return () => { clearTimeout(fade); clearTimeout(hide) }
   }, [done])
   if (gone) return null
   const progress = done ? 100 : download.done ? 92 : download.progress * 85
-  return <LoaderScreen title={title} steps={steps} progress={progress} done={done} />
+  return <LoaderScreen title={title} steps={steps} progress={progress} done={fading} />
 }
 
 /**

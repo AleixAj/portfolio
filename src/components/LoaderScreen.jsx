@@ -10,6 +10,8 @@
 export default function LoaderScreen({ title, steps, progress, done = false }) {
   const known = typeof progress === 'number'
   const pct = known ? Math.max(0, Math.min(100, Math.round(progress))) : null
+  // Never quite empty, so the bar reads as a bar from the first moment
+  const shown = known ? Math.max(pct, 3) : 0
   // One line per stage: model, textures, lights
   const step = !known ? steps[0] : steps[Math.min(steps.length - 1, Math.floor((pct / 100) * steps.length))]
 
@@ -31,20 +33,27 @@ export default function LoaderScreen({ title, steps, progress, done = false }) {
         <p className="mt-5 font-tech text-sm md:text-base font-bold !tracking-[0.35em] text-white">ALEIX AUQUÉ</p>
         <p className="mt-1 text-[0.65rem] uppercase tracking-[0.3em] text-cyan-300/70">{title}</p>
 
-        {/* The bar. No overflow-hidden on the real one, so the tip can glow past its edge */}
+        {/* The bar. It moves with transforms, not width: transform animations run
+            on the compositor, so they keep going while the main thread is busy
+            building the 3D scene (a width transition froze halfway there). */}
         <div className={`relative mt-8 h-1.5 w-full rounded-full border border-white/10 bg-white/[0.06] ${known ? '' : 'overflow-hidden'}`}>
           {known ? (
             <>
+              <div className="absolute inset-0 overflow-hidden rounded-full">
+                <div
+                  className="loader-fill relative h-full w-full rounded-full bg-gradient-to-r from-cyan-600 via-cyan-400 to-teal-300 transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(${shown - 100}%)` }}
+                />
+              </div>
+              {/* Bright tip on a full-width layer, so it can glow past the bar's edge.
+                  Clamped so at 100% it sits at the end instead of half past it. */}
               <div
-                className="loader-fill relative h-full rounded-full bg-gradient-to-r from-cyan-600 via-cyan-400 to-teal-300 shadow-[0_0_12px_rgba(34,211,238,0.8)] transition-[width] duration-500 ease-out"
-                style={{ width: `${Math.max(pct, 3)}%` }}
-              />
-              {/* Bright tip, outside the fill so the fill can clip its sheen */}
-              <span
                 aria-hidden="true"
-                className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-200 shadow-[0_0_12px_4px_rgba(103,232,249,0.7)] transition-[left] duration-500 ease-out"
-                style={{ left: `${Math.max(pct, 3)}%` }}
-              />
+                className="pointer-events-none absolute inset-0 transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(clamp(6px, ${shown}%, calc(100% - 6px)))` }}
+              >
+                <span className="absolute left-0 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-200 shadow-[0_0_12px_4px_rgba(103,232,249,0.7)]" />
+              </div>
             </>
           ) : (
             <div className="loader-indeterminate h-full w-1/3 rounded-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
