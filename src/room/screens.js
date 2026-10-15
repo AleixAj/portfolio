@@ -15,11 +15,17 @@ import * as THREE from 'three'
 const CYAN = '#22d3ee'
 const FONT = '"Space Grotesk", "DM Sans", sans-serif'
 
+// The screens are painted at twice their layout size, so the text stays sharp
+// when the camera comes close. Drawing code keeps using the layout size.
+const SHARPNESS = 2
+
 function makeCanvas(w, h) {
   const canvas = document.createElement('canvas')
-  canvas.width = w
-  canvas.height = h
-  return [canvas, canvas.getContext('2d')]
+  canvas.width = w * SHARPNESS
+  canvas.height = h * SHARPNESS
+  const ctx = canvas.getContext('2d')
+  ctx.scale(SHARPNESS, SHARPNESS)
+  return [canvas, ctx]
 }
 
 // The TV and monitor UVs run bottom-up, so unlike most glTF textures these
@@ -28,7 +34,9 @@ function toTexture(canvas) {
   const tex = new THREE.CanvasTexture(canvas)
   tex.flipY = true
   tex.colorSpace = THREE.SRGBColorSpace
-  tex.anisotropy = 4
+  // The monitors are seen at an angle: full anisotropic filtering keeps the
+  // text readable instead of smudged (three.js caps it to what the GPU allows)
+  tex.anisotropy = 16
   return tex
 }
 
@@ -122,7 +130,7 @@ export function monitorTexture(project, label, onPainted) {
     ctx.textAlign = 'center'
     ctx.fillText(project.title, w / 2, 510)
     ctx.fillStyle = CYAN
-    ctx.font = `500 24px ${FONT}`
+    ctx.font = `500 28px ${FONT}`
     ctx.fillText(project.tags.slice(0, 4).map(t => t.label).join('  ·  '), w / 2, 556)
     ctx.textAlign = 'left'
     tex.needsUpdate = true
@@ -153,45 +161,45 @@ export function projectInfoTexture(title, text, labels) {
 
   // Left column: title, summary and status
   ctx.fillStyle = CYAN
-  ctx.font = `600 18px ${FONT}`
+  ctx.font = `600 20px ${FONT}`
   ctx.fillText('README.md', pad, 62)
   ctx.fillStyle = '#ffffff'
-  let size = 48
+  let size = 54
   ctx.font = `700 ${size}px ${FONT}`
   while (ctx.measureText(title).width > colW && size > 30) {
     size -= 2
     ctx.font = `700 ${size}px ${FONT}`
   }
-  ctx.fillText(title, pad, 118)
+  ctx.fillText(title, pad, 122)
 
-  ctx.fillStyle = 'rgba(255,255,255,0.75)'
-  ctx.font = `500 23px ${FONT}`
+  ctx.fillStyle = 'rgba(255,255,255,0.85)'
+  ctx.font = `500 28px ${FONT}`
   // Without a status card below, the summary can use the whole column
-  wrapLines(ctx, text.summary, colW, text.status ? 8 : 12).forEach((line, i) => ctx.fillText(line, pad, 170 + i * 32))
+  wrapLines(ctx, text.summary, colW, text.status ? 7 : 10).forEach((line, i) => ctx.fillText(line, pad, 178 + i * 38))
 
   if (text.status) paintStatus(ctx, text.status, pad, h - pad, colW)
 
   // Right column: highlights, then the stack
   ctx.fillStyle = CYAN
-  ctx.font = `600 18px ${FONT}`
+  ctx.font = `600 20px ${FONT}`
   ctx.fillText(labels.highlights.toUpperCase().split('').join(' '), rightX, 62)
-  let y = 104
-  ctx.font = `500 21px ${FONT}`
-  for (const item of text.highlights.slice(0, 5)) {
-    const lines = wrapLines(ctx, item, colW - 26, 2)
-    if (y + lines.length * 28 > h - 150) break
+  let y = 110
+  ctx.font = `500 25px ${FONT}`
+  for (const item of text.highlights.slice(0, 4)) {
+    const lines = wrapLines(ctx, item, colW - 28, 2)
+    if (y + lines.length * 33 > h - 150) break
     ctx.fillStyle = CYAN
-    ctx.beginPath(); ctx.arc(rightX + 6, y - 7, 4, 0, Math.PI * 2); ctx.fill()
-    ctx.fillStyle = 'rgba(255,255,255,0.8)'
-    lines.forEach((line, i) => ctx.fillText(line, rightX + 26, y + i * 28))
-    y += lines.length * 28 + 14
+    ctx.beginPath(); ctx.arc(rightX + 7, y - 8, 5, 0, Math.PI * 2); ctx.fill()
+    ctx.fillStyle = 'rgba(255,255,255,0.85)'
+    lines.forEach((line, i) => ctx.fillText(line, rightX + 28, y + i * 33))
+    y += lines.length * 33 + 16
   }
 
   ctx.fillStyle = 'rgba(255,255,255,0.12)'
   ctx.fillRect(rightX, h - 132, colW, 2)
   ctx.fillStyle = CYAN
-  ctx.font = `500 19px ${FONT}`
-  wrapLines(ctx, text.stack, colW, 3).forEach((line, i) => ctx.fillText(line, rightX, h - 98 + i * 27))
+  ctx.font = `500 22px ${FONT}`
+  wrapLines(ctx, text.stack, colW, 3).forEach((line, i) => ctx.fillText(line, rightX, h - 96 + i * 30))
 
   return toTexture(canvas)
 }
@@ -199,9 +207,9 @@ export function projectInfoTexture(title, text, labels) {
 // The status card under the summary: green when finished, amber for the next step
 function paintStatus(ctx, status, x, bottom, colW) {
   const tone = status.ok ? '#34d399' : '#fbbf24'
-  ctx.font = `500 19px ${FONT}`
+  ctx.font = `500 22px ${FONT}`
   const statusLines = wrapLines(ctx, status.text, colW - 36, 3)
-  const cardH = 60 + statusLines.length * 26
+  const cardH = 62 + statusLines.length * 29
   const cardY = bottom - cardH
   ctx.fillStyle = hexToRgba(tone, 0.08)
   roundRect(ctx, x, cardY, colW, cardH, 14)
@@ -210,11 +218,11 @@ function paintStatus(ctx, status, x, bottom, colW) {
   ctx.lineWidth = 2
   ctx.stroke()
   ctx.fillStyle = tone
-  ctx.font = `700 17px ${FONT}`
-  ctx.fillText(status.label.toUpperCase(), x + 18, cardY + 32)
-  ctx.fillStyle = 'rgba(255,255,255,0.8)'
-  ctx.font = `500 19px ${FONT}`
-  statusLines.forEach((line, i) => ctx.fillText(line, x + 18, cardY + 60 + i * 26))
+  ctx.font = `700 19px ${FONT}`
+  ctx.fillText(status.label.toUpperCase(), x + 18, cardY + 33)
+  ctx.fillStyle = 'rgba(255,255,255,0.85)'
+  ctx.font = `500 22px ${FONT}`
+  statusLines.forEach((line, i) => ctx.fillText(line, x + 18, cardY + 63 + i * 29))
 }
 
 /**
