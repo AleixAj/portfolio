@@ -22,6 +22,9 @@ export default {
       '2xl': '2200px',
       '3xl': '2560px',
       ls: { raw: '(orientation: landscape) and (max-width: 1023px)' },
+      // Computers: a wide screen and a real mouse (used where touch devices need
+      // something else, e.g. the CV viewer in the 3D room)
+      pc: { raw: '(hover: hover) and (min-width: 768px)' },
     },
     extend: {
       fontFamily: {

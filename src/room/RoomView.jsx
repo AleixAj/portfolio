@@ -58,9 +58,6 @@ function Loader({ title, steps, download, ready }) {
   return <LoaderScreen title={title} steps={steps} progress={progress} done={done} />
 }
 
-// Computers only: a wide screen and a mouse
-const PDF_INLINE = '[@media(hover:hover)_and_(min-width:768px)]'
-
 /**
  * The CV on screen, with buttons to download it or open it in its own tab.
  * Phones and tablets often can't show a PDF inside a page (an iPad shows only
@@ -78,14 +75,14 @@ function CvViewer({ cv, t, onClose }) {
   const BTN = 'flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors'
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-3 md:p-4" onClick={onClose} role="dialog" aria-modal="true" aria-label={r.cvTitle}>
-      <div className={`flex w-full max-w-sm ${PDF_INLINE}:h-full ${PDF_INLINE}:max-w-6xl flex-col overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#05080c] shadow-[0_0_60px_rgba(34,211,238,0.12)]`} onClick={e => e.stopPropagation()}>
+      <div className="flex w-full max-w-sm pc:h-full pc:max-w-6xl flex-col overflow-hidden rounded-2xl border border-cyan-400/25 bg-[#05080c] shadow-[0_0_60px_rgba(34,211,238,0.12)]" onClick={e => e.stopPropagation()}>
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
           <h2 className="text-lg font-bold">{r.cvTitle}</h2>
           <div className="flex items-center gap-2">
-            <a href={cv.href} download={cv.name} className={`${BTN} hidden ${PDF_INLINE}:flex bg-cyan-400 text-black hover:bg-cyan-300`}>
+            <a href={cv.href} download={cv.name} className={`${BTN} hidden pc:flex bg-cyan-400 text-black hover:bg-cyan-300`}>
               <FaDownload className="h-3.5 w-3.5" aria-hidden="true" /> {t.hero.downloadCV}
             </a>
-            <a href={cv.href} target="_blank" rel="noopener noreferrer" className={`${BTN} hidden ${PDF_INLINE}:flex border border-white/15 text-white/80 hover:border-cyan-400/60 hover:text-cyan-300`}>
+            <a href={cv.href} target="_blank" rel="noopener noreferrer" className={`${BTN} hidden pc:flex border border-white/15 text-white/80 hover:border-cyan-400/60 hover:text-cyan-300`}>
               <FaExternalLinkAlt className="h-3 w-3" aria-hidden="true" /> {r.openNewTab}
             </a>
             <button type="button" onClick={onClose} aria-label={t.projects.close} autoFocus
@@ -94,9 +91,9 @@ function CvViewer({ cv, t, onClose }) {
             </button>
           </div>
         </div>
-        {/* The browser's own PDF viewer, on computers only */}
-        <iframe src={`${cv.href}#view=FitH&navpanes=0`} title={r.cvTitle} className={`hidden ${PDF_INLINE}:block h-full w-full flex-1 bg-white`} />
-        <div className={`flex flex-col items-center gap-3 p-5 ${PDF_INLINE}:hidden`}>
+        {/* The browser's own PDF viewer, on computers only (`pc` screen in tailwind.config.js) */}
+        <iframe src={`${cv.href}#view=FitH&navpanes=0`} title={r.cvTitle} className="hidden pc:block h-full w-full flex-1 bg-white" />
+        <div className="flex flex-col items-center gap-3 p-5 pc:hidden">
           <a href={cv.href} target="_blank" rel="noopener noreferrer" className={`${BTN} w-full max-w-xs border border-cyan-400/50 bg-cyan-400/10 text-cyan-200`}>
             <FaExternalLinkAlt className="h-3 w-3" aria-hidden="true" /> {t.hero.viewCV}
           </a>
