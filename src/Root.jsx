@@ -13,9 +13,34 @@ import LoaderScreen from './components/LoaderScreen'
 import { TRANSLATIONS } from './consts/i18n'
 import { getInitialLang } from './consts/lang'
 
+/**
+ * lazy() that survives a new deploy. If a tab was opened before the site was
+ * updated, the old chunk it asks for no longer exists; instead of a blank page,
+ * reload once to pick up the new version. The flag stops a reload loop if the
+ * chunk is really unreachable (offline...), in which case the error stands.
+ */
+const RELOAD_FLAG = 'chunk-reload'
+function lazyWithReload(load) {
+  return lazy(() => load()
+    .then((module) => {
+      try { sessionStorage.removeItem(RELOAD_FLAG) } catch { /* storage blocked */ }
+      return module
+    })
+    .catch((error) => {
+      try {
+        if (sessionStorage.getItem(RELOAD_FLAG)) throw error
+        sessionStorage.setItem(RELOAD_FLAG, '1')
+      } catch {
+        throw error
+      }
+      window.location.reload()
+      return new Promise(() => {}) // keep the loader up until the page reloads
+    }))
+}
+
 // Most visitors never open these, so each lives in its own chunk
-const QuickView = lazy(() => import('./sections/QuickView'))
-const RoomView = lazy(() => import('./room/RoomView'))
+const QuickView = lazyWithReload(() => import('./sections/QuickView'))
+const RoomView = lazyWithReload(() => import('./room/RoomView'))
 
 const VIEWS = ['quick', 'room']
 const viewFromUrl = () => {

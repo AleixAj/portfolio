@@ -139,7 +139,7 @@ proyectos desde una idea hasta producción.
   que centra mientras el contenido cabe y alinea arriba cuando no, en vez de
   desbordar por ambos lados y esconder el título tras la barra fija.
 - **Despliegue simple**: build estático con Vite y publicación en Cloudflare
-  Workers + Assets con fallback SPA, con cabeceras de caché por tipo de recurso
+  Workers + Assets con página 404 propia, con cabeceras de caché por tipo de recurso
   (un año para el build con hash y las fuentes, 30 días para el modelo y las
   imágenes).
 
@@ -520,7 +520,7 @@ El proyecto está preparado para Cloudflare Workers + Assets:
 - build command: `npm run build`
 - deploy command: `npx wrangler deploy`
 - output directory: `dist`
-- SPA fallback: `not_found_handling="single-page-application"`
+- 404: `not_found_handling="404-page"` (`public/404.html`). Sin fallback SPA: la web solo vive en `/`, así que un archivo inexistente en `/assets/` devuelve un 404 real en vez de `index.html`
 
 También puede desplegarse en Vercel o Netlify como SPA estática usando
 `npm run build` y publicando `dist`, añadiendo las variables de EmailJS si se

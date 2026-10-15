@@ -139,7 +139,7 @@ full-stack skills and experience taking projects from an idea to production.
   centres while the content fits and aligns to the top when it doesn't, instead
   of overflowing on both sides and hiding the title behind the fixed bar.
 - **Simple deployment**: static build with Vite, published on Cloudflare
-  Workers + Assets with SPA fallback and cache headers per resource type (one
+  Workers + Assets with its own 404 page and cache headers per resource type (one
   year for the hashed build and the fonts, 30 days for the model and images).
 
 ## Featured Projects
@@ -520,7 +520,7 @@ The project is set up for Cloudflare Workers + Assets:
 - build command: `npm run build`
 - deploy command: `npx wrangler deploy`
 - output directory: `dist`
-- SPA fallback: `not_found_handling="single-page-application"`
+- 404: `not_found_handling="404-page"` (`public/404.html`). No SPA fallback: the site only lives at `/`, so a missing file under `/assets/` gets a real 404 instead of `index.html`
 
 It can also be deployed to Vercel or Netlify as a static SPA by running
 `npm run build` and publishing `dist`, adding the EmailJS variables if you want
