@@ -431,7 +431,7 @@ Sempre reviso el que generen abans de fer-ho servir.
 - **Estil 3D** (`?view=room`): l'habitació gamer del hero a pantalla completa.
   Cada objecte obre la seva secció en un panell lateral: prestatgeria
   (construïda en 3D, un llibre per feina o estudi) → trajectòria, monitors →
-  projectes (el monitor mostra el que es tria), tele → tecnologies (mostra el logo i per a què faig servir la que es tria), quadres amb
+  projectes (el de la dreta mostra el que es tria i el de l'esquerra, la seva fitxa), tele → tecnologies (mostra el logo i per a què faig servir la que es tria), quadres amb
   els meus dibuixos → art, mòbil → contacte i torre del PC → visor del CV. La
   làmpada de lava encén el llum. Càmera animada, zones de clic ampliades, barra
   inferior amb totes les seccions, pantalla de càrrega amb progrés real i versió

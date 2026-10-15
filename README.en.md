@@ -429,7 +429,7 @@ I always review what they produce before using it.
 - **Contact**: form connected to EmailJS and professional links.
 - **3D style** (`?view=room`): the hero's gaming room in full screen. Each object
   opens its section in a side panel: bookshelf (built in 3D, one book per job or
-  course) → journey, monitors → projects (the monitor shows the one you pick),
+  course) → journey, monitors → projects (the right one shows the one you pick and the left one its details),
   TV → skills (it shows the logo and what I use the picked one for), frames with my drawings → art, phone → contact and PC tower → CV
   viewer. The lava lamp switches the light on. Animated camera, enlarged click
   areas, a bottom bar with every section, a loading screen with real progress

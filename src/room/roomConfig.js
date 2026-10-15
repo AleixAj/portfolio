@@ -46,8 +46,9 @@ export const HOTSPOTS = [
     id: 'projects',
     owners: ['pantalla1_', 'pantalla1001', 'teclado'],
     marker: [755, 700, 200],
-    cam: [760, 760, 580],
-    look: [760, 635, 160],
+    // From the right of the chair and close, so both screens are in clear view
+    cam: [975, 730, 515],
+    look: [764, 632, 175],
   },
   {
     // The TV and its stand full of consoles and games: my "stack"
@@ -108,11 +109,12 @@ export const SHELF = {
 // The lava lamp on the bedside table switches the room lights on and off
 export const LAMP = { owners: ['Circle'], marker: [528, 640, 920] }
 
-// Meshes whose picture gets replaced: the TV, the right (big) monitor and two of the
-// posters (they show my drawings instead)
+// Meshes whose picture gets replaced: the TV, both monitors (the left one only
+// while the Projects panel is open) and two of the posters (my drawings)
 export const MESH = {
   tv: 'tv_netflix',
   monitor: 'pantalla1001',
+  infoMonitor: 'pantalla1_',
   posterA: 'cuadro2',
   posterB: 'cuadro3',
 }

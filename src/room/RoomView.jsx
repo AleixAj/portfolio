@@ -143,10 +143,12 @@ export default function RoomView({ onExit }) {
     courses: SHELF.courses.map(c => (typeof c === 'string' ? c : c[lang] ?? c.es)),
   }), [lang])
   const sceneTexts = {
+    lang,
     labels: r.labels,
     lamp: r.lamp,
     tv: r.tv,
     monitorLabel: r.monitorLabel,
+    projectInfo: t.projects,
     shelf,
   }
 

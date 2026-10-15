@@ -429,7 +429,7 @@ Siempre reviso lo que generan antes de usarlo.
 - **Estilo 3D** (`?view=room`): la habitación gamer del hero a pantalla completa.
   Cada objeto abre su sección en un panel lateral: estantería (construida en 3D,
   un libro por trabajo o estudio) → trayectoria, monitores → proyectos (el
-  monitor muestra el que se elige), tele → tecnologías (muestra el logo y para qué uso la que se elige), cuadros con mis dibujos →
+  de la derecha muestra el que se elige y el de la izquierda, su ficha), tele → tecnologías (muestra el logo y para qué uso la que se elige), cuadros con mis dibujos →
   arte, móvil → contacto y torre del PC → visor del CV. La lámpara de lava
   enciende la luz. Cámara animada, zonas de clic ampliadas, barra inferior con
   todas las secciones, pantalla de carga con progreso real y versión adaptada a

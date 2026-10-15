@@ -15,9 +15,10 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Html, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import { PROJECTS } from '../consts/projects'
+import { localize } from '../consts/lang'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 import { MODEL_URL, MODEL_SCALE, MODEL_OFFSET, OVERVIEW, OVERVIEW_PORTRAIT, HOTSPOTS, HITBOXES, LAMP, MESH, toWorld, ownerOf } from './roomConfig'
-import { tvTexture, monitorTexture, skillTvTexture } from './screens'
+import { tvTexture, monitorTexture, projectInfoTexture, skillTvTexture } from './screens'
 import Bookshelf from './Bookshelf'
 
 const HOVER_TINT = new THREE.Color('#22d3ee')
@@ -92,6 +93,9 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSk
         o.material.polygonOffsetFactor = -4
         o.material.polygonOffsetUnits = -4
       }
+      // What it looked like, for screens that go back to it (the left monitor)
+      o.userData.baseMap = o.material.map
+      o.userData.baseEmissiveMap = o.material.emissiveMap
       o.userData.owner = ownerOf(o.name)
       o.userData.baseEmissive = o.material.emissive.clone()
       o.userData.baseIntensity = o.material.emissiveIntensity
@@ -133,6 +137,34 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSk
     setScreen(find(MESH.monitor), tex)
     return () => tex.dispose()
   }, [projectIdx, texts.monitorLabel]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Left monitor: that project's details while the Projects panel is open,
+  // its own desktop picture the rest of the time
+  const showInfo = focus === 'projects'
+  useEffect(() => {
+    const mesh = find(MESH.infoMonitor)
+    if (!mesh || !showInfo) return
+    const { title, details } = PROJECTS[projectIdx]
+    const { lang } = texts
+    const ok = details.status.tone === 'ok'
+    const tex = projectInfoTexture(title, {
+      summary: localize(details.summary, lang),
+      highlights: localize(details.highlights, lang),
+      stack: details.stack,
+      status: { ok, label: ok ? texts.projectInfo.status : texts.projectInfo.nextStep, text: localize(details.status, lang) },
+    }, texts.projectInfo)
+    const before = mesh.userData.baseEmissive
+    setScreen(mesh, tex)
+    return () => {
+      mesh.material.map = mesh.userData.baseMap
+      mesh.material.emissiveMap = mesh.userData.baseEmissiveMap
+      mesh.material.emissive.copy(before)
+      mesh.userData.baseEmissive = before
+      mesh.material.needsUpdate = true
+      tex.dispose()
+      invalidate()
+    }
+  }, [showInfo, projectIdx, texts.lang, texts.projectInfo]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Posters: my drawings, slightly lit so they read in the dark
   const posterA = useFramedTexture(POSTER_A, 90.6 / 141.8)

@@ -1,7 +1,7 @@
 /**
  * Pictures painted onto the room's screens with a 2D canvas: the TV (my stack,
- * or the technology you're looking at) and the right monitor (the project
- * you're looking at). Each function returns a THREE.CanvasTexture ready to go
+ * or the technology you're looking at) and the two monitors (the project
+ * you're looking at: its picture on the right, its details on the left). Each function returns a THREE.CanvasTexture ready to go
  * on their materials.
  *
  * The scene only draws frames when something changes, so the ones that finish
@@ -133,6 +133,83 @@ export function monitorTexture(project, label, onPainted) {
   img.onload = () => { paint(img); onPainted?.() }
   img.src = project.img
   return tex
+}
+
+/**
+ * Left monitor: the details of the project you're looking at, like a README.
+ * It's a two-panel screen with a bezel down the middle, so the text goes in two
+ * columns that leave the centre free: what it is and its status on the left,
+ * the highlights and the stack on the right.
+ * text: { summary, highlights[], stack, status: { ok, label, text } }
+ * labels: { highlights }
+ */
+export function projectInfoTexture(title, text, labels) {
+  const w = 1024, h = 628
+  const [canvas, ctx] = makeCanvas(w, h)
+  paintBackground(ctx, w, h, 0.25, 0.3)
+  const pad = 44
+  const colW = w / 2 - pad - 36
+  const rightX = w / 2 + 36
+
+  // Left column: title, summary and status
+  ctx.fillStyle = CYAN
+  ctx.font = `600 18px ${FONT}`
+  ctx.fillText('README.md', pad, 62)
+  ctx.fillStyle = '#ffffff'
+  let size = 48
+  ctx.font = `700 ${size}px ${FONT}`
+  while (ctx.measureText(title).width > colW && size > 30) {
+    size -= 2
+    ctx.font = `700 ${size}px ${FONT}`
+  }
+  ctx.fillText(title, pad, 118)
+
+  ctx.fillStyle = 'rgba(255,255,255,0.75)'
+  ctx.font = `500 23px ${FONT}`
+  wrapLines(ctx, text.summary, colW, 8).forEach((line, i) => ctx.fillText(line, pad, 170 + i * 32))
+
+  // Status card at the bottom: green when finished, amber for the next step
+  const tone = text.status.ok ? '#34d399' : '#fbbf24'
+  ctx.font = `500 19px ${FONT}`
+  const statusLines = wrapLines(ctx, text.status.text, colW - 36, 3)
+  const cardH = 60 + statusLines.length * 26
+  const cardY = h - pad - cardH
+  ctx.fillStyle = hexToRgba(tone, 0.08)
+  roundRect(ctx, pad, cardY, colW, cardH, 14)
+  ctx.fill()
+  ctx.strokeStyle = hexToRgba(tone, 0.4)
+  ctx.lineWidth = 2
+  ctx.stroke()
+  ctx.fillStyle = tone
+  ctx.font = `700 17px ${FONT}`
+  ctx.fillText(text.status.label.toUpperCase(), pad + 18, cardY + 32)
+  ctx.fillStyle = 'rgba(255,255,255,0.8)'
+  ctx.font = `500 19px ${FONT}`
+  statusLines.forEach((line, i) => ctx.fillText(line, pad + 18, cardY + 60 + i * 26))
+
+  // Right column: highlights, then the stack
+  ctx.fillStyle = CYAN
+  ctx.font = `600 18px ${FONT}`
+  ctx.fillText(labels.highlights.toUpperCase().split('').join(' '), rightX, 62)
+  let y = 104
+  ctx.font = `500 21px ${FONT}`
+  for (const item of text.highlights.slice(0, 5)) {
+    const lines = wrapLines(ctx, item, colW - 26, 2)
+    if (y + lines.length * 28 > h - 150) break
+    ctx.fillStyle = CYAN
+    ctx.beginPath(); ctx.arc(rightX + 6, y - 7, 4, 0, Math.PI * 2); ctx.fill()
+    ctx.fillStyle = 'rgba(255,255,255,0.8)'
+    lines.forEach((line, i) => ctx.fillText(line, rightX + 26, y + i * 28))
+    y += lines.length * 28 + 14
+  }
+
+  ctx.fillStyle = 'rgba(255,255,255,0.12)'
+  ctx.fillRect(rightX, h - 132, colW, 2)
+  ctx.fillStyle = CYAN
+  ctx.font = `500 19px ${FONT}`
+  wrapLines(ctx, text.stack, colW, 3).forEach((line, i) => ctx.fillText(line, rightX, h - 98 + i * 27))
+
+  return toTexture(canvas)
 }
 
 /**
