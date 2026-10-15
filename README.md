@@ -327,7 +327,9 @@ respuestas y solo se conserva lo colocado sobre la correcta.
 ## Skills · Para qué uso cada tecnología
 
 Resumen breve de cada herramienta listada en la sección Skills del portfolio,
-ordenado igual que en la UI (de base a especializado).
+ordenado igual que en la UI (de base a especializado). Estas mismas frases son
+las que muestra la tele del Estilo 3D al elegir una tecnología
+(`src/consts/skillInfo.js`), así que conviene cambiarlas en los dos sitios.
 
 ### Frontend
 
@@ -427,7 +429,7 @@ Siempre reviso lo que generan antes de usarlo.
 - **Estilo 3D** (`?view=room`): la habitación gamer del hero a pantalla completa.
   Cada objeto abre su sección en un panel lateral: estantería (construida en 3D,
   un libro por trabajo o estudio) → trayectoria, monitores → proyectos (el
-  monitor muestra el que se elige), tele → tecnologías, cuadros con mis dibujos →
+  monitor muestra el que se elige), tele → tecnologías (muestra el logo y para qué uso la que se elige), cuadros con mis dibujos →
   arte, móvil → contacto y torre del PC → visor del CV. La lámpara de lava
   enciende la luz. Cámara animada, zonas de clic ampliadas, barra inferior con
   todas las secciones, pantalla de carga con progreso real y versión adaptada a
@@ -441,7 +443,7 @@ Siempre reviso lo que generan antes de usarlo.
 public/              # Assets estáticos (imágenes WebP, GLB, CV, fuentes, galería hobbies/, logos skills/)
 scripts/             # Pipeline de optimización de imágenes (sharp)
 src/
-├── consts/          # Datos estáticos: i18n, lang (idioma y CV), nav, skills, brandIcons, projects, experience, hobbies, device
+├── consts/          # Datos estáticos: i18n, lang (idioma y CV), nav, skills, skillInfo, brandIcons, projects, experience, hobbies, device
 ├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground,
 │                    # RotatingText, SiteSwitch (Estilo normal / 3D), LoaderScreen, ErrorBoundary
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact y QuickView (versión rápida)
@@ -706,10 +708,9 @@ Otras optimizaciones aplicadas:
   el build con hash y las fuentes, 30 días para modelo e imágenes.
 - **EmailJS bajo demanda**: la librería se descarga solo al enviar el formulario
   (con preconnect para que esa petición sea rápida).
-- **Estilo 3D**: su código va en un chunk aparte (~11 KB comprimidos) que solo
+- **Estilo 3D**: su código va en un chunk aparte (~16 KB comprimidos) que solo
   se descarga al entrar; reutiliza Three.js y el modelo del hero, mide la descarga
-  por bytes para la barra de carga, deja de dibujar mientras el visor del CV está
-  abierto y libera materiales y texturas al salir.
+  por bytes para la barra de carga, dibuja **solo cuando algo cambia** (`frameloop="demand"`: vuelo de la cámara, hover o una pantalla nueva; con la habitación quieta, 0 fotogramas), se mantiene estática sin seguir al ratón y libera materiales y texturas al salir. Los libros de la estantería usan 2 llamadas de dibujo cada uno en vez de 6.
 - **Galería**: thumbnails de ~5 KB para la cuadrícula, archivo completo solo en el
   visor activo y precarga de vecinas, con `fetchPriority` adaptativo.
 - **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor` y

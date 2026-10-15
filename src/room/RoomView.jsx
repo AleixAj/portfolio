@@ -112,6 +112,7 @@ export default function RoomView({ onExit }) {
   const [focus, setFocus] = useState(null)
   const [lightsOn, setLightsOn] = useState(false)
   const [projectIdx, setProjectIdx] = useState(0)
+  const [tvSkill, setTvSkill] = useState(null) // technology shown on the TV
   const [cvOpen, setCvOpen] = useState(false)
   const [dpr, setDpr] = useState(maxDpr)
   const [ready, setReady] = useState(false)   // the scene is on screen
@@ -185,8 +186,9 @@ export default function RoomView({ onExit }) {
               camera={{ fov: 42, near: 0.05, far: 100 }}
               gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false }}
               dpr={dpr}
-              // Nothing moves behind the CV viewer, so stop drawing frames
-              frameloop={cvOpen ? 'demand' : 'always'}
+              // Frames only when something changes (camera, hover, screens),
+              // none at all while the room sits still
+              frameloop="demand"
               // A click on the empty space around the room goes back to the overview
               onPointerMissed={() => setFocus(null)}
             >
@@ -201,6 +203,8 @@ export default function RoomView({ onExit }) {
                   onSelect={select}
                   lightsOn={lightsOn}
                   projectIdx={projectIdx}
+                  // Back to "my stack" whenever the Skills panel isn't open
+                  tvSkill={focus === 'skills' ? tvSkill : null}
                   texts={sceneTexts}
                   reduceMotion={reduceMotion}
                   onReady={onReady}
@@ -265,7 +269,7 @@ export default function RoomView({ onExit }) {
             </button>
           </div>
           <div className="flex-1 overflow-y-auto overscroll-contain px-5 pb-8 md:px-7">
-            {focus && <RoomPanel id={focus} lang={lang} t={t} cv={cv} projectIdx={projectIdx} setProjectIdx={setProjectIdx} />}
+            {focus && <RoomPanel id={focus} lang={lang} t={t} cv={cv} projectIdx={projectIdx} setProjectIdx={setProjectIdx} tvSkill={tvSkill} setTvSkill={setTvSkill} />}
           </div>
         </aside>
 

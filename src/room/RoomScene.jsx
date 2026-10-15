@@ -4,6 +4,11 @@
  *
  * Everything the visitor can click is in roomConfig.js. This file only reacts
  * to `focus` (which object is open) and reports clicks back up.
+ *
+ * The canvas renders on demand (frameloop="demand"): no frames at all while
+ * nothing changes. Whatever changes the picture outside React (the camera
+ * flying, a material tint, a texture that finishes loading) calls
+ * `invalidate()` to ask for the next frame.
  */
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -12,7 +17,7 @@ import * as THREE from 'three'
 import { PROJECTS } from '../consts/projects'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 import { MODEL_URL, MODEL_SCALE, MODEL_OFFSET, OVERVIEW, OVERVIEW_PORTRAIT, HOTSPOTS, HITBOXES, LAMP, MESH, toWorld, ownerOf } from './roomConfig'
-import { tvTexture, monitorTexture } from './screens'
+import { tvTexture, monitorTexture, skillTvTexture } from './screens'
 import Bookshelf from './Bookshelf'
 
 const HOVER_TINT = new THREE.Color('#22d3ee')
@@ -29,6 +34,7 @@ const damp = (from, to, lambda, dt) => THREE.MathUtils.lerp(from, to, 1 - Math.e
  * canvas with the frame's own proportions, so nothing gets stretched.
  */
 function useFramedTexture(src, aspect) {
+  const invalidate = useThree(s => s.invalidate)
   const texture = useMemo(() => {
     const h = 1024
     const w = Math.round(h * aspect)
@@ -56,16 +62,18 @@ function useFramedTexture(src, aspect) {
       const dw = sw * s, dh = sh * s
       ctx.drawImage(img, sx, sy, sw, sh, (w - dw) / 2, (h - dh) / 2, dw, dh)
       tex.needsUpdate = true
+      invalidate()
     }
     img.src = src
     return tex
-  }, [src, aspect])
+  }, [src, aspect, invalidate])
   useEffect(() => () => texture.dispose(), [texture])
   return texture
 }
 
-function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, texts, onReady }) {
+function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSkill, texts, onReady }) {
   const { scene: original } = useGLTF(MODEL_URL, false, true)
+  const invalidate = useThree(s => s.invalidate)
 
   // Own copy of the model and its materials, so the textures I swap here
   // never leak into the hero on the main page (useGLTF caches the scene).
@@ -109,16 +117,19 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, text
     mesh.material.emissive.set('#ffffff')
     mesh.userData.baseEmissive = mesh.material.emissive.clone()
     mesh.material.needsUpdate = true
+    invalidate()
   }
 
+  // TV: "my stack" title card, or the technology picked in the Skills panel
   useEffect(() => {
-    const tex = tvTexture(texts.tv)
+    const tex = tvSkill ? skillTvTexture(tvSkill, invalidate) : tvTexture(texts.tv)
     setScreen(find(MESH.tv), tex)
     return () => tex.dispose()
-  }, [texts.tv]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [texts.tv, tvSkill]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Monitor: the project picked in the Projects panel
   useEffect(() => {
-    const tex = monitorTexture(PROJECTS[projectIdx], texts.monitorLabel)
+    const tex = monitorTexture(PROJECTS[projectIdx], texts.monitorLabel, invalidate)
     setScreen(find(MESH.monitor), tex)
     return () => tex.dispose()
   }, [projectIdx, texts.monitorLabel]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -136,32 +147,26 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, text
       mesh.userData.baseEmissive = mesh.material.emissive.clone()
       mesh.material.needsUpdate = true
     })
+    invalidate()
   }, [posterA, posterB]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Hover glow: a cyan tint on whatever belongs to the hovered object
+  // Hover glow: a cyan tint on whatever belongs to the hovered object.
+  // The lava lamp glows a bit brighter at night (it's the room's night light).
   useEffect(() => {
     meshes.forEach((m) => {
-      const on = m.userData.owner && m.userData.owner === hovered && m.userData.owner !== focus
+      const owner = m.userData.owner
+      const on = owner && owner === hovered && owner !== focus
       m.material.emissive.copy(m.userData.baseEmissive)
+      const base = m.userData.baseIntensity * (owner === 'lamp' && !lightsOn ? 1.4 : 1)
       if (on) {
-        if (m.material.emissiveMap) m.material.emissiveIntensity = m.userData.baseIntensity * 1.6
+        if (m.material.emissiveMap) m.material.emissiveIntensity = base * 1.6
         else m.material.emissive.lerp(HOVER_TINT, 0.35)
       } else {
-        m.material.emissiveIntensity = m.userData.baseIntensity
+        m.material.emissiveIntensity = base
       }
     })
-  }, [hovered, focus, meshes])
-
-  // The lava lamp breathes a little
-  const lampRef = useRef(null)
-  useEffect(() => {
-    lampRef.current = meshes.find(m => m.name.startsWith(LAMP.owners[0])) ?? null
-  }, [meshes])
-  useFrame(({ clock }) => {
-    const lamp = lampRef.current
-    if (!lamp) return
-    lamp.material.emissiveIntensity = lamp.userData.baseIntensity * (lightsOn ? 1 : 1.3 + Math.sin(clock.elapsedTime * 1.4) * 0.35)
-  })
+    invalidate()
+  }, [hovered, focus, lightsOn, meshes, invalidate])
 
   // The nearest thing under the pointer that belongs to an object. Looking
   // past what's in front (the chair, a wall edge) means the click areas win
@@ -217,9 +222,17 @@ function Hitboxes() {
 function Lights({ lightsOn }) {
   const ambient = useRef()
   const sun = useRef()
-  useFrame((_, dt) => {
-    if (ambient.current) ambient.current.intensity = damp(ambient.current.intensity, lightsOn ? 1.1 : 0.12, 4, dt)
-    if (sun.current) sun.current.intensity = damp(sun.current.intensity, lightsOn ? 1.6 : 0, 4, dt)
+  const invalidate = useThree(s => s.invalidate)
+  useEffect(() => { invalidate() }, [lightsOn, invalidate])
+  useFrame((state, dt) => {
+    if (!ambient.current || !sun.current) return
+    const a = lightsOn ? 1.1 : 0.12
+    const b = lightsOn ? 1.6 : 0
+    const d = Math.min(dt, 0.25)
+    ambient.current.intensity = damp(ambient.current.intensity, a, 4, d)
+    sun.current.intensity = damp(sun.current.intensity, b, 4, d)
+    // Keep drawing only while the light is still fading
+    if (Math.abs(ambient.current.intensity - a) > 0.002 || Math.abs(sun.current.intensity - b) > 0.002) state.invalidate()
   })
   return (
     <>
@@ -250,6 +263,10 @@ function CameraRig({ focus, panelOpen, reduceMotion }) {
   const goalRef = useRef(new THREE.Vector3())
   const goalLookRef = useRef(new THREE.Vector3())
 
+  // A new target: start drawing again (the rig keeps asking until it arrives)
+  const invalidate = useThree(s => s.invalidate)
+  useEffect(() => { invalidate() }, [focus, panelOpen, invalidate])
+
   // Start further away so the room "arrives" when the page opens
   useEffect(() => {
     const cam = new THREE.Vector3(...toWorld(OVERVIEW.cam))
@@ -273,12 +290,6 @@ function CameraRig({ focus, panelOpen, reduceMotion }) {
     const back = THREE.MathUtils.clamp(1.45 / aspect, 1, spot ? 1.5 : 2.7)
     goal.sub(goalLook).multiplyScalar(back).add(goalLook)
 
-    // In the overview the camera follows the mouse a little
-    if (!spot) {
-      goal.x += state.pointer.x * 0.6
-      goal.y += state.pointer.y * 0.35
-    }
-
     const speed = reduceMotion ? 12 : 2.6
     // Time-based, so slow devices (few frames) still arrive on time. Capped so a
     // long pause (switching tabs) doesn't make it jump.
@@ -298,6 +309,11 @@ function CameraRig({ focus, panelOpen, reduceMotion }) {
     shift.current.y = damp(shift.current.y, ty, speed, d)
     camera.setViewOffset(size.width, size.height, shift.current.x, shift.current.y, size.width, size.height)
     camera.updateProjectionMatrix()
+
+    // Still on its way? Then ask for another frame; once there, stop drawing
+    const moving = camera.position.distanceTo(goal) > 0.001 || look.current.distanceTo(goalLook) > 0.001 ||
+      Math.abs(shift.current.x - tx) > 0.25 || Math.abs(shift.current.y - ty) > 0.25
+    if (moving) state.invalidate()
   })
 
   useEffect(() => () => {
@@ -348,7 +364,7 @@ function Markers({ focus, hovered, setHovered, onSelect, labels, lampLabel }) {
   )
 }
 
-export default function RoomScene({ focus, onSelect, lightsOn, projectIdx, texts, reduceMotion, onReady }) {
+export default function RoomScene({ focus, onSelect, lightsOn, projectIdx, tvSkill, texts, reduceMotion, onReady }) {
   const [hovered, setHovered] = useState(null)
 
   // Pointer cursor over anything clickable
@@ -368,6 +384,7 @@ export default function RoomScene({ focus, onSelect, lightsOn, projectIdx, texts
         onSelect={onSelect}
         lightsOn={lightsOn}
         projectIdx={projectIdx}
+        tvSkill={tvSkill}
         texts={texts}
         onReady={onReady}
       />

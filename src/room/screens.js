@@ -1,7 +1,11 @@
 /**
- * Pictures painted onto the room's screens with a 2D canvas: the TV and the
- * right monitor. Each function returns a THREE.CanvasTexture ready to go on
- * their materials.
+ * Pictures painted onto the room's screens with a 2D canvas: the TV (my stack,
+ * or the technology you're looking at) and the right monitor (the project
+ * you're looking at). Each function returns a THREE.CanvasTexture ready to go
+ * on their materials.
+ *
+ * The scene only draws frames when something changes, so the ones that finish
+ * painting later (after an image loads) call `onPainted` to ask for a frame.
  *
  * (The phone's screen only uses a tiny corner of its texture, so it keeps the
  * original picture from the model.)
@@ -89,7 +93,7 @@ export function tvTexture({ kicker, title, meta, play }) {
  * Right monitor: the project you're looking at in the panel.
  * Starts with just the title and draws the image in once it has loaded.
  */
-export function monitorTexture(project, label) {
+export function monitorTexture(project, label, onPainted) {
   const w = 1024, h = 628
   const [canvas, ctx] = makeCanvas(w, h)
   const tex = toTexture(canvas)
@@ -126,9 +130,107 @@ export function monitorTexture(project, label) {
 
   paint(null)
   const img = new Image()
-  img.onload = () => paint(img)
+  img.onload = () => { paint(img); onPainted?.() }
   img.src = project.img
   return tex
+}
+
+/**
+ * TV: one technology from the Skills panel. Its logo in its brand colour, the
+ * category, the name and one line about what I use it for.
+ * skill: { name, category, desc, color, icon: { svg } | { src } }
+ */
+export function skillTvTexture(skill, onPainted) {
+  const w = 1024, h = 576
+  const [canvas, ctx] = makeCanvas(w, h)
+  const tex = toTexture(canvas)
+  const box = { x: 72, y: 150, size: 230 }
+  const textX = box.x + box.size + 56
+  const textW = w - textX - 64
+
+  const paint = (logo) => {
+    paintBackground(ctx, w, h, 0.25, 0.45)
+
+    // Logo tile, tinted with the brand colour
+    ctx.fillStyle = 'rgba(255,255,255,0.04)'
+    roundRect(ctx, box.x, box.y, box.size, box.size, 36)
+    ctx.fill()
+    ctx.strokeStyle = hexToRgba(skill.color, 0.55)
+    ctx.lineWidth = 3
+    ctx.stroke()
+    if (logo) {
+      const s = (box.size * 0.6) / Math.max(logo.width, logo.height)
+      const lw = logo.width * s, lh = logo.height * s
+      // Picture logos are pixel art (PixelLab): keep the pixels sharp
+      ctx.imageSmoothingEnabled = !skill.icon.src
+      ctx.drawImage(logo, box.x + (box.size - lw) / 2, box.y + (box.size - lh) / 2, lw, lh)
+      ctx.imageSmoothingEnabled = true
+    }
+
+    ctx.fillStyle = CYAN
+    ctx.font = `600 24px ${FONT}`
+    ctx.fillText(skill.category.toUpperCase().split('').join(' '), textX, 196)
+
+    ctx.fillStyle = '#ffffff'
+    let size = 76
+    ctx.font = `700 ${size}px ${FONT}`
+    while (ctx.measureText(skill.name).width > textW && size > 40) {
+      size -= 2
+      ctx.font = `700 ${size}px ${FONT}`
+    }
+    ctx.fillText(skill.name, textX - 4, 276)
+
+    ctx.fillStyle = 'rgba(255,255,255,0.72)'
+    ctx.font = `500 30px ${FONT}`
+    wrapLines(ctx, skill.desc, textW, 4).forEach((line, i) => ctx.fillText(line, textX, 334 + i * 42))
+
+    // Thin bar along the bottom, like the title card
+    ctx.fillStyle = hexToRgba(skill.color, 0.9)
+    ctx.fillRect(72, 520, w - 144, 6)
+    tex.needsUpdate = true
+  }
+
+  paint(null)
+  const logo = new Image()
+  logo.onload = () => { paint(logo); onPainted?.() }
+  logo.src = skill.icon.src ?? svgDataUrl(skill.icon.svg, skill.color)
+  return tex
+}
+
+// An icon's SVG markup as an image URL, coloured and at a size the canvas can scale
+function svgDataUrl(svg, color) {
+  // Only the opening <svg> tag is touched: its own size and colour attributes
+  // are replaced (a repeated attribute would make the SVG invalid)
+  const markup = svg.replace(/<svg[^>]*>/, (tag) => {
+    const attrs = tag
+      .replace(/^<svg|>$/g, '')
+      .replace(/\s(width|height|color|style|xmlns)="[^"]*"/g, '')
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" color="${color}"${attrs}>`
+  })
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup)}`
+}
+
+// Splits text into lines that fit `maxWidth`, with "…" if it runs past `maxLines`
+function wrapLines(ctx, text, maxWidth, maxLines) {
+  const lines = []
+  let line = ''
+  for (const word of text.split(' ')) {
+    const next = line ? `${line} ${word}` : word
+    if (ctx.measureText(next).width <= maxWidth) { line = next; continue }
+    lines.push(line)
+    line = word
+  }
+  if (line) lines.push(line)
+  if (lines.length > maxLines) {
+    lines.length = maxLines
+    lines[maxLines - 1] = lines[maxLines - 1].replace(/\s*\S*$/, '…')
+  }
+  return lines
+}
+
+function hexToRgba(hex, alpha) {
+  const n = parseInt(hex.replace('#', ''), 16)
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`
 }
 
 function roundRect(ctx, x, y, w, h, r) {

@@ -328,7 +328,9 @@ four answers, and only what's placed on the correct one is kept.
 ## Skills · What I Use Each Technology For
 
 A short summary of each tool listed in the portfolio's Skills section, in the
-same order as the UI (from foundational to specialized).
+same order as the UI (from foundational to specialized). These same lines are
+what the TV in the 3D style shows when you pick a technology
+(`src/consts/skillInfo.js`), so change them in both places.
 
 ### Frontend
 
@@ -428,7 +430,7 @@ I always review what they produce before using it.
 - **3D style** (`?view=room`): the hero's gaming room in full screen. Each object
   opens its section in a side panel: bookshelf (built in 3D, one book per job or
   course) → journey, monitors → projects (the monitor shows the one you pick),
-  TV → skills, frames with my drawings → art, phone → contact and PC tower → CV
+  TV → skills (it shows the logo and what I use the picked one for), frames with my drawings → art, phone → contact and PC tower → CV
   viewer. The lava lamp switches the light on. Animated camera, enlarged click
   areas, a bottom bar with every section, a loading screen with real progress
   and a layout adapted to phones and tablets.
@@ -441,7 +443,7 @@ I always review what they produce before using it.
 public/              # Static assets (WebP images, GLB, CV, fonts, hobbies/ gallery, skills/ logos)
 scripts/             # Image optimization pipeline (sharp)
 src/
-├── consts/          # Static data: i18n, lang (language and CV), nav, skills, brandIcons, projects, experience, hobbies, device
+├── consts/          # Static data: i18n, lang (language and CV), nav, skills, skillInfo, brandIcons, projects, experience, hobbies, device
 ├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground,
 │                    # RotatingText, SiteSwitch (classic / 3D style), LoaderScreen, ErrorBoundary
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact and QuickView (quick version)
@@ -706,10 +708,9 @@ Other optimizations applied:
   the hashed build and the fonts, 30 days for the model and images.
 - **EmailJS on demand**: the library is only downloaded when the form is sent
   (with a preconnect so that request is fast).
-- **3D style**: its code is a separate chunk (~11 KB gzipped) downloaded only
+- **3D style**: its code is a separate chunk (~16 KB gzipped) downloaded only
   on entry; it reuses Three.js and the hero's model, measures the download in
-  bytes for the loading bar, stops drawing while the CV viewer is open and frees
-  materials and textures on exit.
+  bytes for the loading bar, draws **only when something changes** (`frameloop="demand"`: camera flight, hover or a new screen; 0 frames while the room sits still), stays still instead of following the mouse and frees materials and textures on exit. The bookshelf's books take 2 draw calls each instead of 6.
 - **Gallery**: ~5 KB thumbnails for the grid, full-size file only in the active
   viewer, and neighbour preloading, with adaptive `fetchPriority`.
 - **3D hero**: antialiasing on, adaptive DPR with `PerformanceMonitor` and the

@@ -3,7 +3,9 @@
  * Same data as the classic site (experience, projects, skills, drawings),
  * laid out for a narrow panel.
  */
-import { useEffect, useState } from 'react'
+import { createElement, useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { createPortal } from 'react-dom'
 import { FaLinkedin, FaGithub, FaEnvelope, FaDownload, FaFileAlt, FaInfo, FaCopy, FaCheck, FaGooglePlay, FaWindows, FaApple, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
@@ -12,6 +14,7 @@ import { SKILL_CATEGORIES, AI_TOOLS } from '../consts/skills'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 import ProjectModal from '../components/ProjectModal'
 import { localize } from '../consts/lang'
+import { SKILL_INFO } from '../consts/skillInfo'
 
 const SUBTITLE = 'text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/40 mb-3'
 
@@ -101,33 +104,63 @@ function Projects({ lang, t, projectIdx, setProjectIdx }) {
   )
 }
 
-function SkillTile({ label, Icon, color, url, lang }) {
-  const name = typeof label === 'string' ? label : label[lang] ?? label.es
+// An icon component as something a canvas can draw: the SVG markup it renders
+// to, or the image it shows (PixelLab's logo is a picture). Cached per icon.
+const iconCache = new Map()
+function iconImage(Icon) {
+  if (!iconCache.has(Icon)) {
+    const el = document.createElement('div')
+    const root = createRoot(el)
+    flushSync(() => root.render(createElement(Icon)))
+    const img = el.querySelector('img')
+    iconCache.set(Icon, img ? { src: img.getAttribute('src') } : { svg: el.innerHTML })
+    root.unmount()
+  }
+  return iconCache.get(Icon)
+}
+
+function SkillTile({ skill, lang, category, picked, onPick }) {
+  const { label, Icon, color, url } = skill
+  const name = localize(label, lang)
+  // Show it on the TV in the room. The info is keyed by the Spanish label.
+  const pick = () => onPick({
+    name,
+    category,
+    desc: localize(SKILL_INFO[localize(label, 'es')], lang) ?? '',
+    color,
+    icon: iconImage(Icon),
+  })
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" title={name}
-      className="flex flex-col items-center gap-1 rounded-lg border border-white/10 bg-black/30 p-2 text-center transition-colors hover:border-cyan-400/50 hover:bg-cyan-400/[0.05]">
+      onPointerEnter={pick} onFocus={pick}
+      className={`flex flex-col items-center gap-1 rounded-lg border p-2 text-center transition-colors hover:border-cyan-400/50 hover:bg-cyan-400/[0.05] ${picked ? 'border-cyan-400/60 bg-cyan-400/[0.08]' : 'border-white/10 bg-black/30'}`}>
       <Icon className="h-6 w-6" style={{ color }} />
       <span className="text-[0.62rem] font-semibold leading-tight text-white/85">{name}</span>
     </a>
   )
 }
 
-function Skills({ lang, t }) {
+function Skills({ lang, t, tvSkill, setTvSkill }) {
+  const group = (category, skills) => (
+    <div className="grid grid-cols-4 sm:grid-cols-5 gap-1.5">
+      {skills.map(s => (
+        <SkillTile key={s.url} skill={s} lang={lang} category={category}
+          picked={tvSkill?.name === localize(s.label, lang)} onPick={setTvSkill} />
+      ))}
+    </div>
+  )
   return (
     <>
+      <p className="mb-4 text-sm text-white/55">{t.room.skillsHint}</p>
       {SKILL_CATEGORIES.map(({ title, skills }) => (
         <section key={title.es} className="mb-6">
           <p className={SUBTITLE}>{localize(title, lang)}</p>
-          <div className="grid grid-cols-4 sm:grid-cols-5 gap-1.5">
-            {skills.map(s => <SkillTile key={s.url} {...s} lang={lang} />)}
-          </div>
+          {group(localize(title, lang), skills)}
         </section>
       ))}
       <section>
         <p className={SUBTITLE}>{t.skills.aiTitle}</p>
-        <div className="grid grid-cols-4 sm:grid-cols-5 gap-1.5">
-          {AI_TOOLS.map(s => <SkillTile key={s.url} {...s} lang={lang} />)}
-        </div>
+        {group(t.skills.aiTitle, AI_TOOLS)}
       </section>
     </>
   )
@@ -220,11 +253,11 @@ export const PANEL_TITLES = (t) => ({
   contact: t.contact.title,
 })
 
-export default function RoomPanel({ id, lang, t, cv, projectIdx, setProjectIdx }) {
+export default function RoomPanel({ id, lang, t, cv, projectIdx, setProjectIdx, tvSkill, setTvSkill }) {
   switch (id) {
     case 'journey': return <Journey lang={lang} t={t} />
     case 'projects': return <Projects lang={lang} t={t} projectIdx={projectIdx} setProjectIdx={setProjectIdx} />
-    case 'skills': return <Skills lang={lang} t={t} />
+    case 'skills': return <Skills lang={lang} t={t} tvSkill={tvSkill} setTvSkill={setTvSkill} />
     case 'art': return <Art t={t} />
     case 'contact': return <Contact t={t} cv={cv} />
     default: return null

@@ -330,7 +330,9 @@ respostes i només es conserva el que s'ha col·locat sobre la correcta.
 ## Skills · Per a què faig servir cada tecnologia
 
 Resum breu de cada eina llistada a la secció Tecnologies del portfolio, ordenat igual
-que a la UI (de base a especialitzat).
+que a la UI (de base a especialitzat). Aquestes mateixes frases són les que
+mostra la tele de l'Estil 3D en triar una tecnologia (`src/consts/skillInfo.js`),
+per la qual cosa convé canviar-les als dos llocs.
 
 ### Frontend
 
@@ -429,7 +431,7 @@ Sempre reviso el que generen abans de fer-ho servir.
 - **Estil 3D** (`?view=room`): l'habitació gamer del hero a pantalla completa.
   Cada objecte obre la seva secció en un panell lateral: prestatgeria
   (construïda en 3D, un llibre per feina o estudi) → trajectòria, monitors →
-  projectes (el monitor mostra el que es tria), tele → tecnologies, quadres amb
+  projectes (el monitor mostra el que es tria), tele → tecnologies (mostra el logo i per a què faig servir la que es tria), quadres amb
   els meus dibuixos → art, mòbil → contacte i torre del PC → visor del CV. La
   làmpada de lava encén el llum. Càmera animada, zones de clic ampliades, barra
   inferior amb totes les seccions, pantalla de càrrega amb progrés real i versió
@@ -443,7 +445,7 @@ Sempre reviso el que generen abans de fer-ho servir.
 public/              # Assets estàtics (imatges WebP, GLB, CV, fonts, galeria hobbies/, logos skills/)
 scripts/             # Pipeline d'optimització d'imatges (sharp)
 src/
-├── consts/          # Dades estàtiques: i18n, lang (idioma i CV), nav, skills, brandIcons, projects, experience, hobbies, device
+├── consts/          # Dades estàtiques: i18n, lang (idioma i CV), nav, skills, skillInfo, brandIcons, projects, experience, hobbies, device
 ├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground,
 │                    # RotatingText, SiteSwitch (Estil normal / 3D), LoaderScreen, ErrorBoundary
 ├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact i QuickView (versió ràpida)
@@ -709,10 +711,9 @@ Altres optimitzacions aplicades:
   per al build amb hash i les fonts, 30 dies per al model i les imatges.
 - **EmailJS sota demanda**: la llibreria només es descarrega en enviar el
   formulari (amb preconnect perquè aquesta petició sigui ràpida).
-- **Estil 3D**: el seu codi va en un chunk a part (~11 KB comprimits) que només
+- **Estil 3D**: el seu codi va en un chunk a part (~16 KB comprimits) que només
   es descarrega en entrar; reutilitza Three.js i el model del hero, mesura la
-  descàrrega en bytes per a la barra de càrrega, deixa de dibuixar mentre el visor
-  del CV és obert i allibera materials i textures en sortir.
+  descàrrega en bytes per a la barra de càrrega, dibuixa **només quan alguna cosa canvia** (`frameloop="demand"`: vol de la càmera, hover o una pantalla nova; 0 fotogrames amb l'habitació quieta), es queda estàtica sense seguir el ratolí i allibera materials i textures en sortir. Els llibres de la prestatgeria fan servir 2 crides de dibuix cadascun en lloc de 6.
 - **Galeria**: miniatures de ~5 KB per a la graella, fitxer complet només al
   visor actiu i precàrrega de les veïnes, amb `fetchPriority` adaptatiu.
 - **Hero 3D**: antialias actiu, DPR adaptatiu amb `PerformanceMonitor` i
