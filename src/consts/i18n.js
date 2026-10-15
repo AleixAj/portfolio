@@ -17,7 +17,6 @@ export const TRANSLATIONS = {
     quickViewHint: 'Todo en una página, sin 3D',
     room: {
       enter: 'Habitación 3D',
-      enterHint: 'Explora mi portfolio en una habitación 3D',
       loading: 'Encendiendo el setup',
       loadingSteps: ['Cargando el modelo 3D', 'Preparando las texturas', 'Encendiendo las luces'],
       hint: 'Haz clic en los objetos para explorar',
@@ -53,7 +52,6 @@ export const TRANSLATIONS = {
       print: 'Imprimir / PDF',
       clients: 'Clientes',
     },
-    previousSection: 'Sección anterior',
     nextSection: 'Siguiente sección',
     sectionIndex: 'Índice de secciones',
     hero: {
@@ -147,7 +145,6 @@ export const TRANSLATIONS = {
     quickViewHint: 'Everything on one page, no 3D',
     room: {
       enter: '3D room',
-      enterHint: 'Explore my portfolio in a 3D room',
       loading: 'Booting up the setup',
       loadingSteps: ['Loading the 3D model', 'Preparing the textures', 'Turning on the lights'],
       hint: 'Click the objects to explore',
@@ -183,7 +180,6 @@ export const TRANSLATIONS = {
       print: 'Print / PDF',
       clients: 'Clients',
     },
-    previousSection: 'Previous section',
     nextSection: 'Next section',
     sectionIndex: 'Section index',
     hero: {
@@ -277,7 +273,6 @@ export const TRANSLATIONS = {
     quickViewHint: 'Tot en una pàgina, sense 3D',
     room: {
       enter: 'Habitació 3D',
-      enterHint: 'Explora el meu portfolio en una habitació 3D',
       loading: 'Encenent el setup',
       loadingSteps: ['Carregant el model 3D', 'Preparant les textures', 'Encenent els llums'],
       hint: 'Fes clic als objectes per explorar',
@@ -313,7 +308,6 @@ export const TRANSLATIONS = {
       print: 'Imprimir / PDF',
       clients: 'Clients',
     },
-    previousSection: 'Secció anterior',
     nextSection: 'Secció següent',
     sectionIndex: 'Índex de seccions',
     hero: {

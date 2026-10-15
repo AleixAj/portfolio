@@ -10,9 +10,7 @@ import { FaBriefcase, FaGraduationCap } from 'react-icons/fa'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import TimelineItem from '../components/TimelineItem'
 import SectionHeading from '../components/SectionHeading'
-
-// Translated fields are { es, en, ca }; plain strings are the same in every language
-const localize = (value, lang) => (typeof value === 'object' ? (value[lang] ?? value.es) : value)
+import { localize } from '../consts/lang'
 
 function Trayectoria({ lang, t }) {
   const [tab, setTab] = useState(0)

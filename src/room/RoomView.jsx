@@ -2,8 +2,9 @@
  * Room version of the portfolio (?view=room): the gaming room from the hero,
  * full screen, where each object opens a part of the portfolio.
  *
- * Everything 3D is in RoomScene. This file is the HTML around it: the top bar,
- * the loading screen, the bottom dock and the side panel.
+ * Everything 3D is in RoomScene. This file is the HTML around it: the top bar
+ * (style switch and languages), the bottom dock, the side panel with each
+ * section, the CV viewer, the loading screen and the error fallback.
  */
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
@@ -116,11 +117,11 @@ export default function RoomView({ onExit }) {
   const [projectIdx, setProjectIdx] = useState(0)
   const [cvOpen, setCvOpen] = useState(false)
   const [dpr, setDpr] = useState(maxDpr)
-  const [ready, setReady] = useState(false)
+  const [ready, setReady] = useState(false)   // the scene is on screen
+  const [failed, setFailed] = useState(false) // the 3D couldn't run
+  const closeRef = useRef(null)
   // The model is fetched first (with progress); the scene mounts once it's in
   const download = useModelDownload(MODEL_URL)
-  const [failed, setFailed] = useState(false)
-  const closeRef = useRef(null)
   const onReady = useCallback(() => setReady(true), [])
   const onFailed = useCallback(() => setFailed(true), [])
 
@@ -183,32 +184,32 @@ export default function RoomView({ onExit }) {
               <button type="button" onClick={onExit} className="rounded-xl bg-cyan-400 px-5 py-2.5 text-sm font-semibold text-black hover:bg-cyan-300">{r.errorAction}</button>
             </div>
           }>
-          <Canvas
-            camera={{ fov: 42, near: 0.05, far: 100 }}
-            gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false }}
-            dpr={dpr}
-            // Nothing moves behind the CV viewer, so stop drawing frames
-            frameloop={cvOpen ? 'demand' : 'always'}
-            // A click on the empty space around the room goes back to the overview
-            onPointerMissed={() => setFocus(null)}
-          >
-            <PerformanceMonitor
-              onDecline={() => setDpr(d => Math.max(1, +(d - 0.25).toFixed(2)))}
-              onIncline={() => setDpr(maxDpr())}
-              flipflops={3}
-            />
-            <Suspense fallback={null}>
-              {download.done && <RoomScene
-                focus={focus}
-                onSelect={select}
-                lightsOn={lightsOn}
-                projectIdx={projectIdx}
-                texts={sceneTexts}
-                reduceMotion={reduceMotion}
-                onReady={onReady}
-              />}
-            </Suspense>
-          </Canvas>
+            <Canvas
+              camera={{ fov: 42, near: 0.05, far: 100 }}
+              gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false }}
+              dpr={dpr}
+              // Nothing moves behind the CV viewer, so stop drawing frames
+              frameloop={cvOpen ? 'demand' : 'always'}
+              // A click on the empty space around the room goes back to the overview
+              onPointerMissed={() => setFocus(null)}
+            >
+              <PerformanceMonitor
+                onDecline={() => setDpr(d => Math.max(1, +(d - 0.25).toFixed(2)))}
+                onIncline={() => setDpr(maxDpr())}
+                flipflops={3}
+              />
+              <Suspense fallback={null}>
+                {download.done && <RoomScene
+                  focus={focus}
+                  onSelect={select}
+                  lightsOn={lightsOn}
+                  projectIdx={projectIdx}
+                  texts={sceneTexts}
+                  reduceMotion={reduceMotion}
+                  onReady={onReady}
+                />}
+              </Suspense>
+            </Canvas>
           </ErrorBoundary>
         </div>
 
@@ -241,7 +242,7 @@ export default function RoomView({ onExit }) {
             ))}
             <button type="button" onClick={() => select('cv')}
               className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs md:text-sm font-semibold text-cyan-300 hover:bg-cyan-400/15 transition-colors">
-              <span className="font-tech text-[0.6rem] text-cyan-400">06</span>
+              <span className="font-tech text-[0.6rem] text-cyan-400">{String(PANELS.length + 1).padStart(2, '0')}</span>
               {r.labels.cv}
             </button>
           </div>

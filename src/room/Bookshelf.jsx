@@ -70,19 +70,20 @@ function Book({ book, glow }) {
   const spineTex = useMemo(() => spineTexture(book.name, book.color), [book.name, book.color])
   useEffect(() => () => spineTex.dispose(), [spineTex])
 
-  // BoxGeometry faces: +x, -x, +y, -y, +z (the spine, facing the room), -z
-  const side = { color: book.color, roughness: 0.7, emissive: book.color, emissiveIntensity: glow ? 0.5 : 0.25 }
-  const pages = { color: '#d6d3c4', roughness: 0.9, emissive: '#d6d3c4', emissiveIntensity: 0.08 }
+  // Two draw calls per book: a plain coloured body, and the spine as a plane
+  // just in front of it. (One material per box face would be six.)
+  const depth = DEPTH - 4
   return (
-    <mesh name={`shelf_book_${book.name}`} position={[book.x, book.y, WALL_Z + DEPTH / 2]}>
-      <boxGeometry args={[book.thick, book.height, DEPTH - 4]} />
-      <meshStandardMaterial attach="material-0" {...side} />
-      <meshStandardMaterial attach="material-1" {...side} />
-      <meshStandardMaterial attach="material-2" {...pages} />
-      <meshStandardMaterial attach="material-3" {...pages} />
-      <meshStandardMaterial attach="material-4" map={spineTex} emissiveMap={spineTex} emissive="#ffffff" emissiveIntensity={glow ? 0.9 : 0.45} roughness={0.6} />
-      <meshStandardMaterial attach="material-5" {...side} />
-    </mesh>
+    <group name={`shelf_book_${book.name}`} position={[book.x, book.y, WALL_Z + DEPTH / 2]}>
+      <mesh name={`shelf_book_body_${book.name}`}>
+        <boxGeometry args={[book.thick, book.height, depth]} />
+        <meshStandardMaterial color={book.color} roughness={0.7} emissive={book.color} emissiveIntensity={glow ? 0.5 : 0.25} />
+      </mesh>
+      <mesh name={`shelf_book_spine_${book.name}`} position={[0, 0, depth / 2 + 0.4]}>
+        <planeGeometry args={[book.thick, book.height]} />
+        <meshStandardMaterial map={spineTex} emissiveMap={spineTex} emissive="#ffffff" emissiveIntensity={glow ? 0.9 : 0.45} roughness={0.6} />
+      </mesh>
+    </group>
   )
 }
 

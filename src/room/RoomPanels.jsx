@@ -11,8 +11,8 @@ import { PROJECTS } from '../consts/projects'
 import { SKILL_CATEGORIES, AI_TOOLS } from '../consts/skills'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 import ProjectModal from '../components/ProjectModal'
+import { localize } from '../consts/lang'
 
-const localize = (value, lang) => (value && typeof value === 'object' ? (value[lang] ?? value.es) : value)
 const SUBTITLE = 'text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/40 mb-3'
 
 function TimelineEntry({ title, subtitle, period, desc, clients }) {

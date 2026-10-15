@@ -380,12 +380,23 @@ same order as the UI (from foundational to specialized).
 | **Railway** | App and database hosting for quick projects. |
 | **Jira** | Ticket management, sprints and agile planning. |
 | **Salesforce** | Enterprise CRM: release management and deployments across environments at VIEWNEXT. |
-| **GitHub Copilot** | AI assistant built into the IDE for autocompletion and refactors. |
-| **Cursor** | IDE with AI agents for assisted development and code review. |
-| **Claude** | AI model for support with architecture, code and technical documentation. |
 | **Godot** | 2D/3D engine used for personal mobile game development. |
 | **Photoshop** | Image editing and UI asset design. |
 | **Aseprite** | Pixel art and sprite animation for personal projects and game dev. |
+
+### Working with AI
+
+| Tool | What I use it for |
+|------|-------------------|
+| **Claude** | Help with coding, code review and documentation. |
+| **GitHub Copilot** | AI autocompletion and refactors inside the editor. |
+| **Cursor** | Editor with AI agents for assisted development. |
+| **Codex** | OpenAI's coding agent for code tasks. |
+| **Higgsfield** | Image and video generation. |
+| **PixelLab** | Pixel art and sprite generation. |
+| **Suno** | Music generation. |
+
+I always review what they produce before using it.
 
 ## Portfolio Sections
 
@@ -400,30 +411,44 @@ same order as the UI (from foundational to specialized).
   trilingual descriptions, technologies, GitHub and, depending on the project,
   demo, Google Play or a Windows and Mac download. On desktop they lift on hover
   with a spotlight that follows the cursor. Each card has an info button that
-  opens **project details** with a summary, optional screenshot, highlights,
-  stack and actual status, taken from its repository's README. Ordered by
-  technical depth (full-stack first, then shipped products); if the last card
-  ends up alone in its row, it is centred.
-- **Skills** (*Tecnologías* in Spanish, *Tecnologies* in Catalan): technologies grouped into frontend
-  (including HTML, CSS, XML and UI tools), backend, DevOps and tools (including
-  `Godot` for mobile game dev and `Aseprite` for pixel art), with brand icons.
-  Each icon **links to the technology's official website** and has a *glare*
-  effect on hover (desktop only).
+  opens **project details** with a summary, a screenshot of the project in use, highlights,
+  stack and actual status, taken from its repository's README. The three main projects get big cards and the rest
+  a compact "More projects" list; if the last one ends up alone in its row, it
+  is centred.
+- **Skills** (*Tecnologías* in Spanish, *Tecnologies* in Catalan): frontend,
+  backend and DevOps and tools, with a large tile per technology and the most
+  basic ones (HTML, CSS, XML, JSON) as tags under the title; below, a **Working
+  with AI** strip. Official brand icons (Cursor, Photoshop, Higgsfield and
+  PixelLab, missing from `react-icons`, are a custom SVG or image) and each one
+  **links to the tool's official website**.
 - **Art**: personal gallery with a fullscreen viewer and navigation via
   **swipe/drag** (mobile and desktop), keyboard, arrows and dots; thumbnails
   expand on hover.
 - **Contact**: form connected to EmailJS and professional links.
+- **3D style** (`?view=room`): the hero's gaming room in full screen. Each object
+  opens its section in a side panel: bookshelf (built in 3D, one book per job or
+  course) → journey, monitors → projects (the monitor shows the one you pick),
+  TV → skills, frames with my drawings → art, phone → contact and PC tower → CV
+  viewer. The lava lamp switches the light on. Animated camera, enlarged click
+  areas, a bottom bar with every section, a loading screen with real progress
+  and a layout adapted to phones and tablets.
+- **Quick version** (`?view=quick`): everything on one page without 3D for
+  people in a hurry, printable as a PDF.
 
 ## Structure
 
 ```txt
-public/              # Static assets (WebP images, GLB, CV, fonts, hobbies/ gallery)
+public/              # Static assets (WebP images, GLB, CV, fonts, hobbies/ gallery, skills/ logos)
 scripts/             # Image optimization pipeline (sharp)
 src/
-├── consts/          # Static data: i18n, nav, skills, projects, experience, hobbies, device
-├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground, RotatingText
-├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact
-├── App.jsx          # Navigation, language, URL, keyboard, scroll and reveal animations
+├── consts/          # Static data: i18n, lang (language and CV), nav, skills, brandIcons, projects, experience, hobbies, device
+├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground,
+│                    # RotatingText, SiteSwitch (classic / 3D style), LoaderScreen, ErrorBoundary
+├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact and QuickView (quick version)
+├── room/            # 3D style: RoomView (page), RoomScene (scene), RoomPanels (panels), Bookshelf,
+│                    # roomConfig (objects, cameras and click areas), screens (painted screens), useModelDownload
+├── Root.jsx         # Picks the version from ?view= (classic, quick, room)
+├── App.jsx          # Classic site: navigation, language, URL, keyboard, scroll and reveal animations
 ├── main.jsx
 └── index.css        # Tailwind, typography, animations, card glow and responsive rules
 .env.example         # EmailJS variables template (copy to .env.local)
@@ -433,7 +458,7 @@ src/
 
 | File | Purpose |
 |------|---------|
-| `gaming_bedroom.glb` | Hero 3D model |
+| `gaming_bedroom.glb` | 3D model for the hero and the 3D style |
 | `AJ.png` | Logo in the navbar and footer (295x224, 21 KB) |
 | `favicon-32.png`, `apple-touch-icon.png` | Tab icon and home screen icon |
 | `fonts/*.woff2` | Self-hosted Space Grotesk and DM Sans (generated from Google Fonts, OFL licence) |
@@ -441,12 +466,14 @@ src/
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | CV download based on the active language (Hero and Contact). ES and CAT share the same PDF; the `download` attribute sets the saved file name (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) instead of the internal slug |
 | `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `nexus-logo.webp`, `nexus-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Project cards (max. 400 px; `npm run optimize:images` keeps them at size) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Art gallery (full size + thumbnail) |
+| `*-demo.webp` | Screenshot of each project in use for its details dialog (768×480) |
+| `skills/pixellab.webp` | PixelLab logo (not available in `react-icons`) |
 
 ## Running Locally
 
 Requirements:
 
-- Node.js 18+
+- Node.js 22+ (Vite 8 needs 20.19+ and Wrangler 22+)
 - npm
 
 Install and run in development:
@@ -535,6 +562,10 @@ to enable the form.
   and shows through the semi-transparent sections. Dark scrollbar in the site's
   cyan.
 
+- **Failure-proof**: if the 3D model can't be downloaded or there's no WebGL,
+  the classic site shows its backdrop and the room a notice with a way back; and
+  if the browser blocks storage, the site keeps working.
+
 ### Verification
 
 - `npm run lint`: no errors.
@@ -545,7 +576,7 @@ to enable the form.
   thread blocking.
 - Full walkthrough with no console errors or failed requests: six sections, all
   ten project detail dialogs and the gallery, in all three languages.
-- Reviewed with no findings: parity of the 63 translation keys across `es`,
+- Reviewed with no findings: parity of the 102 translation keys across `es`,
   `en` and `ca`; heading hierarchy with no skipped levels; no images without
   `alt`; no buttons or links without an accessible name; no duplicate `id`s; all
   `target="_blank"` links with `rel="noopener"`.
@@ -570,7 +601,8 @@ layers of defence:
     inline styles (React/Framer Motion + Tailwind) and a single allowed external
     origin: the EmailJS API. Since the fonts are self-hosted, `style-src` and
     `font-src` stay at `'self'`.
-  - **HSTS**, **X-Frame-Options: DENY** + `frame-ancestors 'none'` (anti-clickjacking),
+  - **HSTS**, **X-Frame-Options: DENY** + `frame-ancestors 'none'` (anti-clickjacking;
+    only the CV PDFs may be shown inside the site itself, for the 3D style's CV viewer),
     **X-Content-Type-Options: nosniff**, **Referrer-Policy**, **Permissions-Policy**
     (camera/microphone/geolocation disabled) and **Cross-Origin-Opener-Policy**.
 - **No XSS**: React escapes content by default; no `dangerouslySetInnerHTML`,
@@ -633,6 +665,14 @@ Specific points in the code worth reviewing:
   preloading.
 - `scripts/optimize-images.mjs`: reproducible pipeline for optimizing assets.
 - `vite.config.js`: chunk splitting for React, Three.js and EmailJS.
+- `src/Root.jsx`: picks the version from `?view=` with browser history
+  (Back/Forward) and lazy-loads the quick version and the 3D style.
+- `src/room/`: 3D style. `roomConfig.js` keeps in one place where each object
+  is, its camera and its click area; `RoomScene.jsx` the animated camera, the
+  hover highlight and the painted screens; `RoomView.jsx` the page (panels, bar,
+  CV viewer and loading); `useModelDownload.js` the real progress.
+- `src/components/ErrorBoundary.jsx`: if the 3D fails (no WebGL or the model
+  doesn't download), the page keeps working instead of going blank.
 
 ## Performance
 
@@ -664,7 +704,12 @@ Other optimizations applied:
   going from 249 KB (512x512 JPEG) to 36 KB.
 - **Cache per resource type** in `public/_headers`: one year and `immutable` for
   the hashed build and the fonts, 30 days for the model and images.
-- **Preconnect** to EmailJS for the form's first request.
+- **EmailJS on demand**: the library is only downloaded when the form is sent
+  (with a preconnect so that request is fast).
+- **3D style**: its code is a separate chunk (~11 KB gzipped) downloaded only
+  on entry; it reuses Three.js and the hero's model, measures the download in
+  bytes for the loading bar, stops drawing while the CV viewer is open and frees
+  materials and textures on exit.
 - **Gallery**: ~5 KB thumbnails for the grid, full-size file only in the active
   viewer, and neighbour preloading, with adaptive `fetchPriority`.
 - **3D hero**: antialiasing on, adaptive DPR with `PerformanceMonitor` and the

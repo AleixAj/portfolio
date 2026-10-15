@@ -321,7 +321,7 @@ function Markers({ focus, hovered, setHovered, onSelect, labels, lampLabel }) {
             onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHovered(h.id) }}
             onPointerLeave={() => setHovered(null)}
             aria-label={labels[h.id]}
-            className={`room-marker group flex items-center gap-2 whitespace-nowrap rounded-full border p-1 md:pl-1.5 md:pr-3 md:py-1 text-xs md:text-sm font-semibold transition-colors ${hovered === h.id
+            className={`flex items-center gap-2 whitespace-nowrap rounded-full border p-1 md:pl-1.5 md:pr-3 md:py-1 text-xs md:text-sm font-semibold transition-colors ${hovered === h.id
               ? 'border-cyan-300 bg-cyan-400 text-black'
               : 'border-cyan-400/50 bg-black/85 text-white'}`}
           >

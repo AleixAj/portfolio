@@ -382,12 +382,23 @@ que a la UI (de base a especialitzat).
 | **Railway** | Hosting d'aplicacions i bases de dades per a projectes ràpids. |
 | **Jira** | Gestió de tiquets, sprints i planificació àgil. |
 | **Salesforce** | CRM empresarial: gestió de releases i desplegaments entre entorns a VIEWNEXT. |
-| **GitHub Copilot** | Assistent d'IA integrat a l'IDE per autocompletar i fer refactors. |
-| **Cursor** | IDE amb agents d'IA per a desenvolupament assistit i revisió de codi. |
-| **Claude** | Model d'IA com a suport en arquitectura, codi i documentació tècnica. |
 | **Godot** | Motor 2D/3D utilitzat per al desenvolupament de jocs mòbils personals. |
 | **Photoshop** | Edició d'imatge i disseny d'assets per a la UI. |
 | **Aseprite** | Pixel art i animació de sprites per a projectes personals i game dev. |
+
+### Treballo amb IA
+
+| Eina | Per a què la faig servir |
+|------|--------------------------|
+| **Claude** | Suport per programar, revisar codi i documentar. |
+| **GitHub Copilot** | Autocompletat i refactors amb IA dins de l'editor. |
+| **Cursor** | Editor amb agents d'IA per a desenvolupament assistit. |
+| **Codex** | Agent de programació d'OpenAI per a tasques de codi. |
+| **Higgsfield** | Generació d'imatges i vídeo. |
+| **PixelLab** | Generació de pixel art i sprites. |
+| **Suno** | Generació de música. |
+
+Sempre reviso el que generen abans de fer-ho servir.
 
 ## Seccions del portfolio
 
@@ -402,41 +413,54 @@ que a la UI (de base a especialitzat).
   descripcions trilingües, tecnologies, GitHub i, segons el projecte, demo,
   Google Play o descàrrega per a Windows i Mac. A l'escriptori s'eleven en
   passar-hi el ratolí amb un focus de llum que segueix el cursor. Cada targeta
-  té un botó d'informació que obre una **fitxa del projecte** amb resum, captura
-  opcional, punts destacats, stack i estat real, extreta del README del seu
-  repositori. Ordre per profunditat tècnica (full-stack primer, després els
-  productes publicats); si l'última targeta queda sola a la seva fila, es
-  centra.
-- **Tecnologies** (`Skills` en anglès): tecnologies agrupades en frontend (inclou
-  HTML, CSS, XML i eines d'UI), backend, DevOps i eines (inclou `Godot` per a
-  game dev mòbil i `Aseprite` per a pixel art), amb icones de marca. Cada icona
-  **enllaça al web oficial** de la tecnologia i té un efecte *glare* en passar-hi
-  el ratolí (només escriptori).
+  té un botó d'informació que obre una **fitxa del projecte** amb resum, captura del projecte en ús, punts destacats, stack i estat real, extreta del README del seu
+  repositori. Els tres projectes principals van en targetes grans i la resta en una llista
+  compacta de «Més projectes»; si l'última queda sola a la seva fila, es centra.
+- **Tecnologies** (`Skills` en anglès): frontend, backend i DevOps i eines,
+  amb fitxes grans per a cada tecnologia i les més bàsiques (HTML, CSS, XML,
+  JSON) com a etiquetes sota el títol; a sota, una franja de **Treballo amb IA**.
+  Icones de marca oficials (Cursor, Photoshop, Higgsfield i PixelLab, que no són
+  a `react-icons`, van com a SVG propi o imatge) i cadascuna **enllaça al web
+  oficial** de l'eina.
 - **Art**: galeria personal amb visor a pantalla completa i navegació per
   **swipe/arrossegament** (mòbil i escriptori), teclat, fletxes i punts; les
   miniatures s'expandeixen amb el hover.
 - **Contacte**: formulari connectat amb EmailJS i enllaços professionals.
+- **Estil 3D** (`?view=room`): l'habitació gamer del hero a pantalla completa.
+  Cada objecte obre la seva secció en un panell lateral: prestatgeria
+  (construïda en 3D, un llibre per feina o estudi) → trajectòria, monitors →
+  projectes (el monitor mostra el que es tria), tele → tecnologies, quadres amb
+  els meus dibuixos → art, mòbil → contacte i torre del PC → visor del CV. La
+  làmpada de lava encén el llum. Càmera animada, zones de clic ampliades, barra
+  inferior amb totes les seccions, pantalla de càrrega amb progrés real i versió
+  adaptada a mòbil i tauleta.
+- **Versió ràpida** (`?view=quick`): tot en una pàgina sense 3D per a qui té
+  pressa, imprimible com a PDF.
 
 ## Estructura
 
 ```txt
-public/              # Assets estàtics (imatges WebP, GLB, CV, fonts, galeria hobbies/)
+public/              # Assets estàtics (imatges WebP, GLB, CV, fonts, galeria hobbies/, logos skills/)
 scripts/             # Pipeline d'optimització d'imatges (sharp)
 src/
-├── consts/          # Dades estàtiques: i18n, nav, skills, projects, experience, hobbies, device
-├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground, RotatingText
-├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact
-├── App.jsx          # Navegació, idioma, URL, teclat, scroll i reveal animations
+├── consts/          # Dades estàtiques: i18n, lang (idioma i CV), nav, skills, brandIcons, projects, experience, hobbies, device
+├── components/      # Navbar, SectionRail, SectionHeading, ProjectCard, ProjectModal, TimelineItem, Scene3D, StarBackground,
+│                    # RotatingText, SiteSwitch (Estil normal / 3D), LoaderScreen, ErrorBoundary
+├── sections/        # Hero, Trayectoria, Projects, Skills, Hobbies, Contact i QuickView (versió ràpida)
+├── room/            # Estil 3D: RoomView (pàgina), RoomScene (escena), RoomPanels (panells), Bookshelf,
+│                    # roomConfig (objectes, càmeres i zones de clic), screens (pantalles pintades), useModelDownload
+├── Root.jsx         # Tria la versió segons ?view= (normal, quick, room)
+├── App.jsx          # Web normal: navegació, idioma, URL, teclat, scroll i reveal animations
 ├── main.jsx
 └── index.css        # Tailwind, tipografia, animacions, glow de targetes i regles responsive
-.env.example         # Plantilla de variables d'EmailJS (copiar a .env.local)
+.env.example         # Plantilla de variables EmailJS (copiar a .env.local)
 ```
 
 ### Assets necessaris a `public/`
 
 | Fitxer | Ús |
 |---------|-----|
-| `gaming_bedroom.glb` | Model 3D del hero |
+| `gaming_bedroom.glb` | Model 3D del hero i de l'Estil 3D |
 | `AJ.png` | Logo a la navbar i al footer (295x224, 21 KB) |
 | `favicon-32.png`, `apple-touch-icon.png` | Icona de pestanya i de pantalla d'inici |
 | `fonts/*.woff2` | Space Grotesk i DM Sans autoallotjades (generades des de Google Fonts, llicència OFL) |
@@ -444,12 +468,14 @@ src/
 | `cv-aleix-es.pdf`, `cv-aleix-en.pdf` | Descàrrega del CV segons l'idioma actiu (Hero i Contact). ES i CAT comparteixen el mateix PDF; l'atribut `download` fixa el nom amb què es desa (`CV Aleix Auqué.pdf` / `CV Aleix Auqué EN.pdf`) en lloc del slug intern |
 | `FamilyTrivia.webp`, `CashDrop.webp`, `obsidian-pixelart.webp`, `solar-explorerlogo.webp`, `orbex-icon.webp`, `nadir-logo.webp`, `waymark-logo.webp`, `waymark-demo.webp`, `nexus-logo.webp`, `nexus-demo.webp`, `kylen-chat.webp`, `kylen-chat-demo.webp`, `onering-gif.gif` | Targetes de projectes (màx. 400 px; `npm run optimize:images` les manté a la mida) |
 | `hobbies/NN.webp` + `hobbies/NN-thumb.webp` | Galeria d'art (completa + miniatura) |
+| `*-demo.webp` | Captura de cada projecte en ús per a la seva fitxa (768×480) |
+| `skills/pixellab.webp` | Logo de PixelLab (no existeix a `react-icons`) |
 
 ## Execució local
 
 Requisits:
 
-- Node.js 18+
+- Node.js 22+ (Vite 8 demana 20.19+ i Wrangler 22+)
 - npm
 
 Instal·lació i desenvolupament:
@@ -539,6 +565,10 @@ activar el formulari.
   es veu a través de les seccions semitransparents. Barra de desplaçament fosca
   amb el cian de la web.
 
+- **A prova de fallades**: si el model 3D no es pot descarregar o no hi ha
+  WebGL, el web normal mostra el seu fons i l'habitació un avís amb tornada
+  enrere; i si el navegador bloqueja l'emmagatzematge, el web segueix funcionant.
+
 ### Verificació
 
 - `npm run lint`: sense errors.
@@ -548,7 +578,7 @@ activar el formulari.
   només on escau), **CLS 0,034** i 261 ms de bloqueig del fil principal.
 - Recorregut complet sense errors de consola ni peticions fallides: sis
   seccions, les deu fitxes de projecte i la galeria, en els tres idiomes.
-- Revisat sense incidències: paritat de les 63 claus de traducció entre `es`,
+- Revisat sense incidències: paritat de les 102 claus de traducció entre `es`,
   `en` i `ca`; jerarquia d'encapçalaments sense salts; cap imatge sense `alt`;
   cap botó ni enllaç sense nom accessible; sense `id` duplicats; tots els
   `target="_blank"` amb `rel="noopener"`.
@@ -573,7 +603,8 @@ capes de defensa:
     inline limitats (React/Framer Motion + Tailwind) i un únic origen extern
     permès: l'API d'EmailJS. En autoallotjar les fonts, `style-src` i
     `font-src` queden en `'self'`.
-  - **HSTS**, **X-Frame-Options: DENY** + `frame-ancestors 'none'` (anti-clickjacking),
+  - **HSTS**, **X-Frame-Options: DENY** + `frame-ancestors 'none'` (anti-clickjacking;
+    només els PDF del CV es poden mostrar dins del mateix web, per al visor de l'Estil 3D),
     **X-Content-Type-Options: nosniff**, **Referrer-Policy**, **Permissions-Policy**
     (càmera/micròfon/geolocalització desactivats) i **Cross-Origin-Opener-Policy**.
 - **Sense XSS**: React escapa el contingut per defecte; sense `dangerouslySetInnerHTML`,
@@ -636,6 +667,15 @@ Punts concrets que val la pena revisar al codi:
   (`AnimatePresence`), teclat, fletxes, punts i precàrrega de les veïnes.
 - `scripts/optimize-images.mjs`: pipeline reproduïble per optimitzar assets.
 - `vite.config.js`: separació de chunks per a React, Three.js i EmailJS.
+- `src/Root.jsx`: tria la versió segons `?view=` amb historial del navegador
+  (Enrere/Endavant) i càrrega diferida de la versió ràpida i de l'Estil 3D.
+- `src/room/`: Estil 3D. `roomConfig.js` reuneix en un sol lloc on és cada
+  objecte, la seva càmera i la seva zona de clic; `RoomScene.jsx` la càmera
+  animada, el ressaltat en passar-hi el ratolí i les pantalles pintades;
+  `RoomView.jsx` la pàgina (panells, barra, visor del CV i càrrega);
+  `useModelDownload.js` el progrés real.
+- `src/components/ErrorBoundary.jsx`: si el 3D falla (sense WebGL o el model no
+  es descarrega), la pàgina segueix funcionant en lloc de quedar-se en blanc.
 
 ## Rendiment
 
@@ -667,7 +707,12 @@ Altres optimitzacions aplicades:
   d'Orbex passant de 249 KB (JPEG 512x512) a 36 KB.
 - **Memòria cau per tipus de recurs** a `public/_headers`: un any i `immutable`
   per al build amb hash i les fonts, 30 dies per al model i les imatges.
-- **Preconnect** a EmailJS per a la primera petició del formulari.
+- **EmailJS sota demanda**: la llibreria només es descarrega en enviar el
+  formulari (amb preconnect perquè aquesta petició sigui ràpida).
+- **Estil 3D**: el seu codi va en un chunk a part (~11 KB comprimits) que només
+  es descarrega en entrar; reutilitza Three.js i el model del hero, mesura la
+  descàrrega en bytes per a la barra de càrrega, deixa de dibuixar mentre el visor
+  del CV és obert i allibera materials i textures en sortir.
 - **Galeria**: miniatures de ~5 KB per a la graella, fitxer complet només al
   visor actiu i precàrrega de les veïnes, amb `fetchPriority` adaptatiu.
 - **Hero 3D**: antialias actiu, DPR adaptatiu amb `PerformanceMonitor` i

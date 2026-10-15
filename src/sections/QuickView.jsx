@@ -11,12 +11,9 @@ import { TRANSLATIONS } from '../consts/i18n'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import { PROJECTS } from '../consts/projects'
 import { SKILL_CATEGORIES, AI_TOOLS } from '../consts/skills'
-import { CV_BY_LANG, getInitialLang } from '../consts/lang'
+import { CV_BY_LANG, getInitialLang, localize } from '../consts/lang'
 import { useLangInUrl } from '../consts/useLangInUrl'
 import { LanguageSwitcher } from '../components/Navbar'
-
-// Translated fields are { es, en, ca }; plain strings are the same in every language
-const localize = (value, lang) => (value && typeof value === 'object' ? (value[lang] ?? value.es) : value)
 
 const LINK = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/15 text-white/80 hover:text-cyan-300 hover:border-cyan-400/50 transition-colors text-sm print:border-0 print:px-0 print:text-black'
 

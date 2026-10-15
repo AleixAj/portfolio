@@ -11,6 +11,11 @@ export const CV_BY_LANG = {
 
 export const DEFAULT_LANG = 'es'
 
+// Translated data fields are { es, en, ca }; plain strings are the same in
+// every language. Falls back to Spanish if a language is missing.
+export const localize = (value, lang) =>
+  value && typeof value === 'object' ? (value[lang] ?? value.es) : value
+
 // localStorage can throw (private mode in some browsers, storage disabled).
 // Remembering the language is a nice-to-have, so failures are ignored.
 export const savedLang = {
