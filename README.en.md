@@ -710,7 +710,7 @@ Other optimizations applied:
   (with a preconnect so that request is fast).
 - **3D style**: its code is a separate chunk (~16 KB gzipped) downloaded only
   on entry; it reuses Three.js and the hero's model, measures the download in
-  bytes for the loading bar, draws **only when something changes** (`frameloop="demand"`: camera flight, hover or a new screen; 0 frames while the room sits still), stays still instead of following the mouse and frees materials and textures on exit. The bookshelf's books take 2 draw calls each instead of 6.
+  bytes for the loading bar, draws **only when something changes** (`frameloop="demand"`: camera flight, hover or a new screen; 0 frames while the room sits still), stays still instead of following the mouse and frees materials and textures on exit. The bookshelf's books take 2 draw calls each instead of 6, and the pointer is only tested against the 7 click areas (invisible boxes) instead of the whole model: 0.06 ms per move instead of 44 ms.
 - **Gallery**: ~5 KB thumbnails for the grid, full-size file only in the active
   viewer, and neighbour preloading, with adaptive `fetchPriority`.
 - **3D hero**: antialiasing on, adaptive DPR with `PerformanceMonitor` and the

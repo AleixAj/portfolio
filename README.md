@@ -710,7 +710,7 @@ Otras optimizaciones aplicadas:
   (con preconnect para que esa petición sea rápida).
 - **Estilo 3D**: su código va en un chunk aparte (~16 KB comprimidos) que solo
   se descarga al entrar; reutiliza Three.js y el modelo del hero, mide la descarga
-  por bytes para la barra de carga, dibuja **solo cuando algo cambia** (`frameloop="demand"`: vuelo de la cámara, hover o una pantalla nueva; con la habitación quieta, 0 fotogramas), se mantiene estática sin seguir al ratón y libera materiales y texturas al salir. Los libros de la estantería usan 2 llamadas de dibujo cada uno en vez de 6.
+  por bytes para la barra de carga, dibuja **solo cuando algo cambia** (`frameloop="demand"`: vuelo de la cámara, hover o una pantalla nueva; con la habitación quieta, 0 fotogramas), se mantiene estática sin seguir al ratón y libera materiales y texturas al salir. Los libros de la estantería usan 2 llamadas de dibujo cada uno en vez de 6, y el ratón solo se comprueba contra las 7 zonas de clic (cajas invisibles) en vez de contra todo el modelo: 0,06 ms por movimiento en vez de 44 ms.
 - **Galería**: thumbnails de ~5 KB para la cuadrícula, archivo completo solo en el
   visor activo y precarga de vecinas, con `fetchPriority` adaptativo.
 - **Hero 3D**: antialias activo, DPR adaptativo con `PerformanceMonitor` y

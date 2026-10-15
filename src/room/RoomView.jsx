@@ -198,8 +198,10 @@ export default function RoomView({ onExit }) {
               // Frames only when something changes (camera, hover, screens),
               // none at all while the room sits still
               frameloop="demand"
-              // A click on the empty space around the room goes back to the overview
-              onPointerMissed={() => setFocus(null)}
+              // A click anywhere that isn't a click area (wall, floor, the space
+              // around the room) goes back to the overview. Clicks on the floating
+              // labels also pass through here, so only real canvas clicks count.
+              onPointerMissed={(e) => { if (e.target?.tagName === 'CANVAS') setFocus(null) }}
             >
               <PerformanceMonitor
                 onDecline={() => setDpr(d => Math.max(1, +(d - 0.25).toFixed(2)))}

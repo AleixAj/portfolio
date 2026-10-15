@@ -27,7 +27,7 @@ export const OVERVIEW_PORTRAIT = { cam: [1350, 1150, 1750], look: [480, 640, 470
 
 /**
  * Each clickable thing in the room.
- * - owners: mesh names (prefixes) that belong to it, for hover and click.
+ * - owners: model mesh names (prefixes) that belong to it, for the hover glow.
  *   Three.js strips dots from glTF names, so "pantalla1.001" is "pantalla1001".
  * - marker: where its floating label sits
  * - cam / look: where the camera goes when you open it
@@ -83,8 +83,9 @@ export const HOTSPOTS = [
 
 /**
  * Invisible click areas, a bit bigger than each object so it's easy to hit
- * (the phone alone is 2 cm thick). [centre, size] in model units. They're
- * named "hit_<owner>" so hover and click treat them like the object itself.
+ * (the phone alone is 2 cm thick). [centre, size] in model units. They're the
+ * only things in the scene that react to the pointer (see Hitboxes in
+ * RoomScene.jsx), which keeps hover cheap.
  */
 export const HITBOXES = {
   projects: [[[755, 615, 195], [300, 140, 120]]],                 // both monitors and the keyboard
@@ -116,9 +117,9 @@ export const MESH = {
   posterB: 'cuadro3',
 }
 
+// Which hotspot (or the lamp) a model mesh belongs to, for the hover glow
 export const ownerOf = (meshName) => {
   if (!meshName) return null
-  if (meshName.startsWith('hit_')) return meshName.slice(4)
   if (LAMP.owners.some(o => meshName.startsWith(o))) return 'lamp'
   return HOTSPOTS.find(h => h.owners.some(o => meshName.startsWith(o)))?.id ?? null
 }

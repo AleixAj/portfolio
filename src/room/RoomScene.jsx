@@ -168,49 +168,43 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSk
     invalidate()
   }, [hovered, focus, lightsOn, meshes, invalidate])
 
-  // The nearest thing under the pointer that belongs to an object. Looking
-  // past what's in front (the chair, a wall edge) means the click areas win
-  // even when something plain partly covers them. The bookshelf and the click
-  // areas are made in React, so their owner comes from the name.
-  const ownerFromEvent = (e) => {
-    for (const hit of e.intersections) {
-      const owner = hit.object.userData?.owner ?? ownerOf(hit.object.name)
-      if (owner) return owner
-    }
-    return null
-  }
-
-  // Pointer events live on the group, so they cover the model and the bookshelf
   return (
-    <group
-      scale={MODEL_SCALE}
-      position={MODEL_OFFSET}
-      onPointerMove={(e) => {
-        e.stopPropagation()
-        const owner = ownerFromEvent(e)
-        if (owner !== hovered) setHovered(owner)
-      }}
-      onPointerOut={() => setHovered(null)}
-      onClick={(e) => {
-        e.stopPropagation()
-        // Touch has no "pointer out", so clear the glow before opening anything
-        setHovered(null)
-        // A click on the room itself (wall, floor, bed) goes back to the overview
-        onSelect(ownerFromEvent(e))
-      }}
-    >
+    <group scale={MODEL_SCALE} position={MODEL_OFFSET}>
       <primitive object={scene} />
-      <Hitboxes />
+      <Hitboxes setHovered={setHovered} onSelect={onSelect} />
       <Bookshelf jobs={texts.shelf.jobs} courses={texts.shelf.courses} glow={hovered === 'journey' || focus === 'journey'} />
     </group>
   )
 }
 
-/** The invisible click areas from roomConfig: raycast, never drawn. */
-function Hitboxes() {
+// Only events that start on the canvas itself count. The floating labels live
+// in the same container, so a click on a label would otherwise also reach the
+// scene and be undone ("clicked on nothing, back to the overview").
+const onCanvas = (e) => e.nativeEvent?.target?.tagName === 'CANVAS'
+
+/**
+ * The invisible click areas from roomConfig: the only things in the scene with
+ * pointer handlers, so hover and click test a few boxes instead of the whole
+ * model (~390k triangles) on every mouse move. They're bigger than the objects
+ * and nothing in front of them (the chair...) gets in the way.
+ */
+function Hitboxes({ setHovered, onSelect }) {
   return Object.entries(HITBOXES).flatMap(([owner, boxes]) =>
     boxes.map(([center, size], i) => (
-      <mesh key={`${owner}-${i}`} name={`hit_${owner}`} position={center}>
+      <mesh
+        key={`${owner}-${i}`}
+        name={`hit_${owner}`}
+        position={center}
+        onPointerOver={(e) => { e.stopPropagation(); setHovered(owner) }}
+        onPointerOut={() => setHovered(h => (h === owner ? null : h))}
+        onClick={(e) => {
+          if (!onCanvas(e)) return
+          e.stopPropagation()
+          // Touch has no "pointer out", so clear the glow before opening anything
+          setHovered(null)
+          onSelect(owner)
+        }}
+      >
         <boxGeometry args={size} />
         <meshBasicMaterial visible={false} />
       </mesh>

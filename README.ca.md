@@ -713,7 +713,7 @@ Altres optimitzacions aplicades:
   formulari (amb preconnect perquè aquesta petició sigui ràpida).
 - **Estil 3D**: el seu codi va en un chunk a part (~16 KB comprimits) que només
   es descarrega en entrar; reutilitza Three.js i el model del hero, mesura la
-  descàrrega en bytes per a la barra de càrrega, dibuixa **només quan alguna cosa canvia** (`frameloop="demand"`: vol de la càmera, hover o una pantalla nova; 0 fotogrames amb l'habitació quieta), es queda estàtica sense seguir el ratolí i allibera materials i textures en sortir. Els llibres de la prestatgeria fan servir 2 crides de dibuix cadascun en lloc de 6.
+  descàrrega en bytes per a la barra de càrrega, dibuixa **només quan alguna cosa canvia** (`frameloop="demand"`: vol de la càmera, hover o una pantalla nova; 0 fotogrames amb l'habitació quieta), es queda estàtica sense seguir el ratolí i allibera materials i textures en sortir. Els llibres de la prestatgeria fan servir 2 crides de dibuix cadascun en lloc de 6, i el ratolí només es comprova contra les 7 zones de clic (caixes invisibles) en lloc de contra tot el model: 0,06 ms per moviment en lloc de 44 ms.
 - **Galeria**: miniatures de ~5 KB per a la graella, fitxer complet només al
   visor actiu i precàrrega de les veïnes, amb `fetchPriority` adaptatiu.
 - **Hero 3D**: antialias actiu, DPR adaptatiu amb `PerformanceMonitor` i
