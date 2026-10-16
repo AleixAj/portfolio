@@ -72,7 +72,7 @@ export const TRANSLATIONS = {
     },
     meta: {
       title: 'Aleix Auqué · Software Developer',
-      description: 'Portfolio de Aleix Auqué, desarrollador de software full-stack con 5+ años de experiencia en React, Three.js, Laravel y Cloudflare. Disponible para nuevas oportunidades.',
+      description: 'Portfolio de Aleix Auqué, desarrollador de software full-stack con más de 5 años de experiencia en React, Three.js, Laravel y Cloudflare. Disponible para nuevas oportunidades.',
     },
     journey: {
       title: 'Mi trayectoria',
@@ -102,7 +102,7 @@ export const TRANSLATIONS = {
     skills: {
       title: 'Tecnologías',
       aiTitle: 'Trabajo con IA',
-      aiText: 'Las uso en el día a día para programar y para crear arte, imágenes, vídeo y música, revisando siempre lo que generan.',
+      aiText: 'Uso estas herramientas a diario para programar y para crear arte, imágenes, vídeo y música, y siempre reviso lo que generan.',
     },
     hobbies: {
       title: 'Arte',
@@ -110,7 +110,7 @@ export const TRANSLATIONS = {
       closeGallery: 'Cerrar galería',
       previousDrawing: 'Dibujo anterior',
       nextDrawing: 'Dibujo siguiente',
-      viewDrawing: 'Ver dibujo',
+      viewDrawing: 'Ver el dibujo',
       drawing: 'Dibujo',
     },
     contact: {
@@ -120,10 +120,10 @@ export const TRANSLATIONS = {
       email: 'Tu email',
       subject: 'Asunto',
       message: 'Tu mensaje',
-      sending: 'Enviando...',
+      sending: 'Enviando…',
       send: 'Enviar mensaje',
       success: '¡Mensaje enviado! Te responderé pronto.',
-      error: 'Error al enviar. Inténtalo de nuevo.',
+      error: 'No se ha podido enviar el mensaje. Inténtalo de nuevo.',
       configError: 'El formulario no está configurado. Puedes escribirme directamente por email.',
       viewCV: 'Ver CV',
       rights: 'Todos los derechos reservados',
@@ -201,7 +201,7 @@ export const TRANSLATIONS = {
     },
     meta: {
       title: 'Aleix Auqué · Software Developer',
-      description: 'Portfolio of Aleix Auqué, full-stack software developer with 5+ years of experience in React, Three.js, Laravel, and Cloudflare. Open to new opportunities.',
+      description: 'Portfolio of Aleix Auqué, full-stack software developer with over 5 years of experience in React, Three.js, Laravel and Cloudflare. Open to new opportunities.',
     },
     journey: {
       title: 'My journey',
@@ -231,11 +231,11 @@ export const TRANSLATIONS = {
     skills: {
       title: 'Skills',
       aiTitle: 'Working with AI',
-      aiText: 'I use them every day for coding and for creating art, images, video and music, always reviewing what they produce.',
+      aiText: 'I use these tools every day to code and to create art, images, video and music, and I always review what they produce.',
     },
     hobbies: {
       title: 'Art',
-      subtitle: 'Realistic pencil drawings of my own',
+      subtitle: 'My own realistic pencil drawings',
       closeGallery: 'Close gallery',
       previousDrawing: 'Previous drawing',
       nextDrawing: 'Next drawing',
@@ -249,11 +249,11 @@ export const TRANSLATIONS = {
       email: 'Your email',
       subject: 'Subject',
       message: 'Your message',
-      sending: 'Sending...',
+      sending: 'Sending…',
       send: 'Send message',
       success: "Message sent! I'll get back to you soon.",
       error: "Couldn't send the message. Please try again.",
-      configError: 'The form is not configured. You can contact me directly by email.',
+      configError: "The form isn't set up. You can email me directly instead.",
       viewCV: 'View CV',
       rights: 'All rights reserved',
       linkedin: 'LinkedIn profile',
@@ -302,8 +302,8 @@ export const TRANSLATIONS = {
       copyEmail: 'Copiar el correu',
       copied: 'Correu copiat',
       cvTitle: 'El meu CV',
-      error: "No s'ha pogut carregar l'habitació 3D en aquest dispositiu.",
-      errorAction: "Veure l'estil normal",
+      error: 'No s’ha pogut carregar l’habitació 3D en aquest dispositiu.',
+      errorAction: 'Veure l’estil normal',
       openNewTab: 'Obrir en una altra pestanya',
     },
     quick: {
@@ -316,12 +316,12 @@ export const TRANSLATIONS = {
     hero: {
       transform: 'Transformant',
       subtitle: 'en experiències digitals que es recorden',
-      intro: "Hola, sóc l'Aleix, desenvolupador de programari centrat en interfícies modernes, experiències interactives i aplicacions web sòlides. Aquest any he publicat el meu propi joc a Google Play, backend inclòs, i ara busco incorporar-me a un equip.",
+      intro: 'Hola, sóc l’Aleix, desenvolupador de programari centrat en interfícies modernes, experiències interactives i aplicacions web sòlides. Aquest any he publicat el meu propi joc a Google Play, backend inclòs, i ara busco incorporar-me a un equip.',
       cta: 'Explorar els meus projectes',
       ctaSecondary: 'Parlem',
       openToWork: 'Buscant feina activament',
       location: 'Reus, Catalunya',
-      experience: '5+ anys d\'experiència',
+      experience: '5+ anys d’experiència',
       modality: 'Remot · Híbrid · Presencial',
       roles: 'Frontend · Full-stack · Backend',
       languages: 'ES · EN · CAT',
@@ -330,7 +330,7 @@ export const TRANSLATIONS = {
     },
     meta: {
       title: 'Aleix Auqué · Software Developer',
-      description: 'Portfolio de l\'Aleix Auqué, desenvolupador de programari full-stack amb més de 5 anys d\'experiència en React, Three.js, Laravel i Cloudflare. Disponible per a noves oportunitats.',
+      description: 'Portfolio de l’Aleix Auqué, desenvolupador de programari full-stack amb més de 5 anys d’experiència en React, Three.js, Laravel i Cloudflare. Disponible per a noves oportunitats.',
     },
     journey: {
       title: 'La meva trajectòria',
@@ -350,7 +350,7 @@ export const TRANSLATIONS = {
       viewStore: 'Google Play',
       viewDownload: 'Descarregar per a Windows',
       viewDownloadMac: 'Descarregar per a Mac',
-      preview: "captura de l'app en ús",
+      preview: 'captura de l’app en ús',
       codeOf: '{p}: repositori a GitHub',
       demoOf: '{p}: demo en línia',
       windowsOf: 'Descarregar {p} per a Windows',
@@ -360,7 +360,7 @@ export const TRANSLATIONS = {
     skills: {
       title: 'Tecnologies',
       aiTitle: 'Treballo amb IA',
-      aiText: 'Les faig servir cada dia per programar i per crear art, imatges, vídeo i música, revisant sempre el que generen.',
+      aiText: 'Faig servir aquestes eines cada dia per programar i per crear art, imatges, vídeo i música, i sempre reviso el que generen.',
     },
     hobbies: {
       title: 'Art',
@@ -368,7 +368,7 @@ export const TRANSLATIONS = {
       closeGallery: 'Tancar la galeria',
       previousDrawing: 'Dibuix anterior',
       nextDrawing: 'Dibuix següent',
-      viewDrawing: 'Veure dibuix',
+      viewDrawing: 'Veure el dibuix',
       drawing: 'Dibuix',
     },
     contact: {
@@ -378,11 +378,11 @@ export const TRANSLATIONS = {
       email: 'El teu correu',
       subject: 'Assumpte',
       message: 'El teu missatge',
-      sending: 'Enviant...',
+      sending: 'Enviant…',
       send: 'Enviar missatge',
       success: 'Missatge enviat! Et respondré aviat.',
-      error: 'Error en enviar. Torna-ho a provar.',
-      configError: 'El formulari no està configurat. Pots escriure\'m directament per correu.',
+      error: 'No s’ha pogut enviar el missatge. Torna-ho a provar.',
+      configError: 'El formulari no està configurat. Pots escriure’m directament per correu.',
       viewCV: 'Veure CV',
       rights: 'Tots els drets reservats',
       linkedin: 'Perfil de LinkedIn',

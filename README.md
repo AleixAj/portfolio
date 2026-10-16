@@ -336,21 +336,21 @@ las que muestra la tele del Estilo 3D al elegir una tecnología
 | Skill | Para qué la uso |
 |-------|-----------------|
 | **HTML** | Estructura semántica de las páginas y accesibilidad base. |
-| **CSS** | Estilos, layout responsive y animaciones puras del navegador. |
-| **XML** | Marcado para configuración, intercambio de datos e integraciones legacy. |
+| **CSS** | Estilos, diseño responsive y animaciones nativas del navegador. |
+| **XML** | Marcado para configuración, intercambio de datos e integraciones con sistemas heredados. |
 | **JavaScript** | Lógica del cliente, manipulación del DOM y eventos. |
 | **TypeScript** | JavaScript con tipado estático para escalar proyectos sin perder claridad. |
 | **Bootstrap** | Prototipado rápido y proyectos donde el sistema de componentes es suficiente. |
 | **Tailwind** | Sistema de utilidades para diseño consistente y rápido (usado en este portfolio). |
-| **Vite** | Build tool con HMR rápido y bundles optimizados para producción. |
-| **React** | Librería UI basada en componentes; base de las apps de este portfolio. |
+| **Vite** | Herramienta de build con HMR rápido y bundles optimizados para producción. |
+| **React** | Biblioteca de interfaces basada en componentes; base de las apps de este portfolio. |
 | **Next.js** | Framework de React con Server Components y Server Actions (usado en `Nadir`). |
 | **Svelte** | Framework compilado con reactividad fina (runes); SvelteKit como SPA estática en `Waymark`. |
 | **Electron** | Apps de escritorio con tecnologías web e instalador propio (usado en `Kylen Chat` y `NEXUS`). |
 | **Three.js** | Escenas 3D en WebGL (cámaras, materiales, luces, geometría). |
-| **React Three Fiber** | Renderer declarativo de Three.js en React; usado en el hero 3D y `Solar Explorer`. |
+| **React Three Fiber** | Renderizador declarativo de Three.js para React; usado en la portada 3D de esta web y en `Solar Explorer`. |
 | **GSAP** | Animaciones avanzadas con timelines y control fino sobre el tiempo. |
-| **MapLibre** | Mapas vectoriales y globo 3D en WebGL, open source y sin claves (usado en `Waymark`). |
+| **MapLibre** | Mapas vectoriales y globo 3D en WebGL, de código abierto y sin claves de API (usado en `Waymark`). |
 
 ### Backend
 
@@ -359,11 +359,11 @@ las que muestra la tele del Estilo 3D al elegir una tecnología
 | **JSON** | Formato estándar para APIs, configuración y serialización de estado. |
 | **PHP** | Lenguaje backend para webs y APIs (proyectos personales y profesionales). |
 | **Java** | Lenguaje orientado a objetos que aprendí en el bootcamp de Java (275 h). |
-| **Laravel** | Framework PHP full-stack: autenticación, ORM Eloquent, queues y APIs (usado en `Obsidian`). |
+| **Laravel** | Framework PHP full-stack: autenticación, ORM Eloquent, colas y APIs (usado en `Obsidian`). |
 | **Node.js** | Entorno de JavaScript para servidores, scripts y apps de escritorio. |
-| **MySQL** | Base de datos relacional para modelar dominio y consultas con índices/joins. |
+| **MySQL** | Base de datos relacional: modelado de datos y consultas con índices y joins. |
 | **PostgreSQL** | Base de datos relacional en `Nadir` (Neon + Drizzle ORM) y `Orbex` (Supabase). |
-| **Supabase** | Backend con Postgres, login y funciones en servidor (usado en `Orbex`). |
+| **Supabase** | Backend con Postgres, autenticación y funciones en servidor (usado en `Orbex`). |
 | **API REST** | Diseño de endpoints HTTP, recursos, versiones y contratos con frontends. |
 | **Stripe** | Pasarela de pagos: checkout, webhooks y suscripciones. |
 
@@ -371,28 +371,28 @@ las que muestra la tele del Estilo 3D al elegir una tecnología
 
 | Skill | Para qué la uso |
 |-------|-----------------|
-| **Git** | Control de versiones distribuido, ramas, rebases y revisión por PR. |
-| **Bitbucket** | Hosting de repos y PRs en entornos corporativos. |
+| **Git** | Control de versiones distribuido: ramas, rebases y revisión mediante pull requests. |
+| **Bitbucket** | Alojamiento de repositorios y pull requests en entornos corporativos. |
 | **Docker** | Contenedores reproducibles para desarrollo y despliegue. |
-| **Jenkins** | Pipelines de CI/CD: build, test, despliegue automatizado. |
+| **Jenkins** | Pipelines de CI/CD: build, tests y despliegue automatizado. |
 | **GitHub Actions** | CI/CD: lint, tests, builds y publicación automática de versiones. |
 | **Vitest** | Tests unitarios de la lógica de las apps (precios, gráficas, juego). |
-| **Cloudflare** | Workers + Assets para despliegue del portfolio y CDN global. |
-| **Railway** | Hosting de aplicaciones y bases de datos para proyectos rápidos. |
+| **Cloudflare** | Workers y Assets para desplegar este portfolio, `Waymark` y `Nadir` en su CDN global. |
+| **Railway** | Alojamiento de aplicaciones y bases de datos para proyectos rápidos. |
 | **Jira** | Gestión de tickets, sprints y planificación ágil. |
 | **Salesforce** | CRM empresarial: gestión de releases y despliegues entre entornos en VIEWNEXT. |
-| **Godot** | Motor 2D/3D usado para desarrollo de juegos móviles personales. |
-| **Photoshop** | Edición de imagen y diseño de assets para UI. |
-| **Aseprite** | Pixel art y animación sprite para proyectos personales y game dev. |
+| **Godot** | Motor de juegos 2D/3D con el que he creado `Orbex`, mi juego para Android. |
+| **Photoshop** | Edición de imágenes y diseño de recursos gráficos para interfaces. |
+| **Aseprite** | Pixel art y animación de sprites para proyectos personales y videojuegos. |
 
 ### Trabajo con IA
 
 | Herramienta | Para qué la uso |
 |-------------|-----------------|
 | **Claude** | Apoyo para programar, revisar código y documentar. |
-| **GitHub Copilot** | Autocompletado y refactors con IA dentro del editor. |
+| **GitHub Copilot** | Autocompletado y refactorizaciones con IA dentro del editor. |
 | **Cursor** | Editor con agentes de IA para desarrollo asistido. |
-| **Codex** | Agente de programación de OpenAI para tareas de código. |
+| **Codex** | Agente de programación de OpenAI al que delego tareas de código. |
 | **Higgsfield** | Generación de imágenes y vídeo. |
 | **PixelLab** | Generación de pixel art y sprites. |
 | **Suno** | Generación de música. |

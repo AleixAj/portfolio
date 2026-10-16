@@ -337,19 +337,19 @@ what the TV in the 3D style shows when you pick a technology
 | Skill | What I use it for |
 |-------|-------------------|
 | **HTML** | Semantic page structure and baseline accessibility. |
-| **CSS** | Styling, responsive layout and pure browser animations. |
-| **XML** | Markup for configuration, data exchange and legacy integrations. |
+| **CSS** | Styling, responsive layout and native browser animations. |
+| **XML** | Markup for configuration, data exchange and integrations with legacy systems. |
 | **JavaScript** | Client-side logic, DOM manipulation and events. |
 | **TypeScript** | Statically typed JavaScript to scale projects without losing clarity. |
 | **Bootstrap** | Rapid prototyping and projects where its component system is enough. |
 | **Tailwind** | Utility system for fast, consistent design (used in this portfolio). |
-| **Vite** | Build tool with fast HMR and optimized production bundles. |
+| **Vite** | Build tool with fast HMR and optimised production bundles. |
 | **React** | Component-based UI library; the foundation of the apps in this portfolio. |
 | **Next.js** | React framework with Server Components and Server Actions (used in `Nadir`). |
 | **Svelte** | Compiled framework with fine-grained reactivity (runes); SvelteKit as a static SPA in `Waymark`. |
-| **Electron** | Desktop apps built with web tech and their own installer (used in `Kylen Chat` and `NEXUS`). |
+| **Electron** | Desktop apps built with web technologies and their own installer (used in `Kylen Chat` and `NEXUS`). |
 | **Three.js** | 3D scenes in WebGL (cameras, materials, lights, geometry). |
-| **React Three Fiber** | Declarative Three.js renderer for React; used in the 3D hero and `Solar Explorer`. |
+| **React Three Fiber** | Declarative Three.js renderer for React; used in this site's 3D hero and in `Solar Explorer`. |
 | **GSAP** | Advanced animations with timelines and fine-grained timing control. |
 | **MapLibre** | Vector maps and a WebGL 3D globe, open source with no API keys (used in `Waymark`). |
 
@@ -357,14 +357,14 @@ what the TV in the 3D style shows when you pick a technology
 
 | Skill | What I use it for |
 |-------|-------------------|
-| **JSON** | Standard format for APIs, configuration and state serialization. |
+| **JSON** | Standard format for APIs, configuration and state serialisation. |
 | **PHP** | Backend language for websites and APIs (personal and professional projects). |
 | **Java** | Object-oriented language I learned in a 275-hour Java bootcamp. |
 | **Laravel** | Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in `Obsidian`). |
 | **Node.js** | JavaScript runtime for servers, scripts and desktop apps. |
-| **MySQL** | Relational database for domain modelling and queries with indexes/joins. |
+| **MySQL** | Relational database: data modelling and queries with indexes and joins. |
 | **PostgreSQL** | Relational database in `Nadir` (Neon + Drizzle ORM) and `Orbex` (Supabase). |
-| **Supabase** | Backend with Postgres, auth and server functions (used in `Orbex`). |
+| **Supabase** | Backend with Postgres, authentication and server functions (used in `Orbex`). |
 | **REST API** | Design of HTTP endpoints, resources, versioning and contracts with frontends. |
 | **Stripe** | Payment gateway: checkout, webhooks and subscriptions. |
 
@@ -372,28 +372,28 @@ what the TV in the 3D style shows when you pick a technology
 
 | Skill | What I use it for |
 |-------|-------------------|
-| **Git** | Distributed version control, branching, rebasing and PR-based review. |
-| **Bitbucket** | Repo and PR hosting in corporate environments. |
+| **Git** | Distributed version control: branching, rebasing and review through pull requests. |
+| **Bitbucket** | Repository and pull request hosting in corporate environments. |
 | **Docker** | Reproducible containers for development and deployment. |
-| **Jenkins** | CI/CD pipelines: build, test, automated deployment. |
+| **Jenkins** | CI/CD pipelines: build, tests and automated deployment. |
 | **GitHub Actions** | CI/CD: lint, tests, builds and automated releases. |
 | **Vitest** | Unit tests for app logic (prices, charts, game rules). |
-| **Cloudflare** | Workers + Assets for deploying the portfolio and global CDN. |
+| **Cloudflare** | Workers and Assets to deploy this portfolio, `Waymark` and `Nadir` on its global CDN. |
 | **Railway** | App and database hosting for quick projects. |
 | **Jira** | Ticket management, sprints and agile planning. |
 | **Salesforce** | Enterprise CRM: release management and deployments across environments at VIEWNEXT. |
-| **Godot** | 2D/3D engine used for personal mobile game development. |
-| **Photoshop** | Image editing and UI asset design. |
-| **Aseprite** | Pixel art and sprite animation for personal projects and game dev. |
+| **Godot** | 2D/3D game engine I used to build `Orbex`, my Android game. |
+| **Photoshop** | Image editing and graphic assets for interfaces. |
+| **Aseprite** | Pixel art and sprite animation for personal projects and games. |
 
 ### Working with AI
 
 | Tool | What I use it for |
 |------|-------------------|
 | **Claude** | Help with coding, code review and documentation. |
-| **GitHub Copilot** | AI autocompletion and refactors inside the editor. |
+| **GitHub Copilot** | AI autocompletion and refactoring inside the editor. |
 | **Cursor** | Editor with AI agents for assisted development. |
-| **Codex** | OpenAI's coding agent for code tasks. |
+| **Codex** | OpenAI's coding agent, for delegating programming tasks. |
 | **Higgsfield** | Image and video generation. |
 | **PixelLab** | Pixel art and sprite generation. |
 | **Suno** | Music generation. |

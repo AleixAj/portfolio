@@ -46,7 +46,7 @@ export const PROJECTS = [
       highlights: {
         es: [
           'Catálogo servido por la API, con filtros por categoría, talla, color y precio, y ordenación.',
-          'Registro y login con sesiones por cookie de Laravel Sanctum.',
+          'Registro e inicio de sesión con cookies de sesión de Laravel Sanctum.',
           'Carrito y wishlist sincronizados con el backend, no solo guardados en el navegador.',
           'Checkout que convierte el carrito autenticado en un pedido real en base de datos.',
           'Backend en repositorio aparte (obsidian-api) con MySQL en producción.',
@@ -54,7 +54,7 @@ export const PROJECTS = [
         ],
         en: [
           'API-served catalogue with category, size, colour and price filters, plus sorting.',
-          'Sign-up and login through Laravel Sanctum cookie sessions.',
+          'Sign-up and sign-in with Laravel Sanctum cookie sessions.',
           'Cart and wishlist synced with the backend, not just kept in the browser.',
           'Checkout that turns the authenticated cart into a real order in the database.',
           'Backend in its own repository (obsidian-api) with MySQL in production.',
@@ -62,7 +62,7 @@ export const PROJECTS = [
         ],
         ca: [
           "Catàleg servit per l'API, amb filtres per categoria, talla, color i preu, i ordenació.",
-          'Registre i inici de sessió amb sessions per cookie de Laravel Sanctum.',
+          'Registre i inici de sessió amb galetes de sessió de Laravel Sanctum.',
           'Cistella i wishlist sincronitzades amb el backend, no només desades al navegador.',
           'Checkout que converteix la cistella autenticada en una comanda real a la base de dades.',
           'Backend en un repositori a part (obsidian-api) amb MySQL en producció.',
@@ -85,9 +85,9 @@ export const PROJECTS = [
     preview: '/orbex-demo.webp',
     imgCls: 'scale-[1.10] md:scale-[1.25] md:group-hover:scale-[1.32] p-0',
     desc: {
-      es: 'Juego arcade móvil estilo Zuma con 10 mundos y 80 niveles, personajes y animaciones en pixel art hecho a mano. Backend Supabase con auth, ranking online, telemetría y antitrampas.',
-      en: 'Zuma-style mobile arcade game with 10 worlds and 80 levels, characters and animations in handcrafted pixel art. Supabase backend with auth, online leaderboards, telemetry and anti-cheat.',
-      ca: 'Joc arcade mòbil estil Zuma amb 10 mons i 80 nivells, personatges i animacions en pixel art fet a mà. Backend Supabase amb auth, rànquing en línia, telemetria i antitrampes.',
+      es: 'Juego arcade móvil estilo Zuma con 10 mundos y 80 niveles, personajes y animaciones en pixel art hecho a mano. Backend en Supabase con autenticación, ranking online, telemetría y antitrampas.',
+      en: 'Zuma-style mobile arcade game with 10 worlds and 80 levels, characters and animations in handcrafted pixel art. Supabase backend with authentication, online leaderboards, telemetry and anti-cheat.',
+      ca: 'Joc arcade mòbil estil Zuma amb 10 mons i 80 nivells, personatges i animacions en pixel art fet a mà. Backend a Supabase amb autenticació, rànquing en línia, telemetria i antitrampes.',
     },
     tags: [
       { label: 'Godot',      cls: 'bg-blue-400/10    text-blue-400    border-blue-400/20'    },
@@ -110,7 +110,7 @@ export const PROJECTS = [
           'Motor de cadena propio: inserción del disparo, retrocesos, fusiones, portales y varias cadenas a la vez.',
           'Plugin de editor hecho a medida para trazar los recorridos dentro de Godot.',
           'Dificultad y listón de estrellas calculados por script y calibrados con telemetría real de partidas.',
-          'Backend Supabase: ranking global y por nivel, amigos, guardado en la nube, borrado de cuenta (RGPD) y límites en servidor contra trampas.',
+          'Backend Supabase: ranking global y por nivel, amigos, guardado en la nube, eliminación de la cuenta (RGPD) y límites en servidor contra trampas.',
           'Misiones diarias y semanales, desafío semanal con ranking propio y traducción a 10 idiomas.',
         ],
         en: [
@@ -126,7 +126,7 @@ export const PROJECTS = [
           'Motor de cadena propi: inserció del tret, retrocessos, fusions, portals i diverses cadenes alhora.',
           "Plugin d'editor fet a mida per traçar els recorreguts dins de Godot.",
           "Dificultat i llistó d'estrelles calculats per script i calibrats amb telemetria real de partides.",
-          'Backend Supabase: rànquing global i per nivell, amics, desat al núvol, esborrat de compte (RGPD) i límits al servidor contra trampes.',
+          'Backend Supabase: rànquing global i per nivell, amics, desat al núvol, eliminació del compte (RGPD) i límits al servidor contra trampes.',
           'Missions diàries i setmanals, repte setmanal amb rànquing propi i traducció a 10 idiomes.',
         ],
       },
@@ -213,9 +213,9 @@ export const PROJECTS = [
     preview: '/waymark-demo.webp',
     imgCls: 'scale-[0.85] md:scale-[1.05] md:group-hover:scale-[1.12] p-0',
     desc: {
-      es: 'Tus fotos de viaje sobre un globo 3D: lee el GPS de cada foto, detecta tus viajes solo y te deja explorarlos por país, ciudad y barrio. Sin servidor, sincronizada con tu propio Google Drive y con demo sin registro.',
-      en: 'Your travel photos on a 3D globe: it reads the GPS data in each photo, detects your trips on its own and lets you explore them by country, city and neighbourhood. No server, synced with your own Google Drive, with a no-signup demo.',
-      ca: 'Les teves fotos de viatge sobre un globus 3D: llegeix el GPS de cada foto, detecta els teus viatges tot sol i et deixa explorar-los per país, ciutat i barri. Sense servidor, sincronitzada amb el teu propi Google Drive i amb demo sense registre.',
+      es: 'Tus fotos de viaje sobre un globo 3D: lee el GPS de cada foto, detecta tus viajes automáticamente y te deja explorarlos por país, ciudad y barrio. Funciona sin servidor, se sincroniza con tu propio Google Drive y tiene demo sin registro.',
+      en: 'Your travel photos on a 3D globe: it reads the GPS data in each photo, detects your trips automatically and lets you explore them by country, city and neighbourhood. It runs without a server, syncs with your own Google Drive and has a no-signup demo.',
+      ca: 'Les teves fotos de viatge sobre un globus 3D: llegeix el GPS de cada foto, detecta els teus viatges automàticament i et deixa explorar-los per país, ciutat i barri. Funciona sense servidor, se sincronitza amb el teu propi Google Drive i té demo sense registre.',
     },
     tags: [
       { label: 'SvelteKit',        cls: 'bg-orange-400/10  text-orange-400  border-orange-400/20'  },
@@ -240,7 +240,7 @@ export const PROJECTS = [
           'Tres orígenes de fotos: el dispositivo, Google Drive y Google Fotos a través de Takeout, eligiendo álbumes.',
           'País, ciudad y barrio de cada foto calculados sin conexión con 34.000 ciudades empaquetadas; viajes detectados automáticamente con ruta animada y exportación GPX.',
           'Ubicación estimada para fotos sin GPS, según las fotos cercanas en el tiempo o del mismo álbum, y ubicación de álbumes enteros con un buscador de lugares.',
-          'Login con Google y sincronización con Drive sin servidor propio, con el permiso mínimo drive.file.',
+          'Inicio de sesión con Google y sincronización con Drive sin servidor propio, con el permiso mínimo drive.file.',
           'Funciona sin conexión con service worker, es instalable y pasa axe sin errores de accesibilidad en tema claro y oscuro.',
           'Demo con 600 fotos reales de Wikimedia Commons en 15 viajes, cargadas con una sola descarga.',
           'Rendimiento medido con perfiles de Chrome; 66 tests de la lógica clave con Vitest.',
@@ -341,9 +341,9 @@ export const PROJECTS = [
       stack: 'Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Neon Postgres · Drizzle · Better Auth · Resend · Cloudflare Workers',
       status: {
         tone: 'pending',
-        es: 'Añadir avisos por Telegram. El catálogo de productos es real; la evolución de precios se simula porque las grandes tiendas no dejan leerlos, y la web lo indica.',
-        en: "Adding Telegram alerts. The product catalogue is real; price history is simulated because big stores don't allow reading their prices, and the site says so.",
-        ca: "Afegir avisos per Telegram. El catàleg de productes és real; l'evolució de preus se simula perquè les grans botigues no deixen llegir-los, i la web ho indica.",
+        es: 'Añadir avisos por Telegram. El catálogo de productos es real; la evolución de precios se simula porque las grandes tiendas no permiten consultarlos de forma automática, y la web lo indica.',
+        en: "Adding Telegram alerts. The product catalogue is real; price history is simulated because big stores don't allow their prices to be read automatically, and the site says so.",
+        ca: "Afegir avisos per Telegram. El catàleg de productes és real; l'evolució de preus se simula perquè les grans botigues no permeten consultar-los de manera automàtica, i la web ho indica.",
       },
     },
   },
@@ -504,7 +504,7 @@ export const PROJECTS = [
           'Tour guiado que recorre los astros con la cámara siguiendo al planeta mientras orbita.',
           'Control de velocidad del tiempo de 0x a 10x.',
           'Interfaz distinta por dispositivo: panel lateral en escritorio, drawer y botones flotantes en móvil para no tapar la escena.',
-          'Datos tipados, traducción ES/EN sin librerías extra y respeto por prefers-reduced-motion.',
+          'Datos tipados, traducción ES/EN sin librerías extra y compatibilidad con prefers-reduced-motion.',
         ],
         en: [
           "React Three Fiber scene with textures, atmospheres, a solar halo and Saturn's rings drawn as bands.",
@@ -520,7 +520,7 @@ export const PROJECTS = [
           'Tour guiat que recorre els astres amb la càmera seguint el planeta mentre orbita.',
           'Control de velocitat del temps de 0x a 10x.',
           "Interfície diferent per dispositiu: panell lateral a l'escriptori, drawer i botons flotants al mòbil per no tapar l'escena.",
-          'Dades tipades, traducció ES/EN sense biblioteques addicionals i respecte per prefers-reduced-motion.',
+          'Dades tipades, traducció ES/EN sense biblioteques addicionals i compatibilitat amb prefers-reduced-motion.',
         ],
       },
       stack: 'React 19 · TypeScript · Three.js · React Three Fiber · Tailwind CSS',
@@ -531,9 +531,9 @@ export const PROJECTS = [
     img: '/CashDrop.webp',
     preview: '/cashdrop-demo.webp',
     desc: {
-      es: 'Juego web inspirado en el concurso de televisión: repartes 1.000.000 € en 20 fajos entre cuatro respuestas y solo conservas lo que hay sobre la correcta.',
-      en: 'Web game inspired by the TV show: split €1,000,000 in 20 bundles across four answers and keep only what sits on the right one.',
-      ca: 'Joc web inspirat en el concurs de televisió: reparteixes 1.000.000 € en 20 feixos entre quatre respostes i només conserves el que hi ha sobre la correcta.',
+      es: 'Juego web inspirado en un concurso de televisión: repartes 1.000.000 € en 20 fajos entre cuatro respuestas y solo conservas lo que hay sobre la correcta.',
+      en: 'Web game inspired by a TV quiz show: split €1,000,000 into 20 bundles across four answers and keep only what sits on the correct one.',
+      ca: 'Joc web inspirat en un concurs de televisió: reparteixes 1.000.000 € en 20 feixos entre quatre respostes i només conserves el que hi ha sobre la correcta.',
     },
     tags: [
       { label: 'HTML',       cls: 'bg-orange-400/10 text-orange-400 border-orange-400/20' },
@@ -546,7 +546,7 @@ export const PROJECTS = [
     details: {
       summary: {
         es: 'Adaptación web del concurso, hecha a propósito sin frameworks ni build: el repositorio se despliega tal cual, sin npm install.',
-        en: 'A web take on the TV show, deliberately built with no frameworks and no build step: the repository deploys exactly as it is, with no npm install.',
+        en: 'A web version of the quiz show, deliberately built with no frameworks and no build step: the repository deploys exactly as it is, with no npm install.',
         ca: 'Adaptació web del concurs, feta expressament sense frameworks ni build: el repositori es desplega tal qual, sense npm install.',
       },
       highlights: {
@@ -600,7 +600,7 @@ export const PROJECTS = [
       summary: {
         es: 'Un trivial de tablero para jugar en casa en una pantalla compartida. Un equipo elige casilla, pero responden todos a la vez, así que nadie espera turno.',
         en: 'A board trivia meant for playing at home on one shared screen. One team picks the square, but everybody answers at the same time, so nobody sits waiting for a turn.',
-        ca: 'Un trivial de tauler per jugar a casa en una pantalla compartida. Un equip tria casella, però responen tots alhora, així que ningú espera torn.',
+        ca: 'Un trivial de tauler per jugar a casa en una pantalla compartida. Un equip tria casella, però responen tots alhora, així que ningú no espera torn.',
       },
       highlights: {
         es: [

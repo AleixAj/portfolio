@@ -6,7 +6,7 @@
 export const EXPERIENCE = [
   {
     company: { es: 'Proyectos propios', en: 'Independent projects', ca: 'Projectes propis' },
-    role: { es: 'Desarrollo de producto y formación', en: 'Product development and training', ca: 'Desenvolupament de producte i formació' },
+    role: { es: 'Desarrollo de producto y formación', en: 'Product development and further training', ca: 'Desenvolupament de producte i formació' },
     period: { es: 'Ene 2026 – Actualidad', en: 'Jan 2026 – Present', ca: 'Gen. 2026 – Actualitat' },
     desc: {
       es: 'Proyectos propios de principio a fin, sobre todo Orbex: varios meses de trabajo hasta publicarlo en Google Play. En paralelo, formación de frontend en Lemoncoders.',
@@ -19,9 +19,9 @@ export const EXPERIENCE = [
     role: { es: 'Desarrollador de software', en: 'Software Developer', ca: 'Desenvolupador de programari' },
     period: { es: 'Ago 2025 – Ene 2026', en: 'Aug 2025 – Jan 2026', ca: 'Ag. 2025 – Gen. 2026' },
     desc: {
-      es: 'Contrato temporal full-stack por sustitución, desarrollando una aplicación interna para gestión de material quirúrgico con PHP y JavaScript.',
+      es: 'Contrato temporal full-stack de sustitución: desarrollo de una aplicación interna para la gestión de material quirúrgico con PHP y JavaScript.',
       en: 'Temporary full-stack role covering for another employee, building an internal app for managing surgical equipment with PHP and JavaScript.',
-      ca: 'Contracte temporal full-stack per substitució, desenvolupant una aplicació interna per a la gestió de material quirúrgic amb PHP i JavaScript.',
+      ca: 'Contracte temporal full-stack de substitució: desenvolupament d’una aplicació interna per a la gestió de material quirúrgic amb PHP i JavaScript.',
     },
   },
   {
@@ -29,9 +29,9 @@ export const EXPERIENCE = [
     role: { es: 'Desarrollador de software', en: 'Software Developer', ca: 'Desenvolupador de programari' },
     period: { es: 'May 2023 – Abr 2025', en: 'May 2023 – Apr 2025', ca: 'Maig 2023 – Abr. 2025' },
     desc: {
-      es: 'Desarrollo de soluciones a medida para distribuidoras de electricidad y gas, trabajando sobre un framework propio en PHP y procesos de negocio reales.',
+      es: 'Desarrollo de soluciones a medida para distribuidoras de electricidad y gas, sobre un framework propio en PHP y con procesos de negocio reales.',
       en: 'Custom solutions for electricity and gas distributors, built on an in-house PHP framework and around real business processes.',
-      ca: 'Desenvolupament de solucions a mida per a distribuïdores d\'electricitat i gas, treballant sobre un framework propi en PHP i processos de negoci reals.',
+      ca: 'Desenvolupament de solucions a mida per a distribuïdores d’electricitat i gas, sobre un framework propi en PHP i amb processos de negoci reals.',
     },
   },
   {
@@ -82,7 +82,7 @@ export const EDUCATION = [
   },
   {
     center: 'INS Baix Camp',
-    title: { es: 'CFGS Desarrollo de Aplicaciones Web (DAW)', en: 'Higher Technician in Web Application Development (DAW)', ca: 'CFGS Desenvolupament d\'Aplicacions Web (DAW)' },
+    title: { es: 'CFGS Desarrollo de Aplicaciones Web (DAW)', en: 'Higher Vocational Diploma in Web Application Development (DAW)', ca: 'CFGS Desenvolupament d\'Aplicacions Web (DAW)' },
     period: '2015 – 2018',
     desc: '',
   },

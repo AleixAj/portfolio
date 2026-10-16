@@ -11,14 +11,14 @@ export const SKILL_INFO = {
     ca: "Estructura semàntica de les pàgines i accessibilitat bàsica.",
   },
   "CSS": {
-    es: "Estilos, layout responsive y animaciones puras del navegador.",
-    en: "Styling, responsive layout and pure browser animations.",
-    ca: "Estils, layout responsive i animacions pures del navegador.",
+    es: "Estilos, diseño responsive y animaciones nativas del navegador.",
+    en: "Styling, responsive layout and native browser animations.",
+    ca: "Estils, disseny responsive i animacions natives del navegador.",
   },
   "XML": {
-    es: "Marcado para configuración, intercambio de datos e integraciones legacy.",
-    en: "Markup for configuration, data exchange and legacy integrations.",
-    ca: "Marcatge per a configuració, intercanvi de dades i integracions legacy.",
+    es: "Marcado para configuración, intercambio de datos e integraciones con sistemas heredados.",
+    en: "Markup for configuration, data exchange and integrations with legacy systems.",
+    ca: "Marcatge per a configuració, intercanvi de dades i integracions amb sistemes heretats.",
   },
   "JavaScript": {
     es: "Lógica del cliente, manipulación del DOM y eventos.",
@@ -41,14 +41,14 @@ export const SKILL_INFO = {
     ca: "Sistema d'utilitats per a un disseny coherent i ràpid (utilitzat en aquest portfolio).",
   },
   "Vite": {
-    es: "Build tool con HMR rápido y bundles optimizados para producción.",
-    en: "Build tool with fast HMR and optimized production bundles.",
-    ca: "Build tool amb HMR ràpid i bundles optimitzats per a producció.",
+    es: "Herramienta de build con HMR rápido y bundles optimizados para producción.",
+    en: "Build tool with fast HMR and optimised production bundles.",
+    ca: "Eina de build amb HMR ràpid i bundles optimitzats per a producció.",
   },
   "React": {
-    es: "Librería UI basada en componentes; base de las apps de este portfolio.",
+    es: "Biblioteca de interfaces basada en componentes; base de las apps de este portfolio.",
     en: "Component-based UI library; the foundation of the apps in this portfolio.",
-    ca: "Biblioteca d'UI basada en components; base de les apps d'aquest portfolio.",
+    ca: "Biblioteca d'interfícies basada en components; base de les apps d'aquest portfolio.",
   },
   "Next.js": {
     es: "Framework de React con Server Components y Server Actions (usado en Nadir).",
@@ -62,7 +62,7 @@ export const SKILL_INFO = {
   },
   "Electron": {
     es: "Apps de escritorio con tecnologías web e instalador propio (usado en Kylen Chat y NEXUS).",
-    en: "Desktop apps built with web tech and their own installer (used in Kylen Chat and NEXUS).",
+    en: "Desktop apps built with web technologies and their own installer (used in Kylen Chat and NEXUS).",
     ca: "Apps d'escriptori amb tecnologies web i instal·lador propi (usat a Kylen Chat i NEXUS).",
   },
   "Three.js": {
@@ -71,9 +71,9 @@ export const SKILL_INFO = {
     ca: "Escenes 3D en WebGL (càmeres, materials, llums, geometria).",
   },
   "React Three Fiber": {
-    es: "Renderer declarativo de Three.js en React; usado en el hero 3D y Solar Explorer.",
-    en: "Declarative Three.js renderer for React; used in the 3D hero and Solar Explorer.",
-    ca: "Renderer declaratiu de Three.js a React; utilitzat al hero 3D i a Solar Explorer.",
+    es: "Renderizador declarativo de Three.js para React; usado en la portada 3D de esta web y en Solar Explorer.",
+    en: "Declarative Three.js renderer for React; used in this site's 3D hero and in Solar Explorer.",
+    ca: "Renderitzador declaratiu de Three.js per a React; usat a la portada 3D d'aquesta web i a Solar Explorer.",
   },
   "GSAP": {
     es: "Animaciones avanzadas con timelines y control fino sobre el tiempo.",
@@ -81,13 +81,13 @@ export const SKILL_INFO = {
     ca: "Animacions avançades amb timelines i control precís del temps.",
   },
   "MapLibre": {
-    es: "Mapas vectoriales y globo 3D en WebGL, open source y sin claves (usado en Waymark).",
+    es: "Mapas vectoriales y globo 3D en WebGL, de código abierto y sin claves de API (usado en Waymark).",
     en: "Vector maps and a WebGL 3D globe, open source with no API keys (used in Waymark).",
-    ca: "Mapes vectorials i globus 3D en WebGL, open source i sense claus (usat a Waymark).",
+    ca: "Mapes vectorials i globus 3D en WebGL, de codi obert i sense claus d'API (usat a Waymark).",
   },
   "JSON": {
     es: "Formato estándar para APIs, configuración y serialización de estado.",
-    en: "Standard format for APIs, configuration and state serialization.",
+    en: "Standard format for APIs, configuration and state serialisation.",
     ca: "Format estàndard per a APIs, configuració i serialització d'estat.",
   },
   "PHP": {
@@ -101,9 +101,9 @@ export const SKILL_INFO = {
     ca: "Llenguatge orientat a objectes que vaig aprendre al bootcamp de Java (275 h).",
   },
   "Laravel": {
-    es: "Framework PHP full-stack: autenticación, ORM Eloquent, queues y APIs (usado en Obsidian).",
+    es: "Framework PHP full-stack: autenticación, ORM Eloquent, colas y APIs (usado en Obsidian).",
     en: "Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in Obsidian).",
-    ca: "Framework PHP full-stack: autenticació, ORM Eloquent, queues i APIs (utilitzat a Obsidian).",
+    ca: "Framework PHP full-stack: autenticació, ORM Eloquent, cues i APIs (usat a Obsidian).",
   },
   "Node.js": {
     es: "Entorno de JavaScript para servidores, scripts y apps de escritorio.",
@@ -111,9 +111,9 @@ export const SKILL_INFO = {
     ca: "Entorn de JavaScript per a servidors, scripts i apps d'escriptori.",
   },
   "MySQL": {
-    es: "Base de datos relacional para modelar dominio y consultas con índices/joins.",
-    en: "Relational database for domain modelling and queries with indexes/joins.",
-    ca: "Base de dades relacional per modelar el domini i consultes amb índexs/joins.",
+    es: "Base de datos relacional: modelado de datos y consultas con índices y joins.",
+    en: "Relational database: data modelling and queries with indexes and joins.",
+    ca: "Base de dades relacional: modelatge de dades i consultes amb índexs i joins.",
   },
   "PostgreSQL": {
     es: "Base de datos relacional en Nadir (Neon + Drizzle ORM) y Orbex (Supabase).",
@@ -121,9 +121,9 @@ export const SKILL_INFO = {
     ca: "Base de dades relacional a Nadir (Neon + Drizzle ORM) i Orbex (Supabase).",
   },
   "Supabase": {
-    es: "Backend con Postgres, login y funciones en servidor (usado en Orbex).",
-    en: "Backend with Postgres, auth and server functions (used in Orbex).",
-    ca: "Backend amb Postgres, inici de sessió i funcions al servidor (usat a Orbex).",
+    es: "Backend con Postgres, autenticación y funciones en servidor (usado en Orbex).",
+    en: "Backend with Postgres, authentication and server functions (used in Orbex).",
+    ca: "Backend amb Postgres, autenticació i funcions al servidor (usat a Orbex).",
   },
   "API REST": {
     es: "Diseño de endpoints HTTP, recursos, versiones y contratos con frontends.",
@@ -136,14 +136,14 @@ export const SKILL_INFO = {
     ca: "Passarel·la de pagaments: checkout, webhooks i subscripcions.",
   },
   "Git": {
-    es: "Control de versiones distribuido, ramas, rebases y revisión por PR.",
-    en: "Distributed version control, branching, rebasing and PR-based review.",
-    ca: "Control de versions distribuït, branques, rebases i revisió per PR.",
+    es: "Control de versiones distribuido: ramas, rebases y revisión mediante pull requests.",
+    en: "Distributed version control: branching, rebasing and review through pull requests.",
+    ca: "Control de versions distribuït: branques, rebases i revisió mitjançant pull requests.",
   },
   "Bitbucket": {
-    es: "Hosting de repos y PRs en entornos corporativos.",
-    en: "Repo and PR hosting in corporate environments.",
-    ca: "Hosting de repos i PRs en entorns corporatius.",
+    es: "Alojamiento de repositorios y pull requests en entornos corporativos.",
+    en: "Repository and pull request hosting in corporate environments.",
+    ca: "Allotjament de repositoris i pull requests en entorns corporatius.",
   },
   "Docker": {
     es: "Contenedores reproducibles para desarrollo y despliegue.",
@@ -151,9 +151,9 @@ export const SKILL_INFO = {
     ca: "Contenidors reproduïbles per a desenvolupament i desplegament.",
   },
   "Jenkins": {
-    es: "Pipelines de CI/CD: build, test, despliegue automatizado.",
-    en: "CI/CD pipelines: build, test, automated deployment.",
-    ca: "Pipelines de CI/CD: build, test, desplegament automatitzat.",
+    es: "Pipelines de CI/CD: build, tests y despliegue automatizado.",
+    en: "CI/CD pipelines: build, tests and automated deployment.",
+    ca: "Pipelines de CI/CD: build, tests i desplegament automatitzat.",
   },
   "GitHub Actions": {
     es: "CI/CD: lint, tests, builds y publicación automática de versiones.",
@@ -166,14 +166,14 @@ export const SKILL_INFO = {
     ca: "Tests unitaris de la lògica de les apps (preus, gràfiques, joc).",
   },
   "Cloudflare": {
-    es: "Workers + Assets para despliegue del portfolio y CDN global.",
-    en: "Workers + Assets for deploying the portfolio and global CDN.",
-    ca: "Workers + Assets per al desplegament del portfolio i CDN global.",
+    es: "Workers y Assets para desplegar este portfolio, Waymark y Nadir en su CDN global.",
+    en: "Workers and Assets to deploy this portfolio, Waymark and Nadir on its global CDN.",
+    ca: "Workers i Assets per desplegar aquest portfolio, Waymark i Nadir a la seva CDN global.",
   },
   "Railway": {
-    es: "Hosting de aplicaciones y bases de datos para proyectos rápidos.",
+    es: "Alojamiento de aplicaciones y bases de datos para proyectos rápidos.",
     en: "App and database hosting for quick projects.",
-    ca: "Hosting d'aplicacions i bases de dades per a projectes ràpids.",
+    ca: "Allotjament d'aplicacions i bases de dades per a projectes ràpids.",
   },
   "Jira": {
     es: "Gestión de tickets, sprints y planificación ágil.",
@@ -186,19 +186,19 @@ export const SKILL_INFO = {
     ca: "CRM empresarial: gestió de releases i desplegaments entre entorns a VIEWNEXT.",
   },
   "Godot": {
-    es: "Motor 2D/3D usado para desarrollo de juegos móviles personales.",
-    en: "2D/3D engine used for personal mobile game development.",
-    ca: "Motor 2D/3D utilitzat per al desenvolupament de jocs mòbils personals.",
+    es: "Motor de juegos 2D/3D con el que he creado Orbex, mi juego para Android.",
+    en: "2D/3D game engine I used to build Orbex, my Android game.",
+    ca: "Motor de jocs 2D/3D amb què he creat Orbex, el meu joc per a Android.",
   },
   "Photoshop": {
-    es: "Edición de imagen y diseño de assets para UI.",
-    en: "Image editing and UI asset design.",
-    ca: "Edició d'imatge i disseny d'assets per a la UI.",
+    es: "Edición de imágenes y diseño de recursos gráficos para interfaces.",
+    en: "Image editing and graphic assets for interfaces.",
+    ca: "Edició d'imatges i disseny de recursos gràfics per a interfícies.",
   },
   "Aseprite": {
-    es: "Pixel art y animación sprite para proyectos personales y game dev.",
-    en: "Pixel art and sprite animation for personal projects and game dev.",
-    ca: "Pixel art i animació de sprites per a projectes personals i game dev.",
+    es: "Pixel art y animación de sprites para proyectos personales y videojuegos.",
+    en: "Pixel art and sprite animation for personal projects and games.",
+    ca: "Pixel art i animació de sprites per a projectes personals i videojocs.",
   },
   "Claude": {
     es: "Apoyo para programar, revisar código y documentar.",
@@ -206,9 +206,9 @@ export const SKILL_INFO = {
     ca: "Suport per programar, revisar codi i documentar.",
   },
   "GitHub Copilot": {
-    es: "Autocompletado y refactors con IA dentro del editor.",
-    en: "AI autocompletion and refactors inside the editor.",
-    ca: "Autocompletat i refactors amb IA dins de l'editor.",
+    es: "Autocompletado y refactorizaciones con IA dentro del editor.",
+    en: "AI autocompletion and refactoring inside the editor.",
+    ca: "Autocompletat i refactoritzacions amb IA dins de l'editor.",
   },
   "Cursor": {
     es: "Editor con agentes de IA para desarrollo asistido.",
@@ -216,9 +216,9 @@ export const SKILL_INFO = {
     ca: "Editor amb agents d'IA per a desenvolupament assistit.",
   },
   "Codex": {
-    es: "Agente de programación de OpenAI para tareas de código.",
-    en: "OpenAI's coding agent for code tasks.",
-    ca: "Agent de programació d'OpenAI per a tasques de codi.",
+    es: "Agente de programación de OpenAI al que delego tareas de código.",
+    en: "OpenAI's coding agent, for delegating programming tasks.",
+    ca: "Agent de programació d'OpenAI a qui delego tasques de codi.",
   },
   "Higgsfield": {
     es: "Generación de imágenes y vídeo.",

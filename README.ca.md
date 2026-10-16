@@ -339,21 +339,21 @@ per la qual cosa convé canviar-les als dos llocs.
 | Skill | Per a què la faig servir |
 |-------|-----------------|
 | **HTML** | Estructura semàntica de les pàgines i accessibilitat bàsica. |
-| **CSS** | Estils, layout responsive i animacions pures del navegador. |
-| **XML** | Marcatge per a configuració, intercanvi de dades i integracions legacy. |
+| **CSS** | Estils, disseny responsive i animacions natives del navegador. |
+| **XML** | Marcatge per a configuració, intercanvi de dades i integracions amb sistemes heretats. |
 | **JavaScript** | Lògica del client, manipulació del DOM i esdeveniments. |
 | **TypeScript** | JavaScript amb tipatge estàtic per escalar projectes sense perdre claredat. |
 | **Bootstrap** | Prototipatge ràpid i projectes on el sistema de components és suficient. |
 | **Tailwind** | Sistema d'utilitats per a un disseny coherent i ràpid (utilitzat en aquest portfolio). |
-| **Vite** | Build tool amb HMR ràpid i bundles optimitzats per a producció. |
-| **React** | Biblioteca d'UI basada en components; base de les apps d'aquest portfolio. |
+| **Vite** | Eina de build amb HMR ràpid i bundles optimitzats per a producció. |
+| **React** | Biblioteca d'interfícies basada en components; base de les apps d'aquest portfolio. |
 | **Next.js** | Framework de React amb Server Components i Server Actions (usat a `Nadir`). |
 | **Svelte** | Framework compilat amb reactivitat fina (runes); SvelteKit com a SPA estàtica a `Waymark`. |
 | **Electron** | Apps d'escriptori amb tecnologies web i instal·lador propi (usat a `Kylen Chat` i `NEXUS`). |
 | **Three.js** | Escenes 3D en WebGL (càmeres, materials, llums, geometria). |
-| **React Three Fiber** | Renderer declaratiu de Three.js a React; utilitzat al hero 3D i a `Solar Explorer`. |
+| **React Three Fiber** | Renderitzador declaratiu de Three.js per a React; usat a la portada 3D d'aquesta web i a `Solar Explorer`. |
 | **GSAP** | Animacions avançades amb timelines i control precís del temps. |
-| **MapLibre** | Mapes vectorials i globus 3D en WebGL, open source i sense claus (usat a `Waymark`). |
+| **MapLibre** | Mapes vectorials i globus 3D en WebGL, de codi obert i sense claus d'API (usat a `Waymark`). |
 
 ### Backend
 
@@ -362,11 +362,11 @@ per la qual cosa convé canviar-les als dos llocs.
 | **JSON** | Format estàndard per a APIs, configuració i serialització d'estat. |
 | **PHP** | Llenguatge backend per a webs i APIs (projectes personals i professionals). |
 | **Java** | Llenguatge orientat a objectes que vaig aprendre al bootcamp de Java (275 h). |
-| **Laravel** | Framework PHP full-stack: autenticació, ORM Eloquent, queues i APIs (utilitzat a `Obsidian`). |
+| **Laravel** | Framework PHP full-stack: autenticació, ORM Eloquent, cues i APIs (usat a `Obsidian`). |
 | **Node.js** | Entorn de JavaScript per a servidors, scripts i apps d'escriptori. |
-| **MySQL** | Base de dades relacional per modelar el domini i consultes amb índexs/joins. |
+| **MySQL** | Base de dades relacional: modelatge de dades i consultes amb índexs i joins. |
 | **PostgreSQL** | Base de dades relacional a `Nadir` (Neon + Drizzle ORM) i `Orbex` (Supabase). |
-| **Supabase** | Backend amb Postgres, inici de sessió i funcions al servidor (usat a `Orbex`). |
+| **Supabase** | Backend amb Postgres, autenticació i funcions al servidor (usat a `Orbex`). |
 | **API REST** | Disseny d'endpoints HTTP, recursos, versions i contractes amb frontends. |
 | **Stripe** | Passarel·la de pagaments: checkout, webhooks i subscripcions. |
 
@@ -374,28 +374,28 @@ per la qual cosa convé canviar-les als dos llocs.
 
 | Skill | Per a què la faig servir |
 |-------|-----------------|
-| **Git** | Control de versions distribuït, branques, rebases i revisió per PR. |
-| **Bitbucket** | Hosting de repos i PRs en entorns corporatius. |
+| **Git** | Control de versions distribuït: branques, rebases i revisió mitjançant pull requests. |
+| **Bitbucket** | Allotjament de repositoris i pull requests en entorns corporatius. |
 | **Docker** | Contenidors reproduïbles per a desenvolupament i desplegament. |
-| **Jenkins** | Pipelines de CI/CD: build, test, desplegament automatitzat. |
+| **Jenkins** | Pipelines de CI/CD: build, tests i desplegament automatitzat. |
 | **GitHub Actions** | CI/CD: lint, tests, builds i publicació automàtica de versions. |
 | **Vitest** | Tests unitaris de la lògica de les apps (preus, gràfiques, joc). |
-| **Cloudflare** | Workers + Assets per al desplegament del portfolio i CDN global. |
-| **Railway** | Hosting d'aplicacions i bases de dades per a projectes ràpids. |
+| **Cloudflare** | Workers i Assets per desplegar aquest portfolio, `Waymark` i `Nadir` a la seva CDN global. |
+| **Railway** | Allotjament d'aplicacions i bases de dades per a projectes ràpids. |
 | **Jira** | Gestió de tiquets, sprints i planificació àgil. |
 | **Salesforce** | CRM empresarial: gestió de releases i desplegaments entre entorns a VIEWNEXT. |
-| **Godot** | Motor 2D/3D utilitzat per al desenvolupament de jocs mòbils personals. |
-| **Photoshop** | Edició d'imatge i disseny d'assets per a la UI. |
-| **Aseprite** | Pixel art i animació de sprites per a projectes personals i game dev. |
+| **Godot** | Motor de jocs 2D/3D amb què he creat `Orbex`, el meu joc per a Android. |
+| **Photoshop** | Edició d'imatges i disseny de recursos gràfics per a interfícies. |
+| **Aseprite** | Pixel art i animació de sprites per a projectes personals i videojocs. |
 
 ### Treballo amb IA
 
 | Eina | Per a què la faig servir |
 |------|--------------------------|
 | **Claude** | Suport per programar, revisar codi i documentar. |
-| **GitHub Copilot** | Autocompletat i refactors amb IA dins de l'editor. |
+| **GitHub Copilot** | Autocompletat i refactoritzacions amb IA dins de l'editor. |
 | **Cursor** | Editor amb agents d'IA per a desenvolupament assistit. |
-| **Codex** | Agent de programació d'OpenAI per a tasques de codi. |
+| **Codex** | Agent de programació d'OpenAI a qui delego tasques de codi. |
 | **Higgsfield** | Generació d'imatges i vídeo. |
 | **PixelLab** | Generació de pixel art i sprites. |
 | **Suno** | Generació de música. |
