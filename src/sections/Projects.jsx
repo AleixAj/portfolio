@@ -8,6 +8,8 @@ import { PROJECTS } from '../consts/projects'
 import ProjectCard, { ProjectRow } from '../components/ProjectCard'
 import ProjectModal from '../components/ProjectModal'
 import SectionHeading from '../components/SectionHeading'
+import useElectricHighlight from '../components/useElectricHighlight'
+import ElectricHighlight from '../components/ElectricHighlight'
 
 const FEATURED = PROJECTS.filter(p => p.featured)
 const OTHERS = PROJECTS.filter(p => !p.featured)
@@ -30,6 +32,12 @@ function Projects({ lang, t }) {
   const closeInfo = useCallback(() => setOpenTitle(null), [])
   const openProject = PROJECTS.find(p => p.title === openTitle)
 
+  // The lightning follows the pointer, and stays put on the card whose
+  // details dialog is open, so when you close it you can see which card you
+  // were reading about even if the pointer has moved away.
+  // lift 5: the cards rise 5px on hover (.project-card:hover in index.css)
+  const { containerRef, itemProps, box, active, liftY } = useElectricHighlight(openTitle, { lift: 5 })
+
   // What both layouts need from each project
   const cardProps = (p) => ({
     ...p,
@@ -41,11 +49,24 @@ function Projects({ lang, t }) {
 
   return (
     <section id="projects" className="min-h-full md:min-h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-28 2xl:pt-32 pb-5 ls:pb-12 md:pb-10 relative overflow-visible">
-      <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
+      <div ref={containerRef} className="relative max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
         <SectionHeading index={3} title={t.title} />
+
+        {/* The lightning answers what you're doing instead of marking a
+            favourite. It's drawn 64px outside the card, which is why this
+            section keeps overflow visible. */}
+        <ElectricHighlight box={box} active={active} liftY={liftY} />
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 2xl:gap-5">
+          {/* Every card sits in a wrapper that stays mounted: App.jsx looks
+              for .reveal-item once, so a card mounted later would never fade
+              in. The wrapper is also what the border measures itself against;
+              it needs no styling of its own, the border reads the card's own
+              corners from the card. */}
           {FEATURED.map((p, i) => (
-            <ProjectCard key={p.title} index={i} {...cardProps(p)} />
+            <div key={p.title} className="h-full" {...itemProps(p.title)}>
+              <ProjectCard index={i} {...cardProps(p)} className="h-full" />
+            </div>
           ))}
         </div>
 
@@ -54,8 +75,14 @@ function Projects({ lang, t }) {
           <span aria-hidden="true" className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent" />
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 2xl:gap-4">
+          {/* Same wrapper as the big cards above, so the border can measure
+              them the same way. The grid positioning goes on the wrapper,
+              which is now the cell, and the row fills it so rows side by side
+              still come out the same height. */}
           {OTHERS.map((p, i) => (
-            <ProjectRow key={p.title} index={i + 3} {...cardProps(p)} className={orphanCls(i, OTHERS.length)} />
+            <div key={p.title} className={orphanCls(i, OTHERS.length)} {...itemProps(p.title)}>
+              <ProjectRow index={i + 3} {...cardProps(p)} className="h-full" />
+            </div>
           ))}
         </div>
       </div>

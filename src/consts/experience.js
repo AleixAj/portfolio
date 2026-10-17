@@ -3,6 +3,16 @@
  * Translated fields are { es, en, ca }. Things that don't change between
  * languages (company or school names) are plain strings.
  */
+/**
+ * Years of experience. It's the same number in every language, so the
+ * translated labels carry a {n} where it goes (hero.experience in i18n.js)
+ * and whoever shows it decides whether to animate it or print it plain.
+ */
+export const YEARS_OF_EXPERIENCE = 5
+
+// '{n}+ años de experiencia' -> '5+ años de experiencia'
+export const withYears = (text) => text.replace('{n}', YEARS_OF_EXPERIENCE)
+
 export const EXPERIENCE = [
   {
     company: { es: 'Proyectos propios', en: 'Independent projects', ca: 'Projectes propis' },

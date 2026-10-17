@@ -12,6 +12,8 @@ import { useCallback, useState, useEffect, memo } from 'react'
 import { m, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
 import SectionHeading from '../components/SectionHeading'
+import useElectricHighlight from '../components/useElectricHighlight'
+import ElectricHighlight from '../components/ElectricHighlight'
 
 // 01.webp -> 01-thumb.webp
 const toThumb = (src) => src.replace(/\.webp$/i, '-thumb.webp')
@@ -30,6 +32,7 @@ const slideVariants = {
 
 function Hobbies({ t }) {
   const reduceMotion = useReducedMotion()
+  const { containerRef, itemProps, box, active } = useElectricHighlight()
   const [modalOpen, setModalOpen] = useState(false)
   const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(0)
@@ -58,9 +61,16 @@ function Hobbies({ t }) {
 
   return (
     <section id="hobbies" className="min-h-full md:h-[100dvh] ls:h-auto bg-black/45 flex items-center ls:items-start pt-16 ls:pt-20 md:pt-0 pb-4 ls:pb-12 md:pb-0 relative overflow-hidden ls:overflow-visible">
-      <div className="max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
+      <div ref={containerRef} className="relative max-w-6xl 2xl:max-w-7xl 3xl:max-w-[100rem] mx-auto px-5 md:px-8 2xl:px-12 text-white w-full">
         <SectionHeading index={5} title={t.title} className="mb-1.5 md:mb-2 2xl:mb-3" />
         <p className="reveal-item text-cyan-400 text-sm md:text-lg 2xl:text-2xl mb-4 md:mb-8 2xl:mb-10" style={{ '--d': 1 }}>{t.subtitle}</p>
+
+        {/* The same lightning as the projects, on whichever drawing you're
+            pointing at. The section clips its overflow on desktop, so on the
+            drawings at either end the outer glow gets trimmed; the strand
+            itself hugs the edge, so what you lose is the faint part. */}
+        <ElectricHighlight box={box} active={active} />
+
         <div className="grid grid-cols-4 md:grid-cols-6 2xl:grid-cols-8 gap-2 md:gap-3 2xl:gap-4">
           {HOBBIES_PHOTOS.map((photo, i) => (
             <button
@@ -68,6 +78,7 @@ function Hobbies({ t }) {
               onClick={() => open(i)}
               aria-label={`${t.viewDrawing} ${i + 1}`}
               style={{ '--d': 2 + Math.min(i, 12) * 0.5 }}
+              {...itemProps(i)}
               className="reveal-item group relative aspect-square overflow-hidden rounded-xl 2xl:rounded-2xl border border-white/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-[border-color,box-shadow] duration-300 bg-white/5"
             >
               <img

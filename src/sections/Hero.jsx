@@ -9,6 +9,12 @@ import { FaLinkedin, FaFileAlt, FaDownload, FaMapMarkerAlt, FaBriefcase, FaLapto
 import RotatingText from '../components/RotatingText'
 import ErrorBoundary from '../components/ErrorBoundary'
 import { LIGHT_MODE } from '../consts/device'
+import { YEARS_OF_EXPERIENCE } from '../consts/experience'
+
+// Its own chunk: it's the only thing on the page that needs Framer Motion's
+// animate(), and pulling that engine into the first load to roll one digit
+// isn't worth it. Until it lands, the chip shows the number as plain text.
+const CountUp = lazy(() => import('../components/CountUp'))
 
 // Three.js and the scene live in their own chunk so they don't slow down the first load
 const loadScene3D = () => import('../components/Scene3D')
@@ -79,7 +85,35 @@ function HeroWord({ words, reduceMotion, active }) {
   )
 }
 
+// The years of experience chip. The translated label has a {n} where the
+// number goes, and the number counts up the first time you see it (CountUp
+// jumps straight to the end on its own if the system asks for reduced motion).
+function ExperienceLabel({ text }) {
+  const [before, after] = text.split('{n}')
+  // A translation that lost its {n} has nowhere to put the counter, so it's
+  // shown as it is rather than with a number stuck on the end.
+  if (after === undefined) return <span>{text}</span>
+  // All inside one span: the chip is a flex row with a gap, so leaving the
+  // number as a child of its own would put that gap between the 5 and the +.
+  return (
+    <span>
+      {before}
+      {/* Both fallbacks are the number itself, so the chip always reads
+          right: while the chunk downloads, and also if it never arrives.
+          Without the boundary a failed download would throw during render
+          and unmount the whole page, and this one is in the hero. */}
+      <ErrorBoundary fallback={YEARS_OF_EXPERIENCE}>
+        <Suspense fallback={YEARS_OF_EXPERIENCE}>
+          <CountUp to={YEARS_OF_EXPERIENCE} duration={1.4} />
+        </Suspense>
+      </ErrorBoundary>
+      {after}
+    </span>
+  )
+}
+
 // Small pill with an icon (location, years of experience...)
+// `label` can be a string or, like the experience one, a bit of JSX.
 function ProfileChip({ icon: Icon, label }) {
   return (
     <span className="inline-flex items-center gap-1 md:gap-1.5 px-2 py-0.5 md:px-3 md:py-1.5 rounded-full bg-white/5 border border-white/10 text-white/85 text-[0.6rem] md:text-sm whitespace-nowrap">
@@ -199,7 +233,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
           <OpenToWorkBadge label={t.openToWork} />
           <ProfileChip icon={FaCode} label={t.roles} />
           <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
-          <ProfileChip icon={FaBriefcase} label={t.experience} />
+          <ProfileChip icon={FaBriefcase} label={<ExperienceLabel text={t.experience} />} />
         </div>
         <p className="mt-2 ls:hidden text-sm text-gray-300 w-full">
           {t.intro}
@@ -244,7 +278,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
               <OpenToWorkBadge label={t.openToWork} />
               <ProfileChip icon={FaCode} label={t.roles} />
               <ProfileChip icon={FaMapMarkerAlt} label={t.location} />
-              <ProfileChip icon={FaBriefcase} label={t.experience} />
+              <ProfileChip icon={FaBriefcase} label={<ExperienceLabel text={t.experience} />} />
               <ProfileChip icon={FaLaptopCode} label={t.modality} />
               <ProfileChip icon={FaGlobe} label={t.languages} />
             </div>

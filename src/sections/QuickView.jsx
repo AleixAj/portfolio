@@ -8,7 +8,7 @@
 import { useState } from 'react'
 import { FaLinkedin, FaGithub, FaEnvelope, FaDownload, FaPrint, FaArrowLeft, FaMapMarkerAlt } from 'react-icons/fa'
 import { TRANSLATIONS } from '../consts/i18n'
-import { EXPERIENCE, EDUCATION } from '../consts/experience'
+import { EXPERIENCE, EDUCATION, withYears } from '../consts/experience'
 import { PROJECTS } from '../consts/projects'
 import { SKILL_CATEGORIES, AI_TOOLS } from '../consts/skills'
 import { CV_BY_LANG, getInitialLang, localize } from '../consts/lang'
@@ -57,7 +57,7 @@ export default function QuickView({ onExit }) {
           <p className="mt-1 text-lg text-cyan-300 print:text-black">Software Developer · {t.hero.roles}</p>
           <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/60 print:text-black/70">
             <span className="inline-flex items-center gap-1.5"><FaMapMarkerAlt className="w-3 h-3" aria-hidden="true" /> {t.hero.location}</span>
-            <span>{t.hero.experience}</span>
+            <span>{withYears(t.hero.experience)}</span>
             <span>{t.hero.modality}</span>
             <span>{t.hero.languages}</span>
             <span className="text-emerald-300 print:text-black font-medium">{t.hero.openToWork}</span>
