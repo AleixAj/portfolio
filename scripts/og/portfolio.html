@@ -1,0 +1,115 @@
+<!doctype html>
+<!--
+  Template for public/og-image.png, the preview shown when aleixaj.com is
+  shared (LinkedIn, WhatsApp...). Same look as the site: starfield, cyan
+  accents, Space Grotesk + DM Sans, and a render of the 3D room (room.webp,
+  a screenshot of the hero canvas on black).
+
+  To regenerate: npm run dev, then screenshot this page at 1200x630:
+    npx playwright screenshot --channel=chrome --wait-for-timeout=800 --viewport-size=1200,630 http://localhost:5173/scripts/og/portfolio.html public/og-image.png
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OG image</title>
+<style>
+  @font-face { font-family: 'DM Sans'; font-weight: 400 700; src: url(/fonts/dm-sans-rP2Hp2ywxg089UriCZOIHQ.woff2) format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 400 700; src: url(/fonts/space-grotesk-V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2) format('woff2'); }
+
+  :root { --cyan: #22d3ee; --cyan-soft: rgba(34, 211, 238, .35); --violet: #a855f7; --bg: #05080c; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+  body { position: relative; font-family: 'DM Sans', sans-serif; color: #fff; }
+
+  .stars { position: absolute; inset: 0; }
+
+  /* glows behind the room */
+  .glow { position: absolute; border-radius: 50%; filter: blur(70px); }
+  .glow.c { width: 640px; height: 220px; right: 0; bottom: 40px; background: rgba(34, 211, 238, .16); }
+  .glow.v { width: 380px; height: 300px; right: 60px; top: 200px; background: rgba(168, 85, 247, .10); }
+
+  /* perspective grid floor */
+  .floor { position: absolute; left: -200px; right: -200px; bottom: -40px; height: 300px; perspective: 380px; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 85%); mask-image: linear-gradient(to top, #000 0%, transparent 85%); }
+  .floor::before { content: ''; position: absolute; inset: -100% 0 0 0; transform: rotateX(62deg); transform-origin: bottom;
+    background-image: linear-gradient(var(--cyan-soft) 1px, transparent 1px), linear-gradient(90deg, var(--cyan-soft) 1px, transparent 1px);
+    background-size: 56px 56px; opacity: .45; }
+
+  .room { position: absolute; right: 8px; top: 92px; width: 590px; mix-blend-mode: screen; filter: brightness(1.25) contrast(1.08) saturate(1.1); }
+
+  /* HUD frame */
+  .frame { position: absolute; inset: 22px; pointer-events: none; }
+  .frame i { position: absolute; width: 26px; height: 26px; border: 2px solid var(--cyan); opacity: .8; }
+  .frame i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; }
+  .frame i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; }
+  .frame i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; }
+  .frame i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; }
+
+  .mono { font-family: 'Space Grotesk', sans-serif; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+  .topbar { position: absolute; left: 64px; right: 64px; top: 46px; display: flex; justify-content: space-between; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { height: 34px; filter: drop-shadow(0 0 10px rgba(34,211,238,.45)); }
+  .brand span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: .18em; }
+  .status { display: flex; align-items: center; gap: 9px; padding: 7px 14px; border-radius: 999px; font-size: 14px; font-weight: 600;
+    color: #6ee7b7; background: rgba(52, 211, 153, .12); border: 1px solid rgba(52, 211, 153, .4); }
+  .status b { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 4px rgba(52,211,153,.2), 0 0 12px #34d399; }
+
+  .copy { position: absolute; left: 64px; top: 168px; width: 560px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 82px; line-height: .98; letter-spacing: -.035em; }
+  h2 { margin-top: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -.02em; color: var(--cyan); }
+  .lead { margin-top: 20px; font-size: 22px; line-height: 1.4; color: rgba(255,255,255,.72); }
+
+  .chips { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { padding: 8px 14px; border-radius: 999px; font-size: 16px; color: rgba(255,255,255,.88); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); }
+  .chip em { font-style: normal; color: var(--cyan); }
+
+  .footer { position: absolute; left: 64px; right: 64px; bottom: 46px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .url { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: .02em; }
+  .url span { color: var(--cyan); }
+</style>
+</head>
+<body>
+  <canvas class="stars" width="1200" height="630"></canvas>
+  <div class="glow c"></div>
+  <div class="glow v"></div>
+  <div class="floor"></div>
+  <img class="room" src="room.webp" alt="">
+
+  <div class="frame"><i></i><i></i><i></i><i></i></div>
+
+  <div class="topbar">
+    <div class="brand"><img src="/AJ.png" alt=""><span>ALEIX AUQUÉ</span></div>
+    <div class="status"><b></b>Open to work</div>
+  </div>
+
+  <div class="copy">
+    <h1>Aleix Auqué</h1>
+    <h2>Software Developer</h2>
+    <p class="lead">Full-stack web, desktop apps and games,<br>shipped and open source.</p>
+    <div class="chips">
+      <span class="chip"><em>React</em> · TypeScript</span>
+      <span class="chip"><em>Laravel</em> · PHP</span>
+      <span class="chip"><em>Three.js</em></span>
+      <span class="chip"><em>AI</em> agents</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="url">aleixaj<span>.com</span></div>
+    <div class="mono">Interactive 3D portfolio</div>
+  </div>
+
+  <script>
+    // fixed seed so every render has the same sky
+    let s = 7
+    const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647
+    const ctx = document.querySelector('.stars').getContext('2d')
+    for (let i = 0; i < 260; i++) {
+      const r = rnd() < .9 ? rnd() * .9 + .3 : rnd() * 1.2 + 1
+      ctx.globalAlpha = rnd() * .6 + .2
+      ctx.fillStyle = rnd() < .15 ? '#67e8f9' : '#fff'
+      ctx.beginPath(); ctx.arc(rnd() * 1200, rnd() * 630, r, 0, Math.PI * 2); ctx.fill()
+    }
+  </script>
+</body>
+</html>

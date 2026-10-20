@@ -5,5 +5,65 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "scripts/og/portfolio.html"
+        ],
+        "createdAt": "2026-10-20T17:55:15.667Z",
+        "reason": "Claude: static 1200x630 image template; the clipped grid floor is intentional, no popovers"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "scripts/og/portfolio.html"
+        ],
+        "createdAt": "2026-10-20T17:55:15.905Z",
+        "reason": "Claude: social image must match the site's own cyan glow accents (user asked for same visual style)"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "files": [
+          "scripts/og/portfolio.html"
+        ],
+        "createdAt": "2026-10-20T17:56:43.539Z",
+        "reason": "Claude: it is the portfolio's own heading font; user asked for the same visual style as the site"
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "scripts/og/project.html"
+        ],
+        "createdAt": "2026-10-20T17:58:26.400Z",
+        "reason": "Claude: static OG image template; img src is set by the inline script and the clipped grid floor is intentional"
+      },
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "scripts/og/project.html"
+        ],
+        "createdAt": "2026-10-20T17:58:26.654Z",
+        "reason": "Claude: static OG image template; img src is set by the inline script and the clipped grid floor is intentional"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "files": [
+          "scripts/og/project.html"
+        ],
+        "createdAt": "2026-10-20T17:58:26.906Z",
+        "reason": "Claude: portfolio's own heading font, matching the site style the user asked for"
+      }
+    ]
   }
 }

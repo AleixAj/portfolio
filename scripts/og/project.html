@@ -1,0 +1,114 @@
+<!doctype html>
+<!--
+  Template for public/og/<slug>.png, the preview shown when a project's link
+  is shared (LinkedIn, WhatsApp...). Same look as portfolio.html, with the
+  project's own accent colour and a screenshot instead of the 3D room.
+  Pick the project with ?p=<slug> (see PROJECTS below).
+
+  To regenerate: npm run dev, then npm run generate:og:projects
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OG image</title>
+<style>
+  @font-face { font-family: 'DM Sans'; font-weight: 400 700; src: url(/fonts/dm-sans-rP2Hp2ywxg089UriCZOIHQ.woff2) format('woff2'); }
+  @font-face { font-family: 'Space Grotesk'; font-weight: 400 700; src: url(/fonts/space-grotesk-V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2) format('woff2'); }
+
+  :root { --accent: #22d3ee; --bg: #05080c; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+  body { position: relative; font-family: 'DM Sans', sans-serif; color: #fff; }
+
+  .stars { position: absolute; inset: 0; }
+  .glow { position: absolute; width: 620px; height: 420px; right: 10px; top: 120px; border-radius: 50%; filter: blur(90px);
+    background: var(--accent); opacity: .2; }
+
+  .floor { position: absolute; left: -200px; right: -200px; bottom: -40px; height: 280px; perspective: 380px; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 85%); mask-image: linear-gradient(to top, #000 0%, transparent 85%); }
+  .floor::before { content: ''; position: absolute; inset: -100% 0 0 0; transform: rotateX(62deg); transform-origin: bottom;
+    background-image: linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px);
+    background-size: 56px 56px; opacity: .5; }
+
+  .frame { position: absolute; inset: 22px; }
+  .frame i { position: absolute; width: 26px; height: 26px; border: 2px solid #22d3ee; opacity: .8; }
+  .frame i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; }
+  .frame i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; }
+  .frame i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; }
+  .frame i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; }
+
+  .mono { font-family: 'Space Grotesk', sans-serif; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+  .topbar { position: absolute; left: 64px; top: 46px; display: flex; align-items: center; gap: 12px; }
+  .topbar img { height: 26px; }
+  .topbar span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .18em; color: rgba(255,255,255,.75); }
+
+  .copy { position: absolute; left: 64px; top: 0; bottom: 0; width: 500px; display: flex; flex-direction: column; justify-content: center; }
+  .logo { width: 88px; height: 88px; border-radius: 22px; object-fit: contain; margin-bottom: 26px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 76px; line-height: 1; letter-spacing: -.035em; }
+  h2 { margin-top: 14px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 32px; line-height: 1.2; letter-spacing: -.015em; color: var(--accent); }
+  .chips { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { padding: 8px 14px; border-radius: 999px; font-size: 16px; color: rgba(255,255,255,.85); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); }
+
+  .stage { position: absolute; left: 580px; right: 50px; top: 60px; bottom: 80px; display: flex; align-items: center; justify-content: center; perspective: 1400px; }
+  .shot { max-width: 100%; max-height: 100%; border-radius: 14px; border: 1px solid rgba(255,255,255,.14);
+    transform: rotateY(-13deg) rotateX(3deg); box-shadow: 0 30px 60px rgba(0,0,0,.6); }
+
+  .footer { position: absolute; left: 64px; right: 64px; bottom: 46px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .url { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; color: rgba(255,255,255,.9); }
+</style>
+</head>
+<body>
+  <canvas class="stars" width="1200" height="630"></canvas>
+  <div class="glow"></div>
+  <div class="floor"></div>
+  <div class="frame"><i></i><i></i><i></i><i></i></div>
+
+  <div class="topbar"><img src="/AJ.png" alt=""><span>ALEIX AUQUÉ</span></div>
+
+  <div class="copy">
+    <img class="logo" alt="">
+    <h1></h1>
+    <h2></h2>
+    <div class="chips"></div>
+  </div>
+
+  <div class="stage"><img class="shot" alt=""></div>
+
+  <div class="footer">
+    <div class="url"></div>
+    <div class="mono kind"></div>
+  </div>
+
+  <script>
+    const PROJECTS = {
+      nexus:     { name: 'NEXUS',      accent: '#22d3ee', logo: 'nexus-logo.webp',        shot: 'nexus-demo.webp',      tagline: 'AI desktop assistant', chips: ['Electron', 'TypeScript', 'AI agents'], url: 'github.com/AleixAj/nexus', kind: 'Desktop app · Open source' },
+      obsidian:  { name: 'Obsidian',   accent: '#e0b354', logo: 'obsidian-pixelart.webp', shot: 'obsidian-demo.webp',   tagline: 'Streetwear e-commerce', chips: ['React', 'Laravel', 'MySQL'],        url: 'obsidian.aleixaj.com',     kind: 'Web · Full-stack' },
+      orbex:     { name: 'Orbex',      accent: '#f472b6', logo: 'orbex-icon.webp',        shot: 'orbex-demo.webp',      tagline: 'Arcade game for Android', chips: ['Godot', 'Supabase', 'PostgreSQL'], url: 'orbex.aleixaj.com',        kind: 'Mobile game · Google Play' },
+      nadir:     { name: 'Nadir',      accent: '#f97316', logo: 'nadir-logo.webp',        shot: 'nadir-demo.webp',      tagline: 'Smart price tracker',  chips: ['Next.js', 'PostgreSQL', 'Cloudflare'], url: 'nadir.aleixaj.com',     kind: 'Web · Full-stack' },
+      waymark:   { name: 'Waymark',    accent: '#38bdf8', logo: 'waymark-logo.webp',      shot: 'waymark-demo.webp',    tagline: 'Your trips on a 3D globe', chips: ['SvelteKit', 'MapLibre', 'Web Workers'], url: 'waymark.aleixaj.com', kind: 'Web app · No backend' },
+      kylenchat: { name: 'Kylen Chat', accent: '#a855f7', logo: 'kylen-chat.webp',        shot: 'kylen-chat-demo.webp', tagline: 'Twitch chat over your game',  chips: ['Electron', 'Node.js', 'WebSocket'], url: 'github.com/AleixAj/kylenchat', kind: 'Desktop app · Open source' },
+    }
+    const p = PROJECTS[new URLSearchParams(location.search).get('p')] || PROJECTS.nexus
+    const $ = s => document.querySelector(s)
+    document.documentElement.style.setProperty('--accent', p.accent)
+    $('.logo').src = '/' + p.logo
+    $('.shot').src = '/' + p.shot
+    $('h1').textContent = p.name
+    $('h2').textContent = p.tagline
+    $('.chips').innerHTML = p.chips.map(c => `<span class="chip">${c}</span>`).join('')
+    $('.url').textContent = p.url
+    $('.kind').textContent = p.kind
+
+    // fixed seed so every render has the same sky
+    let s = 7
+    const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647
+    const ctx = $('.stars').getContext('2d')
+    for (let i = 0; i < 260; i++) {
+      const r = rnd() < .9 ? rnd() * .9 + .3 : rnd() * 1.2 + 1
+      ctx.globalAlpha = rnd() * .6 + .2
+      ctx.fillStyle = '#fff'
+      ctx.beginPath(); ctx.arc(rnd() * 1200, rnd() * 630, r, 0, Math.PI * 2); ctx.fill()
+    }
+  </script>
+</body>
+</html>
