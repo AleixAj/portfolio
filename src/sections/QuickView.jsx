@@ -37,7 +37,7 @@ export default function QuickView({ onExit }) {
   return (
     <div className="fixed inset-0 overflow-y-auto bg-[#05080c] text-white print:static print:overflow-visible print:bg-white print:text-black">
       {/* Top bar: back to the full site, print, language. Not printed. */}
-      <div className="sticky top-0 z-10 bg-[#05080c]/95 border-b border-white/10 print:hidden">
+      <div className="sticky top-0 z-10 bg-[#05080c] border-b border-white/10 print:hidden">
         <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between gap-3">
           <button onClick={onExit} className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 hover:text-cyan-200">
             <FaArrowLeft className="w-3 h-3" aria-hidden="true" /> {q.fullSite}

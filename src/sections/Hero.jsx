@@ -2,6 +2,10 @@
  * Hero: my intro plus the 3D room.
  * On mobile the title sits at the top and the rest at the bottom, with the room
  * in between. On desktop the text is on the left and the room on the right.
+ *
+ * A phone held sideways is wide enough for `md:` but only ~400 px tall, and the
+ * desktop block doesn't fit in that: it keeps the compact layout instead (the
+ * `ls:` classes, which already trim it down for that case).
  */
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
@@ -187,7 +191,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
   // --d is the order, each step starts a little later.
   const enter = (d) => ({ className: 'hero-enter', style: { '--d': d } })
   return (
-    <section id="inicio" className={`min-h-full md:h-[100dvh] relative flex flex-col md:block ${heroActive ? '' : 'hero-idle'}`}>
+    <section id="inicio" className={`min-h-full md:h-[100dvh] ls:h-auto relative flex flex-col md:block ls:flex ${heroActive ? '' : 'hero-idle'}`}>
 
       <div className="absolute inset-0">
         {LIGHT_MODE || !sceneReady ? (
@@ -204,12 +208,12 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
 
       {/* Normal / 3D switch, centred at the very top of the page (just under the navbar).
           Desktop: floats above the room. Mobile: first thing in the title block. */}
-      <div className="hero-enter hidden md:flex absolute inset-x-0 top-24 lg:top-[6.75rem] [@media(max-height:820px)]:top-20 lg:[@media(max-height:820px)]:top-[5.75rem] z-20 justify-center pointer-events-none" style={{ '--d': 0 }}>
+      <div className="hero-enter hidden md:flex ls:hidden absolute inset-x-0 top-24 lg:top-[6.75rem] [@media(max-height:820px)]:top-20 lg:[@media(max-height:820px)]:top-[5.75rem] z-20 justify-center pointer-events-none" style={{ '--d': 0 }}>
         <div className="pointer-events-auto">{siteSwitch}</div>
       </div>
 
       {/* Mobile: title at top */}
-      <div className="md:hidden flex-shrink-0 pt-24 ls:pt-14 px-8 pb-8 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
+      <div className="md:hidden ls:block flex-shrink-0 pt-24 ls:pt-14 px-8 pb-8 ls:pb-6 text-white relative z-10 bg-gradient-to-b from-black/90 via-black/60 to-transparent text-center">
         <div {...enter(0)}>
           <div className="flex justify-center mb-6 ls:mb-3">{siteSwitch}</div>
         </div>
@@ -224,10 +228,10 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
         </h2>
       </div>
 
-      <div className="md:hidden flex-1" />
+      <div className="md:hidden ls:block flex-1" />
 
       {/* Mobile: everything else at the bottom */}
-      <div className="hero-enter md:hidden flex-shrink-0 px-8 pt-10 ls:pt-8 pb-16 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent" style={{ '--d': 2 }}>
+      <div className="hero-enter md:hidden ls:block flex-shrink-0 px-8 pt-10 ls:pt-8 pb-16 ls:pb-4 text-white relative z-10 pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent" style={{ '--d': 2 }}>
         <p className="text-xl text-gray-300">Software Developer</p>
         <div className="mt-1.5 ls:hidden flex flex-wrap gap-1 pointer-events-auto">
           <OpenToWorkBadge label={t.openToWork} />
@@ -260,7 +264,7 @@ export default function Hero({ words, goToSection, heroActive, t, cv, scrollLabe
       {/* Desktop. The top padding leaves room for the navbar and the Normal / 3D switch;
           on short screens the block starts right below them instead of centring,
           so it never slides up under the switch. */}
-      <div className="hidden md:flex absolute inset-0 z-10 items-center [@media(max-height:820px)]:items-start pt-40 lg:pt-44 [@media(max-height:820px)]:pt-36 lg:[@media(max-height:820px)]:pt-40 pb-6 px-6 lg:pl-20 xl:pl-28 2xl:pl-[12rem] pointer-events-none">
+      <div className="hidden md:flex ls:hidden absolute inset-0 z-10 items-center [@media(max-height:820px)]:items-start pt-40 lg:pt-44 [@media(max-height:820px)]:pt-36 lg:[@media(max-height:820px)]:pt-40 pb-6 px-6 lg:pl-20 xl:pl-28 2xl:pl-[12rem] pointer-events-none">
         <div className="flex flex-col justify-center text-white max-w-lg lg:max-w-none">
           <h1 {...enter(0)}>
             <span className="block text-5xl lg:text-6xl lg:[@media(max-height:820px)]:text-5xl font-bold tracking-tighter leading-none">

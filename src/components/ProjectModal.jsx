@@ -103,13 +103,19 @@ export default function ProjectModal({ project, lang, t, onClose }) {
         transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-full max-w-2xl 2xl:max-w-3xl max-h-full overflow-y-auto overscroll-contain rounded-2xl 2xl:rounded-3xl border border-cyan-400/25 bg-[#04080c] shadow-[0_0_50px_rgba(34,211,238,0.12)] focus:outline-none"
       >
-        <button
-          onClick={onClose}
-          aria-label={t.close}
-          className="absolute top-2.5 right-2.5 md:top-3 md:right-3 2xl:top-4 2xl:right-4 w-10 h-10 md:w-9 md:h-9 flex items-center justify-center rounded-full border border-white/15 text-white/70 hover:text-cyan-400 hover:border-cyan-400/50 transition-colors"
-        >
-          ✕
-        </button>
+        {/* Sticky, not absolute: the dialog itself is what scrolls, and on a
+            phone the details are long enough that a close button pinned to the
+            top of the content would scroll out of reach. The empty height keeps
+            it from pushing the content down. */}
+        <div className="pointer-events-none sticky top-0 z-20 flex h-0 justify-end">
+          <button
+            onClick={onClose}
+            aria-label={t.close}
+            className="pointer-events-auto mt-2.5 mr-2.5 md:mt-3 md:mr-3 2xl:mt-4 2xl:mr-4 w-10 h-10 md:w-9 md:h-9 flex items-center justify-center rounded-full border border-white/15 bg-[#04080c]/85 text-white/70 hover:text-cyan-400 hover:border-cyan-400/50 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
 
         <div className="p-5 md:p-7 2xl:p-9">
 

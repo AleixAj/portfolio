@@ -188,7 +188,17 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
   return (
     // Almost solid black instead of backdrop-blur. The blur had to be redone on
     // every frame of the 3D scene behind it, and you could barely see it anyway.
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/[0.88] border-b border-cyan-500/20">
+    // With the phone menu open it goes fully solid: the headings underneath glow,
+    // and even a little see-through left them readable behind the menu.
+    <nav className={`fixed top-0 left-0 w-full z-50 border-b border-cyan-500/20 ${menuOpen ? 'bg-[#04070b]' : 'bg-black/[0.88]'}`}>
+      {/* Tapping anywhere outside the open menu closes it */}
+      {menuOpen && (
+        <div
+          aria-hidden="true"
+          onClick={() => setMenuOpen(false)}
+          className="md:hidden fixed inset-0 -z-10 bg-black/50"
+        />
+      )}
       {/* Desktop: logo left, links centred, languages right */}
       <div className="hidden md:grid md:grid-cols-[auto_1fr_auto] w-full px-5 md:px-5 lg:px-8 2xl:px-10 py-4 lg:py-5 items-center gap-4 lg:gap-6">
         <button onClick={() => goToSection('inicio')} aria-label={`Aleix Auqué — ${NAV_ITEMS[0].labels[lang]}`} className="flex items-center gap-3 lg:gap-4 cursor-pointer flex-shrink-0 justify-self-start">
@@ -268,7 +278,7 @@ export default function Navbar({ goToSection, menuOpen, setMenuOpen, lang, setLa
           ref={menuRef}
           role="menu"
           aria-label={t.navMenu}
-          className="fade-in md:hidden border-t border-cyan-500/20 bg-black/95 flex flex-col px-6 py-4 gap-4 font-tech text-white text-lg"
+          className="fade-in md:hidden border-t border-cyan-500/20 bg-[#04070b] flex flex-col px-6 py-4 gap-4 font-tech text-white text-lg"
         >
           {NAV_ITEMS.map(({ labels, id }) => {
             const isActive = activeSection === id

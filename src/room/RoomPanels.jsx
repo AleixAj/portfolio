@@ -7,7 +7,7 @@ import { createElement, useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import { createPortal } from 'react-dom'
-import { FaLinkedin, FaGithub, FaEnvelope, FaDownload, FaFileAlt, FaInfo, FaCopy, FaCheck, FaGooglePlay, FaWindows, FaApple, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { FaLinkedin, FaGithub, FaEnvelope, FaDownload, FaFileAlt, FaInfo, FaCopy, FaCheck, FaGooglePlay, FaWindows, FaApple, FaChevronLeft, FaChevronRight, FaExternalLinkAlt } from 'react-icons/fa'
 import { EXPERIENCE, EDUCATION } from '../consts/experience'
 import { PROJECTS } from '../consts/projects'
 import { SKILL_CATEGORIES, AI_TOOLS } from '../consts/skills'
@@ -15,6 +15,7 @@ import { HOBBIES_PHOTOS } from '../consts/hobbies'
 import ProjectModal from '../components/ProjectModal'
 import { localize } from '../consts/lang'
 import { SKILL_INFO } from '../consts/skillInfo'
+import { IS_TOUCH } from '../consts/device'
 
 const SUBTITLE = 'text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-white/40 mb-3'
 
@@ -66,38 +67,55 @@ function Projects({ lang, t, projectIdx, setProjectIdx }) {
   const tp = t.projects
   return (
     <>
-      <p className="mb-4 text-sm text-white/55">{t.room.projectsHint}</p>
+      <p className="mb-4 text-sm text-white/55">{IS_TOUCH ? t.room.projectsHintTouch : t.room.projectsHint}</p>
       <ul className="flex flex-col gap-2">
-        {PROJECTS.map((p, i) => (
-          <li
-            key={p.title}
-            onPointerEnter={() => setProjectIdx(i)}
-            onFocus={() => setProjectIdx(i)}
-            className={`rounded-xl border p-3 transition-colors ${projectIdx === i ? 'border-cyan-400/60 bg-cyan-400/[0.06]' : 'border-white/10 bg-white/[0.03]'}`}
-          >
-            <div className="flex items-start gap-3">
-              <img src={p.img} alt="" aria-hidden="true" loading="lazy" className="h-12 w-12 flex-shrink-0 object-contain" />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-semibold text-white">{p.title}{p.featured && <span className="ml-2 align-middle rounded-full bg-cyan-400/15 px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider text-cyan-300">★</span>}</h3>
-                  {p.details && (
-                    <button type="button" onClick={() => setOpen(p.title)} aria-label={`${tp.more}: ${p.title}`} className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-cyan-400/60 text-cyan-300 hover:bg-cyan-400/20">
-                      <FaInfo className="h-2.5 w-2.5" />
-                    </button>
-                  )}
-                </div>
-                <p className="mt-0.5 text-sm leading-snug text-white/60">{localize(p.desc, lang)}</p>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  <a href={p.github} target="_blank" rel="noopener noreferrer" className={`${LINK} ${GREY}`}><FaGithub className="h-3 w-3" /> GitHub</a>
-                  {p.demo && <a href={p.demo} target="_blank" rel="noopener noreferrer" className={`${LINK} ${CYAN}`}>↗ Demo</a>}
-                  {p.download && <a href={p.download} rel="noopener noreferrer" className={`${LINK} ${CYAN}`}><FaWindows className="h-3 w-3" /> Windows</a>}
-                  {p.downloadMac && <a href={p.downloadMac} rel="noopener noreferrer" className={`${LINK} ${CYAN}`}><FaApple className="h-3 w-3" /> Mac</a>}
-                  {p.store && <a href={p.store} target="_blank" rel="noopener noreferrer" className={`${LINK} ${GREEN}`}><FaGooglePlay className="h-3 w-3" /> Play</a>}
-                </div>
+        {PROJECTS.map((p, i) => {
+          const picked = projectIdx === i
+          // With a mouse, moving over a project is enough. On a touch screen
+          // the list stays short: only the one you tapped opens up.
+          const show = picked || !IS_TOUCH
+          const pick = () => setProjectIdx(i)
+          return (
+            <li
+              key={p.title}
+              className={`rounded-xl border p-3 transition-colors ${picked ? 'border-cyan-400/60 bg-cyan-400/[0.06]' : 'border-white/10 bg-white/[0.03]'}`}
+            >
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={pick}
+                  onPointerEnter={pick}
+                  onFocus={pick}
+                  aria-pressed={picked}
+                  className="flex min-w-0 flex-1 items-center gap-3 text-left"
+                >
+                  <img src={p.img} alt="" aria-hidden="true" loading="lazy" className="h-12 w-12 flex-shrink-0 object-contain" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-semibold text-white">{p.title}{p.featured && <span className="ml-2 align-middle rounded-full bg-cyan-400/15 px-1.5 py-px text-[0.6rem] font-semibold uppercase tracking-wider text-cyan-300">★</span>}</span>
+                    {!show && <span className="block truncate text-xs text-white/45">{p.tags.slice(0, 3).map(tag => tag.label).join(' · ')}</span>}
+                  </span>
+                </button>
+                {p.details && (
+                  <button type="button" onClick={() => { pick(); setOpen(p.title) }} aria-label={`${tp.more}: ${p.title}`} className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-cyan-400/60 text-cyan-300 hover:bg-cyan-400/20">
+                    <FaInfo className="h-2.5 w-2.5" />
+                  </button>
+                )}
               </div>
-            </div>
-          </li>
-        ))}
+              {show && (
+                <>
+                  <p className="mt-2 text-sm leading-snug text-white/60">{localize(p.desc, lang)}</p>
+                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                    <a href={p.github} target="_blank" rel="noopener noreferrer" className={`${LINK} ${GREY}`}><FaGithub className="h-3 w-3" /> GitHub</a>
+                    {p.demo && <a href={p.demo} target="_blank" rel="noopener noreferrer" className={`${LINK} ${CYAN}`}>↗ Demo</a>}
+                    {p.download && <a href={p.download} rel="noopener noreferrer" className={`${LINK} ${CYAN}`}><FaWindows className="h-3 w-3" /> Windows</a>}
+                    {p.downloadMac && <a href={p.downloadMac} rel="noopener noreferrer" className={`${LINK} ${CYAN}`}><FaApple className="h-3 w-3" /> Mac</a>}
+                    {p.store && <a href={p.store} target="_blank" rel="noopener noreferrer" className={`${LINK} ${GREEN}`}><FaGooglePlay className="h-3 w-3" /> Play</a>}
+                  </div>
+                </>
+              )}
+            </li>
+          )
+        })}
       </ul>
       {open && <ProjectModal project={PROJECTS.find(p => p.title === open)} lang={lang} t={tp} onClose={() => setOpen(null)} />}
     </>
@@ -130,17 +148,28 @@ function SkillTile({ skill, lang, category, picked, onPick }) {
     color,
     icon: iconImage(Icon),
   })
+  // With a mouse, moving over a technology puts it on the TV and clicking opens
+  // its website. On a touch screen there's no hovering, and being thrown out to
+  // another site on every tap is the last thing you want: a tap only puts it on
+  // the TV, and the link moves to the button under the grid.
+  const Tag = IS_TOUCH ? 'button' : 'a'
+  const props = IS_TOUCH
+    ? { type: 'button', onClick: pick }
+    : { href: url, target: '_blank', rel: 'noopener noreferrer' }
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" title={name}
+    <Tag {...props} title={name} aria-pressed={IS_TOUCH ? picked : undefined}
       onPointerEnter={pick} onFocus={pick}
       className={`flex flex-col items-center gap-1 rounded-lg border p-2 text-center transition-colors hover:border-cyan-400/50 hover:bg-cyan-400/[0.05] ${picked ? 'border-cyan-400/60 bg-cyan-400/[0.08]' : 'border-white/10 bg-black/30'}`}>
       <Icon className="h-6 w-6" style={{ color }} />
       <span className="text-[0.62rem] font-semibold leading-tight text-white/85">{name}</span>
-    </a>
+    </Tag>
   )
 }
 
 function Skills({ lang, t, tvSkill, setTvSkill }) {
+  // The chosen technology, so touch screens can still reach its website
+  const current = tvSkill && [...SKILL_CATEGORIES.flatMap(c => c.skills), ...AI_TOOLS]
+    .find(s => localize(s.label, lang) === tvSkill.name)
   const group = (category, skills) => (
     <div className="grid grid-cols-4 sm:grid-cols-5 gap-1.5">
       {skills.map(s => (
@@ -151,7 +180,17 @@ function Skills({ lang, t, tvSkill, setTvSkill }) {
   )
   return (
     <>
-      <p className="mb-4 text-sm text-white/55">{t.room.skillsHint}</p>
+      <p className="mb-4 text-sm text-white/55">{IS_TOUCH ? t.room.skillsHintTouch : t.room.skillsHint}</p>
+      {IS_TOUCH && (
+        <div className="sticky top-0 z-10 -mx-5 mb-4 bg-[#05080c]/95 px-5 pb-3">
+          {current
+            ? <a href={current.url} target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 rounded-xl border border-cyan-400/40 bg-cyan-400/10 px-3 py-2.5 text-sm font-semibold text-cyan-200">
+                <FaExternalLinkAlt className="h-3 w-3" aria-hidden="true" /> {tvSkill.name}
+              </a>
+            : <p className="rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-center text-sm text-white/45">{t.room.skillsNone}</p>}
+        </div>
+      )}
       {SKILL_CATEGORIES.map(({ title, skills }) => (
         <section key={title.es} className="mb-6">
           <p className={SUBTITLE}>{localize(title, lang)}</p>

@@ -19,3 +19,11 @@ const prefersReducedData =
 export const LIGHT_MODE =
   prefersReducedData ||
   Boolean(connection && (connection.saveData === true || SLOW_TYPES.includes(connection.effectiveType)))
+
+/**
+ * IS_TOUCH is true on screens with no mouse (phones and tablets). There the
+ * room can't rely on hovering: tapping a technology or a project has to pick
+ * it instead of opening its link.
+ */
+export const IS_TOUCH =
+  typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches === true

@@ -17,7 +17,7 @@ import * as THREE from 'three'
 import { PROJECTS } from '../consts/projects'
 import { localize } from '../consts/lang'
 import { HOBBIES_PHOTOS } from '../consts/hobbies'
-import { MODEL_URL, MODEL_SCALE, MODEL_OFFSET, OVERVIEW, OVERVIEW_PORTRAIT, HOTSPOTS, HITBOXES, LAMP, MESH, toWorld, ownerOf } from './roomConfig'
+import { MODEL_URL, MODEL_SCALE, MODEL_OFFSET, OVERVIEW, OVERVIEW_PORTRAIT, OVERVIEW_SHORT, HOTSPOTS, HITBOXES, LAMP, MESH, toWorld, ownerOf } from './roomConfig'
 import { tvTexture, monitorTexture, projectInfoTexture, skillTvTexture } from './screens'
 import Bookshelf from './Bookshelf'
 
@@ -75,6 +75,7 @@ function useFramedTexture(src, aspect) {
 function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSkill, texts, onReady }) {
   const { scene: original } = useGLTF(MODEL_URL, false, true)
   const invalidate = useThree(s => s.invalidate)
+  const portrait = useThree(s => s.size.width < s.size.height)
 
   // Own copy of the model and its materials, so the textures I swap here
   // never leak into the hero on the main page (useGLTF caches the scene).
@@ -129,18 +130,23 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSk
     const tex = tvSkill ? skillTvTexture(tvSkill, invalidate) : tvTexture(texts.tv)
     setScreen(find(MESH.tv), tex)
     return () => tex.dispose()
-  }, [texts.tv, tvSkill]) // eslint-disable-line react-hooks/exhaustive-deps
+    // `meshes` is in here on purpose: if the model is ever re-cloned (its
+    // materials come back as they were in the file), every screen has to be
+    // painted again or it would quietly go back to the stock picture
+  }, [texts.tv, tvSkill, meshes]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Monitor: the project picked in the Projects panel
   useEffect(() => {
     const tex = monitorTexture(PROJECTS[projectIdx], texts.monitorLabel, invalidate)
     setScreen(find(MESH.monitor), tex)
     return () => tex.dispose()
-  }, [projectIdx, texts.monitorLabel]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [projectIdx, texts.monitorLabel, meshes]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Left monitor: that project's details while the Projects panel is open,
-  // its own desktop picture the rest of the time
-  const showInfo = focus === 'projects'
+  // its own desktop picture the rest of the time. On a phone standing up the
+  // camera only frames the right monitor, so there's nothing to paint here
+  // (the details are in the panel instead).
+  const showInfo = focus === 'projects' && !portrait
   useEffect(() => {
     const mesh = find(MESH.infoMonitor)
     if (!mesh || !showInfo) return
@@ -166,7 +172,7 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSk
       tex.dispose()
       invalidate()
     }
-  }, [showInfo, projectIdx, texts.lang, texts.projectInfo]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [showInfo, projectIdx, texts.lang, texts.projectInfo, meshes]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Posters: my drawings, slightly lit so they read in the dark
   const posterA = useFramedTexture(POSTER_A, 90.6 / 141.8)
@@ -182,7 +188,7 @@ function Room({ focus, hovered, setHovered, onSelect, lightsOn, projectIdx, tvSk
       mesh.material.needsUpdate = true
     })
     invalidate()
-  }, [posterA, posterB]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [posterA, posterB, meshes]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Hover glow: a cyan tint on whatever belongs to the hovered object.
   // The lava lamp glows a bit brighter at night (it's the room's night light).
@@ -278,8 +284,38 @@ function Lights({ lightsOn }) {
   )
 }
 
+// How much of the screen the open panel covers, matching the side panel in
+// RoomView.jsx: a column on the right on computers, a bottom sheet on phones
+const PANEL_W = (width) => Math.min(width * 0.42, 520)
+const PANEL_H = (height) => height * 0.56
+
+/**
+ * The strips of screen that sit over the room and can't be used to show it:
+ * the top bar, and at the bottom either the dock or the open panel (on
+ * computers the panel is a column on the right instead). In pixels, except the
+ * phone sheet, which is a share of the height.
+ *
+ * It matters most on a phone held sideways, where the bar and the dock eat
+ * half the height and the room used to end up behind them.
+ */
+function chrome(size, panelOpen) {
+  const desktop = size.width >= 768
+  return {
+    top: desktop ? 80 : 64,
+    bottom: panelOpen
+      ? (desktop ? 56 : PANEL_H(size.height))
+      : (desktop ? 104 : 96),
+    right: panelOpen && desktop ? PANEL_W(size.width) : 0,
+  }
+}
+
 /**
  * Moves the camera smoothly to the overview or to the open object.
+ *
+ * How far it stops is worked out from the pose's `fit` (how much has to be on
+ * screen) and the free part of the screen, so a phone standing up sees the
+ * object just as big as a wide monitor does instead of a distant speck.
+ *
  * On desktop the open panel covers the right side, so the picture is shifted
  * left (view offset) to keep the object in the visible part. On mobile the
  * panel is a bottom sheet, so it shifts up instead.
@@ -309,14 +345,24 @@ function CameraRig({ focus, panelOpen, reduceMotion }) {
     const goalLook = goalLookRef.current
     const spot = HOTSPOTS.find(h => h.id === focus && !h.action)
     const portrait = size.width < size.height
-    const pose = spot ?? (portrait ? OVERVIEW_PORTRAIT : OVERVIEW)
+    const overview = portrait ? OVERVIEW_PORTRAIT : size.height < 520 ? OVERVIEW_SHORT : OVERVIEW
+    const base = spot ?? overview
+    const pose = (portrait && base.portrait) || base
     goal.set(...toWorld(pose.cam))
     goalLook.set(...toWorld(pose.look))
 
-    // Narrow screens see less of the room, so step back a bit
-    const aspect = size.width / size.height
-    const back = THREE.MathUtils.clamp(1.45 / aspect, 1, spot ? 1.5 : 2.7)
-    goal.sub(goalLook).multiplyScalar(back).add(goalLook)
+    // Where to stop: far enough that `fit` fits in the free part of the screen
+    const free = chrome(size, panelOpen)
+    const freeW = Math.max(0.3, 1 - free.right / size.width)
+    const freeH = Math.max(0.3, 1 - (free.top + free.bottom) / size.height)
+    const vTan = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)
+    const hTan = vTan * (size.width / size.height)
+    const [fitW, fitH] = pose.fit
+    const dist = Math.max(
+      (fitW * MODEL_SCALE) / 2 / (hTan * freeW),
+      (fitH * MODEL_SCALE) / 2 / (vTan * freeH),
+    )
+    goal.sub(goalLook).setLength(dist).add(goalLook)
 
     const speed = reduceMotion ? 12 : 2.6
     // Time-based, so slow devices (few frames) still arrive on time. Capped so a
@@ -330,9 +376,9 @@ function CameraRig({ focus, panelOpen, reduceMotion }) {
     look.current.z = damp(look.current.z, goalLook.z, speed, d)
     camera.lookAt(look.current)
 
-    const desktop = size.width >= 768
-    const tx = panelOpen && desktop ? Math.min(size.width * 0.42, 520) / 2 : 0
-    const ty = panelOpen && !desktop ? size.height * 0.27 : 0
+    // ...and shifted so what it aims at sits in the middle of that free part
+    const tx = free.right / 2
+    const ty = (free.bottom - free.top) / 2
     shift.current.x = damp(shift.current.x, tx, speed, d)
     shift.current.y = damp(shift.current.y, ty, speed, d)
     camera.setViewOffset(size.width, size.height, shift.current.x, shift.current.y, size.width, size.height)

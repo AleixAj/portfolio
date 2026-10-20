@@ -10,8 +10,9 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 import { Canvas } from '@react-three/fiber'
 import { PerformanceMonitor } from '@react-three/drei'
 import { LazyMotion, useReducedMotion } from 'framer-motion'
-import { FaArrowLeft, FaTimes, FaDownload, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaArrowLeft, FaTimes, FaDownload, FaExternalLinkAlt, FaBars } from 'react-icons/fa'
 import { TRANSLATIONS } from '../consts/i18n'
+import { IS_TOUCH } from '../consts/device'
 import { CV_BY_LANG, getInitialLang } from '../consts/lang'
 import { useLangInUrl } from '../consts/useLangInUrl'
 import { LanguageSwitcher } from '../components/Navbar'
@@ -27,7 +28,6 @@ import { useModelDownload } from './useModelDownload'
 const loadMotionFeatures = () => import('../motionFeatures').then(m => m.default)
 
 const PANELS = HOTSPOTS.filter(h => !h.action).map(h => h.id)
-const IS_TOUCH = typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches
 
 // Desktop screens can be 4K, so they're capped at 1.5x; phones at 2x
 const maxDpr = () => Math.min(window.devicePixelRatio || 1, window.innerWidth >= 1024 ? 1.5 : 2)
@@ -123,6 +123,7 @@ export default function RoomView({ onExit }) {
   const [projectIdx, setProjectIdx] = useState(0)
   const [tvSkill, setTvSkill] = useState(null) // technology shown on the TV
   const [cvOpen, setCvOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false) // the phone menu in the corner
   const [dpr, setDpr] = useState(maxDpr)
   const [ready, setReady] = useState(false)   // the scene is on screen
   const [failed, setFailed] = useState(false) // the 3D couldn't run
@@ -153,6 +154,7 @@ export default function RoomView({ onExit }) {
   }
 
   const select = useCallback((id) => {
+    setMenuOpen(false)
     if (id === 'lamp') { setLightsOn(on => !on); return }
     if (id === 'cv') { setCvOpen(true); return }
     setFocus(id) // null = back to the overview
@@ -165,17 +167,26 @@ export default function RoomView({ onExit }) {
 
   const close = useCallback(() => setFocus(null), [])
 
+  // A tap anywhere else closes the phone menu
+  useEffect(() => {
+    if (!menuOpen) return
+    const onDown = (e) => { if (!e.target.closest('header')) setMenuOpen(false) }
+    window.addEventListener('pointerdown', onDown)
+    return () => window.removeEventListener('pointerdown', onDown)
+  }, [menuOpen])
+
   // Escape closes the panel (dialogs inside it handle their own Escape first)
   useEffect(() => {
     const onKey = (e) => {
       if (e.key !== 'Escape' || e.defaultPrevented) return
       // The CV viewer sits on top, so it closes first
       if (cvOpen) setCvOpen(false)
+      else if (menuOpen) setMenuOpen(false)
       else setFocus(null)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [cvOpen])
+  }, [cvOpen, menuOpen])
 
   const titles = PANEL_TITLES(t)
   const index = focus ? PANELS.indexOf(focus) + 1 : 0
@@ -228,18 +239,42 @@ export default function RoomView({ onExit }) {
         </div>
 
         {/* Top bar */}
-        <header className="absolute inset-x-0 top-0 z-[45] flex flex-wrap md:flex-nowrap items-center justify-center md:justify-between gap-2 md:gap-3 px-4 py-3 md:px-6 md:py-4 bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
-          <div className="hidden md:flex flex-col md:w-56">
-            <span className="font-tech text-lg font-bold !tracking-[0.3em]">ALEIX AUQUÉ</span>
-            <span className="text-[0.65rem] uppercase tracking-[0.3em] text-cyan-300/80">Software Developer</span>
+        <header className="absolute inset-x-0 top-0 z-[45] flex items-center justify-between gap-3 px-4 py-3 md:px-6 md:py-4 bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
+          {/* Logo and name, same corner as on the normal site. Smaller on phones,
+              where it shares the bar with the menu button. It fades out while an
+              object is open: there the camera is close in and the bar should
+              stay out of the way. */}
+          <div aria-hidden={focus ? true : undefined}
+            className={`flex min-w-0 items-center gap-2.5 md:gap-3 md:flex-1 transition-opacity duration-500 ${focus ? 'opacity-0' : 'opacity-100'}`}>
+            <img src="/AJ.png" alt="" aria-hidden="true" className="h-9 md:h-10 w-auto flex-shrink-0 object-contain" />
+            {/* Between 768 and 1024 the switch in the middle leaves too little
+                room for the name, so there only the logo stays */}
+            <span className="flex min-w-0 flex-col leading-tight md:hidden lg:flex">
+              <span className="font-tech text-sm lg:text-lg font-bold !tracking-[0.22em] lg:!tracking-[0.3em] truncate">ALEIX AUQUÉ</span>
+              <span className="text-[0.55rem] lg:text-[0.65rem] uppercase tracking-[0.25em] lg:tracking-[0.3em] text-cyan-300/80 truncate">Software Developer</span>
+            </span>
           </div>
           {/* Normal / 3D switch, centred at the top like on the normal site */}
-          <div className="pointer-events-auto">
+          <div className="hidden md:block pointer-events-auto">
             <SiteSwitch value="room" onChange={onExit} t={t} />
           </div>
-          {/* Phones: on their own row under the switch */}
-          <div className="pointer-events-auto w-full md:w-56 flex justify-center md:justify-end">
+          <div className="hidden md:flex md:flex-1 justify-end pointer-events-auto">
             <LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={() => {}} compact />
+          </div>
+
+          {/* Phones: the switch and the languages took up half the room, so
+              they live behind a menu button in the corner */}
+          <div className="md:hidden pointer-events-auto">
+            <button type="button" onClick={() => setMenuOpen(o => !o)} aria-expanded={menuOpen} aria-label={t.navMenu}
+              className={`flex h-11 w-11 items-center justify-center rounded-full border bg-black/70 backdrop-blur transition-colors ${menuOpen ? 'border-cyan-400/60 text-cyan-300' : 'border-white/15 text-white/80'}`}>
+              {menuOpen ? <FaTimes className="h-4 w-4" /> : <FaBars className="h-4 w-4" />}
+            </button>
+            {menuOpen && (
+              <div className="absolute right-4 top-[4.25rem] flex flex-col items-end gap-2 rounded-2xl border border-white/10 bg-black/90 p-3 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+                <SiteSwitch value="room" onChange={onExit} t={t} />
+                <LanguageSwitcher lang={lang} setLang={setLang} setMenuOpen={setMenuOpen} compact />
+              </div>
+            )}
           </div>
         </header>
 
