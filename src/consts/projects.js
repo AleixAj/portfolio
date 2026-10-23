@@ -92,6 +92,7 @@ export const PROJECTS = [
     tags: [
       { label: 'Godot',      cls: 'bg-blue-400/10    text-blue-400    border-blue-400/20'    },
       { label: 'GDScript',   cls: 'bg-purple-400/10  text-purple-400  border-purple-400/20'  },
+      { label: 'Python',     cls: 'bg-yellow-400/10  text-yellow-400  border-yellow-400/20'  },
       { label: 'Supabase',   cls: 'bg-emerald-400/10 text-emerald-400 border-emerald-400/20' },
       { label: 'PostgreSQL', cls: 'bg-sky-400/10     text-sky-400     border-sky-400/20'     },
     ],

@@ -359,6 +359,7 @@ las que muestra la tele del Estilo 3D al elegir una tecnología
 | **JSON** | Formato estándar para APIs, configuración y serialización de estado. |
 | **PHP** | Lenguaje backend para webs y APIs (proyectos personales y profesionales). |
 | **Java** | Lenguaje orientado a objetos que aprendí en el bootcamp de Java (275 h). |
+| **Python** | Herramientas y automatizaciones: generación de assets, auditorías de datos y scripts de build (usado en `Orbex`). |
 | **Laravel** | Framework PHP full-stack: autenticación, ORM Eloquent, colas y APIs (usado en `Obsidian`). |
 | **Node.js** | Entorno de JavaScript para servidores, scripts y apps de escritorio. |
 | **MySQL** | Base de datos relacional: modelado de datos y consultas con índices y joins. |

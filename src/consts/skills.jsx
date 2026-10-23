@@ -1,7 +1,7 @@
 // My tech stack by category, with its react-icons icon and official website.
 // `basic: true` = the everyday basics (HTML, CSS...), shown as small pills at
 // the top of the card. Everything else gets a big tile.
-import { SiHtml5, SiCss, SiXml, SiJson, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiLaravel, SiMysql, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflare, SiRailway, SiStripe, SiClaude, SiOpenai, SiSuno, SiGithubcopilot, SiGodotengine, SiAseprite, SiNextdotjs, SiElectron, SiNodedotjs, SiPostgresql, SiSupabase, SiVitest, SiGithubactions, SiSvelte, SiMaplibre } from 'react-icons/si'
+import { SiHtml5, SiCss, SiXml, SiJson, SiBootstrap, SiTailwindcss, SiJavascript, SiTypescript, SiReact, SiThreedotjs, SiVite, SiGreensock, SiPhp, SiPython, SiLaravel, SiMysql, SiGit, SiJenkins, SiBitbucket, SiJira, SiSalesforce, SiDocker, SiCloudflare, SiRailway, SiStripe, SiClaude, SiOpenai, SiSuno, SiGithubcopilot, SiGodotengine, SiAseprite, SiNextdotjs, SiElectron, SiNodedotjs, SiPostgresql, SiSupabase, SiVitest, SiGithubactions, SiSvelte, SiMaplibre } from 'react-icons/si'
 import { TbApi } from 'react-icons/tb'
 import { CursorIcon, PhotoshopIcon, HiggsfieldIcon, PixelLabIcon } from './brandIcons'
 import { FaJava } from 'react-icons/fa'
@@ -34,6 +34,7 @@ export const SKILL_CATEGORIES = [
       { basic: true, label: 'JSON', Icon: SiJson, color: '#FACC15', url: 'https://www.json.org/' },
       { label: 'PHP',      Icon: SiPhp,     color: '#777BB4', url: 'https://www.php.net/' },
       { label: 'Java',     Icon: FaJava,    color: '#ED8B00', url: 'https://www.java.com/' },
+      { label: 'Python',   Icon: SiPython,  color: '#3776AB', url: 'https://www.python.org/' },
       { label: 'Laravel',  Icon: SiLaravel, color: '#FF2D20', url: 'https://laravel.com/' },
       { label: 'Node.js',    Icon: SiNodedotjs,  color: '#5FA04E', url: 'https://nodejs.org/' },
       { label: 'MySQL',    Icon: SiMysql,   color: '#4479A1', url: 'https://www.mysql.com/' },

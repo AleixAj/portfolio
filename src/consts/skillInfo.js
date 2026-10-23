@@ -100,6 +100,11 @@ export const SKILL_INFO = {
     en: "Object-oriented language I learned in a 275-hour Java bootcamp.",
     ca: "Llenguatge orientat a objectes que vaig aprendre al bootcamp de Java (275 h).",
   },
+  "Python": {
+    es: "Herramientas y automatizaciones: generación de assets, auditorías de datos y scripts de build (usado en Orbex).",
+    en: "Tooling and automation: asset generation, data audits and build scripts (used in Orbex).",
+    ca: "Eines i automatitzacions: generació d'assets, auditories de dades i scripts de build (usat a Orbex).",
+  },
   "Laravel": {
     es: "Framework PHP full-stack: autenticación, ORM Eloquent, colas y APIs (usado en Obsidian).",
     en: "Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in Obsidian).",

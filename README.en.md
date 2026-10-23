@@ -360,6 +360,7 @@ what the TV in the 3D style shows when you pick a technology
 | **JSON** | Standard format for APIs, configuration and state serialisation. |
 | **PHP** | Backend language for websites and APIs (personal and professional projects). |
 | **Java** | Object-oriented language I learned in a 275-hour Java bootcamp. |
+| **Python** | Tooling and automation: asset generation, data audits and build scripts (used in `Orbex`). |
 | **Laravel** | Full-stack PHP framework: authentication, Eloquent ORM, queues and APIs (used in `Obsidian`). |
 | **Node.js** | JavaScript runtime for servers, scripts and desktop apps. |
 | **MySQL** | Relational database: data modelling and queries with indexes and joins. |

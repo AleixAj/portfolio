@@ -362,6 +362,7 @@ per la qual cosa convé canviar-les als dos llocs.
 | **JSON** | Format estàndard per a APIs, configuració i serialització d'estat. |
 | **PHP** | Llenguatge backend per a webs i APIs (projectes personals i professionals). |
 | **Java** | Llenguatge orientat a objectes que vaig aprendre al bootcamp de Java (275 h). |
+| **Python** | Eines i automatitzacions: generació d'assets, auditories de dades i scripts de build (usat a `Orbex`). |
 | **Laravel** | Framework PHP full-stack: autenticació, ORM Eloquent, cues i APIs (usat a `Obsidian`). |
 | **Node.js** | Entorn de JavaScript per a servidors, scripts i apps d'escriptori. |
 | **MySQL** | Base de dades relacional: modelatge de dades i consultes amb índexs i joins. |
