@@ -119,14 +119,16 @@ const ProjectCard = memo(function ProjectCard({ index = 0, title, img, mobileImg
   )
 })
 
-// Compact row for the "More projects" list: logo, title, one line of
-// description and the links. No tags, so the featured cards above stand out.
-export const ProjectRow = memo(function ProjectRow({ index = 0, title, img, desc, github, demo, store, download, downloadMac, onInfo, infoLabel, labels, className = '' }) {
+// Row for the "More projects" list: logo, title, the whole description, the
+// tags and the links. Smaller than a featured card (it stays horizontal, with
+// the logo on the side), but it says what the project is built with.
+export const ProjectRow = memo(function ProjectRow({ index = 0, title, img, desc, tags, github, demo, store, download, downloadMac, onInfo, infoLabel, labels, className = '' }) {
   return (
     <div
       onPointerMove={CAN_HOVER ? trackSpotlight : undefined}
-      style={{ '--d': index % 3 + Math.floor(index / 3) }}
-      className={`reveal-item group relative hover:z-20 project-card rounded-xl md:rounded-2xl overflow-hidden flex items-center gap-2.5 md:gap-3 p-2 md:p-3 ${className}`}
+      // Two columns here, so the diagonal stagger counts in twos
+      style={{ '--d': index % 2 + Math.floor(index / 2) }}
+      className={`reveal-item group relative hover:z-20 project-card rounded-xl md:rounded-2xl overflow-hidden flex items-stretch gap-2.5 md:gap-4 p-2 md:p-4 ${className}`}
     >
       {onInfo && <InfoButton title={title} onInfo={onInfo} label={infoLabel} small />}
       <img
@@ -136,15 +138,18 @@ export const ProjectRow = memo(function ProjectRow({ index = 0, title, img, desc
         loading="lazy"
         decoding="async"
         fetchPriority="low"
-        className="w-11 h-11 md:w-14 md:h-14 2xl:w-16 2xl:h-16 flex-shrink-0 object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:scale-110"
+        className="w-11 h-11 md:w-20 md:h-20 2xl:w-24 2xl:h-24 self-center md:self-start flex-shrink-0 object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:scale-110"
       />
-      <div className="flex-1 min-w-0 flex flex-col gap-1 md:gap-1.5">
-        <h4 className="text-sm md:text-base 2xl:text-lg font-bold text-white leading-tight pr-9">{title}</h4>
-        {/* Wrapped so hiding it on mobile doesn't undo line-clamp's display */}
-        <div className="hidden md:block">
-          <p className="text-white/55 text-xs 2xl:text-sm leading-snug line-clamp-2">{desc}</p>
+      <div className="flex-1 min-w-0 flex flex-col gap-1 md:gap-2">
+        <h4 className="text-sm md:text-lg 2xl:text-xl font-bold text-white leading-tight pr-9">{title}</h4>
+        {/* No line clamp: the whole description, which is why the card is wider */}
+        <p className="hidden md:block text-white/60 text-xs 2xl:text-sm leading-snug">{desc}</p>
+        <div className="flex gap-0.5 md:gap-1 2xl:gap-1.5 flex-wrap">
+          {tags.map(({ label, cls }) => (
+            <span key={label} className={`text-[0.55rem] md:text-[0.7rem] 2xl:text-xs px-1 md:px-1.5 2xl:px-2 py-px md:py-0.5 rounded-full border leading-tight ${cls}`}>{label}</span>
+          ))}
         </div>
-        <div className="flex gap-1 md:gap-1.5 mt-0.5">
+        <div className="flex gap-1 md:gap-1.5 mt-auto pt-0.5 md:pt-2">
           <ProjectLinks title={title} github={github} demo={demo} store={store} download={download} downloadMac={downloadMac} labels={labels} />
         </div>
       </div>

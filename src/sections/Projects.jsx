@@ -15,14 +15,10 @@ const FEATURED = PROJECTS.filter(p => p.featured)
 const OTHERS = PROJECTS.filter(p => !p.featured)
 
 // If the last card ends up alone in its row, centre it instead of leaving it
-// stuck to the left. 2 columns on tablet, 3 on desktop.
+// stuck to the left. Two columns from tablet up.
 function orphanCls(i, total) {
-  if (i !== total - 1) return ''
-  const cls = []
-  if (total % 2 === 1) cls.push('md:col-span-2 md:justify-self-center md:w-[calc(50%-0.375rem)] 2xl:w-[calc(50%-0.5rem)]')
-  if (total % 3 === 1) cls.push('lg:col-span-1 lg:col-start-2 lg:w-auto 2xl:w-auto')
-  else if (total % 2 === 1) cls.push('lg:col-span-1 lg:justify-self-stretch lg:w-auto 2xl:w-auto')
-  return cls.join(' ')
+  if (i !== total - 1 || total % 2 === 0) return ''
+  return 'md:col-span-2 md:justify-self-center md:w-[calc(50%-0.375rem)] 2xl:w-[calc(50%-0.5rem)]'
 }
 
 function Projects({ lang, t }) {
@@ -74,7 +70,7 @@ function Projects({ lang, t }) {
           {t.moreProjects}
           <span aria-hidden="true" className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent" />
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 2xl:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 2xl:gap-4">
           {/* Same wrapper as the big cards above, so the border can measure
               them the same way. The grid positioning goes on the wrapper,
               which is now the cell, and the row fills it so rows side by side
